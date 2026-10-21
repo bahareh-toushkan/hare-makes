@@ -155,6 +155,8 @@ git push -u origin main
   - A 레코드 4개: 「호스트IP(A 레코드) 관리」 → 호스트는 비우거나 `@`, IP는 위 4개를 하나씩
   - www: 「별칭(CNAME) 관리」 → 「CNAME 추가」 → 별칭 `www`, 실제 도메인명 `bahareh-toushkan.github.io`
   - 이미 들어 있는 기본 A 레코드(카페24 주차 페이지 IP)가 있으면 지운 뒤 추가하세요.
+  - 카페24는 루트 도메인 A 레코드를 1개만 받습니다. 그래서 haremakes.com에는 `185.199.108.153` 하나만 넣었어요(나머지 3개는 예비 주소라 하나로도 동작).
+  - 카페24 기본 와일드카드 별칭 `*.haremakes.com → haremakes.com`은 화면에서 지울 수 없어요. 다른 사람이 하위 도메인을 가로채지 못하도록 GitHub 프로필 Settings → Pages에서 haremakes.com을 인증해 뒀습니다(TXT `_github-pages-challenge-bahareh-toushkan`). 이 TXT 레코드는 지우지 마세요.
 - 가비아: My가비아 → DNS 관리툴 → 도메인 선택 → DNS 설정 → 레코드 추가. 저장 후 CNAME 값이 `bahareh-toushkan.github.io.내도메인.com`처럼 붙어 보이면 값 끝에 `.`을 붙여(`bahareh-toushkan.github.io.`) 다시 저장하세요.
 - 확인 (Windows): `Resolve-DnsName 내도메인.com -Type A` → 185.199.108~111.153이 나오면 됩니다. 반영까지 최대 24시간 걸릴 수 있어요.
 4. Pages 설정에서 **Enforce HTTPS**를 켭니다. 인증서 발급에 최대 24시간 걸릴 수 있어요.

@@ -34,7 +34,11 @@ jobs:
         run: npm ci
       - name: Build
         # 사용자 도메인을 연결하면 origin이 그 도메인으로, base_path는 ""로 자동으로 바뀐다
-        run: npx --no-install astro build --site "${{ steps.pages.outputs.origin }}" --base "${{ steps.pages.outputs.base_path }}/"
+        # 인증서 발급 전에는 origin이 http://로 나오므로 canonical·OG·sitemap은 항상 https://로 고정 (변경)
+        env:
+          ORIGIN: ${{ steps.pages.outputs.origin }}
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: npx --no-install astro build --site "${ORIGIN/#http:/https:}" --base "${BASE_PATH}/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
