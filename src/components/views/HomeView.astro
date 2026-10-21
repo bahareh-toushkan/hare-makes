@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.json';
+import { works } from '../../lib/works';
+import { UI, href, asset, absolute, tr, type Lang } from '../../lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = UI[lang];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name.en,
+  alternateName: site.name.ko,
+  url: absolute(href(lang, '/'), Astro.site),
+  sameAs: [site.instagram, site.github]
+};
+---
+<Base lang={lang} path="/" title={`${site.handle} — ${site.name[lang]}`} description={site.tagline[lang]} jsonLd={jsonLd}>
+  <section class="hero" aria-labelledby="hero-title">
+    <h1 id="hero-title">{site.name[lang]}</h1>
+    <p class="lead">{site.tagline[lang]}</p>
+  </section>
+
+  <section aria-labelledby="works-title">
+    <div class="section-title">
+      <h2 id="works-title">{t.worksHeading}</h2>
+      <span class="count">{works.length}</span>
+    </div>
+    <ul class="grid">
+      {works.map((w, i) => (
+        <li class="card" style={w.accent ? `--accent:${w.accent}` : undefined}>
+          <a href={href(lang, `/works/${w.slug}/`)}>
+            {w.has.poster ? (
+              <div class="thumb">
+                <img src={asset(w.media.poster)} alt="" width={w.ratio.w} height={w.ratio.h} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
+                <span class="dur">{w.durationSec}{t.sec}</span>
+              </div>
+            ) : (
+              <div class="thumb type" aria-hidden="true">
+                <span class="t">{tr(w.title, lang)}</span>
+                <span class="dur">{w.durationSec}{t.sec}</span>
+              </div>
+            )}
+            <h3>{tr(w.title, lang)}</h3>
+            <p class="status">{tr(w.status, lang)}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>

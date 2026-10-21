@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.json';
+import { UI, href, absolute, type Lang } from '../../lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = UI[lang];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person',
+    name: site.name.en,
+    alternateName: site.name.ko,
+    url: absolute(href(lang, '/about/'), Astro.site),
+    affiliation: { '@type': 'CollegeOrUniversity', name: 'Seoul National University' },
+    sameAs: [site.instagram, site.github]
+  }
+};
+---
+<Base lang={lang} path="/about/" title={t.about} description={site.about[lang][0]} ogType="profile" jsonLd={jsonLd}>
+  <header class="page-head">
+    <h1>{site.name[lang]}</h1>
+    <p>{site.tagline[lang]}</p>
+  </header>
+  <div class="prose">
+    {site.about[lang].map(p => <p>{p}</p>)}
+  </div>
+  <section class="block" aria-labelledby="tools-gen">
+    <h2 id="tools-gen">{t.generate}</h2>
+    <ul class="chips">{site.skills.generate.map(s => <li>{s}</li>)}</ul>
+  </section>
+  <section class="block" aria-labelledby="tools-edit">
+    <h2 id="tools-edit">{t.edit}</h2>
+    <ul class="chips">{site.skills.edit.map(s => <li>{s}</li>)}</ul>
+  </section>
+  <p class="block"><a class="external ghost" href={href(lang, '/contact/')}>{t.contact} →</a></p>
+</Base>

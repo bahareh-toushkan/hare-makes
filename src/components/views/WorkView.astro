@@ -1,0 +1,164 @@
+---
+import Base from '../../layouts/Base.astro';
+import Compare from '../Compare.astro';
+import { works, getWork } from '../../lib/works';
+import { UI, href, asset, absolute, tr, formatDate, type Lang } from '../../lib/i18n';
+
+interface Props { lang: Lang; slug: string }
+const { lang, slug } = Astro.props;
+const t = UI[lang];
+const w = getWork(slug);
+const idx = works.indexOf(w);
+const prev = works[idx - 1], next = works[idx + 1];
+const title = tr(w.title, lang);
+const path = `/works/${w.slug}/`;
+const prompts = w.prompts.map((p, i) => ({ ...p, open: i === w.featuredPrompt }));
+
+const r = w.ratio;                                                   // 작품 화면비 (9:16 세로 / 16:9 가로)
+const external = [                                                    // 바깥 링크 버튼: 첫 번째만 채운 버튼, 나머지는 테두리 버튼
+  w.links.instagram && { url: w.links.instagram, label: t.watchOnInstagram },
+  w.links.youtube && { url: w.links.youtube, label: t.watchOnYoutube }
+].filter(Boolean) as { url: string; label: string }[];
+
+// 영상(직접 올린 MP4 또는 유튜브 임베드)과 포스터가 있을 때 VideoObject 구조화 데이터 (검색 결과의 영상 표시용)
+const jsonLd = (w.has.video || w.youtubeId) && w.has.poster ? {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: title,
+  description: tr(w.logline, lang),
+  thumbnailUrl: absolute(asset(w.media.poster), Astro.site),
+  ...(w.has.video
+    ? { contentUrl: absolute(asset(w.media.video), Astro.site) }
+    : { embedUrl: `https://www.youtube.com/embed/${w.youtubeId}` }),  // 유튜브 임베드는 embedUrl로 (변경)
+  duration: `PT${w.durationSec}S`,
+  ...(/^\d{4}-\d{2}-\d{2}$/.test(w.date) ? { uploadDate: w.date } : {})
+} : undefined;
+---
+<Base lang={lang} path={path} title={title} description={tr(w.logline, lang)} ogImage={w.has.og ? w.media.og : undefined} ogType={w.has.video ? 'video.other' : 'website'} jsonLd={jsonLd} accent={w.accent} tone={w.tone}>
+  <a class="back" href={href(lang, '/')}>← {t.allWorks}</a>
+  <header class="work-head">
+    <p class="status">{tr(w.status, lang)}</p>
+    <h1>{title}</h1>
+    <p class="logline">{tr(w.logline, lang)}</p>
+  </header>
+
+  <div class={r.landscape ? 'work-main wide' : 'work-main'} style={`--ar:${r.css}`}>   {/* 가로 영상은 플레이어를 전체 폭으로 (변경) */}
+    <div class="player-wrap">
+      {w.has.video ? (
+        <video class="player" controls playsinline preload="metadata" poster={w.has.poster ? asset(w.media.poster) : undefined} width={r.w} height={r.h} aria-label={title}>
+          <source src={asset(w.media.video)} type="video/mp4" />
+          {w.has.captions && <track kind="captions" src={asset(w.media.captions!)} srclang="ko" label="한국어" default />}
+          <p>{t.videoFallback} <a href={asset(w.media.video)}>MP4</a></p>
+        </video>
+      ) : w.youtubeId ? (
+        <iframe class="player" src={`https://www.youtube-nocookie.com/embed/${w.youtubeId}`} title={title} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      ) : w.has.poster ? (
+        <img class="player" src={asset(w.media.poster)} alt={title} width={r.w} height={r.h} />
+      ) : (
+        <div class="player thumb type" aria-hidden="true"><span class="t">{title}</span></div>
+      )}
+      <p class="ai-note">{t.aiNote}</p>
+      {external.length > 0 && (
+        <div class="external-row">
+          {external.map((e, i) => <a class={i === 0 ? 'external' : 'external ghost'} href={e.url}>{e.label} ↗</a>)}
+        </div>
+      )}
+    </div>
+
+    <div>
+      <section class="block" aria-label={lang === 'ko' ? '작품 정보' : 'Details'}>
+        <dl class="meta">
+          <dt>{t.length}</dt><dd>{w.durationSec}{t.sec}</dd>
+          <dt>{t.format}</dt><dd>{w.aspect}</dd>
+          {w.shots > 0 && <><dt>{t.shots}</dt><dd>{w.shots}</dd></>}
+          <dt>{t.generate}</dt><dd>{w.tools.generate.join(', ')}</dd>
+          <dt>{t.edit}</dt><dd>{w.tools.edit.join(', ')}</dd>
+          <dt>{t.date}</dt><dd><time datetime={w.date}>{formatDate(w.date)}</time></dd>
+        </dl>
+      </section>
+
+      {w.highlights.length > 0 && (
+        <section class="block" aria-labelledby="s-summary">
+          <h2 id="s-summary">{t.summary}</h2>
+          <ul class="rows">
+            {w.highlights.map(h => <li><b>{tr(h.label, lang)}</b><span>{tr(h.text, lang)}</span></li>)}
+          </ul>
+        </section>
+      )}
+
+      {w.scenesReady.length > 0 && (
+        <section class="block" aria-labelledby="s-scenes">
+          <h2 id="s-scenes">{t.scenes}</h2>
+          <ul class="scenes">
+            {w.scenesReady.map(s => (
+              <li><figure>
+                <img src={asset(s.frame!)} alt={`${tr(s.label, lang)}: ${tr(s.text, lang)}`} width={r.w} height={r.h} loading="lazy" decoding="async" />
+                <figcaption><b>{tr(s.label, lang)}</b>{tr(s.text, lang)}</figcaption>
+              </figure></li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {w.pipeline.length > 0 && (
+        <section class="block" aria-labelledby="s-pipeline">
+          <h2 id="s-pipeline">{t.pipeline}</h2>
+          <ol class="steps">
+            {w.pipeline.map(s => <li><div><b>{tr(s.name, lang)}</b><span class="d">{tr(s.detail, lang)}</span></div></li>)}
+          </ol>
+        </section>
+      )}
+
+      {w.compareReady.length > 0 && (
+        <section class="block" aria-labelledby="s-compare">
+          <h2 id="s-compare">{t.compare}</h2>
+          <div class="cmp-list">
+            {w.compareReady.map(item => <Compare lang={lang} item={item} />)}
+          </div>
+        </section>
+      )}
+
+      {prompts.length > 0 && (
+        <section class="block" aria-labelledby="s-prompts">
+          <h2 id="s-prompts">{t.prompts}</h2>
+          {prompts.map(p => (
+            <details class="prompt" open={p.open}>
+              <summary><span>{tr(p.label, lang)}</span><span class="mode">{tr(p.mode, lang)}</span></summary>
+              <div class="body">
+                <pre lang={p.lang ?? 'en'}>{p.text}</pre>
+                <button type="button" class="copy" data-copied={t.copied}>{t.copy}</button>
+              </div>
+            </details>
+          ))}
+        </section>
+      )}
+
+      {w.notes.map((n, i) => (
+        <section class="block" aria-labelledby={`s-note-${i}`}>
+          <h2 id={`s-note-${i}`}>{tr(n.heading, lang)}</h2>
+          <ul class="notes">{n.lines[lang].map(l => <li>{l}</li>)}</ul>
+        </section>
+      ))}
+    </div>
+  </div>
+
+  <nav class="pager" aria-label={lang === 'ko' ? '다른 작품' : 'More works'}>
+    {prev && <a href={href(lang, `/works/${prev.slug}/`)}><small>← {t.prev}</small>{tr(prev.title, lang)}</a>}
+    {next && <a class="next" href={href(lang, `/works/${next.slug}/`)}><small>{t.next} →</small>{tr(next.title, lang)}</a>}
+  </nav>
+</Base>
+
+<script>
+  // 프롬프트 복사 버튼
+  for (const btn of document.querySelectorAll<HTMLButtonElement>('.copy')) {
+    btn.addEventListener('click', async () => {
+      const text = btn.parentElement?.querySelector('pre')?.textContent ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+        const label = btn.textContent;
+        btn.textContent = btn.dataset.copied ?? label;
+        setTimeout(() => { btn.textContent = label; }, 1500);
+      } catch { /* 클립보드 권한이 없으면 아무것도 하지 않음 — 글은 직접 선택해 복사 가능 */ }
+    });
+  }
+</script>

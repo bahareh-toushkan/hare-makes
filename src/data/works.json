@@ -1,0 +1,942 @@
+{
+  "works": [
+    {
+      "slug": "guest-from-mars",
+      "date": "2026-10",
+      "durationSec": 54,
+      "aspect": "16:9",
+      "shots": 7,
+      "accent": "#8FD3FF",
+      "title": {
+        "ko": "화성에서 온 손님",
+        "en": "A Guest from Mars"
+      },
+      "status": {
+        "ko": "제6회 별별화성 Awards AI CF 출품작",
+        "en": "Entry — 6th Byeolbyeol Hwaseong Awards, AI CF"
+      },
+      "logline": {
+        "ko": "'더 큰 화성'을 찾으러 지구의 화성특례시에 온 화성(Mars) 탐사 로봇. 크기를 재려 할 때마다 일지에 남는 건 사람들의 환대다.",
+        "en": "A Mars rover lands in Hwaseong, Korea, to find “a bigger Hwaseong.” Every time it tries to measure size, what ends up in its log is people's welcome."
+      },
+      "tools": {
+        "generate": [
+          "Gemini — Veo 3.8 Flash",
+          "Gemini — image",
+          "Google AI Studio TTS (Puck)"
+        ],
+        "edit": [
+          "Python",
+          "Pillow",
+          "NumPy",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "",
+        "youtube": "https://youtu.be/cm8cNDMbFkM"
+      },
+      "media": {
+        "video": "",
+        "poster": "media/guest-from-mars/poster.jpg",
+        "og": "media/guest-from-mars/og.jpg"
+      },
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "슬로건 '모두의 행복, 더 큰 화성'의 '더 큰'을 문자 그대로 받아들인 탐사 로봇의 일지",
+            "en": "A rover that takes the city slogan's “bigger Hwaseong” literally, told as its exploration log"
+          }
+        },
+        {
+          "label": {
+            "ko": "캐릭터",
+            "en": "Character"
+          },
+          "text": {
+            "ko": "Gemini 이미지로 로봇 레퍼런스 1장을 만들고, 7장면 모두 그 이미지에서 이미지→영상",
+            "en": "One reference image of the robot made with Gemini; all seven scenes animated from that image"
+          }
+        },
+        {
+          "label": {
+            "ko": "장면",
+            "en": "Scenes"
+          },
+          "text": {
+            "ko": "Veo 3.8 Flash · 16:9 · 7장면을 장면당 6.5초로 편집",
+            "en": "Veo 3.8 Flash · 16:9 · seven scenes cut to 6.5 s each"
+          }
+        },
+        {
+          "label": {
+            "ko": "그래픽",
+            "en": "Graphics"
+          },
+          "text": {
+            "ko": "장면마다 탐사 로그 HUD(지명 타자 효과 · 영문 부제)와 일지 자막을 코드로 합성",
+            "en": "An exploration-log HUD (typed place name, English subtitle) and log captions rendered in code for every scene"
+          }
+        },
+        {
+          "label": {
+            "ko": "소리",
+            "en": "Sound"
+          },
+          "text": {
+            "ko": "장면별 환경음을 코드로 합성해 TTS 내레이션과 믹스, 효과음 · 음악 일부는 Veo 생성음",
+            "en": "Per-scene ambience synthesized in code and mixed with TTS narration; some effects and music are Veo-generated"
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "기획",
+            "en": "Plan"
+          },
+          "detail": {
+            "ko": "탐사 일지 7줄 → 장소 7곳: 화성(Mars) · 제부도 바닷길 · 융건릉 소나무숲 · 동탄호수공원 · 첨단 산업단지 · 시장 축제 · 전곡항",
+            "en": "A seven-line log → seven places: Mars, Jebudo Sea Road, Yunggeonneung pine forest, Dongtan Lake Park, a tech valley, a market festival, Jeongok Harbor"
+          }
+        },
+        {
+          "name": {
+            "ko": "캐릭터",
+            "en": "Character"
+          },
+          "detail": {
+            "ko": "Gemini 이미지 · 레퍼런스 1장 (흰 조약돌 몸 · 파란 눈 하나 · 바퀴 6개)",
+            "en": "Gemini image · one reference (white pebble body, one blue eye, six wheels)"
+          }
+        },
+        {
+          "name": {
+            "ko": "생성",
+            "en": "Generate"
+          },
+          "detail": {
+            "ko": "Veo 3.8 Flash · 이미지 → 영상 · 16:9 · 장면당 8초",
+            "en": "Veo 3.8 Flash · image → video · 16:9 · 8 s per scene"
+          }
+        },
+        {
+          "name": {
+            "ko": "편집",
+            "en": "Edit"
+          },
+          "detail": {
+            "ko": "Python · FFmpeg로 업스케일, 장면당 6.5초로 자르기",
+            "en": "Upscaled and cut to 6.5 s per scene with Python and FFmpeg"
+          }
+        },
+        {
+          "name": {
+            "ko": "HUD · 자막",
+            "en": "HUD & captions"
+          },
+          "detail": {
+            "ko": "Pillow로 탐사 로그 HUD(타자 효과)와 일지 자막을 그려 합성 · Noto Sans CJK KR",
+            "en": "Exploration-log HUD with a typing effect and log captions drawn with Pillow · Noto Sans CJK KR"
+          }
+        },
+        {
+          "name": {
+            "ko": "사운드",
+            "en": "Sound"
+          },
+          "detail": {
+            "ko": "장면별 환경음 합성 + Gemini TTS 내레이션(Puck) 로봇 음색 처리 + 믹스",
+            "en": "Synthesized ambience per scene + Gemini TTS narration (Puck) processed into a robot voice + mix"
+          }
+        },
+        {
+          "name": {
+            "ko": "엔딩 · 출력",
+            "en": "Ending & export"
+          },
+          "detail": {
+            "ko": "화성특례시 시그니처와 슬로건, 출처 크레딧 · 1920×1080 MP4",
+            "en": "Hwaseong city signature and slogan, source credits · 1920×1080 MP4"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [
+        {
+          "label": {
+            "ko": "로봇 레퍼런스 이미지",
+            "en": "Robot reference image"
+          },
+          "mode": {
+            "ko": "Gemini 이미지 생성 · 16:9 · 7장면 모두 이 이미지에서 시작",
+            "en": "Gemini image · 16:9 · every scene starts from this image"
+          },
+          "text": "An ORIGINAL small Mars exploration robot character, not resembling any existing movie or game robot. Design: smooth round white body shaped like a river pebble, ONE large circular glowing soft-blue eye set in a dark lens ring on a short neck, two stubby articulated arms, six small wheels on a dusty rust-orange chassis, a thin bent antenna with a tiny red light on top, light scratches and red dust on the body. It stands on a red Martian desert at golden hour, Earth faintly visible in the dusty pink sky. Full body, 3/4 view, centered, photorealistic with cute character appeal, soft cinematic light, 16:9, no text, no logos, no subtitles."
+        }
+      ],
+      "scenes": [
+        {
+          "label": {
+            "ko": "LOG 01 · 화성(Mars)",
+            "en": "LOG 01 · Mars"
+          },
+          "text": {
+            "ko": "탐사 일지 1일. 더 큰 화성을 찾으러 간다.",
+            "en": "Exploration log, day 1. Off to find a bigger Hwaseong."
+          },
+          "time": 3.25,
+          "frame": "media/guest-from-mars/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "LOG 02 · 제부도 바닷길",
+            "en": "LOG 02 · Jebudo Sea Road"
+          },
+          "text": {
+            "ko": "도착. 바다가… 길을 열어 준다?",
+            "en": "Arrived. The sea… opens a road for me?"
+          },
+          "time": 9.75,
+          "frame": "media/guest-from-mars/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "LOG 03 · 융건릉 소나무숲",
+            "en": "LOG 03 · Yunggeonneung pine forest"
+          },
+          "text": {
+            "ko": "따뜻한 생명체와 첫 접촉. 데이터 없음. 기분… 좋음.",
+            "en": "First contact with a warm life form. No data. Feeling… good."
+          },
+          "time": 16.25,
+          "frame": "media/guest-from-mars/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "LOG 04 · 동탄호수공원",
+            "en": "LOG 04 · Dongtan Lake Park"
+          },
+          "text": {
+            "ko": "장비 업데이트. 하트 스티커, 1개.",
+            "en": "Equipment update. Heart sticker, 1."
+          },
+          "time": 22.75,
+          "frame": "media/guest-from-mars/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "LOG 05 · 첨단 산업단지",
+            "en": "LOG 05 · Tech valley"
+          },
+          "text": {
+            "ko": "동족 발견. 여기선 로봇도 미래를 만든다.",
+            "en": "Found my kind. Here, robots build the future too."
+          },
+          "time": 29.25,
+          "frame": "media/guest-from-mars/scene-5.jpg"
+        },
+        {
+          "label": {
+            "ko": "LOG 06 · 시장 축제",
+            "en": "LOG 06 · Market festival"
+          },
+          "text": {
+            "ko": "서로 다른 생명체들이 한 테이블에 있다. 분석 불가. 그냥… 웃음.",
+            "en": "Different life forms at one table. Cannot analyze. Just… smiling."
+          },
+          "time": 35.75,
+          "frame": "media/guest-from-mars/scene-6.jpg"
+        },
+        {
+          "label": {
+            "ko": "LOG 07 · 전곡항",
+            "en": "LOG 07 · Jeongok Harbor"
+          },
+          "text": {
+            "ko": "결론. 더 큰 화성은 크기가 아니라, 사람이었다. 귀환… 취소.",
+            "en": "Conclusion. A bigger Hwaseong wasn't about size. It was people. Return… cancelled."
+          },
+          "time": 42.25,
+          "frame": "media/guest-from-mars/scene-7.jpg"
+        }
+      ],
+      "compare": [],
+      "notes": [
+        {
+          "heading": {
+            "ko": "한 캐릭터로 7장면",
+            "en": "One character, seven scenes"
+          },
+          "lines": {
+            "ko": [
+              "로봇 레퍼런스 이미지 1장을 모든 장면의 시작 이미지로",
+              "장면 프롬프트 앞에 'Animate this exact robot, keeping its design identical'을 넣어 디자인 고정",
+              "다른 모델(Argon)로 시험한 컷은 바퀴가 다리로 바뀌어 3.8 Flash로 통일"
+            ],
+            "en": [
+              "The same reference image starts every scene",
+              "Scene prompts open with “Animate this exact robot, keeping its design identical”",
+              "A test shot on another model (Argon) turned the wheels into legs, so every scene stayed on 3.8 Flash"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "글자와 목소리는 따로",
+            "en": "Text and voice kept out of the video model"
+          },
+          "lines": {
+            "ko": [
+              "프롬프트에 한국어 대사를 넣으면 Veo가 화면에 자막을 박아 넣어서, 대사 없이 'no subtitles'로 생성",
+              "내레이션은 Gemini TTS로 따로 만들어 로봇 음색으로 처리",
+              "생성 영상에 섞여 들어온 목소리는 쓰지 않고 장면별 환경음을 코드로 합성"
+            ],
+            "en": [
+              "Korean dialogue in a prompt made Veo burn subtitles into the frame, so scenes were generated without dialogue and with “no subtitles”",
+              "Narration made separately with Gemini TTS and processed into a robot voice",
+              "Voices that slipped into the generated audio were dropped; per-scene ambience synthesized in code"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "출처",
+            "en": "Credits"
+          },
+          "lines": {
+            "ko": [
+              "화성특례시 브랜드마크 · 시그니처: 화성시 공식 상징 자료를 변형 없이 사용",
+              "서체: Noto Sans CJK KR (SIL Open Font License)",
+              "효과음 · 음악 일부: Gemini(Veo) 생성",
+              "본 영상은 생성형 AI로 제작했습니다"
+            ],
+            "en": [
+              "Hwaseong brand mark and signature: the city's official symbol files, unmodified",
+              "Font: Noto Sans CJK KR (SIL Open Font License)",
+              "Some effects and music: generated by Gemini (Veo)",
+              "Made with generative AI"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "slug": "same-element",
+      "date": "2026-10-19",
+      "durationSec": 39,
+      "aspect": "9:16",
+      "shots": 0,
+      "accent": "#D8B878",
+      "title": {
+        "ko": "같은 원소, 다른 얼굴",
+        "en": "Same Element, Different Faces"
+      },
+      "status": {
+        "ko": "「탄소, 다시 보다」 AI 콘텐츠 챌린지 출품작 · 영상 부문",
+        "en": "Entry — “Carbon, Seen Again” AI Content Challenge (video)"
+      },
+      "logline": {
+        "ko": "'탄소' 하면 떠오르는 검은 숯과 이산화탄소에서 출발해, 탄소섬유로 만든 자전거 · 비행기 날개 · 수소차 연료탱크로. 같은 원소의 다른 얼굴.",
+        "en": "From the charcoal and CO₂ people picture when they hear “carbon” to carbon-fiber bicycles, aircraft wings and hydrogen tanks: one element, different faces."
+      },
+      "tools": {
+        "generate": [
+          "Google Gemini (video · image)",
+          "Google AI Studio TTS (Kore)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "",
+        "youtube": ""
+      },
+      "media": {
+        "video": "media/same-element/video.mp4",
+        "poster": "media/same-element/poster.jpg",
+        "og": "media/same-element/og.jpg"
+      },
+      "highlights": [
+        {
+          "label": {
+            "ko": "영상",
+            "en": "Video"
+          },
+          "text": {
+            "ko": "Gemini 동영상 생성으로 숯 장면을 만든 뒤 탄소섬유 · 자전거 · 날개 장면으로 이어서 확장, 두 영상(10초 · 20초)에서 구간만 골라 씀",
+            "en": "Generated the charcoal scene with Gemini video, extended it into carbon fiber, a bicycle and a wing, and used ranges from the two results (10 s and 20 s)"
+          }
+        },
+        {
+          "label": {
+            "ko": "이미지",
+            "en": "Image"
+          },
+          "text": {
+            "ko": "수소탱크 단면은 Gemini 이미지로 새로 만들고, 확대 효과와 라벨(700bar 고압 수소 저장 · 탄소섬유 층 · 플라스틱 라이너)을 얹음",
+            "en": "A new hydrogen-tank cutaway from Gemini image, with a zoom and labels (700 bar hydrogen storage, carbon-fiber layers, plastic liner)"
+          }
+        },
+        {
+          "label": {
+            "ko": "내레이션",
+            "en": "Narration"
+          },
+          "text": {
+            "ko": "Google AI Studio 음성 생성 · 목소리 Kore · 대본 9줄",
+            "en": "Google AI Studio speech · voice Kore · a nine-line script"
+          }
+        },
+        {
+          "label": {
+            "ko": "편집",
+            "en": "Edit"
+          },
+          "text": {
+            "ko": "Claude와 Python · FFmpeg로 컷 배치 · 전환 · 자막 애니메이션 · 쉼 간격 조정, 배경음 · 효과음은 코드로 합성",
+            "en": "Cut order, transitions, caption animation and pauses done with Claude in Python and FFmpeg; music and effects synthesized in code"
+          }
+        },
+        {
+          "label": {
+            "ko": "검수",
+            "en": "Review"
+          },
+          "text": {
+            "ko": "규격 · 자막 싱크, 탄소와 이산화탄소 구분, 수치 출처, 맞춤법을 직접 확인",
+            "en": "Checked specs and caption sync, the carbon vs CO₂ distinction, sources for figures and spelling myself"
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "기획",
+            "en": "Plan"
+          },
+          "detail": {
+            "ko": "이미지 부문 출품작 「숯이 아닙니다」와 같은 메시지로 영상 부문 출품",
+            "en": "Same message as my image-category entry, made for the video category"
+          }
+        },
+        {
+          "name": {
+            "ko": "영상 생성",
+            "en": "Generate video"
+          },
+          "detail": {
+            "ko": "Gemini 동영상 · 9:16 · 장면 1(숯) → 장면 2(탄소섬유 · 자전거 · 날개)로 확장",
+            "en": "Gemini video · 9:16 · scene 1 (charcoal) extended into scene 2 (carbon fiber, bicycle, wing)"
+          }
+        },
+        {
+          "name": {
+            "ko": "이미지 생성",
+            "en": "Generate image"
+          },
+          "detail": {
+            "ko": "Gemini 이미지 · 수소탱크 단면 / 엔딩 배경은 「숯이 아닙니다」 원본 이미지 재사용",
+            "en": "Gemini image · hydrogen-tank cutaway; the ending background reuses my image entry's original"
+          }
+        },
+        {
+          "name": {
+            "ko": "내레이션",
+            "en": "Narration"
+          },
+          "detail": {
+            "ko": "AI Studio 음성 생성 · Kore · 다큐멘터리 내레이터 톤 지시",
+            "en": "AI Studio speech · Kore · documentary-narrator direction"
+          }
+        },
+        {
+          "name": {
+            "ko": "편집",
+            "en": "Edit"
+          },
+          "detail": {
+            "ko": "Python · FFmpeg · 1080×1920 업스케일 · 자르기 · 자막 애니메이션",
+            "en": "Python · FFmpeg · 1080×1920 upscale, trims, caption animation"
+          }
+        },
+        {
+          "name": {
+            "ko": "사운드",
+            "en": "Sound"
+          },
+          "detail": {
+            "ko": "배경음 · 효과음 코드 합성, 외부 음원 없음",
+            "en": "Music and effects synthesized in code; no stock audio"
+          }
+        },
+        {
+          "name": {
+            "ko": "검수 · 출력",
+            "en": "Review & export"
+          },
+          "detail": {
+            "ko": "사실관계 · 출처 · 맞춤법 확인 · 1080×1920 MP4",
+            "en": "Facts, sources and spelling checked · 1080×1920 MP4"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [
+        {
+          "label": {
+            "ko": "장면 1 — 숯",
+            "en": "Scene 1 — charcoal"
+          },
+          "mode": {
+            "ko": "Gemini 동영상 생성 · 세로 9:16",
+            "en": "Gemini video · vertical 9:16"
+          },
+          "text": "Vertical 9:16, photorealistic, no text. Extreme close-up of a dull black lump of charcoal on dark gray dusty ground, cold blue-gray light. Slow push-in, a faint wisp of smoke drifts past. Moody, matte, dusty. No people, no logos."
+        },
+        {
+          "label": {
+            "ko": "장면 2 — 탄소섬유 · 자전거 · 날개",
+            "en": "Scene 2 — carbon fiber, bicycle, wing"
+          },
+          "mode": {
+            "ko": "Gemini 동영상 · 장면 1에서 이어서 확장",
+            "en": "Gemini video · extended from scene 1"
+          },
+          "text": "Vertical 9:16, photorealistic, no text. Macro shot of glossy black carbon-fiber twill weave catching warm studio light; the camera slowly pulls back to reveal a sleek carbon-fiber racing bicycle frame and a carbon-fiber aircraft wing section on a bright warm white background. Clean product-advertising style. No people, no logos."
+        },
+        {
+          "label": {
+            "ko": "수소탱크 단면",
+            "en": "Hydrogen tank cutaway"
+          },
+          "mode": {
+            "ko": "Gemini 이미지 생성 · 세로 9:16",
+            "en": "Gemini image · vertical 9:16"
+          },
+          "text": "Vertical 9:16, photorealistic studio product shot, no text, no logos. A hydrogen fuel tank for a fuel-cell car: a long cylinder with rounded dome ends and a metal valve at one end, standing upright. Its outer shell is black carbon fiber wound in many tight layers of helical and hoop patterns, with a glossy resin finish. A clean cutaway on one side reveals the layers: a thick black carbon-fiber composite wall wrapped around a white high-density plastic inner liner. Warm studio light from the right, soft gray-to-warm-white background like a premium product ad, shallow depth of field, high detail."
+        },
+        {
+          "label": {
+            "ko": "내레이션 지시문과 대본",
+            "en": "Narration direction and script"
+          },
+          "mode": {
+            "ko": "Google AI Studio 음성 생성 · Kore",
+            "en": "Google AI Studio speech · Kore"
+          },
+          "lang": "ko",
+          "text": "다큐멘터리 내레이터처럼 밝고 신뢰감 있게, 또박또박 조금 천천히 읽어 주세요. 줄마다 짧게 쉬어 주세요.\n\n'탄소' 하면, 뭐가 떠오르세요?\n검은 숯? 매연? 이산화탄소?\n이산화탄소는 탄소와 산소가 만난 기체예요.\n탄소 그 자체는, 미래를 만드는 소재가 됩니다.\n탄소로 만든 실, 탄소섬유. 철보다 약 네 배 가볍고, 열 배 강하죠.\n그래서 자전거와 비행기에 쓰이고,\n수소차 연료탱크도 탄소섬유로 단단하게 감쌉니다.\n같은 원소, 다른 얼굴.\n탄소, 다시 보세요."
+        }
+      ],
+      "scenes": [
+        {
+          "label": {
+            "ko": "장면 1 · 숯",
+            "en": "Scene 1 · Charcoal"
+          },
+          "text": {
+            "ko": "'탄소' 하면, 뭐가 떠오르세요? 검은 숯? 매연? 이산화탄소?",
+            "en": "What comes to mind when you hear “carbon”? Charcoal? Smog? CO₂?"
+          },
+          "time": 7.0,
+          "prompt": 0,
+          "frame": "media/same-element/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 2 · C ≠ CO₂",
+            "en": "Scene 2 · C ≠ CO₂"
+          },
+          "text": {
+            "ko": "이산화탄소는 탄소와 산소가 만난 기체. 탄소 그 자체는 미래를 만드는 소재.",
+            "en": "CO₂ is a gas of carbon and oxygen. Carbon itself is a material that builds the future."
+          },
+          "time": 10.0,
+          "frame": "media/same-element/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 3 · 탄소섬유",
+            "en": "Scene 3 · Carbon fiber"
+          },
+          "text": {
+            "ko": "탄소로 만든 실, 탄소섬유. 철보다 약 네 배 가볍고, 열 배 강하다.",
+            "en": "Carbon fiber: thread made of carbon, about four times lighter and ten times stronger than steel."
+          },
+          "time": 22.0,
+          "prompt": 1,
+          "frame": "media/same-element/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 4 · 수소탱크",
+            "en": "Scene 4 · Hydrogen tank"
+          },
+          "text": {
+            "ko": "수소차 연료탱크도 탄소섬유로 단단하게 감싼다.",
+            "en": "Hydrogen car fuel tanks are wrapped tight in carbon fiber too."
+          },
+          "time": 31.0,
+          "prompt": 2,
+          "frame": "media/same-element/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 5 · 엔딩",
+            "en": "Scene 5 · Ending"
+          },
+          "text": {
+            "ko": "같은 원소, 다른 얼굴. 탄소, 다시 보세요.",
+            "en": "Same element, different faces. Look at carbon again."
+          },
+          "time": 37.0,
+          "frame": "media/same-element/scene-5.jpg"
+        }
+      ],
+      "compare": [],
+      "notes": [
+        {
+          "heading": {
+            "ko": "수치와 출처",
+            "en": "Figures and sources"
+          },
+          "lines": {
+            "ko": [
+              "'철보다 약 4배 가볍고 약 10배 강하다' — YTN 보도(2019.8.20, 효성첨단소재 인용), '약'을 붙여 표기",
+              "700bar · 타입4 탱크 구조(플라스틱 라이너에 탄소섬유를 여러 겹 감음) — 전자신문 보도(2018.7.5)",
+              "탄소(C)와 이산화탄소(CO₂)를 화면에서 따로 보여 줌"
+            ],
+            "en": [
+              "“About 4× lighter and about 10× stronger than steel” — YTN, 2019-08-20 (citing Hyosung Advanced Materials), written with “about”",
+              "700 bar and the Type 4 tank build (carbon fiber wound over a plastic liner) — Electronic Times, 2018-07-05",
+              "Carbon (C) and carbon dioxide (CO₂) shown as separate things on screen"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "외부 소스",
+            "en": "Outside sources"
+          },
+          "lines": {
+            "ko": [
+              "서체: Black Han Sans · Noto Sans KR (SIL Open Font License 1.1)",
+              "음악 · 효과음: 외부 음원 없이 코드로 합성",
+              "스톡 영상 · 사진 · 로고, 실존 인물 없음"
+            ],
+            "en": [
+              "Fonts: Black Han Sans, Noto Sans KR (SIL Open Font License 1.1)",
+              "Music and effects: synthesized in code, no stock audio",
+              "No stock footage, photos, logos or real people"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "slug": "something-huge",
+      "date": "2026-10-13",
+      "durationSec": 25,
+      "aspect": "9:16",
+      "shots": 7,
+      "accent": "#00F550",
+      "title": {
+        "ko": "거대한 게 온다",
+        "en": "Something Huge Is Coming"
+      },
+      "status": {
+        "ko": "넾다세일 AI 광고제 출품작",
+        "en": "Entry — Nepda Sale AI Ad Festival (Naver Plus Store)"
+      },
+      "logline": {
+        "ko": "사고 싶은 건 많은데 통장은 비어 있던 밤, 넾다세일 알림이 오고 빌딩만 한 선물상자가 기숙사 창문 앞까지 걸어온다.",
+        "en": "A broke student gets a sale alert, and a gift box the size of a skyscraper walks up to her dorm window."
+      },
+      "tools": {
+        "generate": [
+          "Seedance 2.5 (Higgsfield)"
+        ],
+        "edit": [
+          "Python",
+          "ffmpeg",
+          "OpenCV",
+          "Pillow"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/reel/Deb_MwETPHe/",
+        "youtube": ""
+      },
+      "media": {
+        "video": "media/something-huge/video.mp4",
+        "poster": "media/something-huge/poster.jpg",
+        "og": "media/something-huge/og.jpg"
+      },
+      "highlights": [
+        {
+          "label": {
+            "ko": "생성",
+            "en": "Generate"
+          },
+          "text": {
+            "ko": "Seedance 2.5로 7컷. 컷마다 프롬프트를 따로 쓰고, 이어지는 컷은 앞 컷의 마지막 프레임을 첨부",
+            "en": "Seven shots with Seedance 2.5, one prompt per shot; continuing shots start from the previous shot's last frame"
+          }
+        },
+        {
+          "label": {
+            "ko": "색",
+            "en": "Color"
+          },
+          "text": {
+            "ko": "클립마다 다른 초록·보라를 HSV에서 측정해 가이드 색(140°·258°)으로 이동",
+            "en": "Measured each clip's green and purple in HSV and shifted them to the guide hues (140°, 258°)"
+          }
+        },
+        {
+          "label": {
+            "ko": "합성",
+            "en": "Composite"
+          },
+          "text": {
+            "ko": "빈 초록 화면으로 생성한 폰 화면을 프레임마다 검출해 알림 화면을 투시 변환으로 얹음",
+            "en": "Generated the phone with a blank green screen, detected it every frame and warped the notification UI onto it"
+          }
+        },
+        {
+          "label": {
+            "ko": "소리",
+            "en": "Sound"
+          },
+          "text": {
+            "ko": "효과음 8종을 코드로 합성해 생성 클립 소리 위에 믹스, 외부 음원 없음",
+            "en": "Eight sound effects synthesized in code and mixed over the clips' native audio; no stock audio"
+          }
+        },
+        {
+          "label": {
+            "ko": "출력",
+            "en": "Export"
+          },
+          "text": {
+            "ko": "ffmpeg · 9:16 · 1080×1920 MP4",
+            "en": "ffmpeg · 9:16 · 1080×1920 MP4"
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "생성",
+            "en": "Generate"
+          },
+          "detail": {
+            "ko": "Seedance 2.5 · 컷별 프롬프트, 이어지는 컷은 마지막 프레임 첨부",
+            "en": "Seedance 2.5 · a prompt per shot, last frame carried into the next"
+          }
+        },
+        {
+          "name": {
+            "ko": "컷 편집",
+            "en": "Cut"
+          },
+          "detail": {
+            "ko": "필요한 구간만 골라 타임라인 구성, 0.3초 디졸브 2곳",
+            "en": "Picked only the usable ranges; two 0.3 s dissolves"
+          }
+        },
+        {
+          "name": {
+            "ko": "색 보정",
+            "en": "Color"
+          },
+          "detail": {
+            "ko": "HSV에서 클립별 측정값 → 초록 140° · 보라 258°",
+            "en": "Per-clip HSV measurement → green 140°, purple 258°"
+          }
+        },
+        {
+          "name": {
+            "ko": "화면 합성",
+            "en": "Screen"
+          },
+          "detail": {
+            "ko": "OpenCV로 초록 화면 영역 검출 → 알림 화면 투시 변환",
+            "en": "OpenCV finds the green screen → perspective-warped notification"
+          }
+        },
+        {
+          "name": {
+            "ko": "타이포",
+            "en": "Type"
+          },
+          "detail": {
+            "ko": "Black Han Sans · 블록 라벨 + 팝 등장 애니메이션",
+            "en": "Black Han Sans · block labels with pop-in animation"
+          }
+        },
+        {
+          "name": {
+            "ko": "사운드",
+            "en": "Sound"
+          },
+          "detail": {
+            "ko": "생성 클립 소리 + 직접 합성한 효과음 믹스",
+            "en": "Native clip audio + synthesized effects"
+          }
+        },
+        {
+          "name": {
+            "ko": "출력",
+            "en": "Export"
+          },
+          "detail": {
+            "ko": "ffmpeg로 1080×1920 MP4",
+            "en": "1080×1920 MP4 with ffmpeg"
+          }
+        }
+      ],
+      "featuredPrompt": 2,
+      "prompts": [
+        {
+          "label": {
+            "ko": "컷 A — 폰 진동, 고개를 듦",
+            "en": "Shot A — the phone buzzes, she looks up"
+          },
+          "mode": {
+            "ko": "이미지 → 영상 (테스트 클립의 책상 프레임 첨부)",
+            "en": "Image → video (desk frame from a test clip attached)"
+          },
+          "text": "Use the attached photo as the first frame and keep the same woman, hoodie, desk and room. Vertical 9:16, 8 seconds, cinematic realism, night. Her plain black smartphone on the desk starts vibrating and its screen glows bright neon green, lighting her face from below. The desk lamp flickers, a pen rolls off the desk, the whole room trembles slightly with slow heavy footsteps outside. She slowly lifts her head and turns toward the window, eyes widening. Sound: phone buzzing on wood, then deep distant footsteps growing louder. No on-screen text, no letters, no logos, no brand names."
+        },
+        {
+          "label": {
+            "ko": "컷 A2 — 폰 화면 클로즈업",
+            "en": "Shot A2 — phone screen close-up"
+          },
+          "mode": {
+            "ko": "텍스트 → 영상 (빈 초록 화면으로 생성 후 알림 화면 합성)",
+            "en": "Text → video (blank green screen, notification composited later)"
+          },
+          "text": "Vertical 9:16, 6 seconds, night, cinematic realism. Extreme close-up, slightly high angle, of a plain black smartphone lying face-up on a wooden dorm desk next to textbooks and a pen, warm desk-lamp light. The phone buzzes and vibrates on the desk, then its whole screen lights up with one flat, solid, bright green color — a completely blank green screen with no icons, no text, no UI, no notifications. The green glow spreads over the desk. Slow push-in, phone stays in frame. Sound: phone vibrating on wood. No text, no letters, no logos."
+        },
+        {
+          "label": {
+            "ko": "컷 B — 걸어오는 거대 상자",
+            "en": "Shot B — the giant box walks in"
+          },
+          "mode": {
+            "ko": "텍스트 → 영상",
+            "en": "Text → video"
+          },
+          "text": "Vertical 9:16, 8 seconds, blockbuster trailer, night, photoreal. A gift box as tall as a skyscraper, glossy neon green with a wide violet-purple ribbon and bow, walks on two short stubby legs between Seoul apartment towers, each step a gentle thud, glowing from inside, searchlights sweeping across it. People on balconies cheer and film with their phones, confetti drifting. Low angle from the street, slow push-in, volumetric light, joyful awe. Sound: deep soft footsteps, wind, a cheering crowd. No text, no letters, no logos."
+        },
+        {
+          "label": {
+            "ko": "컷 B2 — 창문 앞 도착",
+            "en": "Shot B2 — arriving at the window"
+          },
+          "mode": {
+            "ko": "이미지 → 영상 (컷 B 마지막 프레임 첨부)",
+            "en": "Image → video (last frame of shot B attached)"
+          },
+          "text": "Continue from the attached frame: the same skyscraper-sized neon green gift box with a violet ribbon. Vertical 9:16, 8 seconds. Seen from inside a small dorm room through the window: the giant box steps up to the building and slowly leans down toward the window until its glossy green surface and purple bow fill the view, its glow lighting the room. Curtains blow inward, a pen rolls off the desk. Sound: a huge soft thud, creaking ribbon, a rising hum. No text, no letters, no logos."
+        },
+        {
+          "label": {
+            "ko": "컷 C — 뚜껑 열림 → 만화 폭발",
+            "en": "Shot C — the lid pops, comic burst"
+          },
+          "mode": {
+            "ko": "이미지 → 영상 (컷 B2 마지막 프레임 첨부)",
+            "en": "Image → video (last frame of shot B2 attached)"
+          },
+          "text": "Continue from the attached frame, same giant neon green gift box with violet ribbon right outside the window. Vertical 9:16, 8 seconds. The lid pops open and sharp comic-book starburst rays in neon green, violet purple, black and white burst toward the camera until they fill the whole frame, with bold halftone dots and speed lines. Fast, punchy pop-art energy, celebratory. Sound: a deep pop, then a bright rising whoosh. No text, no letters, no logos."
+        },
+        {
+          "label": {
+            "ko": "컷 D — 아침, 문을 열면 택배 산더미",
+            "en": "Shot D — morning, a hallway full of parcels"
+          },
+          "mode": {
+            "ko": "이미지 → 영상 (같은 인물 얼굴 프레임 첨부)",
+            "en": "Image → video (frame of the same face attached)"
+          },
+          "text": "Keep the same young Korean woman as in the attached photo (same face, hair, grey hoodie). Vertical 9:16, 8 seconds, morning, bright and warm. The camera is behind her, over her shoulder, inside her small dorm room. She faces the door with her back to the camera, grabs the handle and swings the door open: the hallway outside is filled wall-to-wall with neatly stacked glossy neon green parcels with violet-purple ribbons. She freezes for a moment, then turns her head back toward the camera, eyes wide, and laughs in disbelief. Sound: door creak, a cheerful chime, soft laugh. No text, no letters, no logos."
+        }
+      ],
+      "compare": [
+        {
+          "label": {
+            "ko": "색 보정",
+            "en": "Color correction"
+          },
+          "before": "media/something-huge/compare-color-before.jpg",
+          "after": "media/something-huge/compare-color-after.jpg",
+          "beforeLabel": {
+            "ko": "생성 원본",
+            "en": "Generated"
+          },
+          "afterLabel": {
+            "ko": "보정 후",
+            "en": "Corrected"
+          },
+          "caption": {
+            "ko": "클립마다 달랐던 초록(123°·122°·116°·70°)을 140° 하나로",
+            "en": "Four different greens (123°, 122°, 116°, 70°) moved to one: 140°"
+          }
+        },
+        {
+          "label": {
+            "ko": "폰 화면 합성",
+            "en": "Phone screen composite"
+          },
+          "before": "media/something-huge/compare-screen-before.jpg",
+          "after": "media/something-huge/compare-screen-after.jpg",
+          "beforeLabel": {
+            "ko": "빈 초록 화면",
+            "en": "Blank green screen"
+          },
+          "afterLabel": {
+            "ko": "알림 화면 합성",
+            "en": "Notification composited"
+          },
+          "caption": {
+            "ko": "화면 영역을 프레임마다 찾아 원근을 맞춰 얹음",
+            "en": "The screen is found every frame and the UI is warped to match its perspective"
+          }
+        }
+      ],
+      "notes": [
+        {
+          "heading": {
+            "ko": "소리는 전부 코드로",
+            "en": "All sound effects are code"
+          },
+          "lines": {
+            "ko": [
+              "발소리 · 폰 진동 · 알림음 · 울림",
+              "팝 · 상승음 · 차임 · 임팩트",
+              "생성 클립의 AI 사운드 위에 믹스",
+              "외부 음원 0개 · 대사 없음"
+            ],
+            "en": [
+              "Footsteps · phone buzz · alert · rumble",
+              "Pop · riser · chime · impact",
+              "Mixed over the clips' native AI audio",
+              "No stock audio · no dialogue"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

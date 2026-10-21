@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.json';
+import { UI, type Lang } from '../../lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = UI[lang];
+---
+<Base lang={lang} path="/contact/" title={t.contact} description={t.contactLead}>
+  <header class="page-head">
+    <h1>{t.contact}</h1>
+    <p>{t.contactLead}</p>
+  </header>
+  <ul class="contact-list">
+    <li><a href={`mailto:${site.email}`}><span>{t.email}</span>{site.email}</a></li>
+    <li><a href={site.instagram} rel="me"><span>{t.instagramDm}</span>@{site.handle}</a></li>
+    <li><a href={site.github} rel="me"><span>{t.github}</span>{site.github.replace('https://', '')}</a></li>
+  </ul>
+</Base>

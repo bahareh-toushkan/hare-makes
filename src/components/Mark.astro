@@ -1,0 +1,12 @@
+---
+// hare-mark.svg의 마크 부분 (재생 버튼 + 토끼 귀). 색은 currentColor
+interface Props { size?: number }
+const { size = 28 } = Astro.props;
+---
+<svg class="mark" viewBox="330 151 415 695" width={Math.round(size * 415 / 695)} height={size} aria-hidden="true" focusable="false">
+  <g fill="currentColor" transform="translate(10 -9)">
+    <rect x="320" y="160" width="110" height="430" rx="55" />
+    <rect x="508" y="232" width="110" height="404" rx="55" transform="rotate(6 563 636)" />
+    <polygon points="356,468 356,820 700,644" stroke="currentColor" stroke-width="72" stroke-linejoin="round" />
+  </g>
+</svg>

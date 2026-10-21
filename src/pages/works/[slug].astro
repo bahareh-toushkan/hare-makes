@@ -1,0 +1,10 @@
+---
+import WorkView from '../../components/views/WorkView.astro';
+import { works } from '../../lib/works';
+
+export function getStaticPaths() {
+  return works.map(w => ({ params: { slug: w.slug } }));
+}
+const { slug } = Astro.params;
+---
+<WorkView lang="ko" slug={slug} />

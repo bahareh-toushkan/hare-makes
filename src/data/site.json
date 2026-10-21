@@ -1,0 +1,27 @@
+{
+  "name": { "ko": "바하래", "en": "Bahareh Toushkan" },
+  "handle": "hare.makes",
+  "email": "baharetoushkan99@gmail.com",
+  "instagram": "https://www.instagram.com/hare.makes/",
+  "github": "https://github.com/bahareh-toushkan",
+  "tagline": {
+    "ko": "AI로 광고·숏필름을 만들고, 편집은 직접 짠 Python·ffmpeg 파이프라인으로 합니다.",
+    "en": "I make ads and short films with generative AI, and edit them in a Python/ffmpeg pipeline I write myself."
+  },
+  "about": {
+    "ko": [
+      "서울대학교 컴퓨터공학부 4학년, 2027년 2월 졸업 예정입니다.",
+      "영상은 생성형 AI로 만들고, 색 보정·화면 합성·타이포·효과음은 Python, ffmpeg, OpenCV로 직접 구현합니다.",
+      "작품마다 프롬프트와 파이프라인, 전후 비교까지 제작 과정을 공개합니다."
+    ],
+    "en": [
+      "Senior in Computer Science and Engineering at Seoul National University, graduating February 2027.",
+      "I generate footage with AI video models, then build the color correction, screen compositing, typography and sound effects myself in Python, ffmpeg and OpenCV.",
+      "Every piece comes with its process: prompts, pipeline and before/after comparisons."
+    ]
+  },
+  "skills": {
+    "generate": ["Seedance 2.5 (Higgsfield)", "Gemini Omni Flash"],
+    "edit": ["Python", "ffmpeg", "OpenCV", "Pillow"]
+  }
+}

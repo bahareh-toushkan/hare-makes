@@ -1,0 +1,33 @@
+---
+// 전후 비교 슬라이더. 손잡이 대신 기본 <input type="range">를 써서 키보드(←/→)와 화면 낭독기로도 조작된다.
+import { UI, asset, tr, type Lang } from '../lib/i18n';
+import type { Work } from '../lib/works';
+
+interface Props { lang: Lang; item: Work['compare'][number] }
+const { lang, item } = Astro.props;
+const t = UI[lang];
+const before = tr(item.beforeLabel, lang), after = tr(item.afterLabel, lang);
+---
+<figure class="cmp">
+  <div class="cmp-stage">
+    <img src={asset(item.after)} alt={`${t.after}: ${after}`} width="1080" height="1920" loading="lazy" decoding="async" />
+    <img class="before" src={asset(item.before)} alt={`${t.before}: ${before}`} width="1080" height="1920" loading="lazy" decoding="async" />
+    <span class="line" aria-hidden="true"></span>
+    <span class="tag b" aria-hidden="true">{t.before} · {before}</span>
+    <span class="tag a" aria-hidden="true">{t.after} · {after}</span>
+  </div>
+  <input type="range" min="0" max="100" value="50" step="1" aria-label={`${tr(item.label, lang)} — ${t.compareRange}`} />
+  <figcaption><b>{tr(item.label, lang)}</b> — {tr(item.caption, lang)}</figcaption>
+</figure>
+
+<script>
+  // 슬라이더 값을 CSS 변수(--pos)로 넘겨 '전' 이미지를 잘라 보여 준다
+  for (const fig of document.querySelectorAll<HTMLElement>('.cmp')) {
+    const range = fig.querySelector<HTMLInputElement>('input[type=range]');
+    const stage = fig.querySelector<HTMLElement>('.cmp-stage');
+    if (!range || !stage) continue;
+    const update = () => stage.style.setProperty('--pos', `${range.value}%`);
+    range.addEventListener('input', update);
+    update();
+  }
+</script>

@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hare.makes 캐러셀 메이커</title>
+<!-- 서체: Black Han Sans(제목) · Pretendard(본문) · JetBrains Mono(프롬프트). 모두 SIL OFL -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root { --bg:#0b0b0b; --panel:#151515; --line:#2a2a2a; --fg:#f2f2f2; --muted:#a3a3a3; --g:#00F550; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.5 Pretendard, system-ui, sans-serif; }
+  header { padding:20px 24px; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+  header h1 { font-size:18px; margin:0 12px 0 0; }
+  button, select, input, label.btn { font:inherit; color:var(--fg); background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:7px 12px; }
+  button, label.btn { cursor:pointer; }
+  button.primary { background:var(--g); color:#000; border-color:var(--g); font-weight:700; }
+  button:disabled { opacity:.4; cursor:not-allowed; }
+  button:focus-visible, select:focus-visible, input:focus-visible, label.btn:focus-within { outline:2px solid var(--g); outline-offset:2px; }
+  main { padding:24px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:24px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px; display:flex; flex-direction:column; gap:10px; }
+  .card canvas { width:100%; height:auto; border-radius:6px; background:#000; display:block; }
+  .card .row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .card .name { font-weight:700; }
+  .card .hint { color:var(--muted); font-size:13px; }
+  .slot { border-top:1px dashed var(--line); padding-top:8px; display:flex; flex-direction:column; gap:6px; }
+  .slot input[type=number] { width:96px; }
+  input[type=file] { position:absolute; width:1px; height:1px; opacity:0; }
+  details { margin:24px 0 0; }
+  textarea { width:100%; min-height:320px; background:#050505; color:var(--fg); border:1px solid var(--line); border-radius:8px; padding:12px; font:13px/1.5 "JetBrains Mono", monospace; }
+  .status { color:var(--muted); font-size:13px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>캐러셀 메이커 · 1080×1350</h1>
+  <label class="btn">works.json 불러오기<input id="worksFile" type="file" accept="application/json,.json"></label>
+  <label for="workSelect" class="status">작품</label>
+  <select id="workSelect"></select>
+  <label class="btn">완성본 영상 한 번에 넣기<input id="masterVideo" type="file" accept="video/*"></label>  <!-- 표지·장면 칸을 works.json의 시각대로 한 번에 채움 -->
+  <button id="saveAll" class="primary">완성된 슬라이드 전부 PNG 저장</button>
+  <span id="status" class="status" role="status" aria-live="polite"></span>
+</header>
+<main>
+  <div id="slides" class="grid"></div>
+  <details>
+    <summary>작품 데이터 직접 고치기 (works.json의 작품 1개와 같은 형식)</summary>
+    <p class="status">고친 뒤 [다시 그리기]. 사이트에도 반영하려면 같은 내용을 site/src/data/works.json에 붙여 넣으세요.</p>
+    <textarea id="workJson" spellcheck="false" aria-label="작품 데이터 JSON"></textarea>
+    <p><button id="redraw">다시 그리기</button></p>
+  </details>
+</main>
+<script>
+'use strict';
+// ── 빌드 때 site/src/data/works.json 내용이 여기에 들어간다 (npm run carousel) ──
+const EMBEDDED = /*WORKS_JSON*/null;
+
+const HANDLE = 'hare.makes';
+const W = 1080, H = 1350, M = 84;               // 인스타 4:5 세로. 프로필 그리드(3:4)에서 좌우 약 34px씩 잘리므로 여백 84px
+const BRAND = '#FF5A36';                         // 브랜드 코랄. 작품에 accent가 없을 때 씀
+const C = { bg:'#000000', fg:'#FFFFFF', g:BRAND, ink:'#000000', muted:'#9A9A9A', line:'#262626', box:'#0E0E0E' };  // g·ink는 작품을 고를 때 바뀜
+let QUIET = false;                               // 작품 tone이 "quiet"이면 true
+const F = {
+  display: '"Black Han Sans", "Pretendard", sans-serif',
+  body: '"Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif',
+  mono: '"JetBrains Mono", "Consolas", monospace'
+};
+
+// 색 대비: 강조색 위 글자를 검정/흰색 중 대비가 큰 쪽으로
+function lum(hex) { return [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255).map(c => c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4).reduce((a, c, i) => a + c * [0.2126, 0.7152, 0.0722][i], 0); }
+function contrast(a, b) { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); }
+const isHex = v => typeof v === 'string' && /^#[0-9a-fA-F]{6}$/.test(v);
+function headingFont(size) { return QUIET ? `700 ${size}px ${F.body}` : `${size}px ${F.display}`; }   // 차분한 작품은 본문 서체로 제목
+
+let works = [];
+let current = null;          // 현재 작품 객체
+let slides = [];             // [{kind, name, data, slots}]
+const slotImages = {};       // 슬롯 키 → 이미지/캔버스
+
+// ───────── 데이터 → 슬라이드 목록 ─────────
+function t(v) { return (v && typeof v === 'object') ? (v.ko ?? v.en ?? '') : (v ?? ''); }
+
+function slidesFromWork(w) {
+  const list = [];
+  const meta = [];
+  if (w.durationSec) meta.push(`${w.durationSec}초`);
+  if (w.shots) meta.push(`생성 ${w.shots}컷`);
+  for (const g of (w.tools?.generate || [])) meta.push(g.replace(/\s*\(.*\)$/, ''));
+  if (w.tools?.edit?.length) meta.push(w.tools.edit.slice(0, 3).join(' · '));
+  list.push({ kind:'cover', name:'표지', data:{ title:t(w.title), en:`How it was made — ${w.title?.en || ''}`.trim(), meta, note:t(w.status) }, slots:['cover'],
+    times: typeof w.coverTime === 'number' ? { cover: w.coverTime } : {} });
+  if (w.scenes?.length) {                          // 장면별: 설명 + 결과 프레임 + 프롬프트 원문
+    w.scenes.forEach((sc, i) => list.push({ kind:'scene', name:t(sc.label), required:true, slots:[`scene${i}`], times:{ [`scene${i}`]: sc.time ?? 0 },
+      data:{ kicker:`장면 ${i + 1} / ${w.scenes.length}`, label:t(sc.label), text:t(sc.text), prompt: sc.prompt !== undefined ? (w.prompts?.[sc.prompt]?.text || '') : '' } }));
+  } else {
+    if (w.highlights?.length) list.push({ kind:'summary', name:'한 줄 요약', data:{ heading:'생성은 AI, 편집은 코드', rows:w.highlights.map(h => ({ label:t(h.label), text:t(h.text) })) } });
+    const p = w.prompts?.[w.featuredPrompt ?? 0];
+    if (p) list.push({ kind:'prompt', name:'프롬프트', data:{ label:t(p.label), mode:t(p.mode), text:p.text, note:'컷마다 프롬프트를 따로 쓰고, 이어지는 컷은 앞 컷 마지막 프레임을 첨부해 연결' } });
+    if (w.pipeline?.length) list.push({ kind:'steps', name:'파이프라인', data:{ heading:'파이프라인', steps:w.pipeline.map(s => ({ name:t(s.name), detail:t(s.detail) })) } });
+  }
+  (w.compare || []).forEach((c, i) => list.push({ kind:'compare', name:`전후 비교 · ${t(c.label)}`, data:{ heading:t(c.label), before:t(c.beforeLabel), after:t(c.afterLabel), caption:t(c.caption) }, slots:[`cmp${i}-before`, `cmp${i}-after`], required:true }));
+  (w.notes || []).forEach(n => list.push({ kind:'notes', name:t(n.heading), data:{ heading:t(n.heading), lines:n.lines?.ko || [] } }));
+  if (QUIET) list.push({ kind:'end', name:'마무리', data:{ quiet:true, title:t(w.closing), en:w.closing?.en || '' } });   // 차분한 작품: 홍보 문구 없이 마무리 문장만
+  else list.push({ kind:'end', name:'마지막', data:{ title:'다음 작품도\n제작 과정까지 올립니다', en:'Process for every piece.', cta:'협업 · 문의는 DM' } });
+  return list;
+}
+
+// ───────── 그리기 도구 ─────────
+function wrap(ctx, text, maxW) {
+  const out = [];
+  for (const para of String(text).split('\n')) {
+    let line = '';
+    for (const word of para.split(' ')) {
+      const test = line ? line + ' ' + word : word;
+      if (ctx.measureText(test).width <= maxW) { line = test; continue; }
+      if (line) out.push(line);
+      if (ctx.measureText(word).width <= maxW) { line = word; continue; }
+      let chunk = '';                                   // 한 줄보다 긴 단어는 글자 단위로 자름
+      for (const ch of word) {
+        if (ctx.measureText(chunk + ch).width > maxW && chunk) { out.push(chunk); chunk = ch; } else chunk += ch;
+      }
+      line = chunk;
+    }
+    out.push(line);
+  }
+  return out;
+}
+function textBlock(ctx, text, x, y, { font, color = C.fg, maxW = W - 2 * M, lh = 1.4, size }) {
+  ctx.font = font; ctx.fillStyle = color; ctx.textBaseline = 'alphabetic';
+  const lines = wrap(ctx, text, maxW);
+  for (const l of lines) { y += size * lh; ctx.fillText(l, x, y); }
+  return y;
+}
+function measureBlock(ctx, text, { font, maxW = W - 2 * M, lh = 1.4, size }) {
+  ctx.font = font; return wrap(ctx, text, maxW).length * size * lh;
+}
+function drawMark(ctx, x, y, h, color) {          // hare-mark.svg와 같은 도형. (x,y)=외곽 박스 왼쪽 위, h=높이
+  const k = h / 695;
+  ctx.save(); ctx.fillStyle = color; ctx.strokeStyle = color;
+  ctx.translate(x - 330 * k, y - 151 * k); ctx.scale(k, k); ctx.translate(10, -9);
+  ctx.beginPath(); ctx.roundRect(320, 160, 110, 430, 55); ctx.fill();
+  ctx.save(); ctx.translate(563, 636); ctx.rotate(6 * Math.PI / 180); ctx.translate(-563, -636);
+  ctx.beginPath(); ctx.roundRect(508, 232, 110, 404, 55); ctx.fill(); ctx.restore();
+  ctx.beginPath(); ctx.moveTo(356, 468); ctx.lineTo(356, 820); ctx.lineTo(700, 644); ctx.closePath();
+  ctx.lineWidth = 72; ctx.lineJoin = 'round'; ctx.fill(); ctx.stroke();
+  ctx.restore();
+}
+function header(ctx, kicker) {
+  drawMark(ctx, M, M - 6, 52, C.g);
+  ctx.font = `600 30px ${F.body}`; ctx.fillStyle = C.fg; ctx.textBaseline = 'middle';
+  ctx.fillText(HANDLE, M + 48, M + 20);
+  if (kicker) { ctx.textAlign = 'right'; ctx.fillStyle = C.muted; ctx.font = `500 26px ${F.body}`; ctx.fillText(kicker, W - M, M + 20); ctx.textAlign = 'left'; }
+  ctx.textBaseline = 'alphabetic';
+}
+function heading(ctx, text, y) {
+  return textBlock(ctx, text, M, y, { font:headingFont(84), size:84, lh:1.18 });
+}
+function pill(ctx, text, x, y, { fill = C.g, color = C.ink, size = 30, padX = 22, h = 56, stroke = null } = {}) {   // 글자색 기본값 = 강조색 위 글자색
+  ctx.font = `700 ${size}px ${F.body}`;
+  const w = ctx.measureText(text).width + padX * 2;
+  ctx.beginPath(); ctx.roundRect(x, y, w, h, h / 2);
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 3; ctx.stroke(); }
+  ctx.fillStyle = color; ctx.textBaseline = 'middle'; ctx.fillText(text, x + padX, y + h / 2 + 1); ctx.textBaseline = 'alphabetic';
+  return w;
+}
+function drawCover(ctx, img, x, y, w, h) {         // object-fit: cover
+  const iw = img.width || img.videoWidth, ih = img.height || img.videoHeight;
+  const s = Math.max(w / iw, h / ih), dw = iw * s, dh = ih * s;
+  ctx.save(); ctx.beginPath(); ctx.roundRect(x, y, w, h, 18); ctx.clip();
+  ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh); ctx.restore();
+}
+function emptySlot(ctx, x, y, w, h, label) {
+  ctx.save(); ctx.setLineDash([14, 12]); ctx.strokeStyle = '#555'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.roundRect(x, y, w, h, 18); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle = '#777'; ctx.font = `500 28px ${F.body}`; ctx.textAlign = 'center';
+  ctx.fillText(label, x + w / 2, y + h / 2); ctx.textAlign = 'left'; ctx.restore();
+}
+
+// ───────── 슬라이드 종류별 그리기 ─────────
+const draw = {
+  cover(ctx, d, s) {
+    header(ctx, QUIET ? '' : 'MAKING OF');
+    const img = slotImages[`${current.slug}:cover`];
+    let y = 250;
+    if (img) {                                        // 선택: 대표 장면을 넣으면 위쪽에 깔림
+      drawCover(ctx, img, M, 190, W - 2 * M, 560);
+      const gr = ctx.createLinearGradient(0, 560, 0, 760); gr.addColorStop(0, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(0,0,0,1)');
+      ctx.fillStyle = gr; ctx.fillRect(M, 560, W - 2 * M, 200);
+      y = 640;
+    } else { y = 380; }
+    if (QUIET) pill(ctx, '제작 과정', M, y, { fill:null, stroke:C.g, color:C.fg }); else pill(ctx, '제작 과정', M, y);
+    let size = QUIET ? 136 : 168;                     // 제목은 두 줄 안에 들어가게 자동 축소
+    while (size > 88 && measureBlock(ctx, d.title, { font:headingFont(size), size, lh:1.08 }) > size * 1.08 * 2) size -= 8;
+    y = textBlock(ctx, d.title, M, y + 70, { font:headingFont(size), size, lh:1.08 });
+    y = textBlock(ctx, d.en, M, y + 24, { font:`500 38px ${F.body}`, size:38, color:C.muted });
+    let x = M, cy = Math.max(y + 60, 1040);
+    for (const m of d.meta) {
+      ctx.font = `700 30px ${F.body}`;
+      const w = ctx.measureText(m).width + 44;
+      if (x + w > W - M) { x = M; cy += 72; }
+      pill(ctx, m, x, cy, { fill:null, stroke:C.g, color:C.fg });
+      x += w + 14;
+    }
+    if (d.note) { ctx.font = `500 28px ${F.body}`; ctx.fillStyle = C.muted; ctx.fillText(d.note, M, H - M); }
+  },
+  summary(ctx, d) {
+    header(ctx, '한 줄 요약');
+    let y = heading(ctx, d.heading, 200) + 40;
+    const labelW = 150;
+    for (const r of d.rows) {
+      ctx.strokeStyle = C.line; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(M, y); ctx.lineTo(W - M, y); ctx.stroke();
+      ctx.font = `700 34px ${F.body}`; ctx.fillStyle = C.g; ctx.fillText(r.label, M, y + 58);
+      y = textBlock(ctx, r.text, M + labelW, y + 10, { font:`400 34px ${F.body}`, size:34, lh:1.45, maxW:W - 2 * M - labelW }) + 32;
+    }
+  },
+  prompt(ctx, d) {
+    header(ctx, '프롬프트');
+    const bx = M, bw = W - 2 * M, maxH = 760, pad = 40;
+    let size = 30;                                    // 상자(최대 760px) 안에 들어갈 때까지 글자 크기를 줄임
+    while (size > 20 && measureBlock(ctx, d.text, { font:`400 ${size}px ${F.mono}`, size, lh:1.5, maxW:bw - pad * 2 - 8 }) > maxH - pad * 2) size -= 1;
+    const bh = Math.min(maxH, measureBlock(ctx, d.text, { font:`400 ${size}px ${F.mono}`, size, lh:1.5, maxW:bw - pad * 2 - 8 }) + pad * 2); // 상자 높이를 글에 맞춤
+    const noteH = measureBlock(ctx, d.note, { font:`500 30px ${F.body}`, size:30 });
+    const top = 190 + Math.max(0, (H - M - 190 - (140 + bh + 20 + noteH)) / 2);  // 라벨+상자+설명을 세로 가운데로
+    ctx.font = `700 32px ${F.body}`; ctx.fillStyle = C.g; ctx.fillText(d.label, M, top + 50);
+    ctx.font = `500 26px ${F.body}`; ctx.fillStyle = C.muted; ctx.fillText(d.mode, M, top + 98);
+    const by = top + 140;
+    ctx.fillStyle = C.box; ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, 18); ctx.fill();
+    ctx.fillStyle = C.g; ctx.fillRect(bx, by + 24, 8, bh - 48);
+    textBlock(ctx, d.text, bx + pad + 8, by + pad - size * 0.3, { font:`400 ${size}px ${F.mono}`, size, lh:1.5, maxW:bw - pad * 2 - 8, color:'#E8E8E8' });
+    textBlock(ctx, d.note, M, by + bh + 20, { font:`500 30px ${F.body}`, size:30, color:C.muted });
+  },
+  steps(ctx, d) {
+    header(ctx, '파이프라인');
+    let y = heading(ctx, d.heading, 200) + 36;
+    const n = d.steps.length, avail = H - M - y;
+    const rowH = Math.min(140, avail / n), r = 30, cx = M + r;
+    d.steps.forEach((s, i) => {
+      const top = y + i * rowH;
+      if (i < n - 1) { ctx.strokeStyle = C.g; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(cx, top + 2 * r + 6); ctx.lineTo(cx, top + rowH - 6); ctx.stroke(); }
+      ctx.fillStyle = C.g; ctx.beginPath(); ctx.arc(cx, top + r, r, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = C.ink; ctx.font = `800 30px ${F.body}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(String(i + 1), cx, top + r + 1); ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+      ctx.font = `700 36px ${F.body}`; ctx.fillStyle = C.fg; ctx.fillText(s.name, M + 2 * r + 28, top + r + 12);
+      textBlock(ctx, s.detail, M + 2 * r + 28, top + r + 14, { font:`400 27px ${F.body}`, size:27, lh:1.35, color:C.muted, maxW:W - 2 * M - 2 * r - 28 });
+    });
+  },
+  compare(ctx, d, s) {
+    header(ctx, '전 → 후');
+    heading(ctx, d.heading, 190);
+    const gap = 32, pw = (W - 2 * M - gap) / 2, ph = pw * 16 / 9, top = 330;
+    [[s.slots[0], d.before, '전'], [s.slots[1], d.after, '후']].forEach(([key, label, tag], i) => {
+      const x = M + i * (pw + gap), img = slotImages[`${current.slug}:${key}`];
+      if (img) drawCover(ctx, img, x, top, pw, ph); else emptySlot(ctx, x, top, pw, ph, '아래에서 넣기');
+      pill(ctx, `${tag} · ${label}`, x + 16, top + 16, i ? { size:24, h:46, padX:16, fill:'#000000', color:C.g } : { size:24, h:46, padX:16, fill:'#FFFFFF', color:'#000000' }); // '후'는 검정 바탕 강조색 글씨 (비슷한 색 화면 위에서도 보이게)
+    });
+    textBlock(ctx, d.caption, M, top + ph + 24, { font:`500 32px ${F.body}`, size:32 });
+  },
+  notes(ctx, d) {
+    header(ctx, '');
+    const nf = QUIET ? { font:`500 44px ${F.body}`, size:44, lh:1.4, gap:52, sq:18, sqY:18, ty:13 } : { font:`600 54px ${F.body}`, size:54, lh:1.3, gap:64, sq:22, sqY:22, ty:16 };   // 차분한 작품은 작은 글씨
+    const listH = d.lines.reduce((h, l) => h + measureBlock(ctx, l, { font:nf.font, size:nf.size, lh:nf.lh, maxW:W - 2 * M - 52 }) + nf.gap, 0);
+    const headH = measureBlock(ctx, d.heading, { font:headingFont(84), size:84, lh:1.18 });
+    const top = 190 + Math.max(0, (H - M - 190 - (headH + 70 + listH)) / 2);   // 제목+목록을 세로 가운데로
+    let y = heading(ctx, d.heading, top) + 70;
+    for (const l of d.lines) {
+      ctx.fillStyle = C.g; ctx.fillRect(M, y + nf.sqY, nf.sq, nf.sq);
+      y = textBlock(ctx, l, M + 52, y - nf.ty, { font:nf.font, size:nf.size, lh:nf.lh, maxW:W - 2 * M - 52 }) + nf.gap;
+    }
+  },
+  scene(ctx, d, s) {                                  // 장면: 설명 + 결과 프레임(9:16) + 프롬프트 원문
+    header(ctx, d.kicker);
+    let y = textBlock(ctx, d.label, M, 170, { font:headingFont(64), size:64, lh:1.2 });
+    y = textBlock(ctx, d.text, M, y + 8, { font:`500 34px ${F.body}`, size:34, lh:1.45, color:'#D6D6D6' });
+    const img = slotImages[`${current.slug}:${s.slots[0]}`];
+    const top = Math.max(y + 40, 400);
+    if (d.prompt) {
+      const fw = 400, fh = fw * 16 / 9;
+      if (img) drawCover(ctx, img, M, top, fw, fh); else emptySlot(ctx, M, top, fw, fh, '아래에서 넣기');
+      const bx = M + fw + 32, bw = W - M - bx, pad = 30;
+      ctx.fillStyle = C.box; ctx.beginPath(); ctx.roundRect(bx, top, bw, fh, 18); ctx.fill();
+      ctx.fillStyle = C.g; ctx.fillRect(bx, top + 24, 6, fh - 48);
+      ctx.font = `600 24px ${F.body}`; ctx.fillStyle = C.muted; ctx.fillText('프롬프트 (영어 원문)', bx + pad + 6, top + pad + 22);
+      const tw = bw - pad * 2 - 6, avail = fh - pad * 2 - 56;
+      let size = 25;                                  // 상자 안에 들어갈 때까지 줄임
+      while (size > 15 && measureBlock(ctx, d.prompt, { font:`400 ${size}px ${F.mono}`, size, lh:1.5, maxW:tw }) > avail) size -= 1;
+      textBlock(ctx, d.prompt, bx + pad + 6, top + pad + 46, { font:`400 ${size}px ${F.mono}`, size, lh:1.5, maxW:tw, color:'#E8E8E8' });
+    } else {
+      const fw = 470, fh = fw * 16 / 9, x = (W - fw) / 2;
+      if (img) drawCover(ctx, img, x, top, fw, fh); else emptySlot(ctx, x, top, fw, fh, '아래에서 넣기');
+    }
+  },
+  end(ctx, d) {
+    if (d.quiet) {                                    // 차분한 작품: 가운데 마무리 문장 + 영어 한 줄 + 작은 마크·핸들
+      ctx.textAlign = 'center';
+      ctx.font = `600 58px ${F.body}`;
+      const lines = wrap(ctx, d.title, 820), lh = 58 * 1.45;
+      let y = H / 2 - (lines.length * lh) / 2 - 20;
+      ctx.fillStyle = C.fg; for (const l of lines) { y += lh; ctx.fillText(l, W / 2, y); }
+      if (d.en) { ctx.font = `500 32px ${F.body}`; ctx.fillStyle = C.muted; ctx.fillText(d.en, W / 2, y + 70); }
+      drawMark(ctx, W / 2 - 22, H - M - 120, 64, C.g);
+      ctx.font = `500 28px ${F.body}`; ctx.fillStyle = C.muted; ctx.fillText('@' + HANDLE, W / 2, H - M);
+      ctx.textAlign = 'left';
+      return;
+    }
+    drawMark(ctx, (W - 180) / 2 - 10, 250, 300, C.g);
+    ctx.textAlign = 'center';
+    let y = 640;
+    ctx.font = headingFont(76); ctx.fillStyle = C.fg;
+    for (const l of d.title.split('\n')) { y += 92; ctx.fillText(l, W / 2, y); }
+    ctx.font = `500 38px ${F.body}`; ctx.fillStyle = C.muted; ctx.fillText(d.en, W / 2, y + 70);
+    ctx.font = `700 40px ${F.body}`; ctx.fillStyle = C.g; ctx.fillText(d.cta, W / 2, y + 170);
+    ctx.font = `600 34px ${F.body}`; ctx.fillStyle = C.fg; ctx.fillText('@' + HANDLE, W / 2, H - M);
+    ctx.textAlign = 'left';
+  }
+};
+
+function render(canvas, s) {
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+  draw[s.kind](ctx, s.data, s);
+}
+function isComplete(s) {
+  return !s.required || s.slots.every(k => slotImages[`${current.slug}:${k}`]);
+}
+
+// ───────── 이미지/영상 슬롯 ─────────
+function openVideo(file) {                          // 영상 파일을 열고 첫 프레임이 준비될 때까지 기다림
+  return new Promise((res, rej) => {
+    const v = document.createElement('video');
+    v.muted = true; v.playsInline = true; v.preload = 'auto';
+    v.addEventListener('loadeddata', () => res(v), { once:true });
+    v.addEventListener('error', () => rej(new Error('영상을 열 수 없어요')), { once:true });
+    v.src = URL.createObjectURL(file);
+  });
+}
+function captureAt(v, time) {                       // 지정한 초로 이동해 그 프레임을 캔버스로 복사
+  const target = Math.min(Math.max(0, time), v.duration - 0.05);
+  const grab = () => { const c = document.createElement('canvas'); c.width = v.videoWidth; c.height = v.videoHeight; c.getContext('2d').drawImage(v, 0, 0); return c; };
+  if (Math.abs(v.currentTime - target) < 0.001) return Promise.resolve(grab());   // 같은 위치면 seeked가 안 올 수 있음
+  return new Promise(res => { v.addEventListener('seeked', () => res(grab()), { once:true }); v.currentTime = target; });
+}
+function loadSlot(key, file, time, onDone) {
+  if (file.type.startsWith('video/')) {             // 영상이면 지정한 초의 프레임을 잡는다
+    openVideo(file).then(async v => { slotImages[key] = await captureAt(v, time); slotImages[key + ':video'] = v; onDone(); })
+      .catch(err => { $('status').textContent = err.message; });
+  } else {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => { slotImages[key] = img; delete slotImages[key + ':video']; onDone(); };
+    img.src = url;
+  }
+}
+function slotLabel(key) {
+  if (key === 'cover') return '대표 장면 (선택) — 이미지 또는 영상';
+  if (key.startsWith('scene')) return '결과 프레임 — 이미지 또는 영상';
+  return key.endsWith('before') ? '전 — 이미지 또는 영상' : '후 — 이미지 또는 영상';
+}
+
+// ───────── 화면 구성 ─────────
+const $ = id => document.getElementById(id);
+function fileName(i, s) { return `${current.slug}_${String(i + 1).padStart(2, '0')}_${s.kind}.png`; }
+
+function buildUI() {
+  const box = $('slides'); box.innerHTML = '';
+  slides.forEach((s, i) => {
+    const card = document.createElement('section'); card.className = 'card';
+    card.setAttribute('aria-label', `${i + 1}번 슬라이드: ${s.name}`);
+    const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    cv.setAttribute('role', 'img'); cv.setAttribute('aria-label', `${s.name} 미리보기`);
+    s.canvas = cv; render(cv, s);
+    const title = document.createElement('div'); title.className = 'row';
+    title.innerHTML = `<span class="name">${i + 1}. ${s.name}</span>`;
+    const save = document.createElement('button'); save.textContent = 'PNG 저장';
+    save.addEventListener('click', () => download(cv, fileName(i, s)));
+    s.saveBtn = save; save.disabled = !isComplete(s);
+    title.appendChild(save);
+    card.append(cv, title);
+    for (const key of (s.slots || [])) {
+      const full = `${current.slug}:${key}`;
+      const slot = document.createElement('div'); slot.className = 'slot';
+      const id = `f-${i}-${key}`;
+      slot.innerHTML = `<span class="hint">${slotLabel(key)}</span>
+        <div class="row"><label class="btn">파일 선택<input id="${id}" type="file" accept="image/*,video/*"></label>
+        <label class="hint">영상이면 몇 초 <input type="number" min="0" step="0.1" value="${s.times?.[key] ?? 0}" aria-label="프레임 시각(초)"></label></div>`;
+      const fileIn = slot.querySelector('input[type=file]'), timeIn = slot.querySelector('input[type=number]');
+      const redraw = () => { render(cv, s); s.saveBtn.disabled = !isComplete(s); };
+      fileIn.addEventListener('change', () => { if (fileIn.files[0]) loadSlot(full, fileIn.files[0], Number(timeIn.value), redraw); });
+      timeIn.addEventListener('change', async () => { const v = slotImages[full + ':video']; if (v) { slotImages[full] = await captureAt(v, Number(timeIn.value)); redraw(); } });
+      card.appendChild(slot);
+    }
+    if (s.required) { const h = document.createElement('div'); h.className = 'hint'; h.textContent = s.kind === 'scene' ? '프레임을 넣어야 저장할 수 있어요 (위의 "완성본 영상 한 번에 넣기"로도 채워짐).' : '전·후 두 칸을 모두 넣어야 저장할 수 있어요.'; card.appendChild(h); }
+    box.appendChild(card);
+  });
+}
+function download(canvas, name) {
+  canvas.toBlob(b => { const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }, 'image/png');
+}
+async function ensureFonts(w) {                       // 캔버스는 글꼴이 로드된 뒤에 그려야 함 (한글 subset 포함)
+  const sample = JSON.stringify(w) + HANDLE + '제작 과정 한 줄 요약 프롬프트 파이프라인 전 후 다음 작품도 올립니다 협업 문의 DM 생성은 AI, 편집은 코드 컷마다 따로 쓰고 이어지는 앞 마지막 프레임을 첨부해 연결 아래에서 넣기 MAKING OF 0123456789 장면 프롬프트 영어 원문 결과 프레임 마무리';
+  await Promise.all([
+    document.fonts.load(`84px "Black Han Sans"`, sample),
+    document.fonts.load(`400 30px "Pretendard"`, sample), document.fonts.load(`500 30px "Pretendard"`, sample),
+    document.fonts.load(`600 30px "Pretendard"`, sample), document.fonts.load(`700 30px "Pretendard"`, sample),
+    document.fonts.load(`800 30px "Pretendard"`, sample),
+    document.fonts.load(`400 30px "JetBrains Mono"`, sample)
+  ]).catch(() => {});
+}
+async function selectWork(i) {
+  current = works[i];
+  C.g = isHex(current.accent) ? current.accent : BRAND;                       // 작품 색 (없으면 브랜드 코랄)
+  C.ink = contrast(C.g, '#000000') >= contrast(C.g, '#FFFFFF') ? '#000000' : '#FFFFFF';
+  QUIET = current.tone === 'quiet';
+  $('workJson').value = JSON.stringify(current, null, 2);
+  await ensureFonts(current);
+  slides = slidesFromWork(current);
+  buildUI();
+  $('status').textContent = `${slides.length}장${slides.length > 8 ? ' · 인스타 캐러셀 규칙(5~8장)보다 많아요' : ''} · 빈 칸을 채우면 저장 버튼이 켜져요`;
+}
+function setWorks(list) {
+  works = list;
+  $('workSelect').innerHTML = works.map((w, i) => `<option value="${i}">${t(w.title)}</option>`).join('');
+  return selectWork(0);
+}
+
+$('workSelect').addEventListener('change', e => selectWork(Number(e.target.value)));
+$('worksFile').addEventListener('change', async e => {
+  const f = e.target.files[0]; if (!f) return;
+  try { await setWorks(JSON.parse(await f.text()).works); } catch (err) { $('status').textContent = 'works.json을 읽지 못했어요: ' + err.message; }
+});
+$('redraw').addEventListener('click', async () => {
+  try { const w = JSON.parse($('workJson').value); works[$('workSelect').selectedIndex] = w; await selectWork($('workSelect').selectedIndex); }
+  catch (err) { $('status').textContent = 'JSON 형식 오류: ' + err.message; }
+});
+$('masterVideo').addEventListener('change', async e => {     // 표지·장면 칸을 works.json의 시각대로 한 번에 채움
+  const f = e.target.files[0]; if (!f) return;
+  window.hm.masterDone = false;
+  try {
+    const v = await openVideo(f);
+    let n = 0;
+    for (const s of slides) for (const key of (s.slots || [])) {
+      if (s.times?.[key] === undefined) continue;
+      const full = `${current.slug}:${key}`;
+      slotImages[full] = await captureAt(v, s.times[key]); slotImages[full + ':video'] = v; n++;
+    }
+    for (const s of slides) { render(s.canvas, s); s.saveBtn.disabled = !isComplete(s); }
+    $('status').textContent = `프레임 ${n}개를 채웠어요 (영상 ${v.duration.toFixed(1)}초)`;
+  } catch (err) { $('status').textContent = err.message; }
+  window.hm.masterDone = true;
+});
+$('saveAll').addEventListener('click', async () => {
+  const ready = slides.map((s, i) => [s, i]).filter(([s]) => isComplete(s));
+  for (const [s, i] of ready) { download(s.canvas, fileName(i, s)); await new Promise(r => setTimeout(r, 400)); }
+  $('status').textContent = `${ready.length}장 저장 (전후 비교가 비어 있는 슬라이드는 건너뜀)`;
+});
+
+// 외부(자동 렌더링 스크립트)에서 쓰는 진입점
+window.hm = {
+  ready: null,
+  masterDone: false,
+  exportAll: () => slides.filter(isComplete).map(s => ({ name: fileName(slides.indexOf(s), s), data: s.canvas.toDataURL('image/png') })),
+  redraw: async () => { await selectWork($('workSelect').selectedIndex || 0); }
+};
+window.hm.ready = EMBEDDED ? setWorks(EMBEDDED.works) : Promise.resolve($('status').textContent = '위에서 works.json을 불러오세요');
+</script>
+</body>
+</html>
