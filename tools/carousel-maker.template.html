@@ -195,7 +195,8 @@ const draw = {
     } else { y = 380; }
     if (QUIET) pill(ctx, '제작 과정', M, y, { fill:null, stroke:C.g, color:C.fg }); else pill(ctx, '제작 과정', M, y);
     let size = QUIET ? 136 : 168;                     // 제목은 두 줄 안에 들어가게 자동 축소
-    while (size > 88 && measureBlock(ctx, d.title, { font:headingFont(size), size, lh:1.08 }) > size * 1.08 * 2) size -= 8;
+    const longestWord = () => { ctx.font = headingFont(size); return Math.max(...d.title.split(/[\s\n]+/).map(s => ctx.measureText(s).width)); };
+    while (size > 88 && (measureBlock(ctx, d.title, { font:headingFont(size), size, lh:1.08 }) > size * 1.08 * 2 || longestWord() > W - 2 * M)) size -= 8;   // 한 단어가 줄 끝에서 잘리지 않게 (변경: 예: 다녀오겠습니 / 다)
     y = textBlock(ctx, d.title, M, y + 70, { font:headingFont(size), size, lh:1.08 });
     y = textBlock(ctx, d.en, M, y + 24, { font:`500 38px ${F.body}`, size:38, color:C.muted });
     let rows = 1, rx = M;                             // 알약이 몇 줄인지 먼저 세어, 맨 아래 출품 문구와 겹치지 않게 시작 높이를 올림 (변경)
