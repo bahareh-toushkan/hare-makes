@@ -3,7 +3,7 @@
     {
       "slug": "guest-from-mars",
       "date": "2026-10",
-      "durationSec": 54,
+      "durationSec": 59,
       "aspect": "16:9",
       "shots": 7,
       "accent": "#8FD3FF",
@@ -16,8 +16,8 @@
         "en": "Entry — 6th Byeolbyeol Hwaseong Awards, AI CF"
       },
       "logline": {
-        "ko": "'더 큰 화성'을 찾으러 지구의 화성특례시에 온 화성(Mars) 탐사 로봇. 크기를 재려 할 때마다 일지에 남는 건 사람들의 환대다.",
-        "en": "A Mars rover lands in Hwaseong, Korea, to find “a bigger Hwaseong.” Every time it tries to measure size, what ends up in its log is people's welcome."
+        "ko": "'더 큰 화성'을 찾으라는 임무를 받은 화성(Mars) 탐사 로봇 ROV-01. 인구 0명의 화성에서 출발해 인구 100만이 넘는 화성특례시를 탐사하며, 크기 대신 사람들의 환대를 기록한다.",
+        "en": "Mars rover ROV-01 is sent to find “a bigger Hwaseong.” It leaves a planet of zero people for a Korean city of over a million, and what it logs is not size but people's welcome."
       },
       "tools": {
         "generate": [
@@ -26,18 +26,21 @@
           "Google AI Studio TTS (Puck)"
         ],
         "edit": [
+          "Claude",
           "Python",
           "Pillow",
           "NumPy",
-          "FFmpeg"
+          "SciPy",
+          "FFmpeg",
+          "FluidSynth"
         ]
       },
       "links": {
         "instagram": "",
-        "youtube": "https://youtu.be/cm8cNDMbFkM"
+        "youtube": ""
       },
       "media": {
-        "video": "",
+        "video": "media/guest-from-mars/video.mp4",
         "poster": "media/guest-from-mars/poster.jpg",
         "og": "media/guest-from-mars/og.jpg"
       },
@@ -48,8 +51,8 @@
             "en": "Concept"
           },
           "text": {
-            "ko": "슬로건 '모두의 행복, 더 큰 화성'의 '더 큰'을 문자 그대로 받아들인 탐사 로봇의 일지",
-            "en": "A rover that takes the city slogan's “bigger Hwaseong” literally, told as its exploration log"
+            "ko": "슬로건 '모두의 행복, 더 큰 화성'의 '더 큰'을 문자 그대로 받아들인 탐사 로봇의 일지. 인구 스캔이 'POPULATION 0'에서 '1,000,000+'로 올라감",
+            "en": "A rover takes the city slogan's “bigger Hwaseong” literally; its population scan climbs from 0 to 1,000,000+"
           }
         },
         {
@@ -58,7 +61,7 @@
             "en": "Character"
           },
           "text": {
-            "ko": "Gemini 이미지로 로봇 레퍼런스 1장을 만들고, 7장면 모두 그 이미지에서 이미지→영상",
+            "ko": "Gemini 이미지로 로봇 기준 이미지 1장을 만들고, 7장면 모두 그 이미지에서 이미지→영상",
             "en": "One reference image of the robot made with Gemini; all seven scenes animated from that image"
           }
         },
@@ -68,8 +71,8 @@
             "en": "Scenes"
           },
           "text": {
-            "ko": "Veo 3.8 Flash · 16:9 · 7장면을 장면당 6.5초로 편집",
-            "en": "Veo 3.8 Flash · 16:9 · seven scenes cut to 6.5 s each"
+            "ko": "Veo 3.8 Flash · 16:9 · 장면마다 여러 번 생성해 선별, 7장면(5.5~13초)",
+            "en": "Veo 3.8 Flash · 16:9 · several takes per scene, seven scenes of 5.5–13 s"
           }
         },
         {
@@ -78,8 +81,8 @@
             "en": "Graphics"
           },
           "text": {
-            "ko": "장면마다 탐사 로그 HUD(지명 타자 효과 · 영문 부제)와 일지 자막을 코드로 합성",
-            "en": "An exploration-log HUD (typed place name, English subtitle) and log captions rendered in code for every scene"
+            "ko": "탐사 로그 HUD, 인구 스캔, '72시간 후 귀환' 카운트다운이 마지막에 CANCELLED로 회수되는 미션 패널",
+            "en": "Exploration-log HUD, population scan, and a 72-hour return countdown that ends as CANCELLED"
           }
         },
         {
@@ -88,8 +91,8 @@
             "en": "Sound"
           },
           "text": {
-            "ko": "장면별 환경음을 코드로 합성해 TTS 내레이션과 믹스, 효과음 · 음악 일부는 Veo 생성음",
-            "en": "Per-scene ambience synthesized in code and mixed with TTS narration; some effects and music are Veo-generated"
+            "ko": "배경음악은 코드로 음표를 배치해 FluidSynth로 렌더링한 자체 작곡, 현장음은 Veo 생성 오디오와 합성 환경음",
+            "en": "Original score written as code and rendered with FluidSynth; ambience from Veo audio plus synthesized beds"
           }
         }
       ],
@@ -110,7 +113,7 @@
             "en": "Character"
           },
           "detail": {
-            "ko": "Gemini 이미지 · 레퍼런스 1장 (흰 조약돌 몸 · 파란 눈 하나 · 바퀴 6개)",
+            "ko": "Gemini 이미지 · 기준 이미지 1장 (흰 조약돌 몸 · 파란 눈 하나 · 바퀴 6개)",
             "en": "Gemini image · one reference (white pebble body, one blue eye, six wheels)"
           }
         },
@@ -120,8 +123,8 @@
             "en": "Generate"
           },
           "detail": {
-            "ko": "Veo 3.8 Flash · 이미지 → 영상 · 16:9 · 장면당 8초",
-            "en": "Veo 3.8 Flash · image → video · 16:9 · 8 s per scene"
+            "ko": "Veo 3.8 Flash · 이미지 → 영상 · 16:9 · 장면별 여러 번 생성 후 선별",
+            "en": "Veo 3.8 Flash · image → video · 16:9 · several takes per scene"
           }
         },
         {
@@ -130,8 +133,8 @@
             "en": "Edit"
           },
           "detail": {
-            "ko": "Python · FFmpeg로 업스케일, 장면당 6.5초로 자르기",
-            "en": "Upscaled and cut to 6.5 s per scene with Python and FFmpeg"
+            "ko": "1280×720 원본을 크롭 후 1920×1080 업스케일, 마지막 장면은 약 0.77배속으로 13초",
+            "en": "1280×720 sources cropped and upscaled to 1920×1080; the last scene slowed to about 0.77× for 13 s"
           }
         },
         {
@@ -140,8 +143,8 @@
             "en": "HUD & captions"
           },
           "detail": {
-            "ko": "Pillow로 탐사 로그 HUD(타자 효과)와 일지 자막을 그려 합성 · Noto Sans CJK KR",
-            "en": "Exploration-log HUD with a typing effect and log captions drawn with Pillow · Noto Sans CJK KR"
+            "ko": "탐사 로그 · 인구 스캔 · 귀환 카운트다운 · 미션 패널, 하단 자막 · Noto Sans CJK KR",
+            "en": "Exploration log, population scan, return countdown, mission panel and captions · Noto Sans CJK KR"
           }
         },
         {
@@ -150,8 +153,8 @@
             "en": "Sound"
           },
           "detail": {
-            "ko": "장면별 환경음 합성 + Gemini TTS 내레이션(Puck) 로봇 음색 처리 + 믹스",
-            "en": "Synthesized ambience per scene + Gemini TTS narration (Puck) processed into a robot voice + mix"
+            "ko": "TTS 나레이션(Puck)을 로봇 음색으로 처리 + 자체 작곡 배경음악(FluidSynth) + 현장음, 사이드체인 믹싱",
+            "en": "Gemini TTS narration (Puck) processed into a robot voice + original score (FluidSynth) + ambience, sidechain mix"
           }
         },
         {
@@ -160,8 +163,8 @@
             "en": "Ending & export"
           },
           "detail": {
-            "ko": "화성특례시 시그니처와 슬로건, 출처 크레딧 · 1920×1080 MP4",
-            "en": "Hwaseong city signature and slogan, source credits · 1920×1080 MP4"
+            "ko": "화성특례시 시그니처와 슬로건, 출처 크레딧 · 1920×1080 · 24fps MP4",
+            "en": "Hwaseong city signature and slogan, source credits · 1920×1080 · 24 fps MP4"
           }
         }
       ],
@@ -189,7 +192,7 @@
             "ko": "탐사 일지 1일. 더 큰 화성을 찾으러 간다.",
             "en": "Exploration log, day 1. Off to find a bigger Hwaseong."
           },
-          "time": 3.25,
+          "time": 4.0,
           "frame": "media/guest-from-mars/scene-1.jpg"
         },
         {
@@ -201,7 +204,7 @@
             "ko": "도착. 바다가… 길을 열어 준다?",
             "en": "Arrived. The sea… opens a road for me?"
           },
-          "time": 9.75,
+          "time": 9.5,
           "frame": "media/guest-from-mars/scene-2.jpg"
         },
         {
@@ -213,7 +216,7 @@
             "ko": "따뜻한 생명체와 첫 접촉. 데이터 없음. 기분… 좋음.",
             "en": "First contact with a warm life form. No data. Feeling… good."
           },
-          "time": 16.25,
+          "time": 16.0,
           "frame": "media/guest-from-mars/scene-3.jpg"
         },
         {
@@ -225,7 +228,7 @@
             "ko": "장비 업데이트. 하트 스티커, 1개.",
             "en": "Equipment update. Heart sticker, 1."
           },
-          "time": 22.75,
+          "time": 23.0,
           "frame": "media/guest-from-mars/scene-4.jpg"
         },
         {
@@ -237,7 +240,7 @@
             "ko": "동족 발견. 여기선 로봇도 미래를 만든다.",
             "en": "Found my kind. Here, robots build the future too."
           },
-          "time": 29.25,
+          "time": 29.0,
           "frame": "media/guest-from-mars/scene-5.jpg"
         },
         {
@@ -249,7 +252,7 @@
             "ko": "서로 다른 생명체들이 한 테이블에 있다. 분석 불가. 그냥… 웃음.",
             "en": "Different life forms at one table. Cannot analyze. Just… smiling."
           },
-          "time": 35.75,
+          "time": 36.5,
           "frame": "media/guest-from-mars/scene-6.jpg"
         },
         {
@@ -258,10 +261,10 @@
             "en": "LOG 07 · Jeongok Harbor"
           },
           "text": {
-            "ko": "결론. 더 큰 화성은 크기가 아니라, 사람이었다. 귀환… 취소.",
-            "en": "Conclusion. A bigger Hwaseong wasn't about size. It was people. Return… cancelled."
+            "ko": "결론. 더 큰 화성… 찾았다. 계속 커지는 도시, 모두가 함께 웃는 곳. 귀환… 취소. 여기가… 집이다.",
+            "en": "Conclusion. A bigger Hwaseong… found. A city that keeps growing, a place where everyone smiles together. Return… cancelled. This is… home."
           },
-          "time": 42.25,
+          "time": 51.0,
           "frame": "media/guest-from-mars/scene-7.jpg"
         }
       ],
@@ -274,14 +277,14 @@
           },
           "lines": {
             "ko": [
-              "로봇 레퍼런스 이미지 1장을 모든 장면의 시작 이미지로",
-              "장면 프롬프트 앞에 'Animate this exact robot, keeping its design identical'을 넣어 디자인 고정",
-              "다른 모델(Argon)로 시험한 컷은 바퀴가 다리로 바뀌어 3.8 Flash로 통일"
+              "로봇 기준 이미지 1장을 모든 장면의 시작 이미지로",
+              "모든 영상 프롬프트 첫 줄에 캐릭터 고정 문구(SIX SMALL WHEELS … NO legs 등)를 반복",
+              "다른 모델(Argon)로 시험한 컷은 로봇에 다리가 생겨 전 장면을 3.8 Flash로 통일"
             ],
             "en": [
               "The same reference image starts every scene",
-              "Scene prompts open with “Animate this exact robot, keeping its design identical”",
-              "A test shot on another model (Argon) turned the wheels into legs, so every scene stayed on 3.8 Flash"
+              "Every video prompt opens with the same character lock (“SIX SMALL WHEELS … NO legs”)",
+              "A test on another model (Argon) gave the robot legs, so every scene stayed on 3.8 Flash"
             ]
           }
         },
@@ -292,14 +295,14 @@
           },
           "lines": {
             "ko": [
-              "프롬프트에 한국어 대사를 넣으면 Veo가 화면에 자막을 박아 넣어서, 대사 없이 'no subtitles'로 생성",
-              "내레이션은 Gemini TTS로 따로 만들어 로봇 음색으로 처리",
-              "생성 영상에 섞여 들어온 목소리는 쓰지 않고 장면별 환경음을 코드로 합성"
+              "영상 프롬프트에 대사 · 나레이션 · 화면 글자를 넣으면 깨진 한글 자막과 임의의 목소리가 생겨 모두 빼고 생성",
+              "나레이션은 Gemini TTS로 따로 만들어 로봇 음색으로 처리",
+              "자막 · 지명은 편집에서 합성"
             ],
             "en": [
-              "Korean dialogue in a prompt made Veo burn subtitles into the frame, so scenes were generated without dialogue and with “no subtitles”",
+              "Dialogue, narration or on-screen text in a video prompt produced broken Korean captions and random voices, so all of it was left out",
               "Narration made separately with Gemini TTS and processed into a robot voice",
-              "Voices that slipped into the generated audio were dropped; per-scene ambience synthesized in code"
+              "Captions and place names composited in the edit"
             ]
           }
         },
@@ -312,13 +315,15 @@
             "ko": [
               "화성특례시 브랜드마크 · 시그니처: 화성시 공식 상징 자료를 변형 없이 사용",
               "서체: Noto Sans CJK KR (SIL Open Font License)",
-              "효과음 · 음악 일부: Gemini(Veo) 생성",
+              "배경음악: 자체 작곡 · FluidSynth 렌더링 (TimGM6mb 사운드폰트, GPL)",
+              "현장음: Gemini(Veo) 생성 오디오와 합성 환경음 · 외부 음원 없음",
               "본 영상은 생성형 AI로 제작했습니다"
             ],
             "en": [
               "Hwaseong brand mark and signature: the city's official symbol files, unmodified",
               "Font: Noto Sans CJK KR (SIL Open Font License)",
-              "Some effects and music: generated by Gemini (Veo)",
+              "Music: original, rendered with FluidSynth (TimGM6mb soundfont, GPL)",
+              "Ambience: Gemini (Veo) audio and synthesized beds; no stock audio",
               "Made with generative AI"
             ]
           }
@@ -933,6 +938,238 @@
               "Pop · riser · chime · impact",
               "Mixed over the clips' native AI audio",
               "No stock audio · no dialogue"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "slug": "see-you-later",
+      "date": "2026-10-10",
+      "durationSec": 18,
+      "aspect": "9:16",
+      "shots": 4,
+      "accent": "#E6C979",
+      "tone": "quiet",
+      "title": {
+        "ko": "다녀오겠습니다",
+        "en": "See You Later"
+      },
+      "status": {
+        "ko": "4.16생명안전비엔날레 생명안전 AI숏폼 공모전 출품작",
+        "en": "Entry — Life Safety AI Short-form Contest, 4.16 Life Safety Biennale"
+      },
+      "logline": {
+        "ko": "평범한 등굣길과 \"다녀오겠습니다\"라는 인사를 통해, 일상을 지키는 것이 우리 모두의 약속임을 담았습니다.",
+        "en": "An ordinary walk to school and a morning goodbye: keeping everyday life safe is a promise we all share."
+      },
+      "tools": {
+        "generate": [
+          "Seedance 2.5 (Higgsfield)"
+        ],
+        "edit": [
+          "ffmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "",
+        "youtube": ""
+      },
+      "media": {
+        "video": "media/see-you-later/video.mp4",
+        "poster": "media/see-you-later/poster.jpg",
+        "og": "media/see-you-later/og.jpg"
+      },
+      "closing": {
+        "ko": "매일 아침의 \"다녀오겠습니다\"가\n꼭 지켜지기를.",
+        "en": "May every morning's \"see you later\" be kept."
+      },
+      "coverTime": 8.5,
+      "highlights": [],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "기획",
+            "en": "Plan"
+          },
+          "detail": {
+            "ko": "일상 → 약속 → 기억 → 다짐, 4장면과 자막",
+            "en": "Everyday → promise → memory → pledge: four scenes and subtitles"
+          }
+        },
+        {
+          "name": {
+            "ko": "생성",
+            "en": "Generate"
+          },
+          "detail": {
+            "ko": "Seedance 2.5 · 장면별 5초 · 9:16 · 1080p · 소리 끔",
+            "en": "Seedance 2.5 · 5 s per scene · 9:16 · 1080p · sound off"
+          }
+        },
+        {
+          "name": {
+            "ko": "선별",
+            "en": "Select"
+          },
+          "detail": {
+            "ko": "분위기·인물·손 모양을 보고 컷 고르기",
+            "en": "Picked takes by mood, people and hands"
+          }
+        },
+        {
+          "name": {
+            "ko": "연결",
+            "en": "Join"
+          },
+          "detail": {
+            "ko": "0.5초 페이드, 시작 페이드인·끝 페이드아웃",
+            "en": "0.5 s crossfades, fade in and out"
+          }
+        },
+        {
+          "name": {
+            "ko": "자막",
+            "en": "Subtitles"
+          },
+          "detail": {
+            "ko": "본고딕 Bold, 리본 장면은 하늘 위에",
+            "en": "Noto Sans CJK Bold; over the sky in the ribbon scene"
+          }
+        },
+        {
+          "name": {
+            "ko": "출력",
+            "en": "Export"
+          },
+          "detail": {
+            "ko": "ffmpeg · 1080×1920 MP4 · 무음",
+            "en": "ffmpeg · 1080×1920 MP4 · silent"
+          }
+        }
+      ],
+      "featuredPrompt": 1,
+      "prompts": [
+        {
+          "label": {
+            "ko": "장면 2 — 현관 인사",
+            "en": "Scene 2 — goodbye at the door"
+          },
+          "mode": {
+            "ko": "텍스트 → 영상",
+            "en": "Text → video"
+          },
+          "text": "Inside a cozy Korean apartment entrance in the morning, a mother gently fixes her teenage child's backpack strap, the child in a school uniform smiles, waves goodbye and steps out the door, warm soft indoor light, close and tender moment, soft realistic cinematic style"
+        },
+        {
+          "label": {
+            "ko": "장면 3 — 노란 리본",
+            "en": "Scene 3 — yellow ribbons"
+          },
+          "mode": {
+            "ko": "텍스트 → 영상",
+            "en": "Text → video"
+          },
+          "text": "Many yellow ribbons tied along a seaside railing, gently moving in the wind, calm sea in the background at golden sunset, no people, slow smooth camera movement along the ribbons, quiet and respectful atmosphere, soft realistic cinematic style"
+        },
+        {
+          "label": {
+            "ko": "장면 4 — 맞잡은 손",
+            "en": "Scene 4 — joined hands"
+          },
+          "mode": {
+            "ko": "텍스트 → 영상",
+            "en": "Text → video"
+          },
+          "text": "Close-up of many hands of different ages, a child, a teenager, adults and an elderly person, gently joining together in a circle, small yellow ribbon pins on their sleeves, warm golden daylight, slow camera pulling back, hopeful and warm mood, soft realistic cinematic style"
+        }
+      ],
+      "scenes": [
+        {
+          "label": {
+            "ko": "장면 1 · 등굣길",
+            "en": "Scene 1 · The walk to school"
+          },
+          "text": {
+            "ko": "벚꽃 핀 골목을 함께 걷는 학생들. 평범한 하루에서 시작합니다.",
+            "en": "Students walking together down a street of cherry blossoms. It begins with an ordinary day."
+          },
+          "time": 3.0,
+          "frame": "media/see-you-later/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 2 · 현관",
+            "en": "Scene 2 · The doorway"
+          },
+          "text": {
+            "ko": "가방끈을 고쳐 주는 엄마, 손을 흔들며 나서는 아이.",
+            "en": "A mother fixes the backpack strap; the child waves and heads out."
+          },
+          "time": 6.0,
+          "prompt": 0,
+          "frame": "media/see-you-later/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 3 · 노란 리본",
+            "en": "Scene 3 · Yellow ribbons"
+          },
+          "text": {
+            "ko": "사람 없이, 바닷가 난간의 노란 리본만.",
+            "en": "No people, only yellow ribbons on a seaside railing."
+          },
+          "time": 12.0,
+          "prompt": 1,
+          "frame": "media/see-you-later/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 4 · 맞잡은 손",
+            "en": "Scene 4 · Joined hands"
+          },
+          "text": {
+            "ko": "여러 세대의 손이 하나로 모입니다.",
+            "en": "Hands from different generations come together."
+          },
+          "time": 16.5,
+          "prompt": 2,
+          "frame": "media/see-you-later/scene-4.jpg"
+        }
+      ],
+      "compare": [],
+      "notes": [
+        {
+          "heading": {
+            "ko": "편집",
+            "en": "Edit"
+          },
+          "lines": {
+            "ko": [
+              "5초씩 만든 4컷을 0.5초 페이드로 이음",
+              "자막은 얼굴을 가리지 않는 자리에, 리본 장면은 하늘 위",
+              "소리 없이 18초"
+            ],
+            "en": [
+              "Four 5-second shots joined with 0.5 s fades",
+              "Subtitles kept clear of faces; over the sky in the ribbon scene",
+              "Silent, 18 seconds"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "넣지 않은 것",
+            "en": "What I left out"
+          },
+          "lines": {
+            "ko": [
+              "사고 장면, 배, 물속 장면은 프롬프트에서 뺐습니다",
+              "참사를 재현하기보다 지켜져야 할 일상을 보여 주려 했습니다"
+            ],
+            "en": [
+              "No accident, ship or underwater scenes in any prompt",
+              "Showing the everyday worth protecting, not re-creating the tragedy"
             ]
           }
         }
