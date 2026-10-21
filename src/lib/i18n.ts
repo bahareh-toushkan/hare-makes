@@ -16,7 +16,7 @@ export function asset(path: string): string {
 }
 /** 절대 URL (canonical, OG, sitemap용) */
 export function absolute(path: string, site: URL | undefined): string {
-  return new URL(path, site ?? 'https://bahareh-toushkan.github.io').href;
+  return new URL(path, site ?? 'https://haremakes.com').href;
 }
 export function tr(v: L10n | undefined, lang: Lang): string {
   return v ? v[lang] || v.ko : '';
