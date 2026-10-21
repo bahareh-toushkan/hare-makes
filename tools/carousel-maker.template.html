@@ -198,7 +198,10 @@ const draw = {
     while (size > 88 && measureBlock(ctx, d.title, { font:headingFont(size), size, lh:1.08 }) > size * 1.08 * 2) size -= 8;
     y = textBlock(ctx, d.title, M, y + 70, { font:headingFont(size), size, lh:1.08 });
     y = textBlock(ctx, d.en, M, y + 24, { font:`500 38px ${F.body}`, size:38, color:C.muted });
-    let x = M, cy = Math.max(y + 60, 1040);
+    let rows = 1, rx = M;                             // 알약이 몇 줄인지 먼저 세어, 맨 아래 출품 문구와 겹치지 않게 시작 높이를 올림 (변경)
+    ctx.font = `700 30px ${F.body}`;
+    for (const m of d.meta) { const w = ctx.measureText(m).width + 44; if (rx + w > W - M) { rx = M; rows++; } rx += w + 14; }
+    let x = M, cy = Math.min(Math.max(y + 60, 1040), H - M - 70 - rows * 72);
     for (const m of d.meta) {
       ctx.font = `700 30px ${F.body}`;
       const w = ctx.measureText(m).width + 44;
@@ -290,8 +293,11 @@ const draw = {
       while (size > 15 && measureBlock(ctx, d.prompt, { font:`400 ${size}px ${F.mono}`, size, lh:1.5, maxW:tw }) > avail) size -= 1;
       textBlock(ctx, d.prompt, bx + pad + 6, top + pad + 46, { font:`400 ${size}px ${F.mono}`, size, lh:1.5, maxW:tw, color:'#E8E8E8' });
     } else {
-      const fw = 470, fh = fw * 16 / 9, x = (W - fw) / 2;
-      if (img) drawCover(ctx, img, x, top, fw, fh); else emptySlot(ctx, x, top, fw, fh, '아래에서 넣기');
+      const [aw, ah] = String(current.aspect || '9:16').split(':').map(Number);   // 가로 작품(16:9)은 프레임을 가로로 꽉 차게 (변경)
+      const landscape = aw > ah;
+      const fw = landscape ? W - 2 * M : 470, fh = landscape ? fw * ah / aw : fw * 16 / 9, x = (W - fw) / 2;
+      const fy = landscape ? Math.max(top, (H - fh) / 2 + 60) : top;                // 가로 프레임은 남는 높이의 가운데쯤
+      if (img) drawCover(ctx, img, x, fy, fw, fh); else emptySlot(ctx, x, fy, fw, fh, '아래에서 넣기');
     }
   },
   end(ctx, d) {
