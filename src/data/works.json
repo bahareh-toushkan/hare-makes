@@ -1,6 +1,379 @@
 {
   "works": [
     {
+      "slug": "sea-desert",
+      "date": "2026-10-22",
+      "durationSec": 29,
+      "aspect": "9:16",
+      "shots": 3,
+      "accent": "#7FE3C8",
+      "title": {
+        "ko": "바다에도 사막이 생깁니다",
+        "en": "Deserts Form in the Sea, Too"
+      },
+      "status": {
+        "ko": "2026 해양 생태 변화 대응 공모전 출품작 · 영상 부문",
+        "en": "Entry — 2026 Ocean Ecosystem Change Contest (video)"
+      },
+      "logline": {
+        "ko": "바다숲이던 바위 하나가 하얗게 변하고, 사람이 해조류를 다시 심어 숲이 돌아오기까지. 마지막 장면이 첫 장면으로 이어져 끝없이 반복되는 29초.",
+        "en": "One boulder goes from kelp forest to white barren, then back after people replant it: 29 seconds that loop into their own beginning."
+      },
+      "tools": {
+        "generate": [
+          "Gemini — image (Nano Banana)",
+          "Gemini — Veo",
+          "Google AI Studio TTS (Charon)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "FFmpeg",
+          "OpenCV"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/reel/Deyj-1xgRW3/",
+        "youtube": ""
+      },
+      "media": {
+        "video": "media/sea-desert/video.mp4",
+        "poster": "media/sea-desert/poster.jpg",
+        "og": "media/sea-desert/og.jpg"
+      },
+      "highlights": [
+        {
+          "label": {
+            "ko": "이미지",
+            "en": "Image"
+          },
+          "text": {
+            "ko": "Gemini 이미지로 바다숲 바위(A)를 만들고, 같은 채팅에서 구도를 지킨 채 하얀 바위(B) → 해조류 줄을 묶은 바위(C)로 편집",
+            "en": "Made the kelp-forest boulder (A) in Gemini image, then edited it in the same chat into the white boulder (B) and the replanted one (C), keeping the framing"
+          }
+        },
+        {
+          "label": {
+            "ko": "영상",
+            "en": "Video"
+          },
+          "text": {
+            "ko": "A · B · C를 각각 첫 프레임으로 넣어 Veo 10초 영상 3개 생성 — 갯녹음 진행 / 손으로 심기 / 다시 자람",
+            "en": "Three 10 s Veo clips, each starting from A, B or C — the barren spreading, hands replanting, the forest growing back"
+          }
+        },
+        {
+          "label": {
+            "ko": "내레이션",
+            "en": "Narration"
+          },
+          "text": {
+            "ko": "Google AI Studio 음성 생성 · 목소리 Charon · 대본 6줄, 숫자는 한글로 적어 오독 방지",
+            "en": "Google AI Studio speech · voice Charon · a six-line script with numbers spelled out in Korean"
+          }
+        },
+        {
+          "label": {
+            "ko": "편집",
+            "en": "Edit"
+          },
+          "text": {
+            "ko": "Claude와 Python · FFmpeg · OpenCV로 세 컷 색 통일, 마지막 장면이 첫 프레임으로 녹아드는 루프, 문장별 나레이션 배치와 자막, 물속 소리 낮게 깔기",
+            "en": "Color matched across the three clips, a loop that melts the last shot into the first frame, narration placed line by line with captions, and the underwater sound kept low — Claude with Python, FFmpeg and OpenCV"
+          }
+        },
+        {
+          "label": {
+            "ko": "검수",
+            "en": "Review"
+          },
+          "text": {
+            "ko": "자막 · 나레이션의 사실과 수치를 YTN 보도와 대조, 맞춤법 확인",
+            "en": "Checked every fact and figure against the YTN report, and the spelling"
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "기획",
+            "en": "Plan"
+          },
+          "detail": {
+            "ko": "같은 바위 · 같은 구도로 바다숲 → 갯녹음 → 다시 심기 → 바다숲, 끝이 처음으로 이어지는 루프",
+            "en": "One boulder, one framing: forest → barren → replanting → forest, ending where it began"
+          }
+        },
+        {
+          "name": {
+            "ko": "이미지 생성",
+            "en": "Generate image"
+          },
+          "detail": {
+            "ko": "Gemini 이미지 · 9:16 · A → B → C 순서로 편집",
+            "en": "Gemini image · 9:16 · edited A → B → C"
+          }
+        },
+        {
+          "name": {
+            "ko": "영상 생성",
+            "en": "Generate video"
+          },
+          "detail": {
+            "ko": "Gemini 앱 Veo · 이미지를 첫 프레임으로 · 10초 × 3",
+            "en": "Veo in the Gemini app · image as first frame · 10 s × 3"
+          }
+        },
+        {
+          "name": {
+            "ko": "내레이션",
+            "en": "Narration"
+          },
+          "detail": {
+            "ko": "AI Studio 음성 생성 · Charon · 다큐멘터리 내레이터 톤",
+            "en": "AI Studio speech · Charon · documentary-narrator tone"
+          }
+        },
+        {
+          "name": {
+            "ko": "편집",
+            "en": "Edit"
+          },
+          "detail": {
+            "ko": "Python · FFmpeg · 1080×1920 · 색 통일 · 루프 · 자막 · 소리 믹스",
+            "en": "Python · FFmpeg · 1080×1920 · color match, loop, captions, sound mix"
+          }
+        },
+        {
+          "name": {
+            "ko": "검수 · 출력",
+            "en": "Review & export"
+          },
+          "detail": {
+            "ko": "사실관계 · 출처 · 맞춤법 확인 · 29초 MP4",
+            "en": "Facts, sources and spelling checked · 29 s MP4"
+          }
+        }
+      ],
+      "featuredPrompt": 3,
+      "prompts": [
+        {
+          "label": {
+            "ko": "이미지 A — 바다숲 바위",
+            "en": "Image A — kelp-forest boulder"
+          },
+          "mode": {
+            "ko": "Gemini 이미지 생성 · 세로 9:16",
+            "en": "Gemini image · vertical 9:16"
+          },
+          "text": "Photorealistic underwater photo, vertical 9:16. A rocky reef in the Korean East Sea at about 5 m depth. One large rounded boulder sits in the lower center of the frame, covered with a dense forest of brown kelp swaying upward; a few small rockfish swim between the fronds. Soft sunbeams from the surface, teal-green water with warm golden highlights, fine floating particles. Camera level with the boulder, wide shot, natural documentary look. No people, no text, no logos."
+        },
+        {
+          "label": {
+            "ko": "이미지 B — 하얗게 변한 바위",
+            "en": "Image B — whitened boulder"
+          },
+          "mode": {
+            "ko": "Gemini 이미지 · A를 편집",
+            "en": "Gemini image · edit of A"
+          },
+          "text": "Edit this image. Keep the exact same camera angle, boulder shape, framing and lighting. Remove all the kelp and all the fish. The boulder is now bare and covered with a chalky white crust of coralline algae, with a few dark spiny sea urchins on it. The water looks emptier and slightly grayer. Photorealistic. No text."
+        },
+        {
+          "label": {
+            "ko": "이미지 C — 해조류 줄을 묶은 바위",
+            "en": "Image C — boulder with a seeded rope"
+          },
+          "mode": {
+            "ko": "Gemini 이미지 · B를 편집",
+            "en": "Gemini image · edit of B"
+          },
+          "text": "Edit this image. Keep everything exactly the same, including the sea urchins. Add a thick rope tied tightly around the middle of the boulder, lying flat against the rock surface (not arching above it), with small young brown kelp seedlings growing along the rope. Photorealistic. No people, no text."
+        },
+        {
+          "label": {
+            "ko": "영상 1 — 갯녹음",
+            "en": "Clip 1 — the barren spreads"
+          },
+          "mode": {
+            "ko": "Gemini 앱 Veo · A를 첫 프레임으로",
+            "en": "Veo in the Gemini app · A as first frame"
+          },
+          "text": "Use this image as the first frame. Vertical 9:16, 8 seconds. Slow, steady push-in toward the boulder. In a smooth time-lapse, the kelp fronds wither and disappear, the rockfish swim away, and the bare rock gradually turns chalky white as coralline algae spreads over it; dark sea urchins appear. Ends on a white, empty boulder. Photorealistic underwater documentary, natural light. No people, no text. Sound: soft underwater ambience fading to a low, empty hum."
+        },
+        {
+          "label": {
+            "ko": "영상 2 — 다시 심기",
+            "en": "Clip 2 — replanting"
+          },
+          "mode": {
+            "ko": "Gemini 앱 Veo · B를 첫 프레임으로",
+            "en": "Veo in the Gemini app · B as first frame"
+          },
+          "text": "Use this image as the first frame. Vertical 9:16, 8 seconds. Same camera angle, almost still. A diver's gloved hands enter from the right edge and carefully tie a short rope with young brown kelp seedlings onto the white boulder, then slowly pull back out of frame. Only hands and forearms are visible, no face. Photorealistic underwater documentary, soft sunbeams. No text. Sound: underwater ambience and gentle regulator bubbles."
+        },
+        {
+          "label": {
+            "ko": "영상 3 — 다시 자라는 숲",
+            "en": "Clip 3 — the forest returns"
+          },
+          "mode": {
+            "ko": "Gemini 앱 Veo · C를 첫 프레임으로",
+            "en": "Veo in the Gemini app · C as first frame"
+          },
+          "text": "Use this image as the first frame. Vertical 9:16, 8 seconds. Smooth time-lapse: the young kelp on the rope grows taller and spreads over the whole boulder, the white crust fades back to dark rock, and small rockfish return and swim between the swaying fronds. Slow pull-back to a wide shot with the boulder in the lower center of the frame, warm sunbeams, teal-green water. Photorealistic underwater documentary. No people, no text. Sound: underwater ambience growing brighter and fuller."
+        },
+        {
+          "label": {
+            "ko": "내레이션 지시문과 대본",
+            "en": "Narration direction and script"
+          },
+          "mode": {
+            "ko": "Google AI Studio 음성 생성 · Gemini 3.8 Flash TTS · Charon",
+            "en": "Google AI Studio speech · Gemini 3.8 Flash TTS · Charon"
+          },
+          "lang": "ko",
+          "text": "Read aloud in Korean, in a calm, warm nature-documentary narrator voice. Unhurried, with a clear pause (about one second) between each line:\n\n바다에도 사막이 생깁니다.\n해조류가 사라진 바위를 하얀 석회조류가 덮는 것, 갯녹음입니다.\n수온 상승과 성게의 과도한 증가가 원인으로 꼽힙니다.\n그래서 사람들이 해조류를 다시 심습니다.\n바다숲 열일곱 곳에서, 해조류 무게는 백삼십팔 퍼센트 늘었습니다.\n바다숲은, 다시 자랍니다."
+        }
+      ],
+      "scenes": [
+        {
+          "label": {
+            "ko": "장면 1 · 바다숲",
+            "en": "Scene 1 · Kelp forest"
+          },
+          "text": {
+            "ko": "바다에도 사막이 생깁니다. 시작은 해조류와 물고기가 사는 바위 하나.",
+            "en": "Deserts form in the sea, too. It starts with one boulder full of kelp and fish."
+          },
+          "time": 1.6,
+          "prompt": 0,
+          "frame": "media/sea-desert/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 2 · 갯녹음",
+            "en": "Scene 2 · The barren"
+          },
+          "text": {
+            "ko": "해조류가 사라진 바위를 하얀 석회조류가 덮는 것, 갯녹음.",
+            "en": "Kelp disappears and white coralline algae covers the rock: a sea barren."
+          },
+          "time": 7.0,
+          "prompt": 3,
+          "frame": "media/sea-desert/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 3 · 원인",
+            "en": "Scene 3 · Causes"
+          },
+          "text": {
+            "ko": "수온 상승과 성게의 과도한 증가가 원인으로 꼽힙니다.",
+            "en": "Rising water temperature and too many sea urchins are named as the main causes."
+          },
+          "time": 11.0,
+          "prompt": 1,
+          "frame": "media/sea-desert/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 4 · 다시 심기",
+            "en": "Scene 4 · Replanting"
+          },
+          "text": {
+            "ko": "그래서 사람들이 해조류를 다시 심습니다.",
+            "en": "So people plant seaweed again."
+          },
+          "time": 17.0,
+          "prompt": 4,
+          "frame": "media/sea-desert/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 5 · 숫자",
+            "en": "Scene 5 · The numbers"
+          },
+          "text": {
+            "ko": "최근 4년간 완료한 바다숲 17곳, 해조류 무게 138% 증가.",
+            "en": "17 sea forests completed in the last four years: seaweed weight up 138%."
+          },
+          "time": 24.0,
+          "prompt": 5,
+          "frame": "media/sea-desert/scene-5.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 6 · 루프",
+            "en": "Scene 6 · The loop"
+          },
+          "text": {
+            "ko": "바다숲은, 다시 자랍니다. 그리고 영상은 첫 장면으로 돌아갑니다.",
+            "en": "Sea forests grow back. And the video returns to its first frame."
+          },
+          "time": 26.5,
+          "frame": "media/sea-desert/scene-6.jpg"
+        }
+      ],
+      "compare": [],
+      "notes": [
+        {
+          "heading": {
+            "ko": "같은 바위를 지키는 법",
+            "en": "Keeping the same boulder"
+          },
+          "lines": {
+            "ko": [
+              "이미지 A를 만든 채팅에서 이어서 편집 — B와 C도 바위 모양과 구도가 그대로",
+              "각 이미지를 Veo 영상의 첫 프레임으로 넣어 세 컷이 같은 자리에서 시작",
+              "마지막 1.2초는 영상 3이 이미지 A로 녹아들어, 반복 재생하면 끊김 없이 처음으로 돌아감"
+            ],
+            "en": [
+              "Edited B and C in the same chat that made image A, so the boulder and framing stay put",
+              "Each image became the first frame of a Veo clip, so all three shots start from the same place",
+              "In the last 1.2 s clip 3 melts into image A, so the video loops back without a cut"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "수치와 출처",
+            "en": "Figures and sources"
+          },
+          "lines": {
+            "ko": [
+              "갯녹음 설명 · 원인(수온 상승, 성게의 과도한 증가) — YTN 보도(2026.8.30)",
+              "\"최근 4년간 완료한 17개 바다숲 … 해조류 무게는 138% 증가\" — 같은 보도, 해양수산부 장관 발언",
+              "숫자는 내레이션에서 한글로 적어 TTS가 잘못 읽지 않게 함"
+            ],
+            "en": [
+              "What a sea barren is and its causes (warming water, too many urchins) — YTN, 2026-08-30",
+              "“17 sea forests completed in the last four years … seaweed weight up 138%” — same report, Minister of Oceans and Fisheries",
+              "Numbers spelled out in Korean in the script so the TTS reads them right"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "외부 소스",
+            "en": "Outside sources"
+          },
+          "lines": {
+            "ko": [
+              "서체: Pretendard (SIL Open Font License 1.1)",
+              "소리: Veo가 만든 물속 소리 + AI Studio TTS 내레이션, 외부 음원 없음",
+              "스톡 영상 · 사진 · 로고, 실존 인물 없음 (손은 AI로 만든 잠수부 손)"
+            ],
+            "en": [
+              "Font: Pretendard (SIL Open Font License 1.1)",
+              "Sound: Veo’s underwater ambience plus AI Studio TTS narration, no stock audio",
+              "No stock footage, photos, logos or real people (the diver’s hands are AI-generated)"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "guest-from-mars",
       "date": "2026-10",
       "durationSec": 59,
