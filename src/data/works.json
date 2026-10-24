@@ -1,6 +1,514 @@
 {
   "works": [
     {
+      "slug": "live-happily",
+      "date": "2026-10-24",
+      "durationSec": 60,
+      "aspect": "16:9",
+      "shots": 10,
+      "accent": "#F6FF3C",
+      "title": {
+        "ko": "행복하게 살기",
+        "en": "Live Happily"
+      },
+      "status": {
+        "ko": "제7회 하이라이트TV AI 공모전 출품작 · 영상광고(16:9) 부문",
+        "en": "Entry — 7th highlightTV AI Contest (16:9 video ad)"
+      },
+      "logline": {
+        "ko": "스무 살, 다이어리 맨 윗줄에 '행복하게 살기'라고 적었다. 대학 합격, 장학금, 다이어트, 첫 월급, 졸업… 하나씩 이룰 때마다 형광펜을 그었지만, 기쁨은 잠깐이었고 목록은 끝없이 길어졌다. 다시 맨 윗줄로 돌아와서야 알았다. 그 모든 순간, 이미 행복하게 살고 있었다는 걸.",
+        "en": "At twenty, she wrote “Live happily” at the top of her diary. University, a scholarship, getting fit, a first paycheck, graduation — she highlighted each one, but the joy never lasted and the list only grew. Back at the top line, she finally sees it: she had been living happily all along."
+      },
+      "tools": {
+        "generate": [
+          "Gemini — image",
+          "Gemini — video (Veo)",
+          "Google Flow — Veo 3.1 Fast",
+          "vidIQ — Gemini Omni Flash",
+          "Gemini TTS (Leda)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "OpenCV",
+          "NumPy",
+          "SciPy",
+          "Pillow",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/reel/De3VohWgsoI/",
+        "youtube": "https://youtu.be/tV2UsSKdYp0"
+      },
+      "media": {
+        "video": "media/live-happily/video.mp4",
+        "poster": "media/live-happily/poster.jpg",
+        "og": "media/live-happily/og.jpg"
+      },
+      "coverTime": 50.5,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "'행복하게 살기' 아래로 늘어나는 목록. 이룰 때마다 형광펜을 긋지만 기쁨은 잠깐이고, 마지막엔 맨 윗줄로 돌아온다",
+            "en": "A list growing under “Live happily”: every goal gets highlighted, the joy fades, and the story ends back at the top line"
+          }
+        },
+        {
+          "label": {
+            "ko": "반복 구조",
+            "en": "Loop"
+          },
+          "text": {
+            "ko": "달려 들어와 → 한 줄 쓰고 → 이루고 → 웃음이 사라지는 루프를 네 번, 갈수록 빠르게",
+            "en": "Run in → write a line → achieve it → the smile fades, four times, faster each round"
+          }
+        },
+        {
+          "label": {
+            "ko": "캐릭터",
+            "en": "Character"
+          },
+          "text": {
+            "ko": "본인 사진으로 Gemini 캐릭터 시트를 만들고, 운동복·졸업 가운 버전까지 같은 채팅에서 생성",
+            "en": "A character sheet made from my own photos in Gemini, plus workout and graduation-gown versions in the same chat"
+          }
+        },
+        {
+          "label": {
+            "ko": "로고",
+            "en": "Logo"
+          },
+          "text": {
+            "ko": "하이라이트TV 로고를 형광펜 몸통에 인쇄된 것처럼 합성, 펜이 움직여도 프레임마다 위치·각도를 따라감",
+            "en": "The highlightTV logo printed on the highlighter itself, tracked frame by frame as the pen moves"
+          }
+        },
+        {
+          "label": {
+            "ko": "소리",
+            "en": "Sound"
+          },
+          "text": {
+            "ko": "대사와 한숨은 Gemini TTS 한 목소리(Leda)로, 피아노와 알림음은 코드로 합성",
+            "en": "Lines and sighs in one Gemini TTS voice (Leda); piano and notification sounds synthesized in code"
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "캐릭터",
+            "en": "Character"
+          },
+          "detail": {
+            "ko": "Gemini 이미지 · 본인 사진 여러 장 → 3D 캐릭터 시트(후드티) + 운동복 · 졸업 가운 버전",
+            "en": "Gemini image · several of my photos → 3D character sheet (hoodie) + workout and graduation-gown versions"
+          }
+        },
+        {
+          "name": {
+            "ko": "다이어리",
+            "en": "Diary"
+          },
+          "detail": {
+            "ko": "Gemini 이미지 · 빈 노트에 '행복하게 살기:' → 같은 채팅에서 한 줄씩 추가하고 형광펜 칠한 6장 + 끝없이 긴 목록 1장",
+            "en": "Gemini image · a blank page with “행복하게 살기:” → six edits in the same chat, one line added and highlighted each time + one endlessly long list"
+          }
+        },
+        {
+          "name": {
+            "ko": "장면 생성",
+            "en": "Generate"
+          },
+          "detail": {
+            "ko": "합격: vidIQ(Gemini Omni Flash) · 장학금 · 다이어트 · 월급 · 졸업: Flow Veo 3.1 Fast(캐릭터 시트 참조) · 형광펜: Flow Veo 3.1 Fast(다이어리 이미지를 첫 프레임으로) · 들어오는 장면: Gemini 영상",
+            "en": "Acceptance: vidIQ (Gemini Omni Flash) · scholarship, fitness, paycheck, graduation: Flow Veo 3.1 Fast (character-sheet reference) · highlighter: Flow Veo 3.1 Fast (diary image as first frame) · run-in: Gemini video"
+          }
+        },
+        {
+          "name": {
+            "ko": "수정",
+            "en": "Fix"
+          },
+          "detail": {
+            "ko": "들어오는 장면이 웃는 얼굴로 나와 첫 프레임을 Gemini 이미지 편집으로 '급하고 기분 나쁜 얼굴'로 바꾼 뒤 다시 생성 · 폰 화면 2컷은 이미지로 따로 생성",
+            "en": "The run-in came out smiling, so its first frame was re-edited in Gemini to a rushed, irritated face and regenerated · the two phone screens made as separate images"
+          }
+        },
+        {
+          "name": {
+            "ko": "로고",
+            "en": "Logo"
+          },
+          "detail": {
+            "ko": "펜에 생성된 글자를 지우고 로고를 다시 찍음 · 손에 든 펜은 템플릿 매칭 + 옵티컬 플로(KLT)로 따라간 뒤 흔들림을 평활화",
+            "en": "Generated text on the pen inpainted and the logo re-stamped · the held pen tracked with template matching + KLT optical flow, then smoothed"
+          }
+        },
+        {
+          "name": {
+            "ko": "사운드",
+            "en": "Sound"
+          },
+          "detail": {
+            "ko": "Gemini TTS(Leda)로 '진짜…? 합격이다! 아싸! 해냈다!' · '좋다~' · '우와!'를 한 번에 녹음해 잘라 배치, 한숨도 같은 목소리 · 피아노 · 알림음은 코드로 합성 · 현장음은 생성 오디오",
+            "en": "Gemini TTS (Leda): the lines recorded in one take and cut into place, sighs in the same voice · piano and chimes synthesized in code · ambience from the generated audio"
+          }
+        },
+        {
+          "name": {
+            "ko": "편집 · 출력",
+            "en": "Edit & export"
+          },
+          "detail": {
+            "ko": "Python · OpenCV · FFmpeg로 컷 편집, 워터마크 제거, 엔딩 문구 · 1920×1080 · 30fps · 59.9초",
+            "en": "Cut, watermark removal and end copy in Python, OpenCV and FFmpeg · 1920×1080 · 30 fps · 59.9 s"
+          }
+        }
+      ],
+      "featuredPrompt": 1,
+      "prompts": [
+        {
+          "label": {
+            "ko": "캐릭터 시트",
+            "en": "Character sheet"
+          },
+          "mode": {
+            "ko": "Gemini 이미지 · 본인 사진 여러 장 첨부",
+            "en": "Gemini image · several of my own photos attached"
+          },
+          "text": "Turn the person in this photo into a 3D animated character in a warm Pixar-like style: a 20-year-old university student, same face shape, hair and features, simplified and friendly. Character sheet on a plain light background: front view, three-quarter view, and full body, all in the same outfit — oversized grey hoodie, black pants, white sneakers. Soft studio lighting. No text."
+        },
+        {
+          "label": {
+            "ko": "다이어리 첫 장",
+            "en": "Diary, first page"
+          },
+          "mode": {
+            "ko": "Gemini 이미지 · 16:9",
+            "en": "Gemini image · 16:9"
+          },
+          "text": "Top-down photo of an open lined notebook on a wooden desk under warm desk-lamp light at night, 16:9. On the right page, handwritten in Korean with a black pen, neat handwriting, only one line at the very top:\n\n행복하게 살기:\n\nThe rest of the page is empty. A yellow highlighter lies beside the notebook. Shallow depth of field, cozy. Nothing else written, nothing highlighted."
+        },
+        {
+          "label": {
+            "ko": "다이어리에 한 줄씩",
+            "en": "One line at a time"
+          },
+          "mode": {
+            "ko": "Gemini 이미지 편집 · 같은 채팅에서 한 줄씩 추가하고 형광펜 칠하기 (예시 1개)",
+            "en": "Gemini image edit · one line added and highlighted per edit in the same chat (one example)"
+          },
+          "text": "같은 사진「좋은 대학 붙기」는 노란 형광펜으로 칠해지고 그 아래 「장학금 받기」 추가",
+          "lang": "ko"
+        },
+        {
+          "label": {
+            "ko": "합격 문자",
+            "en": "Acceptance text"
+          },
+          "mode": {
+            "ko": "Gemini 이미지 · 폰 화면 글자를 정확히 지정",
+            "en": "Gemini image · exact on-screen text"
+          },
+          "text": "3D animated film still in a warm Pixar-like style, 16:9. Close-up over-the-shoulder shot of a young woman's two hands in an oversized grey hoodie holding a modern smartphone, at night in a cozy bedroom softly lit by warm fairy lights with gentle bokeh. The phone screen is bright and fills the center of the frame, perfectly sharp and readable: a simple white messaging app screen with one incoming text message bubble that reads in Korean exactly: 서울대학교 최종 합격을 축하합니다! — written once, large and clear. No logos, no brand names, no other text."
+        },
+        {
+          "label": {
+            "ko": "합격 장면",
+            "en": "Acceptance scene"
+          },
+          "mode": {
+            "ko": "vidIQ · Gemini Omni Flash · 캐릭터 시트 참조 · 7초",
+            "en": "vidIQ · Gemini Omni Flash · character sheet reference · 7 s"
+          },
+          "text": "3D animated film style (warm Pixar-like), the young woman from the reference image: long straight dark-brown hair, brown eyes, oversized grey hoodie. Night, her small cozy student room lit by a desk lamp and fairy lights. She holds her phone close to her face, the screen glow lighting her. She reads it, freezes, gasps, then jumps up and cheers with both fists, beaming. Camera: medium shot, quick push-in to her face as she cheers. In the last two seconds her smile slowly fades into a worried, distant look and she lowers the phone. Sound: a phone notification chime, her gasp and happy shout, then quiet room tone. No text, no subtitles, no logos."
+        },
+        {
+          "label": {
+            "ko": "다시 책상으로",
+            "en": "Back to the desk"
+          },
+          "mode": {
+            "ko": "Gemini 영상 · 표정을 고친 이미지를 첫 프레임으로",
+            "en": "Gemini video · the expression-fixed image as the first frame"
+          },
+          "text": "Use the attached image as the exact first frame. 3D animated film style, same character, same room, same lighting, static camera with the same framing for the whole shot. The young woman keeps running in a hurry from the doorway toward the desk on the right side of the room. Her face stays stressed, frowning and irritated the entire time, brows pulled together, lips pressed tight, out of breath - she never smiles. She reaches the desk, drops onto the chair and quickly grabs the yellow highlighter on the desk. Sound: dust and small debris settling behind her, fast footsteps on a wooden floor, her heavy breathing and one short frustrated sigh. No speech, no words, no music, no text on screen."
+        },
+        {
+          "label": {
+            "ko": "장학금",
+            "en": "Scholarship"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · 캐릭터 시트를 재료(참조)로 · 4장면을 한 번에 요청한 프롬프트 중 이 장면 부분 — 공통 조건: 마지막 2초에 밝은 웃음이 걱정스러운 표정으로 바뀌기",
+            "en": "Flow · Veo 3.1 Fast · character sheet as the reference (ingredient) · this scene's part of one four-scene request — shared rule: in the last two seconds the bright smile fades into a worried look"
+          },
+          "text": "Video 1 (reference CH.jpg): she wears a neat blouse, stands on a small stage in a bright hall, bows and receives a certificate with both hands from an older man, holds it up while a small audience applauds; slow dolly-in from wide shot to close-up of her face; sound: polite applause and a camera shutter, applause fading out."
+        },
+        {
+          "label": {
+            "ko": "다이어트",
+            "en": "Getting fit"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · 캐릭터 시트를 재료(참조)로 · 4장면을 한 번에 요청한 프롬프트 중 이 장면 부분 — 공통 조건: 마지막 2초에 밝은 웃음이 걱정스러운 표정으로 바뀌기",
+            "en": "Flow · Veo 3.1 Fast · character sheet as the reference (ingredient) · this scene's part of one four-scene request — shared rule: in the last two seconds the bright smile fades into a worried look"
+          },
+          "text": "Video 2 (reference CH_fit.jpg, same workout outfit): quick energetic one-shot montage in her bedroom in morning light: she jogs in place, lifts a small dumbbell, drinks water, then turns to a tall mirror and looks at her slimmer self; handheld camera settling into a close-up of her face in the mirror; sound: fast breathing, sneakers on the floor, then quiet."
+        },
+        {
+          "label": {
+            "ko": "첫 월급",
+            "en": "First paycheck"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · 캐릭터 시트를 재료(참조)로 · 4장면을 한 번에 요청한 프롬프트 중 이 장면 부분 — 공통 조건: 마지막 2초에 밝은 웃음이 걱정스러운 표정으로 바뀌기",
+            "en": "Flow · Veo 3.1 Fast · character sheet as the reference (ingredient) · this scene's part of one four-scene request — shared rule: in the last two seconds the bright smile fades into a worried look"
+          },
+          "text": "Video 3 (reference CH.jpg): she wears a cafe apron behind a counter at night, hands over a coffee, wipes the counter, counts bills at the register, then checks her phone and reads a payment notification; snappy whip-pans between moments ending in a close-up lit by the phone; sound: cafe clatter, register ding, phone chime, then quiet."
+        },
+        {
+          "label": {
+            "ko": "월급 알림",
+            "en": "Paycheck notification"
+          },
+          "mode": {
+            "ko": "Gemini 이미지 · 폰 화면 글자를 정확히 지정",
+            "en": "Gemini image · exact on-screen text"
+          },
+          "text": "New image, same 3D animated Pixar-like style, 16:9. Close-up over-the-shoulder shot of the same young woman with long straight dark-brown hair, wearing a grey hoodie and a beige cafe apron, holding a smartphone with both hands behind a cafe counter at night, warm string lights and bokeh in the background. The phone screen is bright, perfectly sharp and readable, showing a simple banking app push notification card in Korean that reads exactly, on two lines: 입금 1,850,000원 and below it 급여. Plain white card, no bank name, no logos, no other text."
+        },
+        {
+          "label": {
+            "ko": "졸업",
+            "en": "Graduation"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · 캐릭터 시트를 재료(참조)로 · 4장면을 한 번에 요청한 프롬프트 중 이 장면 부분 — 공통 조건: 마지막 2초에 밝은 웃음이 걱정스러운 표정으로 바뀌기",
+            "en": "Flow · Veo 3.1 Fast · character sheet as the reference (ingredient) · this scene's part of one four-scene request — shared rule: in the last two seconds the bright smile fades into a worried look"
+          },
+          "text": "Video 4 (reference CH_grad.jpg, same navy graduation gown and cap): on a sunny generic campus lawn with friends cheering, she throws her cap in the air, catches it, laughs and hugs a bouquet; low-angle shot following the cap up then down to a close-up of her face; sound: cheering crowd, cap whoosh, then the chatter fades out."
+        },
+        {
+          "label": {
+            "ko": "끝없는 목록",
+            "en": "The endless list"
+          },
+          "mode": {
+            "ko": "Gemini 이미지 · 세로로 긴 종이",
+            "en": "Gemini image · tall vertical paper"
+          },
+          "text": "Top-down photo of a very long strip of lined notebook paper unrolled across a wooden desk and hanging off its edge, tall vertical image. At the very top, handwritten in Korean: 행복하게 살기: (not highlighted). Below it, dozens of short handwritten Korean lines, each struck through with a yellow highlighter, getting messier and faster toward the bottom. Warm desk-lamp light, night. No other objects."
+        },
+        {
+          "label": {
+            "ko": "형광펜 긋기",
+            "en": "The highlighter stroke"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · 다이어리 이미지를 첫 프레임으로 · 줄마다 같은 프롬프트",
+            "en": "Flow · Veo 3.1 Fast · diary image as the first frame · the same prompt for every line"
+          },
+          "text": "A hand holding a yellow highlighter enters from the bottom right, uncapped, and draws one slow, steady highlighter stroke exactly over the LAST (lowest) line of Korean handwriting on the right page, left to right, then lifts and leaves the frame. All other lines, the existing yellow highlights and every letter stay exactly identical to the image. Static camera, same angle, warm desk-lamp light. Sound: soft marker squeak on paper, quiet room tone. No extra text."
+        },
+        {
+          "label": {
+            "ko": "맨 윗줄 형광펜",
+            "en": "Highlighting the top line"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · 첫 장(P0)을 첫 프레임으로 · 형광펜 공통 프롬프트에 덧붙인 마지막 장면 요청",
+            "en": "Flow · Veo 3.1 Fast · the first page (P0) as the first frame · the last-scene request added to the shared highlighter prompt"
+          },
+          "text": "Video E: first frame P0.jpg, but for this one the hand moves very slowly and gently, highlights the single top line, then rests the pen on the desk, and the sound is one slow soft marker stroke then silence."
+        }
+      ],
+      "scenes": [
+        {
+          "label": {
+            "ko": "맨 윗줄",
+            "en": "The top line"
+          },
+          "text": {
+            "ko": "스무 살, 다이어리 맨 윗줄에 '행복하게 살기'라고 적는다.",
+            "en": "At twenty, she writes “Live happily” at the top of her diary."
+          },
+          "time": 0.9,
+          "prompt": 1,
+          "frame": "media/live-happily/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "합격",
+            "en": "Accepted"
+          },
+          "text": {
+            "ko": "합격 문자에 환호하지만, 마지막 2초에 웃음이 사라진다.",
+            "en": "She cheers at the acceptance text, but in the last two seconds the smile fades."
+          },
+          "time": 7.2,
+          "prompt": 4,
+          "frame": "media/live-happily/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "다시 책상으로",
+            "en": "Back to the desk"
+          },
+          "text": {
+            "ko": "다음 목표를 쓰러 급하게 방으로 뛰어 들어온다. 이 장면이 네 번 반복된다.",
+            "en": "She rushes back in to write the next goal. This happens four times."
+          },
+          "time": 11.0,
+          "prompt": 5,
+          "frame": "media/live-happily/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "장학금",
+            "en": "Scholarship"
+          },
+          "text": {
+            "ko": "무대에서 장학증서를 받는다.",
+            "en": "She receives a certificate on stage."
+          },
+          "time": 15.6,
+          "prompt": 6,
+          "frame": "media/live-happily/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "다이어트",
+            "en": "Getting fit"
+          },
+          "text": {
+            "ko": "거울 속 날씬해진 나를 본다.",
+            "en": "She sees her slimmer self in the mirror."
+          },
+          "time": 22.0,
+          "prompt": 7,
+          "frame": "media/live-happily/scene-5.jpg"
+        },
+        {
+          "label": {
+            "ko": "첫 월급",
+            "en": "First paycheck"
+          },
+          "text": {
+            "ko": "카페 알바 중 \"입금 1,850,000원\" 알림.",
+            "en": "A “₩1,850,000 deposited” notification during her cafe shift."
+          },
+          "time": 30.9,
+          "prompt": 9,
+          "frame": "media/live-happily/scene-6.jpg"
+        },
+        {
+          "label": {
+            "ko": "졸업",
+            "en": "Graduation"
+          },
+          "text": {
+            "ko": "학사모를 던지고 꽃다발을 안는다.",
+            "en": "She throws her cap and hugs a bouquet."
+          },
+          "time": 36.6,
+          "prompt": 10,
+          "frame": "media/live-happily/scene-7.jpg"
+        },
+        {
+          "label": {
+            "ko": "끝없는 목록",
+            "en": "The endless list"
+          },
+          "text": {
+            "ko": "형광펜 자국은 쌓이는데 목록은 책상 밖까지 길어진다.",
+            "en": "The highlights pile up, and the list runs off the desk."
+          },
+          "time": 45.2,
+          "prompt": 11,
+          "frame": "media/live-happily/scene-8.jpg"
+        },
+        {
+          "label": {
+            "ko": "다시 맨 윗줄",
+            "en": "Back to the top line"
+          },
+          "text": {
+            "ko": "마지막 형광펜은 맨 윗줄 '행복하게 살기'에. 그 모든 순간, 이미 행복하게 살고 있었다.",
+            "en": "The last stroke goes on the top line, “Live happily.” She had been living it all along."
+          },
+          "time": 50.5,
+          "prompt": 13,
+          "frame": "media/live-happily/scene-9.jpg"
+        }
+      ],
+      "compare": [],
+      "notes": [
+        {
+          "heading": {
+            "ko": "한 캐릭터, 다섯 번의 성취",
+            "en": "One character, five wins"
+          },
+          "lines": {
+            "ko": [
+              "인물이 나오는 장면은 모두 본인 사진으로 만든 캐릭터 시트(후드티 · 운동복 · 졸업 가운)를 참조",
+              "Flow에서는 캐릭터 시트를 재료(참조)로 넣어 4장면을 한 번에 요청",
+              "성취 장면 5개 모두 마지막 2초를 '밝은 웃음 → 걱정스러운 표정'으로 똑같이 맞춰 반복 구조를 만듦"
+            ],
+            "en": [
+              "Every shot with her references character sheets made from my own photos (hoodie, workout, graduation gown)",
+              "In Flow, the sheets went in as references and four scenes were requested at once",
+              "All five wins end the same way — a bright smile fading into worry — to build the loop"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "표정 · 로고 · 목소리",
+            "en": "Face, logo, voice"
+          },
+          "lines": {
+            "ko": [
+              "달려 들어오는 장면이 웃는 얼굴로 나와, 첫 프레임만 Gemini로 '급하고 기분 나쁜 얼굴'로 고쳐 다시 생성",
+              "형광펜에 생성된 글자는 지우고, 하이라이트TV 로고를 펜 몸통에 다시 찍어 손 움직임을 따라가게 함",
+              "대사를 따로 만들면 목소리가 달라져서, 한 번에 녹음한 뒤 잘라서 배치"
+            ],
+            "en": [
+              "The run-in came out smiling, so only its first frame was fixed in Gemini and the shot regenerated",
+              "Generated text on the highlighter was removed and the highlightTV logo re-stamped to follow the hand",
+              "Separate takes sounded like different people, so the lines were recorded in one take and cut"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "출처",
+            "en": "Credits"
+          },
+          "lines": {
+            "ko": [
+              "하이라이트TV 로고: 주관사 제공 로고 파일 사용",
+              "서체: Pretendard (SIL Open Font License)",
+              "피아노 · 알림음: 코드로 합성 · 현장음: 생성 영상의 오디오(문 소리는 Higgsfield 생성 클립) · 외부 음원 없음",
+              "본 영상은 생성형 AI로 제작했습니다"
+            ],
+            "en": [
+              "highlightTV logo: the official file provided by the organizer",
+              "Font: Pretendard (SIL Open Font License)",
+              "Piano and chimes synthesized in code · ambience from the generated clips (door sound from a Higgsfield clip) · no stock audio",
+              "Made with generative AI"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "sea-desert",
       "date": "2026-10-22",
       "durationSec": 29,
