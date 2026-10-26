@@ -1,6 +1,268 @@
 {
   "works": [
     {
+      "slug": "il-il-gong",
+      "date": "2026-10-26",
+      "durationSec": 44,
+      "aspect": "9:16",
+      "shots": 5,
+      "accent": "#FFD84D",
+      "title": {
+        "ko": "일일공",
+        "en": "Il-Il-Gong (1-1-0)"
+      },
+      "status": {
+        "ko": "국민콜110 「110을 알려줘!」 SNS 콘텐츠 공모전 출품작",
+        "en": "Entry — Gukmin Call 110 “Tell Me About 110!” Short-Form Contest"
+      },
+      "logline": {
+        "ko": "숫자 1·1·0 삼총사가 부르는 44초짜리 노래. 어디에 물어봐야 할지 모를 때 떠올릴 번호를 \"하나, 하나, 영\" 손동작과 따라 부르기 쉬운 후렴으로, 한 번 들으면 잊지 않게 만들었다.",
+        "en": "A 44-second song sung by a trio of numbers, 1·1·0. For the moments you don’t know where to ask, the number to remember — taught with a “one, one, zero” hand move and a chorus that sticks after one listen."
+      },
+      "tools": {
+        "generate": [
+          "Suno (music)",
+          "Google Flow — Nano Banana (image)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "Pillow",
+          "NumPy",
+          "SciPy",
+          "audio-separator (UVR MDX-Net)",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/reel/De9UIm4g6w_/",
+        "youtube": "https://youtube.com/shorts/_p7CTt-WHMA"
+      },
+      "media": {
+        "video": "media/il-il-gong/video.mp4",
+        "poster": "media/il-il-gong/poster.jpg",
+        "og": "media/il-il-gong/og.jpg"
+      },
+      "coverTime": 42.5,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "번호 1·1·0이 캐릭터가 돼 자기 번호를 직접 노래한다. 첫 프레임과 마지막 프레임이 같아 끝없이 이어지는 루프",
+            "en": "The digits 1·1·0 become characters and sing their own number; the last frame matches the first, so it loops forever"
+          }
+        },
+        {
+          "label": {
+            "ko": "입 모양",
+            "en": "Lip sync"
+          },
+          "text": {
+            "ko": "보컬만 분리해 음절마다 시각을 재고, 모음(이·아·오)과 ㅁ·ㅂ 받침에 맞춰 입 모양 4종을 바꿈",
+            "en": "Vocals isolated and timed per syllable; four mouth shapes follow each vowel (ee, ah, oh) and closing consonants (m, b)"
+          }
+        },
+        {
+          "label": {
+            "ko": "박자",
+            "en": "Beat"
+          },
+          "text": {
+            "ko": "132 BPM 박자 격자에 맞춘 바운스·찌그러짐·배경색 전환, \"일일\"에 펀치인 카메라, \"준비됐어?\"에 진지한 클로즈업",
+            "en": "Bounces, squashes and color changes locked to a 132 BPM grid; punch-in camera on “il, il”, a dead-serious close-up on “Ready?”"
+          }
+        },
+        {
+          "label": {
+            "ko": "노래방 자막",
+            "en": "Karaoke captions"
+          },
+          "text": {
+            "ko": "부르는 글자에 색이 채워지는 자막이라 소리를 끄고 봐도 따라 부를 수 있음",
+            "en": "Captions fill with color as each syllable is sung, so it works with the sound off"
+          }
+        },
+        {
+          "label": {
+            "ko": "포즈",
+            "en": "Poses"
+          },
+          "text": {
+            "ko": "캐릭터 시트를 편집해 팔·손만 바꾼 포즈 8종 — 얼굴 위치가 픽셀 단위로 같아 입 모양을 모든 포즈에 그대로 끼움",
+            "en": "Eight poses edited from one character sheet with only arms and hands changed — faces stay pixel-aligned, so every mouth shape fits every pose"
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "노래",
+            "en": "Song"
+          },
+          "detail": {
+            "ko": "Suno · 82초 곡에서 2절을 빼고 같은 음이 나오는 박자 자리로 이어 붙여 43.8초로 편집",
+            "en": "Suno · the 82 s song cut to 43.8 s by dropping verse 2 and joining on a beat where the same note lands"
+          }
+        },
+        {
+          "name": {
+            "ko": "캐릭터",
+            "en": "Characters"
+          },
+          "detail": {
+            "ko": "Google Flow(Nano Banana) · 초록 배경 캐릭터 시트 → 코드로 초록을 빼 투명 컷아웃 · 2K 업스케일",
+            "en": "Google Flow (Nano Banana) · character sheet on green → keyed out in code into transparent cutouts · 2K upscale"
+          }
+        },
+        {
+          "name": {
+            "ko": "포즈 · 입",
+            "en": "Poses & mouths"
+          },
+          "detail": {
+            "ko": "시트를 편집해 포즈 8종 + 입 모양 4종 × 3캐릭터 · 상황 그림 3장",
+            "en": "Sheet edits for 8 poses + 4 mouth shapes × 3 characters · 3 situation drawings"
+          }
+        },
+        {
+          "name": {
+            "ko": "타이밍",
+            "en": "Timing"
+          },
+          "detail": {
+            "ko": "보컬 분리(UVR MDX-Net) + Suno 가사 정렬 + 음절 온셋 → 음절별 시각 · 귀로 듣고 피드백 반영",
+            "en": "Vocal separation (UVR MDX-Net) + Suno lyric alignment + syllable onsets → per-syllable timing, checked by ear"
+          }
+        },
+        {
+          "name": {
+            "ko": "애니메이션",
+            "en": "Animation"
+          },
+          "detail": {
+            "ko": "Python(Pillow) · 1080×1920 30fps · 카메라 · 자막 · 효과를 모두 코드로 · FFmpeg 인코딩",
+            "en": "Python (Pillow) · 1080×1920 at 30 fps · camera, captions and effects all in code · FFmpeg encode"
+          }
+        },
+        {
+          "name": {
+            "ko": "검수 · 출력",
+            "en": "Review & export"
+          },
+          "detail": {
+            "ko": "110 사실 확인 · 긴급신고처럼 들리는 2절 제외 · 맞춤법 확인 · 44초 MP4",
+            "en": "110 facts checked · verse 2 dropped because it sounded like an emergency line · spelling checked · 44 s MP4"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [],
+      "scenes": [
+        {
+          "label": {
+            "ko": "장면 1 · 준비됐어?",
+            "en": "Scene 1 · Ready?"
+          },
+          "text": {
+            "ko": "\"일일공, 준비됐어?\" — 갑자기 진지해진 목소리에 맞춘 클로즈업.",
+            "en": "“Il-il-gong, ready?” — a close-up to match the suddenly serious voice."
+          },
+          "time": 2.2,
+          "frame": "media/il-il-gong/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 2 · 망설이는 순간",
+            "en": "Scene 2 · Not sure where to ask"
+          },
+          "text": {
+            "ko": "\"이 서류는 어디서 떼는 거지?\" — 어디에 물어봐야 할지 모르는 순간들.",
+            "en": "“Where do I even get this form?” — the moments you don’t know who to ask."
+          },
+          "time": 12.6,
+          "frame": "media/il-il-gong/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 3 · 하나, 하나, 영",
+            "en": "Scene 3 · One, one, zero"
+          },
+          "text": {
+            "ko": "검지, 반대 손 검지, 두 손 동그라미 — 손가락으로 110.",
+            "en": "One finger, the other hand’s finger, both hands in a circle — 110 with your hands."
+          },
+          "time": 18.0,
+          "frame": "media/il-il-gong/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 4 · 후렴",
+            "en": "Scene 4 · Chorus"
+          },
+          "text": {
+            "ko": "\"일일공, 일일공\" — 국번 없이 110, 365일 24시간.",
+            "en": "“Il-il-gong, il-il-gong” — just dial 110, 24 hours a day, 365 days a year."
+          },
+          "time": 29.0,
+          "frame": "media/il-il-gong/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 5 · 엔딩",
+            "en": "Scene 5 · Ending"
+          },
+          "text": {
+            "ko": "\"기억해, 일일공!\" — 부모님 폰에 110 저장해 드리기.",
+            "en": "“Remember, il-il-gong!” — save 110 in your parents’ phones."
+          },
+          "time": 42.5,
+          "frame": "media/il-il-gong/scene-5.jpg"
+        }
+      ],
+      "compare": [],
+      "notes": [
+        {
+          "heading": {
+            "ko": "사실과 출처",
+            "en": "Facts and sources"
+          },
+          "lines": {
+            "ko": [
+              "국번 없이 110 · 365일 24시간 — 국민콜110 상담 안내(110.go.kr)",
+              "정책 상담 대표번호 110 통합 — 중앙행정기관 15곳 통합, 2027년까지 34곳으로 확대 계획(뉴시스, 2026.6.1)",
+              "110은 긴급신고 번호가 아니라서 \"어디인지, 무슨 일인지 알려 줘\" 하는 2절은 뺌"
+            ],
+            "en": [
+              "Dial 110 with no area code, 24/7, 365 days — Gukmin Call 110 service guide (110.go.kr)",
+              "Policy hotlines merging into 110 — 15 central agencies so far, 34 planned by 2027 (Newsis, 2026-06-01)",
+              "110 is not an emergency number, so verse 2 (“tell me where you are, what happened”) was cut"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "외부 소스",
+            "en": "Outside sources"
+          },
+          "lines": {
+            "ko": [
+              "음악: Suno 유료 플랜에서 만든 곡(상업적 사용 가능), 게시글에 \"Music: Suno\" 표기",
+              "서체: Pretendard (SIL Open Font License 1.1)",
+              "스톡 영상 · 사진 · 로고, 실존 인물 없음"
+            ],
+            "en": [
+              "Music: made on a paid Suno plan (commercial use allowed), credited as “Music: Suno”",
+              "Font: Pretendard (SIL Open Font License 1.1)",
+              "No stock footage, photos, logos or real people"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "live-happily",
       "date": "2026-10-24",
       "durationSec": 60,
