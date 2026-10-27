@@ -263,6 +263,371 @@
       ]
     },
     {
+      "slug": "tcar-uncle",
+      "date": "2026-10-25",
+      "durationSec": 51,
+      "aspect": "9:16",
+      "shots": 12,
+      "accent": "#FF3B30",
+      "title": {
+        "ko": "삼촌의 중고차 심문",
+        "en": "Uncle's Used-Car Interrogation"
+      },
+      "status": {
+        "ko": "Tcar 부산매매센터 숏폼 공모전 출품작 · 9:16",
+        "en": "Entry — Tcar Busan short-form contest (9:16)"
+      },
+      "logline": {
+        "ko": "중고차를 보러 갔더니 부산 삼촌이 따라왔다. \"니, 몇 년생이고?\" 하나하나 따지던 삼촌은 답을 들을 때마다 순해지고, 결국 전부 \"Tcar, 통과!\"",
+        "en": "I went to look at a used car, and my uncle from Busan tagged along. He grills the car on every point — and every answer earns a stamped “Tcar, pass!”"
+      },
+      "tools": {
+        "generate": [
+          "Google Flow — Veo 3.1 Fast"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "OpenCV",
+          "pretty_midi",
+          "FluidSynth",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/reel/De6CzijAKoW/",
+        "youtube": ""
+      },
+      "media": {
+        "video": "media/tcar-uncle/video.mp4",
+        "poster": "media/tcar-uncle/poster.jpg",
+        "og": "media/tcar-uncle/og.jpg"
+      },
+      "coverTime": 5.9,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "질문 → 대답 → \"통과\" 도장이 반복되는 심문 구조. 깐깐한 부산 삼촌이 T car의 장점 네 가지를 하나씩 확인",
+            "en": "An interrogation loop — question, answer, stamped “pass” — as a picky Busan uncle checks four of T car’s promises one by one"
+          }
+        },
+        {
+          "label": {
+            "ko": "반복 장면",
+            "en": "Recurring shot"
+          },
+          "text": {
+            "ko": "질문마다 돌아오는 \"Tcar, 통과!\" — 표정이 가장 좋은 컷의 첫 화면을 시작 프레임으로 다시 생성해 입 모양과 소리를 맞춤",
+            "en": "The “Tcar, pass!” shot after every question, regenerated from the best take’s first frame so mouth and sound match"
+          }
+        },
+        {
+          "label": {
+            "ko": "사투리",
+            "en": "Dialect"
+          },
+          "text": {
+            "ko": "삼촌 대사는 부산 사투리로 — \"몇 년생이고?\" \"우째 했노?\" \"델꼬 와도 되나?\"",
+            "en": "The uncle speaks Busan dialect from start to finish"
+          }
+        },
+        {
+          "label": {
+            "ko": "엠블럼",
+            "en": "Emblems"
+          },
+          "text": {
+            "ko": "생성된 차에 생긴 엠블럼은 프레임마다 지우고 주변 그릴 무늬로 메움",
+            "en": "Emblems the model put on the car were erased frame by frame and filled with the grille pattern"
+          }
+        },
+        {
+          "label": {
+            "ko": "음악",
+            "en": "Music"
+          },
+          "text": {
+            "ko": "배경음악은 코드로 작곡 — 취조실 베이스 → \"통과\" 순간 정적과 빠밤! → 마지막 트로트",
+            "en": "Music written in code: interrogation bass → a silent beat and a brass hit on each “pass” → a trot finale"
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "기획",
+            "en": "Plan"
+          },
+          "detail": {
+            "ko": "질문 4개 = T car 장점 4개(관리 이력 · 정비사 검수 · 180일 보증 · 7일 환불) + 반복되는 \"통과\" + 마지막 킥",
+            "en": "Four questions = four T car promises (history, mechanic check, 180-day warranty, 7-day refund) + the recurring “pass” + a kicker"
+          }
+        },
+        {
+          "name": {
+            "ko": "영상 생성",
+            "en": "Generate"
+          },
+          "detail": {
+            "ko": "Google Flow · Veo 3.1 Fast · 9:16 · 8초 컷 · 삼촌 · SUV 이미지를 재료(참조)로 넣어 인물과 차를 유지",
+            "en": "Google Flow · Veo 3.1 Fast · 9:16 · 8 s clips · uncle and SUV images as references to keep them consistent"
+          }
+        },
+        {
+          "name": {
+            "ko": "수정",
+            "en": "Fix"
+          },
+          "detail": {
+            "ko": "\"통과\" 장면은 좋은 컷의 첫 화면을 시작 프레임으로 다시 생성 · 차 엠블럼은 OpenCV로 프레임마다 지움",
+            "en": "The “pass” shot regenerated from the best take’s first frame · car emblems removed frame by frame with OpenCV"
+          }
+        },
+        {
+          "name": {
+            "ko": "음악",
+            "en": "Music"
+          },
+          "detail": {
+            "ko": "pretty_midi로 작곡 → FluidSynth로 렌더 → 대사와 믹스",
+            "en": "Composed with pretty_midi → rendered with FluidSynth → mixed under the dialogue"
+          }
+        },
+        {
+          "name": {
+            "ko": "편집 · 출력",
+            "en": "Edit & export"
+          },
+          "detail": {
+            "ko": "Python · FFmpeg · 1080×1920 · 자막 · 도장 · −14 LUFS · 51초 MP4",
+            "en": "Python · FFmpeg · 1080×1920 · captions, stamps · −14 LUFS · 51 s MP4"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [
+        {
+          "label": {
+            "ko": "차가 대답",
+            "en": "The car answers"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · SUV 이미지만 재료(참조)로 · 9:16 · 8초",
+            "en": "Flow · Veo 3.1 Fast · SUV image only as reference"
+          },
+          "text": "Bright modern indoor car showroom, white walls, polished floor. Low front three-quarter close view of the silver compact SUV from the reference with its headlights on; a desk lamp on a small stool is aimed at the car like an interrogation lamp. There are no people in the frame at all. The car itself answers: at 1 second its headlights blink twice in rhythm with a cheerful, slightly nervous, polite young male voice that seems to come from the car, saying in standard Korean: \"이천이십육 년생입니다!\" Static camera, slight push-in, crisp daylight, dry comedic tone. No other speech. Vertical 9:16, photorealistic, cinematic, natural color grading. No on-screen captions, no subtitles, no text, no logos, no badges, blank license plate."
+        },
+        {
+          "label": {
+            "ko": "관리 이력",
+            "en": "Service history"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · SUV 이미지를 재료(참조)로 · 9:16 · 8초",
+            "en": "Flow · Veo 3.1 Fast · SUV image as reference"
+          },
+          "text": "Bright modern indoor car showroom, white walls, polished floor, the silver compact SUV from the reference softly out of focus in the background. A friendly Korean sales consultant in his late 20s with short neat black hair, a white dress shirt and a navy tie stands facing the camera, framed from the chest up, holding a tablet. He is the only person in the frame for the whole video. At 1 second he says politely and confidently in standard Korean: \"신차 때부터 관리 이력 전부 공개해 드립니다.\" Then he turns the tablet screen toward the camera; the screen shows only a blurred list with green check marks and no readable text. No other speech. Static camera, crisp daylight. Vertical 9:16, photorealistic, cinematic, natural color grading. No on-screen captions, no subtitles, no text, no logos, no badges, blank license plate."
+        },
+        {
+          "label": {
+            "ko": "정비사",
+            "en": "Mechanic"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · SUV 이미지를 재료(참조)로 · 9:16 · 8초",
+            "en": "Flow · Veo 3.1 Fast · SUV image as reference"
+          },
+          "text": "Bright, clean car service bay next to a showroom, the silver compact SUV from the reference on a lift softly out of focus behind. A young Korean mechanic in his early 20s with short black hair, wearing a plain navy-blue work coverall with no logos or name tags, stands facing the camera, framed from the waist up. At 0.5 seconds he bows politely, then straightens up with a bright smile and holds up a plain white certification card with no readable text. At 2.5 seconds he says energetically in standard Korean: \"안녕하십니까! 자동차정비기능사입니다!\" He is the only person in the frame for the whole video. No other speech. Static camera, crisp daylight. Vertical 9:16, photorealistic, cinematic, natural color grading. No on-screen captions, no subtitles, no text, no logos, no badges, blank license plate."
+        },
+        {
+          "label": {
+            "ko": "180일 보증",
+            "en": "180-day warranty"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · SUV 이미지를 재료(참조)로 · 9:16 · 8초",
+            "en": "Flow · Veo 3.1 Fast · SUV image as reference"
+          },
+          "text": "Bright modern indoor car showroom, white walls, polished floor. The same friendly Korean sales consultant in his late 20s with short neat black hair, a white dress shirt and a navy tie stands beside the silver compact SUV from the reference, whose hood is open showing a plain engine cover with no logos. Framed from the chest up, he gestures with an open palm toward the engine and faces the camera. He is the only person in the frame for the whole video. At 1 second he says clearly and confidently in standard Korean: \"엔진, 미션, 제동장치까지 백팔십 일 무상 보증입니다.\" No other speech. Static camera, crisp daylight. Vertical 9:16, photorealistic, cinematic, natural color grading. No on-screen captions, no subtitles, no text, no logos, no badges, blank license plate."
+        },
+        {
+          "label": {
+            "ko": "7일 환불",
+            "en": "7-day refund"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · SUV 이미지를 재료(참조)로 · 9:16 · 8초",
+            "en": "Flow · Veo 3.1 Fast · SUV image as reference"
+          },
+          "text": "Daylight outside the silver compact SUV from the reference, Busan harbor in the background. The camera is inside the car at the driver's seat looking out through the open driver's door. The same friendly Korean sales consultant in his late 20s with short neat black hair, a white dress shirt and a navy tie stands just outside the open door, leaning slightly toward the camera with a warm smile. He is the only person visible; no driver, hands or arms appear in the frame. At 1 second he answers kindly in standard Korean: \"네! 구매 후 칠 일 안에는 자유 환불입니다.\" No other speech. Static camera. Vertical 9:16, photorealistic, cinematic, natural color grading. No on-screen captions, no subtitles, no text, no logos, no badges, blank license plate."
+        },
+        {
+          "label": {
+            "ko": "킥",
+            "en": "The kicker"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · 삼촌 인물 이미지 + SUV 이미지를 재료(참조)로 · 9:16 · 8초",
+            "en": "Flow · Veo 3.1 Fast · uncle + SUV images as references"
+          },
+          "text": "Bright modern indoor car showroom, white walls, polished floor. The man from the reference stands proudly beside the silver compact SUV from the reference, one hand resting on its roof, facing the camera, framed from the waist up, with a big satisfied grin. At 1.5 seconds he declares loudly and proudly with a thick Busan (Gyeongsang) accent: \"부산 티카, 통과!\" then slaps the roof once and gives a big thumbs up to the camera. He is the only person in the frame for the whole video; no other people, hands or arms enter the frame. Static camera, slight push-in, crisp daylight, upbeat comedic tone. No other speech. Vertical 9:16, photorealistic, cinematic, natural color grading. No on-screen captions, no subtitles, no text, no logos, no badges, blank license plate."
+        }
+      ],
+      "scenes": [
+        {
+          "label": {
+            "ko": "몇 년생이고?",
+            "en": "What year were you born?"
+          },
+          "text": {
+            "ko": "삼촌의 첫 질문 \"니, 몇 년생이고?\"에 차가 직접 대답한다. \"2026년생입니다!\"",
+            "en": "The uncle's first question, and the car answers itself."
+          },
+          "time": 3.0,
+          "prompt": 0,
+          "frame": "media/tcar-uncle/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "Tcar, 통과!",
+            "en": "Tcar, pass!"
+          },
+          "text": {
+            "ko": "깐깐하게 따지던 삼촌이 답을 들으면 순해지며 \"Tcar, 통과!\" 도장 쾅. 질문마다 이 장면이 돌아온다.",
+            "en": "Every good answer melts the uncle into a stamped “pass”."
+          },
+          "time": 5.9,
+          "frame": "media/tcar-uncle/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "진술 1 · 관리 이력",
+            "en": "Statement 1 · History"
+          },
+          "text": {
+            "ko": "\"관리는 우째 했노?\" → \"신차 때부터 관리 이력 전부 공개해 드립니다.\"",
+            "en": "Full history since new."
+          },
+          "time": 11.5,
+          "prompt": 1,
+          "frame": "media/tcar-uncle/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "진술 2 · 정비사",
+            "en": "Statement 2 · Mechanic"
+          },
+          "text": {
+            "ko": "\"정비는 누가 봤노?\" → \"안녕하십니까! 자동차정비기능사입니다!\"",
+            "en": "A certified mechanic checked it."
+          },
+          "time": 21.8,
+          "prompt": 2,
+          "frame": "media/tcar-uncle/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "진술 3 · 180일 보증",
+            "en": "Statement 3 · Warranty"
+          },
+          "text": {
+            "ko": "엔진 소리까지 들어 보던 삼촌에게 \"엔진, 미션, 제동장치까지 180일 무상 보증입니다.\"",
+            "en": "180-day free warranty."
+          },
+          "time": 30.5,
+          "prompt": 3,
+          "frame": "media/tcar-uncle/scene-5.jpg"
+        },
+        {
+          "label": {
+            "ko": "진술 4 · 7일 환불",
+            "en": "Statement 4 · Refund"
+          },
+          "text": {
+            "ko": "\"맘에 안 들면 다시 델꼬 와도 되나?\" → \"네! 구매 후 7일 안에는 자유 환불입니다.\"",
+            "en": "Free refund within 7 days."
+          },
+          "time": 42.5,
+          "prompt": 4,
+          "frame": "media/tcar-uncle/scene-6.jpg"
+        },
+        {
+          "label": {
+            "ko": "부산 Tcar, 통과!",
+            "en": "Busan Tcar, pass!"
+          },
+          "text": {
+            "ko": "마지막은 '부산 T car 통과' 도장으로. 자막은 브랜드 이름이 살도록 영어 Tcar로 썼다.",
+            "en": "The final stamp; subtitles spell the brand as Tcar."
+          },
+          "time": 46.9,
+          "prompt": 5,
+          "frame": "media/tcar-uncle/scene-7.jpg"
+        }
+      ],
+      "compare": [],
+      "notes": [
+        {
+          "heading": {
+            "ko": "'통과' 장면 맞추기",
+            "en": "Getting the “pass” shot right"
+          },
+          "lines": {
+            "ko": [
+              "질문마다 돌아오는 '통과' 장면이 영상의 리듬이라, 입 모양 · 표정 · 소리가 모두 맞아야 했음",
+              "Veo가 대사를 \"통과 통과\"로 바꾸거나, 소리 없이 나오는 일이 잦았음",
+              "표정이 가장 좋은 컷의 첫 화면을 시작 프레임으로 넣어 다시 생성 → 입 모양과 소리가 맞는 컷을 얻음"
+            ],
+            "en": [
+              "The “pass” shot returns after every question, so mouth, face and sound all had to match",
+              "Veo often changed the line to “pass, pass” or came back with no sound",
+              "Fix: regenerate from the first frame of the best take as the start frame → mouth and sound lined up"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "사투리 · 엠블럼 · 음악",
+            "en": "Dialect, emblems, music"
+          },
+          "lines": {
+            "ko": [
+              "삼촌 대사는 부산 사투리로: \"몇 년생이고?\" \"우째 했노?\" \"델꼬 와도 되나?\"",
+              "생성된 차 앞에 생긴 엠블럼은 프레임마다 지우고 주변 그릴 무늬로 메움",
+              "배경음악은 코드로 직접 작곡: 취조실 베이스 → '통과' 순간 정적과 빠밤! → 마지막 트로트"
+            ],
+            "en": [
+              "The uncle speaks in Busan dialect throughout",
+              "Emblems that appeared on the generated car were removed frame by frame and filled with the surrounding grille pattern",
+              "Music composed in code: interrogation-room bass → silence and a brass hit on each “pass” → a trot finale"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "출처",
+            "en": "Credits"
+          },
+          "lines": {
+            "ko": [
+              "영상: Google Flow · Veo 3.1 Fast로 생성 (본 영상은 생성형 AI로 제작했습니다)",
+              "음악: pretty_midi로 작곡, FluidSynth(TimGM6mb)로 렌더링 · 외부 음원 없음",
+              "서체: Pretendard (SIL Open Font License)"
+            ],
+            "en": [
+              "Video: generated with Google Flow · Veo 3.1 Fast (made with generative AI)",
+              "Music: composed with pretty_midi, rendered with FluidSynth (TimGM6mb) · no stock audio",
+              "Font: Pretendard (SIL Open Font License)"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "live-happily",
       "date": "2026-10-24",
       "durationSec": 60,
