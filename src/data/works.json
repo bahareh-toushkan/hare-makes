@@ -1,6 +1,365 @@
 {
   "works": [
     {
+      "slug": "15min-save",
+      "date": "2026-10-27",
+      "durationSec": 53,
+      "aspect": "9:16",
+      "shots": 10,
+      "accent": "#3DDC84",
+      "title": {
+        "ko": "15분 세이브",
+        "en": "15-Minute Save"
+      },
+      "status": {
+        "ko": "2026 한국도로공사 휴게소 숏폼 공모전 출품작 · 9:16",
+        "en": "Entry — 2026 Korea Expressway Corporation rest-area short-form contest (9:16)"
+      },
+      "logline": {
+        "ko": "졸음 HP 12%, 이대로 가면 게임 오버. 고속도로를 던전으로, 휴게소를 세이브 포인트로 바꾼 RPG 패러디 — 호두과자와 커피로 회복하고 15분 쉬면 HP 100%, 보상은 최대 500원.",
+        "en": "Drowsiness HP at 12% — keep driving and it’s game over. An RPG parody where the highway is the dungeon and the rest area is the save point: heal up with walnut cakes and coffee, rest 15 minutes for full HP, and collect a reward of up to 500 won."
+      },
+      "tools": {
+        "generate": [
+          "Google Flow — Nano Banana 2.1 (image)",
+          "Google Flow — Veo 3.1 Lite · Fast (video, voices)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "Pillow",
+          "NumPy",
+          "librosa",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/reel/De_0k9gAcdy/",
+        "youtube": "https://youtube.com/shorts/4jOxm5NCS9w"
+      },
+      "media": {
+        "video": "media/15min-save/video.mp4",
+        "poster": "media/15min-save/poster.jpg",
+        "og": "media/15min-save/og.jpg"
+      },
+      "coverTime": 42.8,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "고속도로는 던전, 휴게소는 세이브 포인트, 졸음은 줄어드는 HP — \"졸리면 15분 쉬기\"를 RPG 세이브로 바꾼 패러디",
+            "en": "The highway is a dungeon, the rest area a save point, drowsiness a draining HP bar — “rest 15 minutes when sleepy” turned into an RPG save"
+          }
+        },
+        {
+          "label": {
+            "ko": "첫 2초",
+            "en": "Hook"
+          },
+          "text": {
+            "ko": "첫 프레임부터 하품하는 얼굴과 깜빡이는 졸음 경고, 눈이 감기면 까만 화면에 GAME OVER… 될 뻔!",
+            "en": "A yawning face and a flashing drowsiness warning from frame one; when the eyes close, GAME OVER… almost"
+          }
+        },
+        {
+          "label": {
+            "ko": "게임 UI",
+            "en": "Game UI"
+          },
+          "text": {
+            "ko": "HP 바 · 퀘스트 · 미니맵 · 아이템 팝업 · 대화창을 Python으로 프레임마다 직접 그린 픽셀 UI (갈무리 글꼴)",
+            "en": "HP bar, quest log, minimap, item pop-ups and dialogue box all drawn frame by frame in Python as pixel UI (Galmuri font)"
+          }
+        },
+        {
+          "label": {
+            "ko": "음악",
+            "en": "Music"
+          },
+          "text": {
+            "ko": "128 BPM 8비트 칩튠과 효과음을 코드로 작곡·합성하고, 컷은 마디에 맞춰 바뀜",
+            "en": "A 128 BPM 8-bit chiptune and sound effects composed and synthesized in code; every cut lands on a bar line"
+          }
+        },
+        {
+          "label": {
+            "ko": "목소리",
+            "en": "Voices"
+          },
+          "text": {
+            "ko": "아저씨 대사와 가족 구호는 Veo가 만든 목소리 — 소리 구간과 음높이를 재서 대화창·구호 글자를 말하는 순간에 맞춤",
+            "en": "The cook’s lines and the family chant are Veo-generated voices; speech segments and pitch were measured so dialogue text pops exactly when each line is spoken"
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "캐릭터",
+            "en": "Characters"
+          },
+          "detail": {
+            "ko": "Nano Banana 2.1 · 아빠 · 휴게소 아저씨 참고 시트 (다른 출품작 캐릭터와 겹치지 않게 새로)",
+            "en": "Nano Banana 2.1 · reference sheets for the dad and the snack-stand cook, designed fresh so they don’t resemble other entries"
+          }
+        },
+        {
+          "name": {
+            "ko": "시작 화면",
+            "en": "Start frames"
+          },
+          "detail": {
+            "ko": "장면마다 Nano Banana로 첫 화면 → 간판 글씨 · 로고 · 엠블럼이 없는지 검수",
+            "en": "A first frame per scene with Nano Banana → checked for sign lettering, logos and emblems"
+          }
+        },
+        {
+          "name": {
+            "ko": "영상",
+            "en": "Video"
+          },
+          "detail": {
+            "ko": "Veo 3.1 Lite(장면) · Fast(대사 · 구호) · 시작 화면 → 8초 720p · 10컷 사용",
+            "en": "Veo 3.1 Lite for scenes, Fast for dialogue and the chant · start frame → 8 s at 720p · 10 shots used"
+          }
+        },
+        {
+          "name": {
+            "ko": "편집",
+            "en": "Edit"
+          },
+          "detail": {
+            "ko": "128 BPM 마디 격자에 맞춰 프레임 단위로 자르고 1080×1920으로 업스케일 · 작은 글씨는 흐림 처리",
+            "en": "Cut frame-exactly to a 128 BPM bar grid, upscaled to 1080×1920, stray small lettering blurred"
+          }
+        },
+        {
+          "name": {
+            "ko": "UI · 소리",
+            "en": "UI & sound"
+          },
+          "detail": {
+            "ko": "Python(Pillow)으로 픽셀 UI를 프레임마다 그림 · NumPy로 칩튠 · 효과음 · -14 LUFS",
+            "en": "Pixel UI drawn per frame in Python (Pillow) · chiptune and SFX in NumPy · mixed to −14 LUFS"
+          }
+        },
+        {
+          "name": {
+            "ko": "검수",
+            "en": "Review"
+          },
+          "detail": {
+            "ko": "얼굴 · 발음 · 글자 확인 → 의견 반영 4차례 후 최종본",
+            "en": "Faces, pronunciation and on-screen text checked → final cut after four rounds of feedback"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [
+        {
+          "label": {
+            "ko": "휴게소 아저씨 대사",
+            "en": "The cook’s lines"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · 시작 화면에서 · 9:16 · 8초 · 목소리 포함",
+            "en": "Flow · Veo 3.1 Fast · from a start frame · with voice"
+          },
+          "text": "Dialogue scene. The friendly snack-stand cook leans on the open car window and talks warmly to the tired driver like a kind neighborhood uncle sharing a good tip, his lips moving clearly with each word. First, with a playful teasing grin, he says in Korean in a warm, cheerful voice: \"그냥 쉬는 줄 알았지?\" He pauses for a second with a knowing smile. Then he leans in, gives a big friendly thumbs-up with a wink, and says brightly in Korean as good news: \"십오 분 쉬면 최대 오백 원 받아 가!\" He is generous and encouraging, not asking for anything. Static camera, medium close-up. Only the cook speaks; quiet night ambience, no music. No subtitles, no text, no logos, no money in his hands."
+        },
+        {
+          "label": {
+            "ko": "엔딩 구호",
+            "en": "The family chant"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · 시작 화면에서 · 9:16 · 8초 · 목소리 포함",
+            "en": "Flow · Veo 3.1 Fast · from a start frame · with voices"
+          },
+          "text": "Dialogue scene at dawn inside the car, a cheerful family call-and-response, Korean voices, clear and in order. Right at the start the father, eyes on the road, calls out brightly: \"졸리면?\" The two children in the back shout together: \"세이브!\" The father calls: \"쉬면?\" The children shout together: \"오백 원!\" Then the father smiles proudly, nods once and says warmly: \"그렇지~!\" while giving a thumbs-up toward the back seat. The children grin and give thumbs-up back. They do not burst into laughter; the scene ends calmly on warm smiles. Gentle natural motion, soft morning light. No background music. No subtitles, no text, no signs, no logos."
+        },
+        {
+          "label": {
+            "ko": "찬물 세수 (시작 화면)",
+            "en": "Cold-water splash (start frame)"
+          },
+          "mode": {
+            "ko": "Flow · Nano Banana 2.1 · 아빠 참고 시트를 재료로",
+            "en": "Flow · Nano Banana 2.1 · dad reference sheet as input"
+          },
+          "text": "A single photorealistic vertical 9:16 film still, not a reference sheet. Medium close-up, three-quarter front view, of the man from the reference image at a clean, bright restroom sink in a Korean highway rest area at night: he has just splashed cold water on his face and is lifting his head, eyes wide open and wide awake, water droplets running down his face and short beard, wet wavy permed black hair, both hands cupped with water just below his chin, mustard-yellow hoodie sleeves pushed up. His face is clearly the same man as in the reference. Cinematic, natural color grading, crisp clean light. No mirror reflection, no text, no logos, no labels."
+        },
+        {
+          "label": {
+            "ko": "찬물 세수 (영상)",
+            "en": "Cold-water splash (video)"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Lite · 위 시작 화면에서 · 8초",
+            "en": "Flow · Veo 3.1 Lite · from the frame above · 8 s"
+          },
+          "text": "The man splashes the cupped cold water onto his face, then immediately lifts his head with eyes wide open, pats his wet cheeks twice with both hands, blinks hard and gives a small determined nod, now fully awake. Keep his face clearly visible and exactly the same man throughout; do not turn away from the camera. Static camera, clean bright restroom. Nobody speaks, no dialogue. No mirror, no text, no logos, no labels."
+        },
+        {
+          "label": {
+            "ko": "아빠 참고 시트",
+            "en": "Dad reference sheet"
+          },
+          "mode": {
+            "ko": "Flow · Nano Banana 2.1",
+            "en": "Flow · Nano Banana 2.1"
+          },
+          "text": "Photorealistic character reference sheet of a Korean man around forty: slightly round friendly face, wavy permed black hair parted in the middle that falls over his ears, a neatly trimmed short beard along the jaw and chin, wearing a mustard-yellow zip hoodie over a white t-shirt. Three chest-up views side by side: front, three-quarter, profile. Neutral soft light, plain light gray background. No glasses, no text, no logos."
+        }
+      ],
+      "scenes": [
+        {
+          "label": {
+            "ko": "졸음 HP 12%",
+            "en": "Drowsiness HP 12%"
+          },
+          "text": {
+            "ko": "첫 프레임부터 하품하는 아빠와 깜빡이는 졸음 경고. \"이대로 가면?\" 눈이 감기면 까만 화면에 GAME OVER… 될 뻔!",
+            "en": "A yawning dad and a flashing warning from the first frame. “Keep going like this?” Eyes close — GAME OVER… almost."
+          },
+          "time": 1.2,
+          "frame": "media/15min-save/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "SAVE POINT 발견!",
+            "en": "Save point found!"
+          },
+          "text": {
+            "ko": "퀘스트 '세이브 포인트 찾기' 완료. 세이브 포인트 = 고속도로 휴게소.",
+            "en": "Quest complete: “find a save point.” Save point = highway rest area."
+          },
+          "time": 9.0,
+          "frame": "media/15min-save/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "휴게소 상점",
+            "en": "Rest-area shop"
+          },
+          "text": {
+            "ko": "라면 · 소떡소떡 · 통감자 · 편의점 간식을 지나 \"2개만 고르세요!\" → 호두과자 + 커피.",
+            "en": "Ramyeon, sausage-rice-cake skewers, potatoes, snacks — “pick two!” → walnut cakes + coffee."
+          },
+          "time": 15.9,
+          "frame": "media/15min-save/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "ITEM GET",
+            "en": "Item get"
+          },
+          "text": {
+            "ko": "호두과자 +30 HP, 커피 집중력 버프, 스트레칭 경직 해제, 찬물 세수 '상태 이상 해제: 졸음'.",
+            "en": "Walnut cakes +30 HP, a coffee focus buff, a stretch to clear stiffness, cold water to cure “drowsy”."
+          },
+          "time": 17.6,
+          "frame": "media/15min-save/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "SAVE 완료",
+            "en": "Saved"
+          },
+          "text": {
+            "ko": "차에서 가족이 15분 쉬는 동안 하늘이 새벽으로 바뀌고 HP가 차오름. 보상 최대 +500.",
+            "en": "The family rests 15 minutes in the car as night turns to dawn and HP refills. Reward: up to +500."
+          },
+          "time": 28.9,
+          "frame": "media/15min-save/scene-5.jpg"
+        },
+        {
+          "label": {
+            "ko": "휴게소 아저씨",
+            "en": "The snack-stand cook"
+          },
+          "text": {
+            "ko": "\"그냥 쉬는 줄 알았지?\" \"15분 쉬면 최대 500원 받아 가!\" — 좋은 소식을 알려 주는 동네 아저씨처럼.",
+            "en": "“Thought you were just resting?” “Rest 15 minutes, get up to 500 won!” — like a neighborhood uncle sharing good news."
+          },
+          "time": 35.5,
+          "frame": "media/15min-save/scene-6.jpg"
+        },
+        {
+          "label": {
+            "ko": "졸리면? 세이브!",
+            "en": "Sleepy? Save!"
+          },
+          "text": {
+            "ko": "새벽 고속도로, HP 100%. \"졸리면?\" \"세이브!\" \"쉬면?\" \"500원!\" \"그렇지~!\" 엄지척에 찰칵, 세이브 슬롯.",
+            "en": "Dawn highway, full HP. “Sleepy?” “Save!” “Rest?” “500 won!” “That’s right~!” — a thumbs-up snaps into a save slot."
+          },
+          "time": 42.8,
+          "frame": "media/15min-save/scene-7.jpg"
+        }
+      ],
+      "compare": [],
+      "notes": [
+        {
+          "heading": {
+            "ko": "고친 것",
+            "en": "What we fixed"
+          },
+          "lines": {
+            "ko": [
+              "첫 1~2초에 뭘 보는지 몰라 넘길 수 있음 → 첫 프레임부터 하품 얼굴 + 졸음 경고, 눈이 감기면 GAME OVER",
+              "휴게소 아저씨가 '500원 내놔라'처럼 보임 → 웃는 시작 화면과 \"받아 가!\" 대사로 다시 생성",
+              "세수 장면에서 얼굴이 다른 사람으로 바뀜 → 얼굴이 보이는 시작 화면 + '얼굴 계속 보이게' 지시로 다시 생성",
+              "구호 뒤 웃음이 어색함 → 아빠의 \"그렇지~!\"와 엄지척에서 '찰칵' 세이브 슬롯으로 끝냄"
+            ],
+            "en": [
+              "Viewers might swipe away in the first seconds → a yawning face and a warning from frame one, GAME OVER when the eyes close",
+              "The cook looked like he was demanding 500 won → regenerated with a smiling start frame and a “take it!” line",
+              "The dad’s face changed in the splash shot → regenerated from a face-visible start frame with “keep his face visible”",
+              "The laughter after the chant felt forced → ends on the dad’s “That’s right~!” and a thumbs-up snapping into a save slot"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "사실과 출처",
+            "en": "Facts and sources"
+          },
+          "lines": {
+            "ko": [
+              "2026년 상반기 고속도로 사망자 95명 중 68명(71.6%)이 졸음 · 주시태만 (한국도로공사, 파이낸셜뉴스 2026-07-28)",
+              "휴식포인트: 위드라이브 앱, 휴게소 · 졸음쉼터에서 15분 이상 쉬면 1회 50~500원 상당 (2026.12.31.까지) → 영상에서는 '최대 500원'"
+            ],
+            "en": [
+              "In the first half of 2026, 68 of 95 highway deaths (71.6%) involved drowsiness or inattention (Korea Expressway Corporation, via Financial News, 2026-07-28)",
+              "Rest points: via the WithDrive app, resting 15+ minutes at a rest area or drowsiness shelter earns points worth 50–500 won per stop (through 2026-12-31) → “up to 500 won” in the video"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "출처",
+            "en": "Credits"
+          },
+          "lines": {
+            "ko": [
+              "영상 · 이미지: Google Flow · Nano Banana 2.1, Veo 3.1 Lite · Fast로 생성 (본 영상은 생성형 AI로 제작했습니다)",
+              "음악 · 효과음: Python(NumPy)으로 직접 작곡 · 합성 · 외부 음원 없음",
+              "서체: 갈무리(Galmuri11) · Pretendard (SIL Open Font License)"
+            ],
+            "en": [
+              "Video and images: generated with Google Flow · Nano Banana 2.1 and Veo 3.1 Lite · Fast (made with generative AI)",
+              "Music and SFX: composed and synthesized in Python (NumPy) · no stock audio",
+              "Fonts: Galmuri11 and Pretendard (SIL Open Font License)"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "il-il-gong",
       "date": "2026-10-26",
       "durationSec": 44,
