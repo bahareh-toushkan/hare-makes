@@ -1,6 +1,320 @@
 {
   "works": [
     {
+      "slug": "engineering-count",
+      "date": "2026-10-29",
+      "durationSec": 60,
+      "aspect": "9:16",
+      "shots": 0,
+      "accent": "#FFB703",
+      "coverTime": 2.8,
+      "title": {
+        "ko": "오늘 하루, 공학이 몇 번 널 구했을까?",
+        "en": "How Many Times Did Engineering Save You Today?"
+      },
+      "status": {
+        "ko": "2026 한국공학한림원 「공학의 가치」 숏폼 콘테스트 출품작 · 9:16",
+        "en": "Entry — 2026 NAEK “Value of Engineering” short-form contest (9:16)"
+      },
+      "logline": {
+        "ko": "물을 틀고, 엘리베이터를 타고, 폰을 켜고, 길을 건너고, 불을 켜는 평범한 하루. 그 순간마다 공학이 개입한 횟수를 화면 구석의 카운터로 세어 간다 — 출처 있는 숫자만으로, 생성 영상 없이 전부 코드로 그린 60초.",
+        "en": "Turning on the tap, riding the elevator, waking the phone, crossing the road, switching on the light — an ordinary day, with a corner counter ticking every time engineering steps in. Sixty seconds of sourced numbers only, drawn entirely in code with no generated footage."
+      },
+      "tools": {
+        "generate": [],
+        "edit": [
+          "HTML · CSS · JavaScript",
+          "Playwright (Chromium)",
+          "Python",
+          "NumPy",
+          "FFmpeg",
+          "Claude"
+        ]
+      },
+      "links": {
+        "instagram": "",
+        "youtube": "https://youtube.com/shorts/0ieglkTzRnE"
+      },
+      "media": {
+        "video": "media/engineering-count/video.mp4",
+        "poster": "media/engineering-count/poster.jpg",
+        "og": "media/engineering-count/og.jpg"
+      },
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "'공학의 가치'를 설명하지 않고 세어 본다 — 하루 타임라인을 따라 카운터가 +1씩 올라가고, 마지막엔 세지 못할 만큼 폭주한다",
+            "en": "Instead of explaining the value of engineering, count it — a counter ticks +1 along a day’s timeline, then runs away faster than anyone can count"
+          }
+        },
+        {
+          "label": {
+            "ko": "정확성",
+            "en": "Accuracy"
+          },
+          "text": {
+            "ko": "화면의 숫자 9개 전부 공공기관·제조사 발표 수치, 장면마다 출처 표기. 확인 안 되는 숫자는 뺐다",
+            "en": "All nine on-screen figures come from government or manufacturer releases, each scene cites its source; anything unverifiable was cut"
+          }
+        },
+        {
+          "label": {
+            "ko": "코드 애니메이션",
+            "en": "Code animation"
+          },
+          "text": {
+            "ko": "키네틱 타이포 · 막대차트 · 링 게이지 · 카운트업 · 인천대교 선 그리기까지 모든 움직임이 시간 t의 함수(seek(t)) — 숫자 하나 바꾸면 그대로 재렌더링",
+            "en": "Kinetic type, bar charts, a ring gauge, count-ups and the bridge line-draw are all pure functions of time (seek(t)) — change one number and re-render"
+          }
+        },
+        {
+          "label": {
+            "ko": "음악",
+            "en": "Music"
+          },
+          "text": {
+            "ko": "96 BPM 패드 · 킥 · 아르페지오를 NumPy로 직접 합성, 카운터가 오를 때마다 음이 한 칸씩 올라가는 블립",
+            "en": "A 96 BPM pad, kick and arpeggio synthesized in NumPy; each counter tick plays a blip one semitone higher than the last"
+          }
+        },
+        {
+          "label": {
+            "ko": "생성 AI",
+            "en": "Generative AI"
+          },
+          "text": {
+            "ko": "없음. 실사 촬영도 없음 — 전부 코드. Claude는 대본 구성과 코드 작성을 보조",
+            "en": "None — no footage either, all code. Claude assisted with the script structure and the code"
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "사실 조사",
+            "en": "Fact check"
+          },
+          "detail": {
+            "ko": "일상 순간 10개 → 공식 통계·발표 자료에서 수치 확인 → 확인된 9개만 사용",
+            "en": "Ten everyday moments → figures verified against official statistics and releases → nine confirmed ones used"
+          }
+        },
+        {
+          "name": {
+            "ko": "대본",
+            "en": "Script"
+          },
+          "detail": {
+            "ko": "06:30 수돗물부터 23:00 폭주까지 8장면, 60초 타임라인에 배치",
+            "en": "Eight scenes from 06:30 tap water to the 23:00 runaway counter, laid out on a 60-second timeline"
+          }
+        },
+        {
+          "name": {
+            "ko": "애니메이션",
+            "en": "Animation"
+          },
+          "detail": {
+            "ko": "HTML/CSS/JS 한 파일 · 모든 요소의 위치·투명도·숫자를 t의 함수로 작성 · Noto Sans CJK KR",
+            "en": "One HTML/CSS/JS file; every element’s position, opacity and number written as a function of t · Noto Sans CJK KR"
+          }
+        },
+        {
+          "name": {
+            "ko": "렌더링",
+            "en": "Render"
+          },
+          "detail": {
+            "ko": "Playwright가 Chromium에서 1/24초마다 seek(t) → PNG 1,440장 → FFmpeg H.264 1080×1920",
+            "en": "Playwright calls seek(t) every 1/24 s in Chromium → 1,440 PNG frames → FFmpeg H.264 at 1080×1920"
+          }
+        },
+        {
+          "name": {
+            "ko": "음악 · 믹스",
+            "en": "Music & mix"
+          },
+          "detail": {
+            "ko": "NumPy로 코드 작곡·합성 · 카운터 시각에 블립 동기화 · -14 LUFS",
+            "en": "Composed and synthesized in NumPy · blips synced to counter timestamps · −14 LUFS"
+          }
+        },
+        {
+          "name": {
+            "ko": "검수",
+            "en": "Review"
+          },
+          "detail": {
+            "ko": "3판 비교 — 빨강 반전·드롭 비트를 넣은 2판은 거슬려서 버리고, 1판에 '끝까지 보면 숫자가 나와요' 약속과 정답 장면만 더함",
+            "en": "Three cuts compared — a louder second cut with red flashes and a beat drop was dropped; the first cut gained only a “watch to the end” promise and an answer scene"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [],
+      "compare": [],
+      "scenes": [
+        {
+          "label": {
+            "ko": "훅",
+            "en": "Hook"
+          },
+          "text": {
+            "ko": "\"오늘 하루, 공학이 몇 번 널 구했을까?\" — 끝까지 보면 숫자가 나와요. 몇 번일지 먼저 찍어 보세요.",
+            "en": "“How many times did engineering save you today?” — watch to the end for the number, and guess first."
+          },
+          "time": 3.2,
+          "frame": "media/engineering-count/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "06:30 물을 틀었다",
+            "en": "06:30 Tap"
+          },
+          "text": {
+            "ko": "법정 수질검사 61항목을 통과한 물 · 전국 상수도 보급률 99.5% (환경부)",
+            "en": "Water that passed 61 statutory quality tests · 99.5% of Korea on mains water (Ministry of Environment)"
+          },
+          "time": 10.5,
+          "frame": "media/engineering-count/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "07:40 엘리베이터 · 지하철",
+            "en": "07:40 Elevator & subway"
+          },
+          "text": {
+            "ko": "전국 승강기 87만 대, 매년 법정 검사 · 하루 669만 명을 ATP가 자동 감시 (행정안전부 · 서울교통공사)",
+            "en": "877,000 elevators inspected every year · 6.69 million daily riders watched by ATP (MOIS · Seoul Metro)"
+          },
+          "time": 19.5,
+          "frame": "media/engineering-count/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "09:00 폰을 켰다",
+            "en": "09:00 Phone"
+          },
+          "text": {
+            "ko": "손안의 칩 하나에 트랜지스터 190억 개 · 3nm 공정 · 5G 3,725만 회선",
+            "en": "19 billion transistors in one chip · 3 nm process · 37.25 million 5G lines"
+          },
+          "time": 27.5,
+          "frame": "media/engineering-count/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "12:00 길을 건넜다",
+            "en": "12:00 Crossing"
+          },
+          "text": {
+            "ko": "교통사고 사망 1991년 13,429명 → 2025년 2,549명 (−81%) · 인천대교 21.38km가 선으로 그려진다",
+            "en": "Road deaths 13,429 (1991) → 2,549 (2025), −81% · the 21.38 km Incheon Bridge draws itself"
+          },
+          "time": 38.5,
+          "frame": "media/engineering-count/scene-5.jpg"
+        },
+        {
+          "label": {
+            "ko": "18:00 병원 · 불",
+            "en": "18:00 Hospital & light"
+          },
+          "text": {
+            "ko": "MRI 100만 명당 39.3대(OECD 21.5) · 1년 정전 9.3분 → 전력 공급 시간 99.998%",
+            "en": "39.3 MRI units per million (OECD 21.5) · 9.3 minutes of outage a year → 99.998% uptime"
+          },
+          "time": 46.9,
+          "frame": "media/engineering-count/scene-6.jpg"
+        },
+        {
+          "label": {
+            "ko": "23:00 정답",
+            "en": "23:00 The answer"
+          },
+          "text": {
+            "ko": "카운터가 폭주한다. 정답: 세지 못했다. — 너는 몇이라고 찍었어?",
+            "en": "The counter runs away. Answer: couldn’t count. — What was your guess?"
+          },
+          "time": 54.8,
+          "frame": "media/engineering-count/scene-7.jpg"
+        }
+      ],
+      "notes": [
+        {
+          "heading": {
+            "ko": "고친 것",
+            "en": "What we fixed"
+          },
+          "lines": {
+            "ko": [
+              "1판은 정보 나열이라 끝까지 볼 이유가 없음 → 훅에 '끝까지 보면 숫자가 나와요' 약속, 끝에 정답과 댓글 질문",
+              "2판(장면마다 빨강 반전·흔들림·120 BPM 드롭)은 소리와 색이 거슬려 폐기 → 1판 음악·색으로 복귀",
+              "트랜지스터 190억 숫자가 화면 폭을 넘침 → 글자 크기 축소 · 인천대교 케이블이 혹 모양 → 현수교 곡선으로"
+            ],
+            "en": [
+              "Cut one just listed facts with no reason to stay → a “watch to the end for the number” promise up front and an answer plus a comment question at the end",
+              "Cut two (red flashes, shake and a 120 BPM drop per scene) was grating → back to cut one’s music and palette",
+              "The 19-billion figure overflowed the frame → smaller type; the bridge cable looked like a hump → proper suspension curve"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "사실과 출처",
+            "en": "Facts and sources"
+          },
+          "lines": {
+            "ko": [
+              "상수도 보급률 99.5% — 환경부 2024 상수도통계 · 먹는물 수질기준 61항목(환경부령)",
+              "승강기 877,152대(2025.6) — 행정안전부 2026~2030 승강기 안전관리 기본계획",
+              "서울 지하철 1~8호선 일평균 669만 2천 명(2025) — 서울교통공사 · ATP 설명은 서울시",
+              "A17 Pro 트랜지스터 190억 개 · 3nm — Apple(2023.9) · Tom's Hardware",
+              "5G 37,249,411회선(2025.6) — 과학기술정보통신부 무선통신서비스 가입현황",
+              "교통사고 사망 1991년 13,429명 → 2025년 2,549명 — 경찰청·도로교통공단",
+              "인천대교 21.38km · 주탑 238.5m — 인천광역시",
+              "MRI 100만 명당 39.3대 · OECD 21.5대(2024) — 보건복지부 OECD 보건통계 2026",
+              "호당 정전시간 9.32분/년(2025) — 한국전력 ESG 데이터(SAIDI) → 1 − 9.32/525,600 = 99.998%"
+            ],
+            "en": [
+              "99.5% mains-water coverage — Ministry of Environment 2024 statistics · 61 drinking-water test items (ministerial decree)",
+              "877,152 elevators (June 2025) — Ministry of the Interior and Safety 2026–2030 plan",
+              "6.692 million daily riders on Seoul lines 1–8 (2025) — Seoul Metro · ATP description from Seoul City",
+              "A17 Pro: 19 billion transistors, 3 nm — Apple (Sept 2023) · Tom's Hardware",
+              "37,249,411 5G lines (June 2025) — Ministry of Science and ICT",
+              "Road deaths 13,429 (1991) → 2,549 (2025) — National Police Agency · KoROAD",
+              "Incheon Bridge 21.38 km, 238.5 m pylons — Incheon Metropolitan City",
+              "39.3 MRI units per million vs OECD 21.5 (2024) — Ministry of Health and Welfare, OECD Health Statistics 2026",
+              "9.32 min/year outage per customer (2025) — KEPCO ESG data (SAIDI) → 1 − 9.32/525,600 = 99.998%"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "출처",
+            "en": "Credits"
+          },
+          "lines": {
+            "ko": [
+              "영상: 생성형 AI · 실사 촬영 없음 — HTML/CSS/JS 애니메이션을 Playwright(Chromium)로 프레임 캡처, FFmpeg로 인코딩",
+              "음악 · 효과음: Python(NumPy)으로 직접 작곡 · 합성 · 외부 음원 없음",
+              "서체: Noto Sans CJK KR (SIL Open Font License)",
+              "AI 활용: Claude(Anthropic) — 대본 구성 · 코드 작성 · 출처 조사 보조. 기획 · 결정 · 검수는 제작자"
+            ],
+            "en": [
+              "Video: no generative AI, no footage — an HTML/CSS/JS animation frame-captured with Playwright (Chromium) and encoded with FFmpeg",
+              "Music and SFX: composed and synthesized in Python (NumPy) · no stock audio",
+              "Font: Noto Sans CJK KR (SIL Open Font License)",
+              "AI: Claude (Anthropic) assisted with script structure, code and source research; concept, decisions and review by the maker"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "15min-save",
       "date": "2026-10-27",
       "durationSec": 53,
