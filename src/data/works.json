@@ -1,6 +1,350 @@
 {
   "works": [
     {
+      "slug": "golden-nurungji",
+      "date": "2026-10-30",
+      "durationSec": 39,
+      "aspect": "9:16",
+      "shots": 6,
+      "accent": "#F2B32A",
+      "title": {
+        "ko": "황금 누룽지 햇반",
+        "en": "Golden Nurungji Hetbahn"
+      },
+      "status": {
+        "ko": "햇반 30주년 AI 공모전 「갓 지은 AI디어」 출품작 · 01 미래의 햇반 · 9:16",
+        "en": "Entry — Hetbahn 30th Anniversary AI Contest, “The Future Hetbahn” category (9:16)"
+      },
+      "logline": {
+        "ko": "밤 11시 서울 자취방, 이란의 엄마가 영상통화로 묻는다. \"뭐 좀 먹었어?\" 딸이 꺼낸 건 미래의 햇반 — 페르시안 사프란으로 노랗게, 전자레인지 2분 만에 바닥은 바삭한 누룽지. 뒤집으면 이란 엄마들의 탓딕이 완성되고, 딸은 말한다. \"햇반이 했어!\"",
+        "en": "Eleven at night in a Seoul studio flat, a mother in Iran asks over video call: “Have you eaten?” The daughter reaches for a future Hetbahn — rice turned gold with Persian saffron, a crispy crust after two minutes in the microwave. Flip it and an Iranian mother’s tahdig appears. “Hetbahn made it!”"
+      },
+      "tools": {
+        "generate": [
+          "Google Flow — Nano Banana 2.1 (image)",
+          "Google Flow — Veo 3.1 Lite (video)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "Pillow",
+          "NumPy",
+          "librosa",
+          "OpenCV",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/reel/DfG7olVPLv9/",
+        "youtube": ""
+      },
+      "media": {
+        "video": "media/golden-nurungji/video.mp4",
+        "poster": "media/golden-nurungji/poster.jpg",
+        "og": "media/golden-nurungji/og.jpg"
+      },
+      "coverTime": 12.0,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "세계 엄마들의 손맛을 2분에 — 이란 엄마의 탓딕(페르시안 황금 누룽지)을 아직 세상에 없는 미래의 햇반으로",
+            "en": "A mother’s cooking in two minutes — an Iranian mother’s tahdig (golden Persian rice crust) imagined as a Hetbahn that doesn’t exist yet"
+          }
+        },
+        {
+          "label": {
+            "ko": "엄마 목소리",
+            "en": "Real voice"
+          },
+          "text": {
+            "ko": "엄마 대사는 AI 음성이 아니라 실제 어머니가 페르시아어로 직접 녹음한 목소리",
+            "en": "The mother’s lines aren’t an AI voice — they’re recorded in Persian by a real mother"
+          }
+        },
+        {
+          "label": {
+            "ko": "립싱크",
+            "en": "Lip sync"
+          },
+          "text": {
+            "ko": "녹음과 Veo 음성을 MFCC·DTW로 맞춰 영상 프레임 시간을 다시 배치 — 목소리는 늘이지 않고 입 모양을 목소리에 맞춤",
+            "en": "The recording and Veo’s voice were aligned with MFCC + DTW and the video frames re-timed — the voice is never stretched; the mouth follows the voice"
+          }
+        },
+        {
+          "label": {
+            "ko": "음성 복원",
+            "en": "Voice repair"
+          },
+          "text": {
+            "ko": "메신저 녹음의 좁은 음역을 말하는 순간에만 대역 복사로 채움 — 익사이터의 쉬·찌직 잡음 없이",
+            "en": "The narrow messenger-call band was widened by copying upper harmonics only while she speaks — without an exciter’s hiss and crackle"
+          }
+        },
+        {
+          "label": {
+            "ko": "폰 화면",
+            "en": "Phone screen"
+          },
+          "text": {
+            "ko": "광류 추적으로 영상 속 폰 화면을 따라가며 엄마 영상을 합성 — 처음엔 꺼진 화면, 벨이 울리면 엄마",
+            "en": "Optical-flow tracking pins the mother’s call onto the phone in the shot — dark at first, then ringing, then Mom"
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "시안",
+            "en": "Boards"
+          },
+          "detail": {
+            "ko": "Nano Banana 2.1 · 자취방 · 제품 · 뒤집기 · 엄마 · 사프란 · 패키지 시안 → 의견 반영해 다시",
+            "en": "Nano Banana 2.1 boards for the flat, product, flip, mother, saffron and package → redone with feedback"
+          }
+        },
+        {
+          "name": {
+            "ko": "엄마 얼굴",
+            "en": "Mother"
+          },
+          "detail": {
+            "ko": "어머니 동의를 받고 사진을 참고해 Nano Banana로 얼굴 생성 → 눈 색(밝은 회청색)까지 맞춤",
+            "en": "With her consent, her photos guided the Nano Banana portrait — down to her light grey-blue eyes"
+          }
+        },
+        {
+          "name": {
+            "ko": "영상",
+            "en": "Video"
+          },
+          "detail": {
+            "ko": "Veo 3.1 Lite · 시안을 시작 프레임으로 8초 720p · 엄마 대사는 페르시아어 프롬프트로 · 6컷 사용",
+            "en": "Veo 3.1 Lite from start frames, 8 s at 720p; the mother’s lines prompted in Persian; six shots used"
+          }
+        },
+        {
+          "name": {
+            "ko": "립싱크",
+            "en": "Lip sync"
+          },
+          "detail": {
+            "ko": "어머니 녹음 2개 손질(쉼만 조절) → MFCC DTW 정렬 → 프레임 다시 매기기",
+            "en": "Two recordings trimmed (pauses only) → MFCC DTW alignment → frames re-timed"
+          }
+        },
+        {
+          "name": {
+            "ko": "합성 · 자막",
+            "en": "Compositing"
+          },
+          "detail": {
+            "ko": "폰 화면 추적 합성 · 한국어 자막(엄마 대사는 노란 글씨) · 공식 로고 파일 그대로",
+            "en": "Tracked phone-screen composite · Korean subtitles (the mother’s in yellow) · official logo files untouched"
+          }
+        },
+        {
+          "name": {
+            "ko": "음악 · 믹스",
+            "en": "Music & mix"
+          },
+          "detail": {
+            "ko": "산투르풍 음악 · 효과음을 NumPy로 직접 합성 · -14 LUFS",
+            "en": "Santur-style music and effects synthesized in NumPy · −14 LUFS"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [
+        {
+          "label": {
+            "ko": "엄마 영상통화 ①",
+            "en": "Mother’s call ①"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Lite · 시작 화면에서 · 9:16 · 8초 · 목소리 포함",
+            "en": "Flow · Veo 3.1 Lite · from a start frame · with voice"
+          },
+          "text": "Front-camera selfie video call, vertical 9:16. The gentle Persian mother holds the phone with one outstretched arm (only that arm is visible at the lower-left edge); her other hand stays completely out of frame for the whole clip and she makes no hand gestures at all. Keep her exactly as in the start image: the same face, the same light grey-blue eyes, the same wavy honey-blonde hair, the same cream dress with crimson embroidery, the same kitchen with the brass samovar. Starting about half a second in, she looks into the camera with warm, caring eyes and speaks affectionately in Persian (Farsi, Tehrani accent), clearly and at a natural pace: \"چیزی خوردی؟ پاشو یه غذای خوشمزه درست کن مادر\" (Chizi khordi? Pasho ye ghazaye khoshmaze dorost kon, madar.) Accurate, natural lip movement for every syllable. After speaking she smiles softly, nods once and waits. Small natural handheld movement, natural blinking, kind relaxed eyes. Sound: only her voice and quiet kitchen ambience. No music, no subtitles, no text on screen."
+        },
+        {
+          "label": {
+            "ko": "뒤집기",
+            "en": "The reveal"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Lite · 시작 화면에서 · 9:16 · 8초",
+            "en": "Flow · Veo 3.1 Lite · from a start frame"
+          },
+          "text": "The big reveal: the hands lift the upturned white tray straight up and away, revealing the whole golden rectangular saffron tahdig standing perfectly on the white plate, its glossy amber crust intact. Fragrant steam rises, a spoon gently taps the top and the crust crackles. Camera slowly pushes in, shallow depth of field, warm desk-lamp light. Sound: a soft whoosh as the tray lifts, a crisp crackle on the tap. No text, no logos."
+        },
+        {
+          "label": {
+            "ko": "페르시안 사프란",
+            "en": "Persian saffron"
+          },
+          "mode": {
+            "ko": "Flow · Nano Banana 2.1 · 9:16 이미지",
+            "en": "Flow · Nano Banana 2.1 · 9:16 image"
+          },
+          "text": "Vertical 9:16 macro food photograph, photorealistic. A few deep-crimson Persian saffron threads drifting down in mid-air onto freshly cooked white rice in a white rectangular microwave rice tray; where the saffron threads land, the rice is blooming into a rich golden yellow. Next to the tray: a small ornate turquoise Persian ceramic dish piled with saffron threads, and a small clear tea glass of steeped saffron water glowing amber. Warm cozy late-night kitchen light, gentle steam rising, shallow depth of field, appetizing close-up. No people, no hands, no text, no letters, no logos, no brand names."
+        }
+      ],
+      "compare": [],
+      "scenes": [
+        {
+          "label": {
+            "ko": "서울, 밤 11시",
+            "en": "Seoul, 11 p.m."
+          },
+          "text": {
+            "ko": "지친 유학생 딸의 책상 위, 꺼져 있던 폰 화면이 켜지고 벨이 울린다.",
+            "en": "On a tired student’s desk, the dark phone lights up and rings."
+          },
+          "time": 1.5,
+          "frame": "media/golden-nurungji/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "엄마의 영상통화",
+            "en": "Mom calls"
+          },
+          "text": {
+            "ko": "\"뭐 좀 먹었어? 얼른 일어나서 맛있는 거 해 먹어, 우리 딸.\" — 페르시아어 대사에 노란 한국어 자막.",
+            "en": "“Have you eaten? Get up and make something tasty, my girl.” — Persian, with yellow Korean subtitles."
+          },
+          "time": 7.5,
+          "frame": "media/golden-nurungji/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "미래의 햇반",
+            "en": "The future Hetbahn"
+          },
+          "text": {
+            "ko": "「황금 누룽지 햇반」 — 노란 밥과 바삭한 누룽지 층이 한 용기에.",
+            "en": "“Golden Nurungji Hetbahn” — golden rice and a crispy crust in one tray."
+          },
+          "time": 12.0,
+          "frame": "media/golden-nurungji/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "황금빛의 비밀",
+            "en": "The secret"
+          },
+          "text": {
+            "ko": "페르시안 사프란 한 꼬집이 흰밥 위로 떨어져 노랗게 물든다.",
+            "en": "A pinch of Persian saffron falls onto white rice and turns it gold."
+          },
+          "time": 15.8,
+          "frame": "media/golden-nurungji/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "뒤집으면 탓딕",
+            "en": "Flip — tahdig"
+          },
+          "text": {
+            "ko": "전자레인지 2분, 접시에 뒤집으면 바삭한 페르시안 누룽지 탓딕 완성.",
+            "en": "Two minutes in the microwave, flip it onto a plate — crispy Persian tahdig."
+          },
+          "time": 21.6,
+          "frame": "media/golden-nurungji/scene-5.jpg"
+        },
+        {
+          "label": {
+            "ko": "엄마의 칭찬",
+            "en": "Mom is proud"
+          },
+          "text": {
+            "ko": "\"어머어머! 타친 정말 잘 만들었네, 우리 딸! 잘했다! 맛있게 먹어!\"",
+            "en": "“Oh my! What a tahchin, my girl! Well done! Enjoy!”"
+          },
+          "time": 25.5,
+          "frame": "media/golden-nurungji/scene-6.jpg"
+        },
+        {
+          "label": {
+            "ko": "햇반이 했어!",
+            "en": "Hetbahn made it!"
+          },
+          "text": {
+            "ko": "바삭한 한 입, 그리고 폰 너머 엄마에게 한마디.",
+            "en": "One crispy bite, and a word to Mom on the phone."
+          },
+          "time": 34.9,
+          "frame": "media/golden-nurungji/scene-7.jpg"
+        }
+      ],
+      "notes": [
+        {
+          "heading": {
+            "ko": "고친 것",
+            "en": "What we fixed"
+          },
+          "lines": {
+            "ko": [
+              "히잡 쓴 엄마 캐릭터 → 자수 놓은 페르시아 전통 옷으로",
+              "말투가 이란 페르시아어가 아니고 눈빛이 무서움 → 실제 어머니 사진·목소리로",
+              "첫 화면부터 이미 통화 중 → 꺼진 화면, 벨, 그다음 엄마",
+              "음성메시지 같은 목소리 → 말할 때만 고역을 채워 또렷하게, 잡음 없이",
+              "사프란이 재료라는 게 안 보임 → 사프란 장면 2초 추가"
+            ],
+            "en": [
+              "A mother in a hijab → an embroidered traditional Persian dress",
+              "Wrong accent, scary eyes → rebuilt from a real mother’s photos and voice",
+              "Already mid-call at frame one → dark screen, ringing, then Mom",
+              "A voice-message sound → top band filled only while she speaks, no added noise",
+              "Saffron wasn’t visible as the ingredient → a two-second saffron shot added"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "사실과 출처",
+            "en": "Facts and sources"
+          },
+          "lines": {
+            "ko": [
+              "「황금 누룽지 햇반」은 실제 출시 제품이 아닌 상상 속 미래의 햇반입니다",
+              "\"전자레인지 2분\"은 햇반 백미밥 210g 조리 표기(700W 2분, 컬리 상품 페이지)를 따름",
+              "탓딕(tahdig): 냄비 바닥에 눌어 바삭해진 이란식 밥 누룽지 · 엄마 대사의 타친(tahchin)은 사프란 밥을 구워 누룽지째 뒤집어 내는 요리"
+            ],
+            "en": [
+              "“Golden Nurungji Hetbahn” is an imagined future product, not a real one",
+              "“Two minutes” follows Hetbahn white rice 210 g cooking directions (700 W, 2 min, per the Kurly product page)",
+              "Tahdig: the crispy rice crust from the bottom of an Iranian pot · tahchin, in the mother’s line, is saffron rice baked and flipped out with its crust"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "출처",
+            "en": "Credits"
+          },
+          "lines": {
+            "ko": [
+              "영상 · 이미지: Google Flow · Nano Banana 2.1, Veo 3.1 Lite로 생성 (본 영상은 생성형 AI로 제작했습니다)",
+              "엄마 목소리: 실제 어머니가 직접 녹음한 페르시아어 대사",
+              "음악 · 효과음: Python(NumPy)으로 직접 합성 · 외부 음원 없음",
+              "로고: 햇반 · 햇반 30주년 공식 로고(공모전 제공 파일, 변경 없이) · 서체: Pretendard"
+            ],
+            "en": [
+              "Video and images generated with Google Flow · Nano Banana 2.1 and Veo 3.1 Lite (this film was made with generative AI)",
+              "The mother’s voice: Persian lines recorded by a real mother",
+              "Music and effects synthesized in Python (NumPy) — no outside audio",
+              "Logos: official Hetbahn and Hetbahn 30th-anniversary files supplied by the contest, unaltered · Type: Pretendard"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "engineering-count",
       "date": "2026-10-29",
       "durationSec": 60,
