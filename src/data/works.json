@@ -1,6 +1,390 @@
 {
   "works": [
     {
+      "slug": "one-hetbahn",
+      "date": "2026-10-31",
+      "durationSec": 54,
+      "aspect": "9:16",
+      "shots": 11,
+      "accent": "#B49CFF",
+      "title": {
+        "ko": "1햇반 = 2분",
+        "en": "1 Hetbahn = 2 Minutes"
+      },
+      "status": {
+        "ko": "햇반 30주년 AI 공모전 「갓 지은 AI디어」 출품작 · 02 햇반이 지을 미래 · 9:16",
+        "en": "Entry — Hetbahn 30th Anniversary AI Contest, “The Future Hetbahn Will Build” category (9:16)"
+      },
+      "logline": {
+        "ko": "2126년, 시간의 단위는 '햇반'이다. 햇반 하나 데우는 2분이 '1햇반'이 된 미래 — 외계인 회담은 30햇반, 화성 셔틀은 1.5햇반 후 출발, 엄마는 \"딱 3햇반만!\", 아이는 \"5햇반만!\". 근데 왜 하필 햇반일까? 2분이면 따뜻한 밥 한 공기니까.",
+        "en": "In 2126, time is counted in Hetbahn. The two minutes it takes to heat a bowl of Hetbahn has become a unit — the summit lasts 30 Hetbahn, the Mars shuttle leaves in 1.5, Mom says “three, tops,” the kid begs for five. Why Hetbahn? Because two minutes is all a warm bowl of rice takes."
+      },
+      "tools": {
+        "generate": [
+          "Google Flow — Nano Banana 2.1 (image)",
+          "Google Flow — Veo 3.1 Lite (video, voices)",
+          "Google AI Studio — Gemini TTS (voices)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "Pillow",
+          "NumPy",
+          "OpenCV",
+          "SoundFile",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/reel/DfJibDPgd9V/",
+        "youtube": ""
+      },
+      "media": {
+        "video": "media/one-hetbahn/video.mp4",
+        "poster": "media/one-hetbahn/poster.jpg",
+        "og": "media/one-hetbahn/og.jpg"
+      },
+      "coverTime": 10.5,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "2분 = 1햇반 — 햇반이 데워지는 시간이 100년 뒤 시간의 단위가 된 세상. 회담 · 출근 · 카페 · 게임 · 우주 유영까지 일상 곳곳에",
+            "en": "Two minutes = 1 Hetbahn — a world a century on where the time it takes to heat Hetbahn is a unit of time, from summits and commutes to cafés, games and spacewalks"
+          }
+        },
+        {
+          "label": {
+            "ko": "화면 글자",
+            "en": "Screen text"
+          },
+          "text": {
+            "ko": "전광판 '1.5햇반 후 출발', 택시 '도착까지 7햇반', 로켓 '발사까지 1햇반' — AI로는 빈 화면만 만들고 글자는 코드로 그려 넣음",
+            "en": "The departure board, taxi panel and launch screen were generated blank; “1.5 Hetbahn,” “7 Hetbahn” and “Launch in 1 Hetbahn” were drawn in with code"
+          }
+        },
+        {
+          "label": {
+            "ko": "로고 추적",
+            "en": "Logo tracking"
+          },
+          "text": {
+            "ko": "엔딩 햇반 뚜껑의 빨간 원을 프레임마다 찾아 공식 햇반 로고 파일로 덮음 — 크기 · 기울기만 맞추고 로고는 변형 없이",
+            "en": "The red circle on the lid is found in every frame and covered with the official Hetbahn logo file — matched in size and tilt only, never redrawn"
+          }
+        },
+        {
+          "label": {
+            "ko": "입 모양",
+            "en": "Lip sync"
+          },
+          "text": {
+            "ko": "여자아이 질문은 TTS 말 마디에 맞춰 영상 시간을 늘이고 줄임 — 목소리는 그대로, 입 모양이 목소리를 따라감",
+            "en": "For the girl’s question, the footage was stretched and squeezed phrase by phrase to the TTS — the voice stays untouched; the mouth follows it"
+          }
+        },
+        {
+          "label": {
+            "ko": "목소리",
+            "en": "Voices"
+          },
+          "text": {
+            "ko": "외계인 · 엄마 · 아이 · 택시 안내는 Veo 원본 소리, 안내 방송 · 바리스타 · 우주인 · 여자아이 · 로봇은 Gemini TTS — 남자아이 목소리는 TTS로 안 나와 Veo로 다시 생성",
+            "en": "The alien, mom, boy and taxi voices are Veo’s own audio; the announcer, barista, astronauts, girl and robot are Gemini TTS — the boy was regenerated in Veo when no TTS voice sounded like a ten-year-old"
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "시안",
+            "en": "Boards"
+          },
+          "detail": {
+            "ko": "Nano Banana 2.1 · 훅 4종(외계인 회담 · 햇반 시계 · 화성 로켓 · 교실)과 몽타주 시안 → 햇반 그릇은 둥글게, 로봇 선생님은 밥솥 머리로 새로",
+            "en": "Nano Banana 2.1 boards: four hooks (alien summit, Hetbahn clock, Mars rocket, classroom) and the montage → bowls made round, a new rice-cooker-headed robot teacher"
+          }
+        },
+        {
+          "name": {
+            "ko": "영상",
+            "en": "Video"
+          },
+          "detail": {
+            "ko": "Veo 3.1 Lite · 시안을 시작 프레임으로 8초 720p · 한국어 대사까지 프롬프트로 · 영상 9컷 + 정지 화면 2장",
+            "en": "Veo 3.1 Lite from start frames, 8 s at 720p, Korean lines in the prompt · nine video shots plus two stills"
+          }
+        },
+        {
+          "name": {
+            "ko": "목소리",
+            "en": "Voices"
+          },
+          "detail": {
+            "ko": "Google AI Studio Gemini TTS로 역할마다 다른 목소리 · 역 안내 방송과 무전은 필터로",
+            "en": "Gemini TTS in Google AI Studio, one voice per role · station announcement and radio shaped with filters"
+          }
+        },
+        {
+          "name": {
+            "ko": "입 모양",
+            "en": "Lip sync"
+          },
+          "detail": {
+            "ko": "말 마디와 영상 속 입 모양 구간을 짝지어 꺾은선으로 화면 시간 다시 매기기",
+            "en": "Speech phrases paired with mouth movements and the footage re-timed with a piecewise map"
+          }
+        },
+        {
+          "name": {
+            "ko": "합성 · 자막",
+            "en": "Compositing"
+          },
+          "detail": {
+            "ko": "화면 글자 코드 합성 · 엔딩 로고 추적 · 한국어 자막 · 공식 로고 가이드 파일 그대로",
+            "en": "Code-drawn screen text · tracked logo on the lid · Korean subtitles · official logo files untouched"
+          }
+        },
+        {
+          "name": {
+            "ko": "음악 · 믹스",
+            "en": "Music & mix"
+          },
+          "detail": {
+            "ko": "미래 느낌 신스 음악과 효과음(역 안내 딩동 · 무전 · 로켓)을 NumPy로 직접 합성 · 약 −14 LUFS",
+            "en": "Bright synth score and effects (station chime, radio, rocket) synthesized in NumPy · about −14 LUFS"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [
+        {
+          "label": {
+            "ko": "외계인 회담",
+            "en": "The summit"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Lite · 시작 화면에서 · 9:16 · 8초 · 목소리 포함",
+            "en": "Flow · Veo 3.1 Lite · from a start frame · with voice"
+          },
+          "text": "Vertical 9:16, cinematic, photorealistic, 8 seconds. Continue exactly from the start image: the diplomatic meeting room on a space station, same characters and lighting. The sleek silver translator robot turns politely toward the cute lavender baby alien and says in Korean, in a calm, clear synthetic voice: \"회담은 삼십 햇반입니다.\" The alien blinks its big round eyes, breaks into a huge smile, lifts the round white rice bowl a little and gives an enthusiastic thumbs up, saying in a tiny, cheerful, squeaky voice with a pause between syllables: \"햇. 반!\" The human delegates exchange amused glances. The rice bowl stays perfectly round the whole time. Slow gentle push-in toward the alien. Soft spaceship ambience. No subtitles, no on-screen text, no music."
+        },
+        {
+          "label": {
+            "ko": "햇반 시계",
+            "en": "The Hetbahn clock"
+          },
+          "mode": {
+            "ko": "Flow · Nano Banana 2.1 · 9:16 이미지 (이후 둥근 그릇으로 수정)",
+            "en": "Flow · Nano Banana 2.1 · 9:16 image (bowls later edited round)"
+          },
+          "text": "Vertical 9:16, photorealistic, cinematic product shot. Close-up of a sleek futuristic round wall clock inside a Mars colony habitat in the year 2126: instead of numbers, its dial is ringed by thirty tiny white rectangular microwavable instant-rice trays with sealed film lids, evenly spaced like minute markers; one slim glowing hand points at a single tray. Behind it, through a curved window, a red Martian landscape at dawn with a small blue Earth in the sky. Clean white and warm red palette, soft light, shallow depth of field. No text, no numbers, no letters, no logos."
+        },
+        {
+          "label": {
+            "ko": "\"오 햇반만!\"",
+            "en": "“Five more!”"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Lite · 시작 화면에서 · 9:16 · 8초 · 목소리 포함",
+            "en": "Flow · Veo 3.1 Lite · from a start frame · with voice"
+          },
+          "text": "Vertical 9:16, cinematic, photorealistic, 8 seconds, light comedy. Continue exactly from the start image: close-up of the 10-year-old Korean boy on the sofa, still wearing the VR headset over his eyes. First, with his hands pressed together, he throws his head back and whines for about two seconds in a young boy's high childish voice: \"아아앙~\" Then he lowers his head, holds up one hand with five fingers spread toward the camera and pleads clearly, in the same young boy's voice, in Korean: \"오 햇반만!\" Then he pouts. The voice is clearly a 10-year-old boy: high, light and childish, not an adult man and not a woman. Only the boy speaks; no other voices. Soft evening light. No subtitles, no on-screen text, no music."
+        }
+      ],
+      "compare": [],
+      "scenes": [
+        {
+          "label": {
+            "ko": "외계인 회담",
+            "en": "The summit"
+          },
+          "text": {
+            "ko": "\"회담은 30햇반입니다.\" 통역 로봇의 말에 아기 외계인이 엄지를 든다. \"햇. 반!\"",
+            "en": "“The summit will last 30 Hetbahn.” The baby alien gives a thumbs up: “Het. Bahn!”"
+          },
+          "time": 4.6,
+          "prompt": 0,
+          "frame": "media/one-hetbahn/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "1햇반 = 2분",
+            "en": "1 Hetbahn = 2 min"
+          },
+          "text": {
+            "ko": "눈금 서른 개가 햇반 그릇인 시계 — 한 칸에 2분.",
+            "en": "A clock whose thirty markers are Hetbahn bowls — two minutes each."
+          },
+          "time": 8.2,
+          "prompt": 1,
+          "frame": "media/one-hetbahn/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "2126년",
+            "en": "Year 2126"
+          },
+          "text": {
+            "ko": "화성의 새벽, 전광판에 '발사까지 1햇반'. 시간의 단위는 햇반이다.",
+            "en": "Dawn on Mars: “Launch in 1 Hetbahn.” Time is counted in Hetbahn."
+          },
+          "time": 10.5,
+          "frame": "media/one-hetbahn/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "화성 지하철",
+            "en": "Mars metro"
+          },
+          "text": {
+            "ko": "\"지구행 셔틀, 1.5햇반 후 출발합니다.\"",
+            "en": "“The shuttle to Earth departs in 1.5 Hetbahn.”"
+          },
+          "time": 14.0,
+          "frame": "media/one-hetbahn/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "자율주행 택시",
+            "en": "Robotaxi"
+          },
+          "text": {
+            "ko": "도착까지 7햇반. 잠든 승객의 잠꼬대 — \"5햇반만 더…\"",
+            "en": "Seven Hetbahn to arrival. The sleeping passenger mumbles, “Five more Hetbahn…”"
+          },
+          "time": 17.2,
+          "frame": "media/one-hetbahn/scene-5.jpg"
+        },
+        {
+          "label": {
+            "ko": "로봇 카페",
+            "en": "Robot café"
+          },
+          "text": {
+            "ko": "\"주문하신 라테, 0.5햇반 만에 나왔습니다!\"",
+            "en": "“Your latte, ready in half a Hetbahn!”"
+          },
+          "time": 24.0,
+          "frame": "media/one-hetbahn/scene-6.jpg"
+        },
+        {
+          "label": {
+            "ko": "딱 3햇반만",
+            "en": "Three, tops"
+          },
+          "text": {
+            "ko": "엄마: \"딱 3햇반만이야!\" VR 쓴 아이: \"5햇반만!\"",
+            "en": "Mom: “Three Hetbahn, tops!” The kid in VR: “Five!”"
+          },
+          "time": 29.0,
+          "prompt": 2,
+          "frame": "media/one-hetbahn/scene-7.jpg"
+        },
+        {
+          "label": {
+            "ko": "우주 유영",
+            "en": "Spacewalk"
+          },
+          "text": {
+            "ko": "\"산소 잔량, 1햇반.\" \"충분해. 밥 한 번 지을 시간이네.\"",
+            "en": "“Oxygen: 1 Hetbahn left.” “Plenty. Time enough to cook rice.”"
+          },
+          "time": 35.5,
+          "frame": "media/one-hetbahn/scene-8.jpg"
+        },
+        {
+          "label": {
+            "ko": "왜 하필 햇반?",
+            "en": "Why Hetbahn?"
+          },
+          "text": {
+            "ko": "화성 돔 교실, 아이가 손을 든다. \"근데, 왜 하필 햇반이에요?\"",
+            "en": "In the Mars dome classroom, a girl raises her hand: “But why Hetbahn?”"
+          },
+          "time": 39.0,
+          "frame": "media/one-hetbahn/scene-9.jpg"
+        },
+        {
+          "label": {
+            "ko": "그래서 햇반",
+            "en": "That’s why"
+          },
+          "text": {
+            "ko": "\"2분이면 따뜻한 밥 한 공기. 그래서 햇반이란다.\" 100년 뒤에도, 2분이면 밥.",
+            "en": "“Two minutes for a warm bowl of rice. That’s why it’s Hetbahn.” A hundred years on, still two minutes."
+          },
+          "time": 46.5,
+          "frame": "media/one-hetbahn/scene-10.jpg"
+        }
+      ],
+      "notes": [
+        {
+          "heading": {
+            "ko": "고친 것",
+            "en": "What we fixed"
+          },
+          "lines": {
+            "ko": [
+              "네모난 햇반 용기 → 둥근 햇반 그릇으로(외계인 · 시계 · 엔딩)",
+              "엔딩의 커다란 공기밥 → 실제 크기 햇반 + 공식 로고",
+              "엄마가 두 대사를 다 말함 → 아이 대사는 아이 목소리로 다시 생성",
+              "\"다섯 햇반만\"이 \"5분만\"으로 들림 → \"오 햇반만!\" + 손가락 다섯",
+              "여자아이 입 모양이 질문보다 늦음 → 말 마디에 맞춰 화면 시간 조절",
+              "엄마가 마지막에 웃음 → 한숨 쉬는 얼굴로"
+            ],
+            "en": [
+              "Square trays → round Hetbahn bowls (alien, clock, ending)",
+              "An oversized bowl of rice in the ending → a real-size Hetbahn with the official logo",
+              "Mom said both lines → the boy’s line regenerated in a boy’s voice",
+              "“Five Hetbahn” sounded like “five minutes” → “O (five) Hetbahn!” with five fingers up",
+              "The girl’s mouth lagged her question → footage re-timed to her phrases",
+              "Mom smiled at the end → a sighing face instead"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "사실과 출처",
+            "en": "Facts and sources"
+          },
+          "lines": {
+            "ko": [
+              "「1햇반」은 실제 단위나 서비스가 아닌 상상 속 2126년 이야기입니다",
+              "\"2분\"은 햇반 백미밥 210g 조리 표기(700W 2분, 컬리 상품 페이지)를 따름"
+            ],
+            "en": [
+              "“1 Hetbahn” is an imagined unit in an imagined 2126, not a real product or service",
+              "“Two minutes” follows Hetbahn white rice 210 g cooking directions (700 W, 2 min, per the Kurly product page)"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "출처",
+            "en": "Credits"
+          },
+          "lines": {
+            "ko": [
+              "영상 · 이미지: Google Flow · Nano Banana 2.1, Veo 3.1 Lite로 생성 (본 영상은 생성형 AI로 제작했습니다)",
+              "목소리: Veo 영상 원본 소리 + Google AI Studio Gemini TTS",
+              "음악 · 효과음: Python(NumPy)으로 직접 합성 · 외부 음원 없음",
+              "로고: 햇반 · 햇반 30주년 공식 로고(공모전 제공 파일, 변경 없이) · 서체: Pretendard"
+            ],
+            "en": [
+              "Video and images generated with Google Flow · Nano Banana 2.1 and Veo 3.1 Lite (this film was made with generative AI)",
+              "Voices: Veo’s own audio + Gemini TTS in Google AI Studio",
+              "Music and effects synthesized in Python (NumPy) — no outside audio",
+              "Logos: official Hetbahn and Hetbahn 30th-anniversary files supplied by the contest, unaltered · Type: Pretendard"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "golden-nurungji",
       "date": "2026-10-30",
       "durationSec": 39,
