@@ -1,6 +1,413 @@
 {
   "works": [
     {
+      "slug": "pureal-breakup",
+      "date": "2026-11-03",
+      "durationSec": 48,
+      "aspect": "9:16",
+      "shots": 13,
+      "accent": "#F2A7C3",
+      "title": {
+        "ko": "정수기랑 헤어졌다",
+        "en": "I Broke Up with My Water Purifier"
+      },
+      "status": {
+        "ko": "2026 제2회 퓨리얼 AI 콘테스트 출품작 · AI 동영상 부문 · 9:16",
+        "en": "Entry — 2nd Pureal AI Contest 2026, AI Video category (9:16)"
+      },
+      "logline": {
+        "ko": "3년 만의 이별 통보. 상대는… 매달 렌탈료를 받아 가던 정수기. \"그 '매달'이 문제야.\" 비 오는 골목 K드라마 이별 장면을 그대로 빌려, 렌탈료·위약금 0원, 폭 11cm, 30초 필터 셀프 교체를 대사 한 줄씩으로 보여 준다. 새 남주는 페일핑크 퓨리얼 유로체인저.",
+        "en": "A rainy-alley K-drama breakup — except she’s dumping the rental water purifier that charged her every month. “That ‘every month’ is the problem.” Each line lands one fact: no rental, no penalty, 11 cm wide, filters you swap yourself in 30 seconds. The new lead: a pale-pink Pureal Euro Changer."
+      },
+      "tools": {
+        "generate": [
+          "Google Flow — Nano Banana 2.1 (image)",
+          "Google Flow — Veo 3.1 Fast (video, voices)",
+          "Google AI Studio — Gemini TTS (voices)",
+          "Google AI Studio — Gemini (transcript check)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "Pillow",
+          "NumPy",
+          "librosa",
+          "SoundFile",
+          "FFmpeg",
+          "Rubber Band",
+          "Resemblyzer"
+        ]
+      },
+      "links": {
+        "instagram": "",
+        "youtube": ""
+      },
+      "media": {
+        "video": "media/pureal-breakup/video.mp4",
+        "poster": "media/pureal-breakup/poster.jpg",
+        "og": "media/pureal-breakup/og.jpg"
+      },
+      "coverTime": 3.6,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "렌탈 정수기와의 이별을 K드라마 이별 장면으로 — 웃음 두 번(“그 매달이 문제야”, 새 남주 등장)과 마지막 한 방(“다음 달에 점검 갈게.” / “안 와도 돼.”)",
+            "en": "A rental purifier breakup played as a K-drama breakup — two laughs (“that every month,” the new lead’s entrance) and a closing punch (“I’ll come for the check-up next month.” / “No need.”)"
+          }
+        },
+        {
+          "label": {
+            "ko": "숫자 도장",
+            "en": "Fact stamps"
+          },
+          "text": {
+            "ko": "렌탈료 0원 · 약정·위약금 0원 · 폭 11cm · 필터 셀프 교체 30초 · 전기료 0원 — 주최 측 브랜드 소개서에 적힌 사실만 화면에",
+            "en": "No rental, no penalty, 11 cm, 30-second filter swap, no electricity bill — only facts from the organizer’s brand sheet"
+          }
+        },
+        {
+          "label": {
+            "ko": "목소리",
+            "en": "Voices"
+          },
+          "text": {
+            "ko": "그녀 대사는 Veo 원본 소리 — Gemini로 받아쓰기해 대본과 같은지 확인 · 옛 정수기는 Gemini TTS에 기계음 필터",
+            "en": "Her lines are Veo’s own audio, transcribed with Gemini to check them against the script · the old purifier is Gemini TTS through a speaker-like filter"
+          }
+        },
+        {
+          "label": {
+            "ko": "입 모양",
+            "en": "Lip sync"
+          },
+          "text": {
+            "ko": "소리가 안 나온 \"내가.\" 컷은 다시 생성 → 프레임마다 ‘내’(혀)·‘가’(크게 벌림) 시각을 찾아 TTS 음절을 늘이고 줄여 맞춤 · 화자 유사도로 목소리 고르고 높이·음색 맞춤",
+            "en": "The silent “I will.” shot was regenerated, the frames for each syllable found, and the TTS stretched syllable by syllable to fit · the voice picked by speaker similarity and matched in pitch and tone"
+          }
+        },
+        {
+          "label": {
+            "ko": "공식 자산",
+            "en": "Official assets"
+          },
+          "text": {
+            "ko": "엔드 카드의 로고와 제품 사진은 공모전 제공 브랜드 자산 그대로 · 옛 정수기는 상표 없는 가상 디자인",
+            "en": "The end card uses the contest’s official logo and product photo untouched · the old purifier is an unbranded, made-up design"
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "시안",
+            "en": "Boards"
+          },
+          "detail": {
+            "ko": "Nano Banana 2.1 · 여자 주인공 · 옛 정수기(파란 LED 눈) · 비 오는 골목 → 공식 제품 사진(페일핑크 PPA-300)을 참고로 퓨리얼 등장 · 필터 교체 · 물 한 잔 · 홀로 남은 옛 정수기",
+            "en": "Nano Banana 2.1 boards: the heroine, the old purifier with blue LED eyes, the rainy alley → with the official pale-pink PPA-300 photos as references: the entrance, the filter swap, the glass of water, the purifier left alone"
+          }
+        },
+        {
+          "name": {
+            "ko": "영상",
+            "en": "Video"
+          },
+          "detail": {
+            "ko": "Veo 3.1 Fast · 시안을 시작 프레임으로 8초 720p · 한국어 대사까지 프롬프트로 · 7컷 + 코드로 그린 엔드 카드",
+            "en": "Veo 3.1 Fast from start frames, 8 s at 720p, Korean lines in the prompt · seven shots plus a code-drawn end card"
+          }
+        },
+        {
+          "name": {
+            "ko": "목소리",
+            "en": "Voices"
+          },
+          "detail": {
+            "ko": "그녀는 Veo 원본(받아쓰기 확인) · 옛 정수기는 Gemini TTS 한 목소리 · 긴 쉼은 코드로 줄임",
+            "en": "Her: Veo audio (transcript-checked) · the purifier: one Gemini TTS voice · long pauses trimmed in code"
+          }
+        },
+        {
+          "name": {
+            "ko": "입 모양",
+            "en": "Lip sync"
+          },
+          "detail": {
+            "ko": "\"내가.\" 한 컷만 TTS — 음절별 시간 늘이기·줄이기 + 높이(232Hz)·평균 스펙트럼 맞춤",
+            "en": "Only “I will.” is TTS — stretched per syllable, matched in pitch (232 Hz) and average spectrum"
+          }
+        },
+        {
+          "name": {
+            "ko": "합성 · 자막",
+            "en": "Compositing"
+          },
+          "detail": {
+            "ko": "자막(정수기 대사는 파란 LED 아이콘) · 숫자 도장 · 이름표 · Veo가 넣은 엉뚱한 글자 지우기 · 1080×1920",
+            "en": "Subtitles (the purifier’s lines marked with LED eyes) · fact stamps · name tags · stray Veo text removed · 1080×1920"
+          }
+        },
+        {
+          "name": {
+            "ko": "음악 · 믹스",
+            "en": "Music & mix"
+          },
+          "detail": {
+            "ko": "신파 피아노 → 새 남주 스웰 → 산뜻한 팝 → 슬픈 하행 → 엔딩 징글을 NumPy로 직접 합성 · 약 −14 LUFS",
+            "en": "Melodrama piano → the new lead’s swell → light pop → a sad descent → the end jingle, synthesized in NumPy · about −14 LUFS"
+          }
+        }
+      ],
+      "featuredPrompt": 1,
+      "prompts": [
+        {
+          "label": {
+            "ko": "번개와 위약금",
+            "en": "Lightning"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · 시작 화면에서 · 9:16 · 8초 · 목소리 포함",
+            "en": "Flow · Veo 3.1 Fast · from a start frame · with voice"
+          },
+          "text": "Vertical 9:16, cinematic Korean TV melodrama, rainy night. Continue exactly from the start image. Suddenly a bright flash of lightning lights up the whole alley and thunder cracks; the old beige-gray water purifier's two round LED eyes glitch, flicker and turn angry red for a moment, with a little electric buzz, like a jealous lover. The purifier has no mouth and makes no voice sound. Then cut to a close-up of the young woman under the clear umbrella: she lifts her chin, looks at the purifier coolly and says in Korean, calm and unbothered: \"걔는 위약금 없대.\" Keep the woman's face, hair, beige trench coat and the purifier design exactly as in the start image. Sound: rain, thunder, electric buzz and her voice only, no music. No subtitles, no on-screen text."
+        },
+        {
+          "label": {
+            "ko": "새 남주 등장",
+            "en": "The new lead"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · 시작 화면에서 · 9:16 · 8초 · 목소리 포함",
+            "en": "Flow · Veo 3.1 Fast · from a start frame · with voice"
+          },
+          "text": "Vertical 9:16, cinematic Korean romance drama, rainy night. Continue exactly from the start image. Dreamy slow motion: the falling rain slows down and sparkles like glitter in the warm golden streetlight, a soft breeze, gentle lens flare. The camera slowly glides past the woman's shoulder toward the pale pink water purifier standing at the end of the alley, which glows softly like the handsome male lead making his first entrance. Keep the pink purifier's shape and color exactly as in the start image, it does not move or change. Then cut to a close-up of the young woman's face under the clear umbrella, a small shy smile spreading, eyes sparkling, and she says softly in Korean: \"폭 십일 센티. 우리 집에 딱 맞아.\" Sound: slowed-down soft rain and her voice only, no music. No subtitles, no on-screen text."
+        },
+        {
+          "label": {
+            "ko": "홀로 남은 옛 정수기",
+            "en": "Left alone"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · 시작 화면에서 · 9:16 · 8초",
+            "en": "Flow · Veo 3.1 Fast · from a start frame"
+          },
+          "text": "Vertical 9:16, cinematic Korean melodrama ending, heavy rain at night. Continue exactly from the start image. Very slow push-in toward the lonely old beige-gray water purifier standing alone in the middle of the empty wet alley. Its two round blue LED eyes blink slowly, glance toward the far end of the alley as if watching someone leave, then droop and dim to half brightness, sad and pathetic in a funny way. A gust of wind blows rain across the puddles. No people appear. The purifier has no mouth and makes no voice sound. Keep the purifier design exactly as in the start image. Sound: heavy rain only, no music. No subtitles, no on-screen text."
+        }
+      ],
+      "compare": [],
+      "scenes": [
+        {
+          "label": {
+            "ko": "이별 통보",
+            "en": "The breakup"
+          },
+          "text": {
+            "ko": "비 오는 골목, 우산 속 눈물. \"우리… 헤어져.\"",
+            "en": "A rainy alley, tears under the umbrella: “Let’s break up.”"
+          },
+          "time": 1.2,
+          "frame": "media/pureal-breakup/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "상대는 정수기",
+            "en": "The ex"
+          },
+          "text": {
+            "ko": "3년 만의 이별 통보 — 정수기한테. 파란 LED 눈이 천천히 꺼진다.",
+            "en": "Three years together — and she’s dumping her water purifier. Its blue LED eyes slowly dim."
+          },
+          "time": 3.6,
+          "frame": "media/pureal-breakup/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "매달 꼬박꼬박",
+            "en": "Every month"
+          },
+          "text": {
+            "ko": "\"매달 꼬박꼬박… 챙겨줬잖아.\" LED 눈만 깜빡이며 매달리는 옛 정수기.",
+            "en": "“I came every month, without fail…” the old purifier pleads, blinking its LED eyes."
+          },
+          "time": 7.5,
+          "frame": "media/pureal-breakup/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "렌탈료 0원",
+            "en": "Rental: ₩0"
+          },
+          "text": {
+            "ko": "\"그 '매달'이 문제야.\" — 퓨리얼은 구매형, 렌탈료 0원.",
+            "en": "“That ‘every month’ is the problem.” — Pureal is bought, not rented: ₩0 a month."
+          },
+          "time": 12.6,
+          "frame": "media/pureal-breakup/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "위약금",
+            "en": "The penalty"
+          },
+          "text": {
+            "ko": "번개와 함께 빨갛게 변한 눈. \"헤어지면… 위약금인 거 알지?\"",
+            "en": "Lightning, red eyes: “You know there’s a penalty if you leave, right?”"
+          },
+          "time": 14.0,
+          "frame": "media/pureal-breakup/scene-5.jpg",
+          "prompt": 0
+        },
+        {
+          "label": {
+            "ko": "새 남주 등장",
+            "en": "Enter the new lead"
+          },
+          "text": {
+            "ko": "가로등 아래 페일핑크 퓨리얼 유로체인저. 슬로모션, 반짝이는 빗방울.",
+            "en": "Under a streetlight, the pale-pink Pureal Euro Changer — slow motion, glittering rain."
+          },
+          "time": 21.0,
+          "frame": "media/pureal-breakup/scene-6.jpg",
+          "prompt": 1
+        },
+        {
+          "label": {
+            "ko": "폭 11cm",
+            "en": "11 cm wide"
+          },
+          "text": {
+            "ko": "\"…저 마른 애는 누군데?\" \"우리 집에 딱 맞아.\" — 폭 11cm 초슬림.",
+            "en": "“Who’s that skinny guy?” “He fits my place perfectly.” — just 11 cm wide."
+          },
+          "time": 25.0,
+          "frame": "media/pureal-breakup/scene-7.jpg"
+        },
+        {
+          "label": {
+            "ko": "필터 셀프 교체",
+            "en": "Self-swap filters"
+          },
+          "text": {
+            "ko": "\"필터는!! 누가 갈아줄 건데!!\" 다음 날 부엌, 필터를 딸깍 — 30초 셀프 교체.",
+            "en": "“Who’s going to change your filters?!” Next morning: click — a 30-second self swap."
+          },
+          "time": 30.2,
+          "frame": "media/pureal-breakup/scene-8.jpg"
+        },
+        {
+          "label": {
+            "ko": "\"내가.\"",
+            "en": "“I will.”"
+          },
+          "text": {
+            "ko": "뿌듯하게 돌아보며 한마디. \"내가.\"",
+            "en": "She turns with a proud little smile: “I will.”"
+          },
+          "time": 32.9,
+          "frame": "media/pureal-breakup/scene-9.jpg"
+        },
+        {
+          "label": {
+            "ko": "다음 달에",
+            "en": "Next month"
+          },
+          "text": {
+            "ko": "홀로 남은 옛 정수기. \"…다음 달에… 점검 갈게.\"",
+            "en": "Left alone in the rain: “…I’ll come by for the check-up next month.”"
+          },
+          "time": 35.5,
+          "frame": "media/pureal-breakup/scene-10.jpg",
+          "prompt": 2
+        },
+        {
+          "label": {
+            "ko": "안 와도 돼",
+            "en": "No need"
+          },
+          "text": {
+            "ko": "아침 햇살, 맑은 물 한 잔. \"안 와도 돼.\"",
+            "en": "Morning light, a glass of clean water: “No need.”"
+          },
+          "time": 41.9,
+          "frame": "media/pureal-breakup/scene-11.jpg"
+        },
+        {
+          "label": {
+            "ko": "퓨리얼",
+            "en": "Pureal"
+          },
+          "text": {
+            "ko": "렌탈료 0원 · 위약금 0원 · 전기료 0원 — Simple Life, Real Moments.",
+            "en": "No rental, no penalty, no electricity bill — Simple Life, Real Moments."
+          },
+          "time": 45.0,
+          "frame": "media/pureal-breakup/scene-12.jpg"
+        }
+      ],
+      "notes": [
+        {
+          "heading": {
+            "ko": "고친 것",
+            "en": "What we fixed"
+          },
+          "lines": {
+            "ko": [
+              "그녀 대사를 TTS로 바꾼 첫 편집은 입 모양이 안 맞음 → Veo 원본 목소리로 되돌림(받아쓰기로 대본 일치 확인)",
+              "\"폭 십일 센티\"는 원본에 없음 → 목소리는 빼고 '폭 11cm' 도장으로",
+              "\"내가.\" 컷은 Veo가 소리를 안 만듦 → 컷을 다시 생성하고 음절별로 TTS를 맞춤 → 목소리가 달라 들림 → 화자 유사도로 고른 목소리에 높이·음색 맞춤",
+              "Veo가 화면에 넣은 엉뚱한 글자 두 곳 → 지움"
+            ],
+            "en": [
+              "The first cut re-voiced her with TTS and the lips didn’t match → back to Veo’s own audio (transcript-checked)",
+              "“Eleven centimetres” wasn’t in the take → dropped from the voice, kept as the 11 cm stamp",
+              "Veo gave the “I will.” shot no audio → shot regenerated, TTS fitted per syllable → it sounded like someone else → a voice picked by speaker similarity, matched in pitch and tone",
+              "Two bits of stray text Veo drew into frames → removed"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "사실과 출처",
+            "en": "Facts and sources"
+          },
+          "lines": {
+            "ko": [
+              "제품 정보: 주최 측 제공 「퓨리얼 브랜드 및 제품 소개서」 — 구매형(렌탈료·약정·위약금 없음), 무전원(전기료 0원), 30초 필터 셀프 교체, PPA-300 국내 최초 유로체인저 · 3필터 8단계 · 폭 110mm",
+              "옛 정수기는 특정 브랜드가 아닌 가상의 렌탈 정수기"
+            ],
+            "en": [
+              "Product facts from the organizer’s Pureal brand and product sheet — purchase model (no rental, contract or penalty), unpowered (no electricity bill), 30-second self filter swap, PPA-300 Euro Changer, 3 filters / 8 stages, 110 mm wide",
+              "The old purifier is a made-up rental unit, not any real brand"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "출처",
+            "en": "Credits"
+          },
+          "lines": {
+            "ko": [
+              "영상 · 이미지: Google Flow · Nano Banana 2.1, Veo 3.1 Fast로 생성 (이 영상은 생성형 AI를 기반으로 제작되었습니다)",
+              "목소리: Veo 영상 원본 소리 + Google AI Studio Gemini TTS",
+              "음악 · 효과음: Python(NumPy)으로 직접 합성 · 외부 음원 없음",
+              "로고 · 제품 사진: 퓨리얼 공식 브랜드 자산(공모전 제공 파일, 변경 없이) · 서체: Pretendard, Noto Serif CJK"
+            ],
+            "en": [
+              "Video and images generated with Google Flow · Nano Banana 2.1 and Veo 3.1 Fast (made with generative AI)",
+              "Voices: Veo’s own audio + Gemini TTS in Google AI Studio",
+              "Music and effects synthesized in Python (NumPy) · no outside audio",
+              "Logo and product photo: official Pureal brand assets supplied by the contest, unchanged · Fonts: Pretendard, Noto Serif CJK"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "one-hetbahn",
       "date": "2026-10-31",
       "durationSec": 54,
