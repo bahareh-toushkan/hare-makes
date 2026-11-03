@@ -39,8 +39,8 @@
         ]
       },
       "links": {
-        "instagram": "",
-        "youtube": ""
+        "instagram": "https://www.instagram.com/reel/DfRVUsZAjmK/",
+        "youtube": "https://youtube.com/shorts/xfVdJjyYQOc"
       },
       "media": {
         "video": "media/pureal-breakup/video.mp4",
@@ -85,8 +85,8 @@
             "en": "Lip sync"
           },
           "text": {
-            "ko": "소리가 안 나온 \"내가.\" 컷은 다시 생성 → 프레임마다 ‘내’(혀)·‘가’(크게 벌림) 시각을 찾아 TTS 음절을 늘이고 줄여 맞춤 · 화자 유사도로 목소리 고르고 높이·음색 맞춤",
-            "en": "The silent “I will.” shot was regenerated, the frames for each syllable found, and the TTS stretched syllable by syllable to fit · the voice picked by speaker similarity and matched in pitch and tone"
+            "ko": "소리가 안 나온 \"내가.\" 컷은 다시 생성 → 프레임마다 ‘내’(혀)·‘가’(크게 벌림) 시각을 찾아 맞춤 · 목소리는 그녀와 높이가 같은(약 200Hz) TTS를 골라 높이는 그대로, 입 움직임 구간을 살짝 빠르게",
+            "en": "The silent “I will.” shot was regenerated and the frames for each syllable found · a TTS voice at her pitch (about 200 Hz) was chosen and left unshifted, with the mouth movement sped up slightly to meet it"
           }
         },
         {
@@ -137,8 +137,8 @@
             "en": "Lip sync"
           },
           "detail": {
-            "ko": "\"내가.\" 한 컷만 TTS — 음절별 시간 늘이기·줄이기 + 높이(232Hz)·평균 스펙트럼 맞춤",
-            "en": "Only “I will.” is TTS — stretched per syllable, matched in pitch (232 Hz) and average spectrum"
+            "ko": "\"내가.\" 한 컷만 TTS — Veo는 이 말을 하면 소리를 안 만들어 줌 · 높이가 그녀와 같은 목소리로, 음절별 시간 맞춤 + 음색만 살짝",
+            "en": "Only “I will.” is TTS — Veo returned that line with no audio · a voice at her pitch, fitted syllable by syllable, tone nudged lightly"
           }
         },
         {
@@ -307,7 +307,7 @@
             "ko": "뿌듯하게 돌아보며 한마디. \"내가.\"",
             "en": "She turns with a proud little smile: “I will.”"
           },
-          "time": 32.9,
+          "time": 32.7,
           "frame": "media/pureal-breakup/scene-9.jpg"
         },
         {
@@ -358,13 +358,13 @@
             "ko": [
               "그녀 대사를 TTS로 바꾼 첫 편집은 입 모양이 안 맞음 → Veo 원본 목소리로 되돌림(받아쓰기로 대본 일치 확인)",
               "\"폭 십일 센티\"는 원본에 없음 → 목소리는 빼고 '폭 11cm' 도장으로",
-              "\"내가.\" 컷은 Veo가 소리를 안 만듦 → 컷을 다시 생성하고 음절별로 TTS를 맞춤 → 목소리가 달라 들림 → 화자 유사도로 고른 목소리에 높이·음색 맞춤",
+              "\"내가.\" 컷은 Veo가 소리를 안 만듦 → 컷을 다시 생성하고 음절별로 TTS를 맞춤 → 목소리가 달라 들림 → 높이를 올렸더니 아기 목소리 + 메아리로 두 목소리처럼 들림 → 원래 높이가 그녀와 같은 목소리로, 효과 없이",
               "Veo가 화면에 넣은 엉뚱한 글자 두 곳 → 지움"
             ],
             "en": [
               "The first cut re-voiced her with TTS and the lips didn’t match → back to Veo’s own audio (transcript-checked)",
               "“Eleven centimetres” wasn’t in the take → dropped from the voice, kept as the 11 cm stamp",
-              "Veo gave the “I will.” shot no audio → shot regenerated, TTS fitted per syllable → it sounded like someone else → a voice picked by speaker similarity, matched in pitch and tone",
+              "Veo gave the “I will.” shot no audio → shot regenerated, TTS fitted per syllable → it sounded like someone else → raising the pitch made it childish and an echo doubled it → a voice already at her pitch, no effects",
               "Two bits of stray text Veo drew into frames → removed"
             ]
           }
