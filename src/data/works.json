@@ -1,6 +1,390 @@
 {
   "works": [
     {
+      "slug": "pureal-cm-song",
+      "date": "2026-11-04",
+      "durationSec": 47,
+      "aspect": "9:16",
+      "shots": 8,
+      "accent": "#FF7AA8",
+      "title": {
+        "ko": "빵빵빵 퓨리얼",
+        "en": "Bbang Bbang Bbang Pureal"
+      },
+      "status": {
+        "ko": "2026 제2회 퓨리얼 AI 콘테스트 출품작 · AI 사운드(CM송) 부문 · 뮤직비디오 9:16",
+        "en": "Entry — 2nd Pureal AI Contest 2026, AI Sound (jingle) category · music video, 9:16"
+      },
+      "logline": {
+        "ko": "「정수기랑 헤어졌다」 그다음 이야기 — 정수기와 헤어지고 아이돌로 데뷔한 물방울 3인조가 부르는 퓨리얼 CM송. \"렌탈료 빵 원! 위약금 빵 원! 전기세도 빵 원!\" 후렴에 맞춰 X → O 안무를 하고, 멤버마다 자기 파트만 입을 연다.",
+        "en": "The sequel to “I Broke Up with My Water Purifier”: after the breakup, a water-drop girl trio debuts with a Pureal jingle. “Rental, zero! Penalty, zero! Electricity, zero!” — an X-then-O move on every line, and each member only opens her mouth on her own part."
+      },
+      "tools": {
+        "generate": [
+          "Suno Pro (music)",
+          "Google Flow — Nano Banana 2.1 (image)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "Pillow",
+          "NumPy",
+          "librosa",
+          "audio-separator (UVR MDX-Net)",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/reel/DfUlyWpALgh/",
+        "youtube": "https://youtube.com/shorts/Fp7BRB_vOkk"
+      },
+      "media": {
+        "video": "media/pureal-cm-song/video.mp4",
+        "poster": "media/pureal-cm-song/poster.jpg",
+        "og": "media/pureal-cm-song/og.jpg"
+      },
+      "coverTime": 26.6,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "지난 작품에서 정수기와 헤어진 그녀가 → 물방울 아이돌로 데뷔. 첫 2초에 \"빵! 빵! 빵! 퓨리얼!\" 훅, 이별 인사 \"안녕 (bye bye)\"로 두 작품을 잇는다.",
+            "en": "The woman who dumped her purifier last time debuts as a water-drop idol. A hook in the first two seconds, and “bye bye” ties the two pieces together."
+          }
+        },
+        {
+          "label": {
+            "ko": "가사",
+            "en": "Lyrics"
+          },
+          "text": {
+            "ko": "렌탈료·위약금·전기세 \"빵 원\" 콜앤리스폰스 + 브랜드 문구(걱정은 비우고 / 깨끗함 채우고, Simple life, real moments) · 숫자는 한글로 적어 AI가 바르게 부르게(삼십 초, 십일 센티)",
+            "en": "A “zero won” call-and-response for rental, penalty and power, plus the brand lines · numbers written out in Korean so the AI sings them right"
+          }
+        },
+        {
+          "label": {
+            "ko": "멤버 · 파트",
+            "en": "Members & parts"
+          },
+          "text": {
+            "ko": "멤버1 물방울 후드 · 멤버2 물방울 단발 · 멤버3 센터 정수기 걸(제품의 페일핑크·화이트, 수도꼭지 머리핀) — 1절은 1·2번 솔로, 프리코러스는 센터, 후렴은 셋이 같이",
+            "en": "Member 1: drop hood · Member 2: drop bob · Member 3: the center “purifier girl” in the product’s pale pink and white — verse solos, center pre-chorus, all three on the chorus"
+          }
+        },
+        {
+          "label": {
+            "ko": "박자 · 안무",
+            "en": "Beat & moves"
+          },
+          "text": {
+            "ko": "보컬을 분리해 박자(125 BPM)와 음절 시작을 찾고, 박마다 점프·좌우 스텝 · 렌탈료(X) → 빵 원(O) + 0원 도장 · 빵빵빵은 실제 리듬대로 손총 · 물 마시기 · 하트",
+            "en": "Vocals separated to find the 125 BPM grid and every syllable · a hop and side-step on each beat · X on the item, O on “zero” with a ₩0 stamp · finger-guns on the real rhythm · a sip, a heart"
+          }
+        },
+        {
+          "label": {
+            "ko": "공식 자산",
+            "en": "Official assets"
+          },
+          "text": {
+            "ko": "제품 사진·로고는 공모전 제공 브랜드 자산 그대로 · 캐릭터·노래는 생성형 AI",
+            "en": "Product photos and logo are the contest’s official assets, untouched · characters and song are generative AI"
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "노래",
+            "en": "Song"
+          },
+          "detail": {
+            "ko": "Suno Pro · Bubblegum K-pop CM 징글 · 가사와 스타일 프롬프트를 직접 써서 생성",
+            "en": "Suno Pro · a bubblegum K-pop jingle from our own lyrics and style prompt"
+          }
+        },
+        {
+          "name": {
+            "ko": "캐릭터",
+            "en": "Characters"
+          },
+          "detail": {
+            "ko": "Nano Banana 2.1 · 시안 6종 → 3명 골라 같은 화풍 3인 시트 → 같은 자리에서 포즈만 바꾼 편집 7종(손총·바이바이·환호·X·O·마시기·하트)",
+            "en": "Nano Banana 2.1 · six concepts → three picked into one sheet → seven pose edits in the same positions (finger-gun, wave, cheer, X, O, sip, heart)"
+          }
+        },
+        {
+          "name": {
+            "ko": "컷아웃 · 입 모양",
+            "en": "Cut-outs & mouths"
+          },
+          "detail": {
+            "ko": "초록 배경을 지워 멤버별로 잘라 냄 · 벌린 입을 다른 포즈 얼굴에 옮겨 붙여 입 열림/닫힘 두 장씩",
+            "en": "Green screen keyed, each member cut out · the open mouth transplanted onto every pose for open/closed pairs"
+          }
+        },
+        {
+          "name": {
+            "ko": "소리 분석",
+            "en": "Audio analysis"
+          },
+          "detail": {
+            "ko": "UVR MDX-Net으로 보컬 분리 → librosa로 박자 격자 · 음절 시작 · 's' 소리를 찾아 가사 시각과 입 뻐끔을 맞춤",
+            "en": "UVR MDX-Net vocal split → librosa for the beat grid, syllable onsets and even the “s” sounds that place each lyric"
+          }
+        },
+        {
+          "name": {
+            "ko": "애니메이션",
+            "en": "Animation"
+          },
+          "detail": {
+            "ko": "Python(Pillow)으로 1080×1920 30fps 프레임을 직접 그림 — 점프·스텝, 청구서·달력·컵·0원 도장, 단어마다 채워지는 노래방 자막",
+            "en": "Every 1080×1920 frame drawn in Python (Pillow) at 30 fps — hops and steps, bills, calendar, glass, ₩0 stamps, karaoke captions filled word by word"
+          }
+        },
+        {
+          "name": {
+            "ko": "인코딩",
+            "en": "Encode"
+          },
+          "detail": {
+            "ko": "FFmpeg · 원곡 그대로(Suno WAV), 47초",
+            "en": "FFmpeg · the original Suno WAV untouched, 47 s"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [],
+      "compare": [],
+      "scenes": [
+        {
+          "label": {
+            "ko": "빵! 빵! 빵! 퓨리얼!",
+            "en": "Bbang! Bbang! Bbang!"
+          },
+          "text": {
+            "ko": "물방울에서 튀어나오는 3인조 — \"빵!\" 할 때마다 한 명씩 등장.",
+            "en": "Out of a water drop, one member per “bbang!”"
+          },
+          "time": 1.5,
+          "frame": "media/pureal-cm-song/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "렌탈료, 안녕",
+            "en": "Bye, rental fee"
+          },
+          "text": {
+            "ko": "멤버1(물방울 후드) 솔로 — 매달 나가던 청구서가 날아간다. (bye bye)",
+            "en": "Member 1 (the drop hood) solo — the monthly bills fly away. (bye bye)"
+          },
+          "time": 5.7,
+          "frame": "media/pureal-cm-song/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "점검 날짜도, 안녕",
+            "en": "Bye, service visits"
+          },
+          "text": {
+            "ko": "점검 일정 달력에 X를 칠 때 팔로도 X.",
+            "en": "She crosses out the service-visit date — and crosses her arms on the beat."
+          },
+          "time": 9.4,
+          "frame": "media/pureal-cm-song/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "필터는 딸깍",
+            "en": "Filter: click"
+          },
+          "text": {
+            "ko": "멤버2(물방울 단발) 솔로 — 필터 교체 30초.",
+            "en": "Member 2 (the drop bob) solo — a 30-second filter swap."
+          },
+          "time": 12.4,
+          "frame": "media/pureal-cm-song/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "직수 모듈까지",
+            "en": "Even the water module"
+          },
+          "text": {
+            "ko": "국내 최초 직수 모듈 셀프 교체 — 공식 제품 사진 그대로.",
+            "en": "Swap even the water module yourself — the official product photo, untouched."
+          },
+          "time": 17.4,
+          "frame": "media/pureal-cm-song/scene-5.jpg"
+        },
+        {
+          "label": {
+            "ko": "걱정은 비우고",
+            "en": "Empty the worry"
+          },
+          "text": {
+            "ko": "멤버3(센터) 솔로 — 컵 속 걱정이 비워진다.",
+            "en": "Member 3 (center) solo — the worry drains out of the glass."
+          },
+          "time": 18.9,
+          "frame": "media/pureal-cm-song/scene-6.jpg"
+        },
+        {
+          "label": {
+            "ko": "깨끗함 채우고",
+            "en": "Fill it clean"
+          },
+          "text": {
+            "ko": "셋이 같이 화면에 — 센터가 부르고 양옆이 \"(채우고!)\".",
+            "en": "All three on screen — the center sings, the other two answer “fill it!”"
+          },
+          "time": 20.75,
+          "frame": "media/pureal-cm-song/scene-7.jpg"
+        },
+        {
+          "label": {
+            "ko": "폭 11cm, 쏙!",
+            "en": "11 cm — pop!"
+          },
+          "text": {
+            "ko": "폭 11cm, 우리 집에 쏙! 셋이 같이 환호.",
+            "en": "11 cm wide, fits right in — all three cheer."
+          },
+          "time": 25.0,
+          "frame": "media/pureal-cm-song/scene-8.jpg"
+        },
+        {
+          "label": {
+            "ko": "렌탈료 빵 원!",
+            "en": "Rental: zero"
+          },
+          "text": {
+            "ko": "후렴 안무 — 항목 이름에 X(팔 X) → \"빵 원!\"(머리 위 O)에 0원 도장.",
+            "en": "Chorus move: the item gets an X (arms crossed) → “zero won!” (arms in an O) stamps it ₩0."
+          },
+          "time": 26.6,
+          "frame": "media/pureal-cm-song/scene-9.jpg"
+        },
+        {
+          "label": {
+            "ko": "빵! 빵! 빵!",
+            "en": "Bbang! Bbang! Bbang!"
+          },
+          "text": {
+            "ko": "실제 노래 리듬(점8분)에 맞춘 손총 세 번.",
+            "en": "Three finger-guns on the song’s real dotted rhythm."
+          },
+          "time": 31.25,
+          "frame": "media/pureal-cm-song/scene-10.jpg"
+        },
+        {
+          "label": {
+            "ko": "물 한 잔에도",
+            "en": "Even a glass of water"
+          },
+          "text": {
+            "ko": "물 마시는 동작.",
+            "en": "A sip of water."
+          },
+          "time": 34.2,
+          "frame": "media/pureal-cm-song/scene-11.jpg"
+        },
+        {
+          "label": {
+            "ko": "리얼 모먼트",
+            "en": "Real moment"
+          },
+          "text": {
+            "ko": "손 하트.",
+            "en": "A finger heart."
+          },
+          "time": 35.7,
+          "frame": "media/pureal-cm-song/scene-12.jpg"
+        },
+        {
+          "label": {
+            "ko": "Simple life, real moments.",
+            "en": "Simple life, real moments."
+          },
+          "text": {
+            "ko": "퓨! 리! 얼! 뒤 손 흔들기 → 하트.",
+            "en": "After “Pu! Re! Al!”, a wave, then a heart."
+          },
+          "time": 39.6,
+          "frame": "media/pureal-cm-song/scene-13.jpg"
+        },
+        {
+          "label": {
+            "ko": "퓨리얼.",
+            "en": "Pureal."
+          },
+          "text": {
+            "ko": "엔드 카드 — 공식 로고·제품 사진 + 0원 세 개.",
+            "en": "End card — the official logo and product photo, three ₩0s."
+          },
+          "time": 44.0,
+          "frame": "media/pureal-cm-song/scene-14.jpg"
+        }
+      ],
+      "notes": [
+        {
+          "heading": {
+            "ko": "고친 것",
+            "en": "What we fixed"
+          },
+          "lines": {
+            "ko": [
+              "초안1은 파트 구분 없이 셋이 같이 → 멤버별 파트(1절 후드·단발 솔로, 프리코러스 센터)와 가사에 맞춘 후렴 안무로",
+              "자막 색이 줄 전체 크기로 차서 \"퓨! 리! 얼!\"에서 어긋남 → 후렴부터 단어마다 부르는 시각으로",
+              "Suno 가사지에는 'Simple life, real moments'가 아웃트로 속삭임인데 실제로는 후렴 끝에 부름 → 보컬의 's' 소리로 위치를 찾아 자막·안무를 옮김"
+            ],
+            "en": [
+              "Draft 1 had all three singing everything → parts per member (verse solos, center pre-chorus) and a chorus move for every line",
+              "Captions filled by overall loudness and slipped on “Pu! Re! Al!” → filled word by word from the chorus on",
+              "The lyric sheet put “Simple life, real moments” in the whispered outro, but it is sung at the end of the chorus → found by its “s” sounds; captions and moves moved there"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "사실과 출처",
+            "en": "Facts and sources"
+          },
+          "lines": {
+            "ko": [
+              "제품 정보: 주최 측 제공 「퓨리얼 브랜드 및 제품 소개서」 — 구매형(렌탈료·약정·위약금 없음), 무전원(전기료 0원), 30초 필터 셀프 교체, PPA-300 국내 최초 유로체인저(직수 모듈 셀프 교체), 폭 110mm"
+            ],
+            "en": [
+              "Product facts from the organizer’s Pureal brand sheet — purchase model (no rental, contract or penalty), unpowered (no electricity bill), 30-second self filter swap, PPA-300 Euro Changer (swap the water module yourself), 110 mm wide"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "출처",
+            "en": "Credits"
+          },
+          "lines": {
+            "ko": [
+              "노래: Suno Pro 구독 중 생성 · 캐릭터: Google Flow Nano Banana 2.1 (이 영상은 생성형 AI를 기반으로 제작되었습니다)",
+              "애니메이션·자막·소품: Python 코드로 직접 그림",
+              "로고 · 제품 사진: 퓨리얼 공식 브랜드 자산(공모전 제공 파일, 변경 없이) · 서체: Pretendard"
+            ],
+            "en": [
+              "Song made on a Suno Pro subscription · characters with Google Flow Nano Banana 2.1 (made with generative AI)",
+              "Animation, captions and props drawn in Python",
+              "Logo and product photos: official Pureal brand assets supplied by the contest, unchanged · Font: Pretendard"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "pureal-breakup",
       "date": "2026-11-03",
       "durationSec": 48,
