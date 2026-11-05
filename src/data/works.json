@@ -1,6 +1,339 @@
 {
   "works": [
     {
+      "slug": "pureal-no-things",
+      "date": "2026-11-05",
+      "durationSec": 57,
+      "aspect": "9:16",
+      "shots": 8,
+      "accent": "#F6D5DF",
+      "title": {
+        "ko": "없어서 좋은 것들",
+        "en": "Things Better Without"
+      },
+      "status": {
+        "ko": "2026 제2회 퓨리얼 AI 콘테스트 출품작 · AI 동영상 · 융합 부문 · 9:16",
+        "en": "Entry — 2nd Pureal AI Contest 2026, AI Video & Mixed category · 9:16"
+      },
+      "logline": {
+        "ko": "정수기를 쓰면 당연히 따라오던 것들 — 전선, 점검 날짜, 고지서, 소음 — 이 \"없는\" 집을 한 컷씩 조용히 보여주는 TV 광고 톤의 57초. 마지막에 있는 것은 깨끗한 물 한 잔.",
+        "en": "A quiet, TV-spot-style 57 seconds that shows, one shot at a time, a home without the things a water purifier usually brings — cords, service dates, bills, noise. The one thing that remains: a clean glass of water."
+      },
+      "tools": {
+        "generate": [
+          "Google Flow — Nano Banana 2.1 (image)",
+          "Google Flow — Veo 3.1 Fast / Quality (video)",
+          "Suno Pro (acoustic cover of the CM song)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "Pillow",
+          "NumPy",
+          "OpenCV",
+          "librosa",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/reel/DfW8kOrA00T/",
+        "youtube": "https://youtube.com/shorts/an-skIcb-08"
+      },
+      "media": {
+        "video": "media/pureal-no-things/video.mp4",
+        "poster": "media/pureal-no-things/poster.jpg",
+        "og": "media/pureal-no-things/og.jpg"
+      },
+      "coverTime": 1.9,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "‘있는 것’을 자랑하는 광고 대신 ‘없는 것’을 번호 붙여 보여주기 — 없는 것 01 전선 · 02 점검 날짜 · 03 고지서 · 04 소음, 그리고 있는 것 하나.",
+            "en": "Instead of a spec sheet, a numbered list of absences — 01 cords · 02 service dates · 03 bills · 04 noise — and then the one thing that is there."
+          }
+        },
+        {
+          "label": {
+            "ko": "타이포",
+            "en": "Typography"
+          },
+          "text": {
+            "ko": "TV 광고 자막처럼 — Noto Sans CJK Bold/Medium, 크리미 화이트 한 톤, 2배 렌더 후 축소해 번짐 없이 · 가장자리 그라데이션으로만 가독성 확보(배경 박스 없음).",
+            "en": "Cut like broadcast supers — Noto Sans CJK in one creamy white, rendered at 2× and downscaled for clean edges, legibility from a soft edge gradient instead of a box."
+          }
+        },
+        {
+          "label": {
+            "ko": "워터마크 제거",
+            "en": "Watermark removal"
+          },
+          "text": {
+            "ko": "고정 Veo 마크 + 시작 사진에 박혀 카메라와 함께 움직이는 별을 프레임마다 템플릿 매칭으로 찾아 inpaint(OpenCV TELEA) · 클립별 추가 박스.",
+            "en": "The fixed Veo mark plus the star baked into the start frame (which moves with the camera) found per frame by template matching and inpainted with OpenCV TELEA, with per-clip extra boxes."
+          }
+        },
+        {
+          "label": {
+            "ko": "소리",
+            "en": "Sound"
+          },
+          "text": {
+            "ko": "코드로 합성한 펠트 피아노 배경(E♭, 72 BPM) + 컷마다 다른 세기의 생활음 → 엔드 카드에서 「빵빵빵 퓨리얼」 어쿠스틱 커버의 'Simple life, real moments… 퓨리얼.'로 이어짐.",
+            "en": "A code-synthesized felt-piano bed (E♭, 72 BPM) with per-shot room tone, handing off at the end card to the acoustic cover of our own jingle: ‘Simple life, real moments… Pureal.’"
+          }
+        },
+        {
+          "label": {
+            "ko": "공식 자산",
+            "en": "Official assets"
+          },
+          "text": {
+            "ko": "제품 사진(PPA-300)·로고는 공모전 제공 브랜드 자산 그대로 · 장면과 등장인물은 생성형 AI(실존 인물 아님).",
+            "en": "Product photo (PPA-300) and logo are the contest's official assets, untouched · scenes and the person in them are generative AI (not a real person)."
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "콘티",
+            "en": "Boards"
+          },
+          "detail": {
+            "ko": "8컷 콘티보드 — 컷마다 ‘없는 것’ 하나와 한 줄 카피",
+            "en": "An 8-shot board — one absence and one line per shot"
+          }
+        },
+        {
+          "name": {
+            "ko": "시작 사진",
+            "en": "Start frames"
+          },
+          "detail": {
+            "ko": "Nano Banana 2.1 · 빈 콘센트·달력·우편함·고양이·책장·필터·물 잔 — 제품은 공식 사진의 형태를 따름",
+            "en": "Nano Banana 2.1 · empty outlet, calendar, mailbox, cat, bookshelf, filter, glass — the product follows the official photos"
+          }
+        },
+        {
+          "name": {
+            "ko": "영상",
+            "en": "Video"
+          },
+          "detail": {
+            "ko": "Veo 3.1 Fast/Quality · 사진→영상, 느린 푸시인·빛 변화만 · 이상한 컷(합쳐진 책, 변형된 콘센트, 잘못 끼운 필터)은 다시 생성",
+            "en": "Veo 3.1 Fast/Quality · image-to-video with slow push-ins and light only · bad takes (merged books, a warped outlet, a filter in the wrong slot) regenerated"
+          }
+        },
+        {
+          "name": {
+            "ko": "업스케일 · 정리",
+            "en": "Upscale & clean"
+          },
+          "detail": {
+            "ko": "Flow 1080p 업스케일 → OpenCV로 프레임마다 워터마크 찾아 지움",
+            "en": "Flow 1080p upscale → per-frame watermark detection and inpainting in OpenCV"
+          }
+        },
+        {
+          "name": {
+            "ko": "편집",
+            "en": "Edit"
+          },
+          "detail": {
+            "ko": "Python(Pillow/NumPy) 1080×1920 24fps — 자막·타이틀·엣지 그라데이션·LUT·비네트·디졸브·엔드 카드를 프레임 단위로 그려 FFmpeg로 인코딩",
+            "en": "Python (Pillow/NumPy), 1080×1920 at 24 fps — supers, title, edge gradients, LUT, vignette, dissolves and end card drawn per frame, encoded with FFmpeg"
+          }
+        },
+        {
+          "name": {
+            "ko": "소리",
+            "en": "Sound"
+          },
+          "detail": {
+            "ko": "NumPy로 합성한 피아노 패드 + 클립 생활음 믹스 · Suno Pro 어쿠스틱 커버를 librosa 크로마 DTW로 원곡과 맞춰 끝부분만 사용 · loudnorm −15 LUFS",
+            "en": "NumPy-synthesized piano pad mixed with clip room tone · the Suno Pro acoustic cover aligned to the original by librosa chroma DTW, tail only · loudnorm −15 LUFS"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [],
+      "compare": [],
+      "scenes": [
+        {
+          "label": {
+            "ko": "타이틀",
+            "en": "Title"
+          },
+          "text": {
+            "ko": "아침 물 한 모금, 그 옆의 정수기. 「없어서 좋은 것들」.",
+            "en": "A morning sip, the purifier beside her. “Things Better Without.”"
+          },
+          "time": 2.5,
+          "frame": "media/pureal-no-things/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "없는 것 01 · 전선",
+            "en": "01 · Cords"
+          },
+          "text": {
+            "ko": "무전원 · 전기료 0원.",
+            "en": "No power, no electricity bill."
+          },
+          "time": 6.5,
+          "frame": "media/pureal-no-things/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "없는 것 02 · 점검 날짜",
+            "en": "02 · Service dates"
+          },
+          "text": {
+            "ko": "방문 관리 없이, 필터는 30초 셀프 교체.",
+            "en": "No visits — a 30-second self filter change."
+          },
+          "time": 11.5,
+          "frame": "media/pureal-no-things/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "없는 것 03 · 고지서",
+            "en": "03 · Bills"
+          },
+          "text": {
+            "ko": "렌탈료 0원 · 위약금 0원.",
+            "en": "Rental ₩0 · penalty ₩0."
+          },
+          "time": 18.0,
+          "frame": "media/pureal-no-things/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "없는 것 04 · 소음",
+            "en": "04 · Noise"
+          },
+          "text": {
+            "ko": "고양이가 그 옆에서 잔다 — 무전원 · 진동 없음.",
+            "en": "The cat sleeps right beside it — no power, no hum."
+          },
+          "time": 25.0,
+          "frame": "media/pureal-no-things/scene-5.jpg"
+        },
+        {
+          "label": {
+            "ko": "폭 11cm",
+            "en": "11 cm wide"
+          },
+          "text": {
+            "ko": "책 한 권 자리면 충분.",
+            "en": "Fits where a single book would."
+          },
+          "time": 31.0,
+          "frame": "media/pureal-no-things/scene-6.jpg"
+        },
+        {
+          "label": {
+            "ko": "필터 교체",
+            "en": "Filter change"
+          },
+          "text": {
+            "ko": "30초, 내 손으로.",
+            "en": "Thirty seconds, by hand."
+          },
+          "time": 36.5,
+          "frame": "media/pureal-no-things/scene-7.jpg"
+        },
+        {
+          "label": {
+            "ko": "있는 것 하나",
+            "en": "The one thing"
+          },
+          "text": {
+            "ko": "깨끗한 물 한 잔 — 3필터 8단계 · 직수.",
+            "en": "A clean glass of water — 3 filters, 8 stages, direct flow."
+          },
+          "time": 43.5,
+          "frame": "media/pureal-no-things/scene-8.jpg"
+        },
+        {
+          "label": {
+            "ko": "퓨리얼.",
+            "en": "Pureal."
+          },
+          "text": {
+            "ko": "엔드 카드 — 공식 로고·제품 사진, 'Simple life, real moments.'",
+            "en": "End card — the official logo and product photo, ‘Simple life, real moments.’"
+          },
+          "time": 52.0,
+          "frame": "media/pureal-no-things/scene-9.jpg"
+        }
+      ],
+      "notes": [
+        {
+          "heading": {
+            "ko": "고친 것",
+            "en": "What we fixed"
+          },
+          "lines": {
+            "ko": [
+              "Veo가 콘센트를 이상한 모양으로 그림 → Nano Banana로 평범한 빈 콘센트 사진을 만들고 Veo는 빛 변화만 넣게",
+              "책장 컷에서 책 여러 권이 한 덩이로 합쳐짐 → 책을 건드리지 않는 느린 푸시인으로 다시 생성(앞 4.5초만 사용)",
+              "필터를 빈자리가 아니라 두 번째 필터 앞에 끼움 → 빈 슬롯에 넣는 컷으로 다시 생성",
+              "자막이 번지고(후광) 얇은 검정 → TV 광고 자막처럼 두꺼운 크리미 화이트 한 톤, 2배 렌더 후 축소",
+              "하단 Gemini·Veo 마크가 블러로 보이다 사라지다 함 → 프레임마다 별을 찾아 지우는 방식으로 교체",
+              "책장 컷에 Veo가 넣은 음악이 0:29에 겹침 → 그 컷 생활음 0 · 엔드 노래는 'Simple life'부터 시작해 앞의 '퓨리얼'을 뺌"
+            ],
+            "en": [
+              "Veo warped the outlet → a plain empty outlet from Nano Banana, with Veo adding only the light change",
+              "Books merged into one block on the shelf shot → regenerated as a slow push-in that leaves the books alone (first 4.5 s used)",
+              "The filter went in front of the second filter instead of the empty slot → regenerated into the empty slot",
+              "Supers had a halo and were thin black → thick creamy white in one tone, like broadcast supers, rendered at 2× and downscaled",
+              "The Gemini/Veo marks blinked in and out under a blur → replaced by per-frame star detection and inpainting",
+              "Veo's own music on the shelf shot overlapped at 0:29 → that clip's audio muted · the end song starts at ‘Simple life’, dropping the earlier ‘Pureal’"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "사실과 출처",
+            "en": "Facts and sources"
+          },
+          "lines": {
+            "ko": [
+              "제품 정보: 주최 측 제공 「퓨리얼 브랜드 및 제품 소개서」 — 구매형(렌탈료·약정·위약금 없음), 무전원(전기료 0원, 진동 없음), 30초 필터 셀프 교체, 3필터 8단계 직수, PPA-300 폭 110mm"
+            ],
+            "en": [
+              "Product facts from the organizer's Pureal brand sheet — purchase model (no rental, contract or penalty), unpowered (no electricity bill, no vibration), 30-second self filter swap, 3 filters / 8 stages, direct flow, PPA-300 110 mm wide"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "출처",
+            "en": "Credits"
+          },
+          "lines": {
+            "ko": [
+              "장면: Google Flow — Nano Banana 2.1(시작 사진) + Veo 3.1 Fast/Quality(영상), 1080p 업스케일 (이 영상은 생성형 AI를 기반으로 제작되었습니다)",
+              "엔드 노래: 「빵빵빵 퓨리얼」(Suno Pro) 어쿠스틱 커버, Suno Pro · 배경 피아노: NumPy로 합성",
+              "자막·타이틀·엔드 카드: Python(Pillow) · 서체: Noto Sans CJK",
+              "로고 · 제품 사진: 퓨리얼 공식 브랜드 자산(공모전 제공 파일, 변경 없이)"
+            ],
+            "en": [
+              "Scenes: Google Flow — Nano Banana 2.1 (start frames) + Veo 3.1 Fast/Quality (video), upscaled to 1080p (made with generative AI)",
+              "End song: acoustic cover of our own “Bbang Bbang Bbang Pureal” jingle, Suno Pro · piano bed synthesized in NumPy",
+              "Supers, title and end card: Python (Pillow) · Font: Noto Sans CJK",
+              "Logo and product photo: official Pureal brand assets supplied by the contest, unchanged"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "pureal-cm-song",
       "date": "2026-11-04",
       "durationSec": 47,
