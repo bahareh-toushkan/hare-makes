@@ -1,0 +1,308 @@
+---
+// 졸업논문 실험 참가자 모집 페이지 (페르시아어, 오른쪽→왼쪽).
+// - 링크 받은 사람만: noindex, 메뉴·sitemap에 없음.
+// - 서버가 없으므로 신청 내용은 저장하지 않는다. 폼 → 한 메시지로 정리 → 신청자가 왓츠앱·텔레그램에서 직접 '보내기'.
+// - 머리말·꼬리말(메뉴)은 사이트 언어(ko: /finglish/, en: /en/finglish/)를 따르고, 본문만 페르시아어.
+import '@fontsource/vazirmatn/arabic-400.css';
+import '@fontsource/vazirmatn/arabic-700.css';
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.json';
+import { href, type Lang } from '../../lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+
+// 연락처: 신청 메시지를 받을 곳
+const WHATSAPP = '821026442696';            // wa.me 형식 = 국가번호 82 + 맨 앞 0을 뺀 휴대폰 번호
+const TELEGRAM: string | null = null;      // 텔레그램 아이디(@ 없이). null이면 텔레그램 버튼을 숨김
+
+const title = 'آزمایش خواندن فینگلیش';
+const description = 'یک آزمایش ۲۰ دقیقه‌ای آنلاین برای پایان‌نامه‌ی کارشناسی در دانشگاه ملی سئول — برای فارسی‌زبان‌های ساکن ایران و کره.';
+---
+<Base lang={lang} path="/finglish/" title={title} description={description} noindex>
+  <div class="fa" lang="fa" dir="rtl">
+    <header class="page-head">
+      <p class="kicker">پژوهش پایان‌نامه · دانشگاه ملی سئول (SNU)</p>
+      <h1>شرکت در آزمایش خواندن فینگلیش</h1>
+      <p>
+        سلام! من بهاره هستم، دانشجوی سال آخر مهندسی کامپیوتر در دانشگاه ملی سئول.
+        پایان‌نامه‌ی کارشناسی‌ام درباره‌ی این است که وقتی یک کلمه‌ی فینگلیش را می‌شود به چند شکل خواند،
+        ما فارسی‌زبان‌ها کدام را انتخاب می‌کنیم و چقدر طول می‌کشد. برای این آزمایش به کمک شما نیاز دارم.
+      </p>
+    </header>
+
+    <dl class="meta">
+      <dt>زمان</dt><dd>حدود ۲۰ دقیقه</dd>
+      <dt>کجا</dt><dd>آنلاین، روی دستگاه خودتان — یک فایل برایتان می‌فرستم که با مرورگر باز می‌شود (نصب لازم نیست)</dd>
+      <dt>کِی</dt><dd>بین ۲۲ تا ۲۹ آبان (۱۳ تا ۲۰ نوامبر)، هر ساعتی که برایتان راحت است</dd>
+      <dt>دستگاه</dt><dd>لپ‌تاپ یا کامپیوتر بهتر است، با گوشی هم می‌شود — کیبورد فارسی لازم است</dd>
+      <dt>قدردانی</dt><dd>ساکنان ایران: ۲ میلیون تومان · ساکنان کره: یک کوپن قهوه‌ی استارباکس</dd>
+    </dl>
+
+    <section class="block" aria-labelledby="who">
+      <h2 id="who">چه کسانی می‌توانند شرکت کنند؟</h2>
+      <ul class="list">
+        <li>زبان مادری‌تان فارسی است</li>
+        <li>۱۹ سال یا بیشتر دارید</li>
+        <li>الان در ایران یا کره زندگی می‌کنید</li>
+        <li>ظرفیت محدود است: ۱۰ نفر از ایران و ۱۰ نفر از کره — اگر ظرفیت پر شود، خبرتان می‌کنم</li>
+      </ul>
+    </section>
+
+    <section class="block" aria-labelledby="how">
+      <h2 id="how">مراحل</h2>
+      <ol class="steps">
+        <li><span>فرم پایین را پر کنید و پیامِ آماده را در واتس‌اپ{TELEGRAM && ' یا تلگرام'} برایم بفرستید.</span></li>
+        <li><span>با شما تماس می‌گیرم و زمان را هماهنگ می‌کنیم.</span></li>
+        <li><span>فایل آزمایش را می‌فرستم. حدود ۲۰ دقیقه طول می‌کشد و آخرش یک فایل نتیجه می‌سازد که آن را برایم می‌فرستید.</span></li>
+        <li><span>بعد از پایان آزمایش، هدیه را می‌فرستم.
+          <span class="d">ساکنان ایران: شماره کارت را فقط بعد از پایان آزمایش و در پیام خصوصی می‌پرسم — در این فرم شماره کارت ننویسید.</span></span></li>
+      </ol>
+    </section>
+
+    <section class="block" aria-labelledby="form-title">
+      <h2 id="form-title">فرم ثبت‌نام</h2>
+      <form id="signup" class="signup" novalidate data-wa={WHATSAPP} data-tg={TELEGRAM ?? ''}>
+        <label class="field">
+          <span class="q">اسم شما</span>
+          <input name="name" type="text" autocomplete="name" required />
+        </label>
+
+        <label class="field">
+          <span class="q">سن <small>(فقط عدد)</small></span>
+          <input name="age" type="text" inputmode="numeric" autocomplete="off" required />
+        </label>
+
+        <fieldset class="field" data-group="home">
+          <legend class="q">الان کجا زندگی می‌کنید؟</legend>
+          <div class="opts">
+            <label><input type="radio" name="home" value="ایران" required /> ایران</label>
+            <label><input type="radio" name="home" value="کره" /> کره</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field" data-group="device">
+          <legend class="q">با چه دستگاهی شرکت می‌کنید؟</legend>
+          <div class="opts">
+            <label><input type="radio" name="device" value="لپ‌تاپ یا کامپیوتر" required /> لپ‌تاپ یا کامپیوتر</label>
+            <label><input type="radio" name="device" value="فقط گوشی" /> فقط گوشی</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field" data-group="keyboard">
+          <legend class="q">روی همان دستگاه کیبورد فارسی دارید؟</legend>
+          <div class="opts">
+            <label><input type="radio" name="keyboard" value="بله" required /> بله</label>
+            <label><input type="radio" name="keyboard" value="نه" /> نه</label>
+            <label><input type="radio" name="keyboard" value="نمی‌دانم" /> نمی‌دانم</label>
+          </div>
+        </fieldset>
+
+        <label class="field">
+          <span class="q">چه روزها و ساعت‌هایی برایتان راحت است؟</span>
+          <span class="hint">به وقت محل زندگی خودتان، بین ۲۲ تا ۲۹ آبان</span>
+          <textarea name="times" rows="3" placeholder="مثلاً: شنبه و یکشنبه، بعد از ساعت ۸ شب" required></textarea>
+        </label>
+
+        <fieldset class="field" data-group="channel">
+          <legend class="q">از کدام راه سریع‌تر جواب می‌دهید؟ <small>(یک یا چند مورد)</small></legend>
+          <div class="opts">
+            <label><input type="checkbox" name="channel" value="تلگرام" /> تلگرام</label>
+            <label><input type="checkbox" name="channel" value="واتس‌اپ" /> واتس‌اپ</label>
+            <label><input type="checkbox" name="channel" value="اینستاگرام" /> اینستاگرام</label>
+            <label><input type="checkbox" name="channel" value="کاکائوتاک" /> کاکائوتاک</label>
+            <label><input type="checkbox" name="channel" value="تماس تلفنی" /> تماس تلفنی</label>
+          </div>
+        </fieldset>
+
+        <label class="field">
+          <span class="q">شماره یا آیدی برای تماس</span>
+          <span class="hint">برای همان راهی که بالا انتخاب کردید</span>
+          <input name="handle" type="text" autocomplete="off" required />
+        </label>
+
+        <label class="consent">
+          <input type="checkbox" name="consent" value="موافقم" required />
+          <span>موافقم که این اطلاعات فقط برای هماهنگی و فرستادن هدیه استفاده شود و بعد از پایان پژوهش پاک شود.</span>
+        </label>
+
+        <p class="error" role="alert" hidden></p>
+        <button type="submit" class="external">ساختن پیام</button>
+      </form>
+
+      <div id="result" class="result" hidden tabindex="-1">
+        <h3>پیام شما آماده است</h3>
+        <p class="muted">این صفحه چیزی ذخیره نمی‌کند و چیزی نمی‌فرستد. پیام فقط وقتی به من می‌رسد که خودتان در پیام‌رسان «ارسال» را بزنید.</p>
+        <textarea id="msg" rows="12" readonly aria-label="متن پیام"></textarea>
+        <div class="external-row">
+          <a id="send-wa" class="external" href="#" target="_blank" rel="noopener">ارسال در واتس‌اپ</a>
+          {TELEGRAM && <a id="send-tg" class="external" href="#" target="_blank" rel="noopener">ارسال در تلگرام</a>}
+          <button id="copy" type="button" class="external ghost">کپی متن</button>
+          <span id="copied" class="muted" role="status"></span>
+        </div>
+        <p class="muted small">
+          اگر دکمه‌ها کار نکرد، متن را کپی کنید و در هر پیام‌رسانی که دارید برایم بفرستید —
+          اینستاگرام: <a href={site.instagram} dir="ltr">@{site.handle}</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="privacy">
+      <h2 id="privacy">حریم خصوصی</h2>
+      <ul class="list">
+        <li>اطلاعات این فرم فقط برای هماهنگی و فرستادن هدیه است و جدا از داده‌های آزمایش نگه داشته می‌شود.</li>
+        <li>در خودِ آزمایش اسم نمی‌پرسم؛ هر نفر فقط یک کد دارد (مثل P07).</li>
+        <li>داده‌ها فقط برای همین پایان‌نامه استفاده می‌شود و بعد از پایان پژوهش پاک می‌شود.</li>
+      </ul>
+    </section>
+
+    <section class="block more" aria-labelledby="more">
+      <h2 id="more">کارهای دیگر من</h2>
+      <p>با هوش مصنوعی تبلیغ و فیلم کوتاه هم می‌سازم. اگر دوست دارید، نمونه‌کارهایم را ببینید.</p>
+      <p><a class="external ghost" href={href(lang, '/')}>دیدن نمونه‌کارها ←</a></p>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .fa { font-family: 'Vazirmatn', var(--font-body); line-height: 1.9; max-width: 46em; }
+  .fa h1, .fa h2, .fa h3 { font-family: 'Vazirmatn', var(--font-body); font-weight: 700; letter-spacing: 0; line-height: 1.4; }
+  .fa h1 { font-size: clamp(1.9rem, 6vw, 3.2rem); }
+  .fa h2 { font-size: clamp(1.35rem, 3vw, 1.7rem); }
+  .kicker { color: var(--accent); font-weight: 700; font-size: .95rem; }
+  .meta { grid-template-columns: max-content 1fr; }
+  .list { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .list li { position: relative; padding-inline-start: 1.3em; }
+  .list li::before { content: ''; position: absolute; inset-inline-start: 0; top: .8em; width: .55em; height: .55em; background: var(--accent); }
+  .steps li::before { content: counter(s, persian); }
+  .steps .d { margin-top: 4px; }
+
+  .signup { display: grid; gap: 22px; padding: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+  .field { display: grid; gap: 8px; margin: 0; padding: 0; border: 0; min-width: 0; }
+  .q { font-weight: 700; padding: 0; }
+  .q small, .hint { color: var(--muted); font-weight: 400; font-size: .92rem; }
+  input[type='text'], textarea {
+    width: 100%; font: inherit; color: var(--fg); background: #0c0c0c;
+    border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px;
+  }
+  textarea { resize: vertical; }
+  input[type='text']:focus, textarea:focus { border-color: var(--accent); outline: none; }
+  ::placeholder { color: #6f6f6f; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opts label { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; cursor: pointer; }
+  .opts label:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+  input[type='radio'], input[type='checkbox'] { accent-color: var(--accent); width: 1.1em; height: 1.1em; margin: 0; }
+  .consent { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+  .consent input { margin-top: .45em; flex: none; }
+  .invalid .q, .consent.invalid span { color: #ff9a85; }
+  .invalid input[type='text'], .invalid textarea { border-color: #ff9a85; }
+  .error { color: #ff9a85; font-weight: 700; }
+  button.external { border: 0; font: inherit; font-weight: 700; cursor: pointer; }
+  button.external.ghost { border: 1px solid var(--line); }
+
+  .result { display: grid; gap: 14px; margin-top: 22px; padding: 22px; border: 2px solid var(--accent); border-radius: var(--radius); }
+  .result[hidden] { display: none; }   /* display:grid가 hidden 속성을 덮지 않게 */
+  .result:focus { outline: none; }
+  .result h3 { font-size: 1.3rem; }
+  .muted { color: var(--muted); }
+  .small { font-size: .92rem; }
+  #copied { align-self: center; }
+  .more p { color: var(--muted); }
+  @media (max-width: 520px) {
+    .meta { grid-template-columns: 1fr; gap: 2px 0; }
+    .meta dd { margin-bottom: 10px; }
+    .signup, .result { padding: 16px; }
+  }
+</style>
+
+<script>
+  // 폼 → 한 메시지로 정리 → 왓츠앱·텔레그램 링크와 복사. 아무것도 저장·전송하지 않는다.
+  const form = document.getElementById('signup') as HTMLFormElement;
+  const errorBox = form.querySelector('.error') as HTMLParagraphElement;
+  const result = document.getElementById('result') as HTMLDivElement;
+  const msgBox = document.getElementById('msg') as HTMLTextAreaElement;
+  const wa = form.dataset.wa ?? '';
+  const tg = form.dataset.tg ?? '';
+
+  // 페르시아어·아랍어 숫자(۰-۹, ٠-٩)를 0-9로
+  const toLatinDigits = (s: string) =>
+    s.replace(/[۰-۹]/g, d => String(d.charCodeAt(0) - 0x06f0)).replace(/[٠-٩]/g, d => String(d.charCodeAt(0) - 0x0660));
+
+  const LABELS: Record<string, string> = {
+    name: 'اسم شما', age: 'سن', home: 'محل زندگی', device: 'دستگاه', keyboard: 'کیبورد فارسی',
+    times: 'زمان‌های راحت', channel: 'راه تماس', handle: 'شماره یا آیدی برای تماس', consent: 'رضایت'
+  };
+
+  function fieldOf(name: string): HTMLElement {
+    const el = form.elements.namedItem(name);
+    const node = (el instanceof RadioNodeList ? el[0] : el) as HTMLElement;
+    return node.closest('.field, .consent') as HTMLElement;
+  }
+
+  function check(): { problems: string[]; data: Record<string, string> } {
+    const fd = new FormData(form);
+    const text = (k: string) => String(fd.get(k) ?? '').trim();
+    const data: Record<string, string> = {
+      name: text('name'), age: toLatinDigits(text('age')), home: text('home'), device: text('device'),
+      keyboard: text('keyboard'), times: text('times'), channel: fd.getAll('channel').join('، '),
+      handle: text('handle'), consent: text('consent')
+    };
+    const problems: string[] = [];
+    for (const k of Object.keys(LABELS)) if (!data[k]) problems.push(k);
+    if (data.age && !problems.includes('age')) {
+      const n = Number(data.age);
+      if (!/^\d{1,3}$/.test(data.age) || n < 19 || n > 99) problems.push('age');
+    }
+    return { problems, data };
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    form.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+    const { problems, data } = check();
+    if (problems.length) {
+      problems.forEach(k => fieldOf(k).classList.add('invalid'));
+      const first = problems[0];
+      errorBox.textContent = first === 'age' && data.age
+        ? 'سن را فقط با عدد بنویسید (۱۹ سال یا بیشتر).'
+        : `لطفاً «${LABELS[first]}» را پر کنید.`;
+      errorBox.hidden = false;
+      const target = form.elements.namedItem(first);
+      ((target instanceof RadioNodeList ? target[0] : target) as HTMLElement).focus();
+      return;
+    }
+    errorBox.hidden = true;
+    const msg = [
+      'سلام بهاره! برای آزمایش فینگلیش ثبت‌نام می‌کنم.',
+      `اسم: ${data.name}`,
+      `سن: ${data.age}`,
+      `محل زندگی: ${data.home}`,
+      `دستگاه: ${data.device}`,
+      `کیبورد فارسی: ${data.keyboard}`,
+      `زمان‌های راحت: ${data.times}`,
+      `راه تماس: ${data.channel}`,
+      `شماره یا آیدی: ${data.handle}`,
+      `رضایت: ${data.consent}`
+    ].join('\n');
+    msgBox.value = msg;
+    const enc = encodeURIComponent(msg);
+    (document.getElementById('send-wa') as HTMLAnchorElement).href = `https://wa.me/${wa}?text=${enc}`;
+    const tgLink = document.getElementById('send-tg') as HTMLAnchorElement | null;
+    if (tgLink && tg) tgLink.href = `https://t.me/${tg}?text=${enc}`;
+    (document.getElementById('copied') as HTMLSpanElement).textContent = '';
+    result.hidden = false;
+    result.focus();
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  document.getElementById('copy')?.addEventListener('click', async () => {
+    const done = document.getElementById('copied') as HTMLSpanElement;
+    try {
+      await navigator.clipboard.writeText(msgBox.value);
+    } catch {
+      msgBox.select();
+      document.execCommand('copy');
+    }
+    done.textContent = 'کپی شد ✓';
+  });
+</script>
