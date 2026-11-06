@@ -18,7 +18,7 @@ const TELEGRAM: string | null = 'bbbbtttt01';   // 텔레그램 아이디(@ 없�
 const KAKAO_OPENCHAT: string | null = 'https://open.kakao.com/o/saF4bPVi';   // 카카오톡 1:1 오픈채팅 링크. 메시지 자동 입력이 안 돼서 버튼이 먼저 복사한 뒤 연다 (11/6 추가)
 
 const title = 'آزمایش خواندن فینگلیش';
-const description = 'یک آزمایش ۲۰ دقیقه‌ای آنلاین برای پایان‌نامه‌ی کارشناسی در دانشگاه ملی سئول — برای فارسی‌زبان‌های ساکن ایران و کره.';
+const description = 'یک آزمایش ۲۰ دقیقه‌ای آنلاین برای پایان‌نامه‌ی کارشناسی در دانشگاه ملی سئول — برای فارسی‌زبان‌های ساکن کره.';
 ---
 <Base lang={lang} path="/finglish/" title={title} description={description} noindex>
   <div class="fa" lang="fa" dir="rtl">
@@ -32,12 +32,14 @@ const description = 'یک آزمایش ۲۰ دقیقه‌ای آنلاین بر�
       </p>
     </header>
 
+    <p class="closed" role="status">ثبت‌نام برای ساکنان ایران تکمیل شد — از همه‌ی شما ممنونم! ساکنان کره هنوز می‌توانند ثبت‌نام کنند.</p>
+
     <dl class="meta">
       <dt>زمان</dt><dd>حدود ۲۰ دقیقه</dd>
       <dt>کجا</dt><dd>آنلاین، روی دستگاه خودتان — یک فایل برایتان می‌فرستم که با مرورگر باز می‌شود (نصب لازم نیست)</dd>
       <dt>کِی</dt><dd>بین ۲۲ تا ۲۹ آبان (۱۳ تا ۲۰ نوامبر)، هر ساعتی که برایتان راحت است</dd>
       <dt>دستگاه</dt><dd>لپ‌تاپ یا کامپیوتر بهتر است، با گوشی هم می‌شود — کیبورد فارسی لازم است</dd>
-      <dt>قدردانی</dt><dd>ساکنان ایران: ۲ میلیون تومان · ساکنان کره: یک کوپن قهوه‌ی استارباکس</dd>
+      <dt>قدردانی</dt><dd>ساکنان ایران: ۲ میلیون تومان (واریز تا ۱۱ بهمن) · ساکنان کره: یک کوپن قهوه‌ی استارباکس</dd>
     </dl>
 
     <section class="block" aria-labelledby="who">
@@ -45,8 +47,8 @@ const description = 'یک آزمایش ۲۰ دقیقه‌ای آنلاین بر�
       <ul class="list">
         <li>زبان مادری‌تان فارسی است</li>
         <li>۱۹ سال یا بیشتر دارید</li>
-        <li>الان در ایران یا کره زندگی می‌کنید</li>
-        <li>ظرفیت محدود است: ۱۰ نفر از ایران و ۱۰ نفر از کره — اگر ظرفیت پر شود، خبرتان می‌کنم</li>
+        <li>الان در کره زندگی می‌کنید</li>
+        <li>ظرفیت ایران تکمیل شده است؛ فقط ساکنان کره می‌توانند ثبت‌نام کنند</li>
       </ul>
     </section>
 
@@ -77,8 +79,8 @@ const description = 'یک آزمایش ۲۰ دقیقه‌ای آنلاین بر�
         <fieldset class="field" data-group="home">
           <legend class="q">الان کجا زندگی می‌کنید؟</legend>
           <div class="opts">
-            <label><input type="radio" name="home" value="ایران" required /> ایران</label>
-            <label><input type="radio" name="home" value="کره" /> کره</label>
+            <label class="off"><input type="radio" name="home" value="ایران" disabled /> ایران (ظرفیت تکمیل شد)</label>
+            <label><input type="radio" name="home" value="کره" checked required /> کره</label>
           </div>
         </fieldset>
 
@@ -200,6 +202,8 @@ const description = 'یک آزمایش ۲۰ دقیقه‌ای آنلاین بر�
   .invalid .q, .consent.invalid span { color: #ff9a85; }
   .invalid input[type='text'], .invalid textarea { border-color: #ff9a85; }
   .error { color: #ff9a85; font-weight: 700; }
+  label.off { opacity: .45; }
+  .closed { margin: 0 0 24px; padding: 14px 18px; border: 2px solid var(--accent); border-radius: var(--radius); color: var(--fg); font-weight: 700; }
   button.external { border: 0; font: inherit; font-weight: 700; cursor: pointer; }
   button.external.ghost { border: 1px solid var(--line); }
 
