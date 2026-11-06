@@ -15,6 +15,7 @@ const { lang } = Astro.props;
 // 연락처: 신청 메시지를 받을 곳
 const WHATSAPP = '821026442696';            // wa.me 형식 = 국가번호 82 + 맨 앞 0을 뺀 휴대폰 번호
 const TELEGRAM: string | null = 'bbbbtttt01';   // 텔레그램 아이디(@ 없이). null이면 텔레그램 버튼을 숨김 (11/6 추가)
+const KAKAO_OPENCHAT: string | null = 'https://open.kakao.com/o/saF4bPVi';   // 카카오톡 1:1 오픈채팅 링크. 메시지 자동 입력이 안 돼서 버튼이 먼저 복사한 뒤 연다 (11/6 추가)
 
 const title = 'آزمایش خواندن فینگلیش';
 const description = 'یک آزمایش ۲۰ دقیقه‌ای آنلاین برای پایان‌نامه‌ی کارشناسی در دانشگاه ملی سئول — برای فارسی‌زبان‌های ساکن ایران و کره.';
@@ -52,7 +53,7 @@ const description = 'یک آزمایش ۲۰ دقیقه‌ای آنلاین بر�
     <section class="block" aria-labelledby="how">
       <h2 id="how">مراحل</h2>
       <ol class="steps">
-        <li><span>فرم پایین را پر کنید و پیامِ آماده را در واتس‌اپ{TELEGRAM && ' یا تلگرام'} برایم بفرستید.</span></li>
+        <li><span>فرم پایین را پر کنید و پیامِ آماده را در {['واتس‌اپ', TELEGRAM && 'تلگرام', KAKAO_OPENCHAT && 'کاکائوتاک'].filter(Boolean).join('، ').replace(/، ([^،]+)$/, ' یا $1')} برایم بفرستید.</span></li>
         <li><span>با شما تماس می‌گیرم و زمان را هماهنگ می‌کنیم.</span></li>
         <li><span>فایل آزمایش را می‌فرستم. حدود ۲۰ دقیقه طول می‌کشد و آخرش یک فایل نتیجه می‌سازد که آن را برایم می‌فرستید.</span></li>
         <li><span>بعد از پایان آزمایش، هدیه را می‌فرستم.
@@ -137,9 +138,11 @@ const description = 'یک آزمایش ۲۰ دقیقه‌ای آنلاین بر�
         <div class="external-row">
           <a id="send-wa" class="external" href="#" target="_blank" rel="noopener">ارسال در واتس‌اپ</a>
           {TELEGRAM && <a id="send-tg" class="external" href="#" target="_blank" rel="noopener">ارسال در تلگرام</a>}
+          {KAKAO_OPENCHAT && <a id="send-kakao" class="external" href={KAKAO_OPENCHAT} target="_blank" rel="noopener">کپی و ارسال در کاکائوتاک</a>}
           <button id="copy" type="button" class="external ghost">کپی متن</button>
           <span id="copied" class="muted" role="status"></span>
         </div>
+        {KAKAO_OPENCHAT && <p class="muted small">کاکائوتاک: متن خودکار کپی می‌شود — در چت باز شده آن را بچسبانید و بفرستید.</p>}
         <p class="muted small">
           اگر دکمه‌ها کار نکرد، متن را کپی کنید و در هر پیام‌رسانی که دارید برایم بفرستید —
           اینستاگرام: <a href={site.instagram} dir="ltr">@{site.handle}</a>
@@ -295,7 +298,7 @@ const description = 'یک آزمایش ۲۰ دقیقه‌ای آنلاین بر�
     result.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  document.getElementById('copy')?.addEventListener('click', async () => {
+  async function copyMsg() {   // 복사 버튼과 카카오톡 버튼이 같이 씀 (11/6 변경)
     const done = document.getElementById('copied') as HTMLSpanElement;
     try {
       await navigator.clipboard.writeText(msgBox.value);
@@ -304,5 +307,8 @@ const description = 'یک آزمایش ۲۰ دقیقه‌ای آنلاین بر�
       document.execCommand('copy');
     }
     done.textContent = 'کپی شد ✓';
-  });
+  }
+  document.getElementById('copy')?.addEventListener('click', copyMsg);
+  // 카카오톡은 메시지 자동 입력이 안 됨 → 누르는 순간 복사하고, 링크(오픈채팅)는 그대로 열림 (11/6 추가)
+  document.getElementById('send-kakao')?.addEventListener('click', () => { copyMsg(); });
 </script>
