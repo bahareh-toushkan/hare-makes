@@ -1,6 +1,477 @@
 {
   "works": [
     {
+      "slug": "pepero-who",
+      "date": "2026-11-09",
+      "durationSec": 33,
+      "aspect": "9:16",
+      "shots": 0,
+      "accent": "#E86A9A",
+      "title": {
+        "ko": "누구 줄 거야?",
+        "en": "Who’s It For?"
+      },
+      "status": {
+        "ko": "11월 11일을 위한 오리지널 애니메이션 · 9:16",
+        "en": "Original animated short for November 11 · 9:16"
+      },
+      "logline": {
+        "ko": "초코·아몬드·딸기·화이트, 막대과자 4인조가 무대에서 \"누구 줄 거야?\"를 부른다. 후렴이 한창일 때 커다란 손이 들어오고 — 와삭. 끝까지 보면 답이 나온다.",
+        "en": "Choco, Almond, Strawberry and White — a four-stick cookie band sings “Who’s it for?” on stage. Mid-chorus a giant hand reaches in — crunch. Watch to the end for the answer."
+      },
+      "tools": {
+        "generate": [
+          "Suno Pro (song + vocal stem)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "Pillow",
+          "NumPy",
+          "SciPy",
+          "librosa",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/hare.makes/reel/DfhUeLeAlqH/",
+        "youtube": "https://youtube.com/shorts/nhAgSB663AY"
+      },
+      "media": {
+        "video": "media/pepero-who/video.mp4",
+        "poster": "media/pepero-who/poster.jpg",
+        "og": "media/pepero-who/og.jpg"
+      },
+      "coverTime": 10.4,
+      "highlights": [
+        {
+          "label": {
+            "ko": "캐릭터",
+            "en": "Characters"
+          },
+          "text": {
+            "ko": "이미지 생성 없이 코드로 그린 오리지널 막대 4종 — 코팅 색·토핑(아몬드·스프링클·쿠키 조각)만 다르고, 한 입 먹힌 상태까지 같은 함수로 그린다. 포장·로고 없음.",
+            "en": "Four original sticks drawn entirely in code, no image model — only coating and toppings differ, and the same function draws the bitten-off version. No packaging, no logos."
+          }
+        },
+        {
+          "label": {
+            "ko": "병맛 반전",
+            "en": "The twist"
+          },
+          "text": {
+            "ko": "\"사랑을 줄 거야~\"를 열창하던 초코가 손에 들려 올라가고, 노래 끝 박자에 와삭. 남은 멤버들은 \"나 말고!\"를 외치며 도망친다.",
+            "en": "Choco, belting “I’ll give my love~”, is lifted away mid-note and bitten on the final beat. The rest of the band runs, yelling “not me!”"
+          }
+        },
+        {
+          "label": {
+            "ko": "입과 박자",
+            "en": "Lips & beat"
+          },
+          "text": {
+            "ko": "가사 타이밍 데이터가 17초 이후 어긋나서 버림 → Suno에서 보컬만 분리한 스템의 음량으로 입을 열고, 드럼 온셋으로 점프, 보컬 음절 78개에 가사를 순서대로 배정.",
+            "en": "The lyric timing data drifted after 0:17, so it was dropped → mouths open with the loudness of a vocal-only stem from Suno, jumps land on drum onsets, and the lyrics are laid onto 78 detected vocal syllables."
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "노래",
+            "en": "Song"
+          },
+          "detail": {
+            "ko": "Suno Pro v6 · 귀여운 K-pop 키즈 징글 132 BPM, 여성 2인 · 4곡 중 끝에 \"꺄악\"이 들어간 0:28 버전 선택",
+            "en": "Suno Pro v6 · a cute K-pop kids jingle at 132 BPM · of four takes, the 0:28 one ending in a scream was picked"
+          }
+        },
+        {
+          "name": {
+            "ko": "캐릭터",
+            "en": "Characters"
+          },
+          "detail": {
+            "ko": "Python(Pillow) 벡터 드로잉 — 3배 슈퍼샘플링, 입 모양 4종·눈 4종·팔 4종 조합",
+            "en": "Python (Pillow) vector drawing — 3× supersampled, combining four mouths, four eye states and four arm poses"
+          }
+        },
+        {
+          "name": {
+            "ko": "분석",
+            "en": "Analysis"
+          },
+          "detail": {
+            "ko": "Suno 스템 분리(Lead Vocal) → librosa로 비트 격자·드럼 온셋·보컬 음절 온셋 추출",
+            "en": "Suno stem split (lead vocal) → beat grid, drum onsets and vocal syllable onsets with librosa"
+          }
+        },
+        {
+          "name": {
+            "ko": "애니메이션",
+            "en": "Animation"
+          },
+          "detail": {
+            "ko": "1080×1920 24fps 프레임 단위 렌더 — 무대 조명·색종이 배경, 노래방 자막, 와삭 효과(화면 흔들림·부스러기)",
+            "en": "1080×1920 at 24 fps, rendered per frame — stage lights and confetti, karaoke lyrics, the crunch (screen shake, crumbs)"
+          }
+        },
+        {
+          "name": {
+            "ko": "소리",
+            "en": "Sound"
+          },
+          "detail": {
+            "ko": "노래 + 코드로 합성한 \"와삭\" 3번 + 엔드카드 심장박동 · loudnorm −14 LUFS",
+            "en": "The song + three code-synthesized crunches + an end-card heartbeat · loudnorm −14 LUFS"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [],
+      "compare": [],
+      "scenes": [
+        {
+          "label": {
+            "ko": "1절 · 일일일일",
+            "en": "Verse · 1111"
+          },
+          "text": {
+            "ko": "\"나란히 서면 일일일일!\" — 4명이 붙어 서면 11월 11일.",
+            "en": "“Stand in a row and we’re one-one-one-one!” — side by side, they make 11/11."
+          },
+          "time": 8.6,
+          "frame": "media/pepero-who/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "후렴 · 사랑을 줄 거야",
+            "en": "Chorus · I’ll give my love"
+          },
+          "text": {
+            "ko": "하트가 쏟아지는 사이, 초코는 이미 손에 들려 있다.",
+            "en": "Hearts everywhere — and Choco is already in the hand."
+          },
+          "time": 15.6,
+          "frame": "media/pepero-who/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "와삭",
+            "en": "Crunch"
+          },
+          "text": {
+            "ko": "노래 끝 박자에 맞춰 와삭.",
+            "en": "Crunch, right on the beat."
+          },
+          "time": 16.75,
+          "frame": "media/pepero-who/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "도망",
+            "en": "Run"
+          },
+          "text": {
+            "ko": "\"나 말고! 나 말고!\" — 손이 쫓아온다.",
+            "en": "“Not me! Not me!” — the hand gives chase."
+          },
+          "time": 21.5,
+          "frame": "media/pepero-who/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "엔딩",
+            "en": "Ending"
+          },
+          "text": {
+            "ko": "\"11월 11일, 누구 줄 거야? — 내가 먹을래.\"",
+            "en": "“November 11 — who’s it for? I’ll eat it myself.”"
+          },
+          "time": 29.5,
+          "frame": "media/pepero-who/scene-5.jpg"
+        }
+      ],
+      "notes": [
+        {
+          "heading": {
+            "ko": "고친 것",
+            "en": "What we fixed"
+          },
+          "lines": {
+            "ko": [
+              "첫 노래는 반전 부분(브릿지)을 부르지 않음 → 브릿지가 들어가도록 다시 생성",
+              "17초 이후 자막·입이 노래와 어긋남 → 보컬 스템 기반 싱크로 교체",
+              "크림색 배경이 노래 분위기와 안 맞음 → 배경 4안 중 무대·컨페티 선택"
+            ],
+            "en": [
+              "The first song skipped the twist (bridge) → regenerated with the bridge sung",
+              "Lyrics and mouths drifted after 0:17 → replaced with vocal-stem-based sync",
+              "The cream background didn’t match the song → stage-and-confetti picked from four options"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "외부 소스",
+            "en": "Outside sources"
+          },
+          "lines": {
+            "ko": [
+              "음악: Suno 유료 플랜에서 만든 곡(상업적 사용 가능)",
+              "서체: Noto Sans CJK KR (SIL Open Font License)",
+              "캐릭터는 직접 그린 오리지널 · 특정 브랜드 포장·로고 없음"
+            ],
+            "en": [
+              "Music: made on a paid Suno plan (commercial use allowed)",
+              "Font: Noto Sans CJK KR (SIL Open Font License)",
+              "Original characters drawn in code · no brand packaging or logos"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "slug": "yongsan-first-light",
+      "date": "2026-11-08",
+      "durationSec": 52,
+      "aspect": "9:16",
+      "shots": 9,
+      "accent": "#F28C3C",
+      "title": {
+        "ko": "가장 먼저 켜지는 불",
+        "en": "The First Light On"
+      },
+      "status": {
+        "ko": "2026 용산구시설관리공단 숏폼 영상 공모전 출품작 · 9:16",
+        "en": "Entry — 2026 Yongsan-gu Facilities Management Corporation Short-Form Contest · 9:16"
+      },
+      "logline": {
+        "ko": "용산의 하루는 공단이 켜는 불로 시작해서 공단이 지키는 불로 끝난다. 새벽 5시 58분 구립 헬스장부터 밤 11시 40분 공영주차장까지, 시설마다 불이 켜지는 순간만 모은 TV 광고 톤의 52초.",
+        "en": "A Yongsan day starts with a light the corporation switches on and ends with one it keeps on. From the district gym at 5:58 a.m. to the public car park at 11:40 p.m., 52 seconds in a TV-spot tone made only of the moments the lights come on."
+      },
+      "tools": {
+        "generate": [
+          "Google Flow — Nano Banana 2.1 (image)",
+          "Google Flow — Veo 3.1 Fast / Lite (video)",
+          "Suno Pro (instrumental)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "Pillow",
+          "NumPy",
+          "OpenCV",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/hare.makes/reel/Dfeg2VAAOXF/",
+        "youtube": "https://youtube.com/shorts/xTUGU1EIdxo"
+      },
+      "media": {
+        "video": "media/yongsan-first-light/video.mp4",
+        "poster": "media/yongsan-first-light/poster.jpg",
+        "og": "media/yongsan-first-light/og.jpg"
+      },
+      "coverTime": 3.5,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "시설 소개를 나열하는 대신 ‘불이 켜지는 순간’ 하나로 묶었다 — 컷마다 스위치 소리가 박자가 되고, 시각·시설명·실제 운영 정보가 자막으로 남는다.",
+            "en": "Instead of a list of facilities, one motif: the moment a light comes on. Each switch click is the beat, and every shot leaves its time, place and real opening info on screen."
+          }
+        },
+        {
+          "label": {
+            "ko": "시간 순서",
+            "en": "Timeline"
+          },
+          "text": {
+            "ko": "05:58 헬스장 → 08:00 셔틀버스 → 09:00 꿈나무도서관 → 10:00 장난감나라 → 11:00 수영장 → 15:00 스크린 파크골프 → 20:00 청소년공부방 → 23:40 공영주차장 → 용산 야경.",
+            "en": "05:58 gym → 08:00 shuttle → 09:00 children’s library → 10:00 toy library → 11:00 pool → 15:00 screen park golf → 20:00 youth study room → 23:40 car park → Yongsan at night."
+          }
+        },
+        {
+          "label": {
+            "ko": "밝게",
+            "en": "Brighter"
+          },
+          "text": {
+            "ko": "첫 가편집이 \"무섭고 슬프다\"는 피드백 → 밝은 어쿠스틱 음악, 섀도를 들어 올린 색, 초저녁 블루아워 주차장, 학생 여럿이 있는 공부방으로 다시 만들었다.",
+            "en": "The first cut felt “scary and sad” → rebuilt with a bright acoustic score, lifted shadows, a blue-hour car park and a study room full of students."
+          }
+        },
+        {
+          "label": {
+            "ko": "얼굴",
+            "en": "Faces"
+          },
+          "text": {
+            "ko": "실존 인물 없이 모두 생성 장면 · 얼굴이 보이는 구간은 잘라 쓰고 뒷모습·손만 남겼다.",
+            "en": "No real people — every scene is generated, and any stretch where a face turns to camera was trimmed away, leaving backs and hands."
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "사실 확인",
+            "en": "Facts"
+          },
+          "detail": {
+            "ko": "공단 홈페이지에서 시설별 운영 시간·요금·위치를 확인해 자막에 쓸 것만 추림",
+            "en": "Opening hours, fees and locations checked on the corporation’s site; only what fits a super kept"
+          }
+        },
+        {
+          "name": {
+            "ko": "시작 사진",
+            "en": "Start frames"
+          },
+          "detail": {
+            "ko": "Nano Banana 2.1 · 9:16 시작 사진 9장(헬스장·셔틀·도서관·장난감나라·수영장·파크골프·공부방·주차장·야경)",
+            "en": "Nano Banana 2.1 · nine 9:16 start frames"
+          }
+        },
+        {
+          "name": {
+            "ko": "영상",
+            "en": "Video"
+          },
+          "detail": {
+            "ko": "Veo 3.1 Fast/Lite · 사진→영상, 느린 카메라와 작은 동작만 · 1080p 업스케일",
+            "en": "Veo 3.1 Fast/Lite · image-to-video, slow camera and small actions only · 1080p upscale"
+          }
+        },
+        {
+          "name": {
+            "ko": "편집",
+            "en": "Edit"
+          },
+          "detail": {
+            "ko": "Python(Pillow/NumPy) 1080×1920 24fps — 시각·시설명 자막, 타이틀, 밝은 LUT·비네트, 엔드 카드를 프레임 단위로 그려 FFmpeg로 인코딩",
+            "en": "Python (Pillow/NumPy), 1080×1920 at 24 fps — time/place supers, title, a bright LUT, vignette and end card drawn per frame, encoded with FFmpeg"
+          }
+        },
+        {
+          "name": {
+            "ko": "소리",
+            "en": "Sound"
+          },
+          "detail": {
+            "ko": "컷마다 코드로 합성한 스위치 ‘탁’ + 클립 생활음 + Suno Pro 밝은 어쿠스틱 인스트루멘탈(곡 끝을 영상 끝에 맞춤) · loudnorm −15 LUFS",
+            "en": "A code-synthesized switch click on every cut + clip room tone + a bright Suno Pro acoustic instrumental, its natural ending aligned to the last frame · loudnorm −15 LUFS"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [],
+      "compare": [],
+      "scenes": [
+        {
+          "label": {
+            "ko": "05:58 · 구립 헬스장",
+            "en": "05:58 · District gym"
+          },
+          "text": {
+            "ko": "형광등이 켜지며 「가장 먼저 켜지는 불」. 평일 06:00 문을 엽니다.",
+            "en": "The fluorescent lights flicker on: “The First Light On.” Opens 6 a.m. on weekdays."
+          },
+          "time": 3.5,
+          "frame": "media/yongsan-first-light/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "09:00 · 꿈나무도서관",
+            "en": "09:00 · Children’s library"
+          },
+          "text": {
+            "ko": "책장에 손을 뻗는 아이 — 꿈나무종합타운 3층.",
+            "en": "A child reaching for a book — 3F, Kkumnamu Center."
+          },
+          "time": 15.5,
+          "frame": "media/yongsan-first-light/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "15:00 · 스크린 파크골프장",
+            "en": "15:00 · Screen park golf"
+          },
+          "text": {
+            "ko": "오후의 스윙 — 삼각지 · 용산2가.",
+            "en": "An afternoon swing — Samgakji and Yongsan 2-ga."
+          },
+          "time": 31.5,
+          "frame": "media/yongsan-first-light/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "23:40 · 공영주차장",
+            "en": "23:40 · Public car park"
+          },
+          "text": {
+            "ko": "늦은 밤에도 밝은 주차장 — 24시간 연중무휴.",
+            "en": "Still bright late at night — open 24/7, all year."
+          },
+          "time": 40.5,
+          "frame": "media/yongsan-first-light/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "엔딩",
+            "en": "Ending"
+          },
+          "text": {
+            "ko": "\"오늘도 가장 먼저 불을 켜고, 끝까지 지킵니다.\"",
+            "en": "“Today again, first to switch the lights on, last to keep them on.”"
+          },
+          "time": 47,
+          "frame": "media/yongsan-first-light/scene-5.jpg"
+        }
+      ],
+      "notes": [
+        {
+          "heading": {
+            "ko": "사실과 출처",
+            "en": "Facts and sources"
+          },
+          "lines": {
+            "ko": [
+              "시설 운영 시간·요금·위치 — 용산구시설관리공단 홈페이지(2026. 11. 5. 확인)",
+              "화면 속 인물·시설은 생성 장면으로 실제 시설 모습과 다를 수 있음"
+            ],
+            "en": [
+              "Opening hours, fees and locations — Yongsan-gu Facilities Management Corporation website (checked 2026-11-05)",
+              "People and buildings on screen are generated and may differ from the real facilities"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "외부 소스",
+            "en": "Outside sources"
+          },
+          "lines": {
+            "ko": [
+              "음악: Suno 유료 플랜에서 만든 곡(상업적 사용 가능)",
+              "서체: Noto Sans CJK KR (SIL Open Font License)",
+              "스톡 영상·사진·로고, 실존 인물 없음"
+            ],
+            "en": [
+              "Music: made on a paid Suno plan (commercial use allowed)",
+              "Font: Noto Sans CJK KR (SIL Open Font License)",
+              "No stock footage, photos, logos or real people"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "pureal-no-things",
       "date": "2026-11-05",
       "durationSec": 57,
