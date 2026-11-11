@@ -1,6 +1,312 @@
 {
   "works": [
     {
+      "slug": "homework-future-map",
+      "date": "2026-11-10",
+      "durationSec": 58,
+      "aspect": "16:9",
+      "shots": 8,
+      "accent": "#E5483B",
+      "title": {
+        "ko": "숙제: 우리 동네 미래지도",
+        "en": "Homework: A Future Map of My Town"
+      },
+      "status": {
+        "ko": "5극3특 성장엔진 미래지도 AI 영상 공모전 출품작 · 동남권 · 16:9",
+        "en": "Entry — 5-Pole 3-Special Growth Engine Future Map AI Video Contest · Southeast region · 16:9"
+      },
+      "logline": {
+        "ko": "2026년 경남 거제, 아이가 받은 숙제는 '2035년 우리 동네를 그려 오세요'. 크레파스로 그린 배·공장·비행기·발전소가 하나씩 실제 현장으로 바뀌고, 빨간 선이 동남권 성장엔진 4개를 한 줄로 잇는다. 10년 뒤 그 아이는 고향 조선소에서 AI로 배를 설계한다.",
+        "en": "Geoje, 2026. A child’s homework: “Draw our town in 2035.” A crayon ship, factory, plane and power plant turn one by one into real sites, and a red crayon line ties the Southeast’s four growth engines into one belt. Ten years later, the same child designs ships with AI at the hometown shipyard."
+      },
+      "tools": {
+        "generate": [
+          "Google Flow — Nano Banana 2.1 (image)",
+          "Google Flow — Veo 3.1 Fast / Lite (video)",
+          "Suno v6 Pro (instrumental)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "Pillow",
+          "NumPy",
+          "librosa",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/hare.makes/reel/DfmpZVKgyWe/",
+        "youtube": ""
+      },
+      "media": {
+        "video": "media/homework-future-map/video.mp4",
+        "poster": "media/homework-future-map/poster.jpg",
+        "og": "media/homework-future-map/og.jpg"
+      },
+      "coverTime": 36.5,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "정책 이름을 설명하는 대신 아이의 숙제 한 장으로 시작했다 — ‘성장엔진’이 ‘내 아이가 고향에서 일하는 미래’로 읽히도록.",
+            "en": "Instead of explaining policy names, it starts from one sheet of homework, so “growth engine” reads as “my kid working in our hometown.”"
+          }
+        },
+        {
+          "label": {
+            "ko": "그림 → 현실",
+            "en": "Drawing → real"
+          },
+          "text": {
+            "ko": "Veo 3.1의 시작 프레임에 크레파스 그림, 종료 프레임에 같은 구도의 실사를 넣어 그림이 그대로 현장이 되는 변환 4컷을 만들었다.",
+            "en": "Veo 3.1 with the crayon drawing as the start frame and a photoreal image of the same framing as the end frame: four shots where the drawing becomes the real site."
+          }
+        },
+        {
+          "label": {
+            "ko": "한 장의 지도",
+            "en": "One map"
+          },
+          "text": {
+            "ko": "지도 1장 → 그 지도를 참조한 근접 컷 4장 → 각 근접 컷을 참조한 같은 구도의 2035년 실사. 모든 컷의 그림체와 구도가 한 장에서 이어진다.",
+            "en": "One map → four close-ups referencing it → a 2035 photoreal version of each, same framing. Every shot’s style and layout traces back to one drawing."
+          }
+        },
+        {
+          "label": {
+            "ko": "얼굴",
+            "en": "Faces"
+          },
+          "text": {
+            "ko": "2026년의 아이와 2035년의 엔지니어는 같은 사람 — 실존 인물로 오인되지 않도록 뒷모습과 손으로만 보여 준다.",
+            "en": "The child in 2026 and the engineer in 2035 are the same person, shown only from behind and by the hands so no one mistakes them for a real person."
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "사실 확인",
+            "en": "Facts"
+          },
+          "detail": {
+            "ko": "공모전 안내자료(권역별 성장엔진 육성 방안 기준)에서 동남권 비전과 성장엔진 4개의 공식 명칭을 그대로 가져옴",
+            "en": "The Southeast vision and the official names of its four growth engines taken as written from the contest guide"
+          }
+        },
+        {
+          "name": {
+            "ko": "그림",
+            "en": "Drawings"
+          },
+          "detail": {
+            "ko": "Nano Banana 2.1 · 크레파스 지도 → 근접 4컷 → 같은 구도 실사 4컷, 식탁·설계센터·해안 장면까지 약 25장 생성 후 선별",
+            "en": "Nano Banana 2.1 · crayon map → four close-ups → four photoreal matches, plus kitchen, design center and coast — about 25 images, then a cut-down"
+          }
+        },
+        {
+          "name": {
+            "ko": "영상",
+            "en": "Video"
+          },
+          "detail": {
+            "ko": "Veo 3.1 Fast(시작=크레파스, 종료=실사) 변환 4컷 + Veo 3.1 Lite 이미지→영상 4컷 · 8컷 중 7컷 사용",
+            "en": "Veo 3.1 Fast (start = crayon, end = photoreal) for four transitions + Veo 3.1 Lite image-to-video for four · seven of eight used"
+          }
+        },
+        {
+          "name": {
+            "ko": "편집",
+            "en": "Edit"
+          },
+          "detail": {
+            "ko": "Python(Pillow/NumPy) 1920×1080 24fps — 손글씨·정책 자막, 지도의 빨간 픽셀을 찾아 왼쪽부터 빛나게 하는 애니메이션, ‘참 잘했어요’ 도장 엔딩을 프레임 단위로 그려 FFmpeg로 인코딩",
+            "en": "Python (Pillow/NumPy), 1920×1080 at 24 fps — handwritten and policy supers, a glow that finds the map’s red pixels and lights them left to right, and a “Well done!” stamp ending, drawn per frame and encoded with FFmpeg"
+          }
+        },
+        {
+          "name": {
+            "ko": "소리",
+            "en": "Sound"
+          },
+          "detail": {
+            "ko": "Suno v6 연주곡(오르골·피아노 → 오케스트라)을 librosa로 비트에 맞춰 이어 붙이고 Veo 현장음과 도장 소리를 섞음 · loudnorm −15 LUFS",
+            "en": "A Suno v6 instrumental (music box and piano → orchestra) spliced on the beat with librosa, mixed with Veo ambience and a stamp thud · loudnorm −15 LUFS"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [
+        {
+          "label": {
+            "ko": "크레파스 지도",
+            "en": "Crayon map"
+          },
+          "mode": {
+            "ko": "Flow · Nano Banana 2.1 · 16:9 이미지",
+            "en": "Flow · Nano Banana 2.1 · 16:9 image"
+          },
+          "text": "A child's crayon drawing on a page of a Korean elementary school notebook with faint ruled lines, 16:9 landscape, flat top-down scan, evenly lit. Drawn by a 9-year-old. It shows a wavy blue crayon coastline with a blue sea along the bottom. Along the coast, from left to right, four pictures: (1) a big ship being built at a shipyard with a tall yellow crane, (2) a factory with a small red car coming out of it and a friendly robot arm, (3) an airplane flying over a factory with a big round jet engine, (4) a power plant drawn as a round dome with a smiling orange sun above it. Small apartment buildings with yellow lit windows between the pictures, a few stick-figure family members seen from behind. A thick red crayon line connects all four pictures like a belt. Naive, warm, colorful wax crayon texture, uneven coloring, visible paper grain. No text, no letters, no numbers, no logos."
+        },
+        {
+          "label": {
+            "ko": "그림이 현실로",
+            "en": "Drawing comes to life"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Fast · 시작=크레파스 / 종료=실사 · 8초",
+            "en": "Flow · Veo 3.1 Fast · start = crayon / end = photoreal · 8 s"
+          },
+          "text": "A child's crayon drawing on notebook paper slowly comes to life. The camera pushes in gently; the wax crayon strokes of the ship, the yellow crane and the blue sea shimmer, gain depth and light, and smoothly transform into a real, photorealistic shipyard at golden hour ... The red crayon line becomes a red-lit road. Paper texture fades away seamlessly. Magical but realistic transition, continuous single shot, no cuts. ..."
+        },
+        {
+          "label": {
+            "ko": "2035 설계센터",
+            "en": "Design center, 2035"
+          },
+          "mode": {
+            "ko": "Flow · Veo 3.1 Lite · 이미지→영상",
+            "en": "Flow · Veo 3.1 Lite · image-to-video"
+          },
+          "text": "Year 2035, early morning in an AI ship design center. A young engineer, seen only from behind, rotates a glowing 3D digital-twin ship model on the large monitor ... the camera slowly pushes in ... toward the old faded child's crayon drawing taped to the edge of the monitor, ending on the drawing. ... The engineer's face is never shown."
+        },
+        {
+          "label": {
+            "ko": "음악",
+            "en": "Music"
+          },
+          "mode": {
+            "ko": "Suno v6 · 인스트루멘탈",
+            "en": "Suno v6 · instrumental"
+          },
+          "text": "instrumental, warm cinematic film score, felt piano and music box melody like a child's lullaby, soft glockenspiel, pizzicato strings, gentle build to a hopeful orchestral swell with warm brass and timpani at the end, Korean drama OST mood, 82 bpm, nostalgic and uplifting"
+        }
+      ],
+      "compare": [
+        {
+          "label": {
+            "ko": "그림 → 현실 (Veo 3.1 시작·종료 프레임)",
+            "en": "Drawing → real (Veo 3.1 start and end frames)"
+          },
+          "before": "media/homework-future-map/compare-ship-before.jpg",
+          "after": "media/homework-future-map/compare-ship-after.jpg",
+          "beforeLabel": {
+            "ko": "크레파스",
+            "en": "Crayon"
+          },
+          "afterLabel": {
+            "ko": "2035 실사",
+            "en": "2035, photoreal"
+          },
+          "caption": {
+            "ko": "같은 구도를 유지한 채 크레파스 배와 크레인이 실제 조선소가 된다",
+            "en": "Same framing throughout: the crayon ship and crane become a real shipyard"
+          }
+        }
+      ],
+      "scenes": [
+        {
+          "label": {
+            "ko": "2026 · 경남 거제",
+            "en": "2026 · Geoje"
+          },
+          "text": {
+            "ko": "숙제: 2035년 우리 동네를 그려 오세요.",
+            "en": "Homework: draw our town in 2035."
+          },
+          "time": 3.0,
+          "frame": "media/homework-future-map/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "성장엔진 1 · 첨단 조선·해운",
+            "en": "Engine 1 · Advanced shipbuilding & shipping"
+          },
+          "text": {
+            "ko": "크레파스 배가 거제의 조선소가 된다. \"배는 AI랑 같이 설계해요.\"",
+            "en": "The crayon ship becomes a Geoje shipyard. “We design ships with AI.”"
+          },
+          "time": 11.8,
+          "frame": "media/homework-future-map/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "우리 동네 미래지도",
+            "en": "Our town’s future map"
+          },
+          "text": {
+            "ko": "빨간 선이 네 성장엔진을 잇는다 — 초격차 제조AI 거점벨트.",
+            "en": "The red line links all four engines — the Super-Gap Manufacturing AI Hub Belt."
+          },
+          "time": 36.5,
+          "frame": "media/homework-future-map/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "2035 · 경남 거제",
+            "en": "2035 · Geoje"
+          },
+          "text": {
+            "ko": "그 아이는 고향 조선소에서 AI로 배를 설계한다. 모니터 옆에는 그때 그 숙제.",
+            "en": "That child now designs ships with AI at the hometown shipyard, the old homework taped to the monitor."
+          },
+          "time": 40.2,
+          "frame": "media/homework-future-map/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "엔딩",
+            "en": "Ending"
+          },
+          "text": {
+            "ko": "\"참 잘했어요\" 도장 — 아이의 숙제가 우리 동네의 내일이 됩니다.",
+            "en": "A “Well done!” stamp — a child’s homework becomes our town’s tomorrow."
+          },
+          "time": 55.5,
+          "frame": "media/homework-future-map/scene-5.jpg"
+        }
+      ],
+      "notes": [
+        {
+          "heading": {
+            "ko": "사실과 출처",
+            "en": "Facts and sources"
+          },
+          "lines": {
+            "ko": [
+              "동남권 비전·성장엔진 명칭 — 「5극3특 성장엔진 미래지도」 AI 영상 공모전 안내자료(관계부처 합동 「권역별 성장엔진 육성 방안」 기준)",
+              "화면 속 현장·인물은 생성 장면으로 실제 시설과 다를 수 있음 · 원전 컷은 실제와 다른 냉각탑 수증기 구간을 잘라 앞 4.7초만 사용"
+            ],
+            "en": [
+              "Southeast vision and engine names — the contest guide (based on the joint ministerial plan for regional growth engines)",
+              "Sites and people on screen are generated and may differ from real facilities · the nuclear shot keeps only its first 4.7 s, cutting cooling-tower steam that doesn’t match Korean coastal plants"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "외부 소스",
+            "en": "Outside sources"
+          },
+          "lines": {
+            "ko": [
+              "음악: Suno 유료(Pro) 플랜에서 만든 곡",
+              "서체: 나눔펜, 고운돋움, 블랙한산스 (공개 라이선스)",
+              "Google 도구의 기본 표시(✦·Veo)는 지우지 않음 · 실존 기업 로고·실존 인물 없음"
+            ],
+            "en": [
+              "Music: made on a paid Suno (Pro) plan",
+              "Fonts: Nanum Pen, Gowun Dodum, Black Han Sans (open licenses)",
+              "Google’s ✦ and Veo marks left as generated · no real company logos or real people"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "pepero-who",
       "date": "2026-11-09",
       "durationSec": 33,
