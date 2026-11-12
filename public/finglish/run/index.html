@@ -490,10 +490,12 @@ async function screenConsent() {
   const dev = DEVICE === "pc" ? "" :
     `<li>با گوشی هم می‌شود. لطفاً از اول تا آخر با همین گوشی انجام دهید و روی کلمه‌های پیشنهادی کیبورد نزنید.</li>`;
   show(`<h1>آزمایش خواندن فینگلیش</h1>
+    <div class="card"><b>کد شما: <span dir="ltr">${esc(S.pid)}</span></b> — اگر این کد شما نیست، ادامه ندهید و به بهاره پیام بدهید.
+      <span class="en">Your code: ${esc(S.pid)}. If this is not your code, do not continue — message Bahareh.</span></div>   <!-- 11/13: 코드 확인 줄 -->
     <div class="card">
       <b>${esc(CFG.titleFa)}</b>
       <span class="en">${esc(CFG.titleEn)}</span>
-      <p>پژوهشگر: ${esc(CFG.researcherFa)} — <span dir="ltr">${esc(CFG.email)}</span><br>استاد راهنما: ${esc(CFG.advisorFa)}</p>
+      <p>پژوهشگر: ${esc(CFG.researcherFa)} — <span dir="ltr" style="white-space: nowrap">${esc(CFG.email)}</span><br>استاد راهنما: ${esc(CFG.advisorFa)}</p>
       <ul>
         <li>این پژوهش برای پایان‌نامه‌ی کارشناسی مهندسی کامپیوتر دانشگاه ملی سئول است و کمیته‌ی اخلاق پژوهشی (IRB) آن را بررسی نکرده است. داده‌ها فقط برای پایان‌نامه استفاده می‌شوند.</li>
         <li>کلمه‌ها یا جمله‌های کوتاه فینگلیش می‌بینید. در بخش ۱ می‌نویسید چطور خواندید (با حروف فارسی)، در بخش ۲ از بین دو گزینه یکی را انتخاب می‌کنید. بعد از هر مورد، میزان اطمینان را از ۱ تا ۷ می‌زنید.</li>

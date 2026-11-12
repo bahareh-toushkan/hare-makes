@@ -317,6 +317,8 @@ async function main() {
     S.group = CFG.codes.fam[pid];
     const comp = compLine(S.group);
     show(`<h1>کلمه‌ها چقدر آشنا هستند؟</h1>
+    <div class="card"><b>کد شما: <span dir="ltr">${esc(pid)}</span></b> — اگر این کد شما نیست، ادامه ندهید و به بهاره پیام بدهید.
+      <span class="en">Your code: ${esc(pid)}. If this is not your code, do not continue — message Bahareh.</span></div>   <!-- 11/13: 코드 확인 줄 -->
       <div class="card">
         برای پایان‌نامه‌ی کارشناسی ${esc(CFG.researcherFa)} (دانشگاه ملی سئول). حدود ۱۰ دقیقه.<br>
         هر بار یک کلمه‌ی فارسی می‌بینید. بزنید که این کلمه را در زندگی روزمره چقدر می‌بینید یا می‌شنوید (۱ تا ۷). جواب درست و غلط ندارد.<br>
