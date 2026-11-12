@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">   <!-- 11/13: 검색에 안 잡히게 -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>آزمایش خواندن فینگلیش</title>
+<style>
+  :root { --bg:#fafaf7; --fg:#1d1d1f; --muted:#666; --accent:#1f5fbf; --box:#fff; --line:#d8d8d0; --warn:#b3261e; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg); }
+  body { font-family: Tahoma, "Vazirmatn", "Noto Naskh Arabic", "Segoe UI", sans-serif; font-size: 18px; line-height: 1.8; }
+  #app { max-width: 820px; margin: 0 auto; padding: 28px 16px 48px; }
+  h1 { font-size: 22px; margin: 0 0 10px; }
+  .en { direction: ltr; text-align: left; color: var(--muted); font-family: "Segoe UI", Arial, sans-serif; font-size: 14px; line-height: 1.5; display: block; }
+  .card { background: var(--box); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin: 12px 0; }
+  .card ul { margin: 6px 0; padding-right: 20px; }
+  button { font: inherit; padding: 10px 22px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; touch-action: manipulation; }
+  button.secondary { background: #fff; color: var(--accent); }
+  input[type=text], textarea, select { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; width: 100%; background: #fff; }
+  label { display: block; margin: 12px 0 4px; }
+  .choice { display: flex; gap: 8px 18px; flex-wrap: wrap; }
+  .choice label { display: inline-flex; align-items: center; gap: 6px; margin: 2px 0; }
+  .stage { min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .fix { font-size: 48px; color: #888; }
+  .stim { direction: ltr; font-family: Consolas, "Courier New", monospace; font-size: clamp(26px, 7vw, 40px); letter-spacing: 1px; word-break: break-word; }
+  .stim.sent { font-size: clamp(20px, 5.5vw, 30px); }
+  .stim .t { font-weight: bold; text-decoration: underline; text-underline-offset: 6px; color: var(--accent); }
+  .resp { margin-top: 22px; width: min(420px, 100%); display: flex; gap: 8px; }
+  .resp input { font-size: 26px; text-align: center; flex: 1; }
+  .opts { direction: ltr; display: flex; gap: clamp(12px, 5vw, 40px); justify-content: center; margin-top: 26px; width: 100%; }
+  .opt { border: 2px solid var(--line); border-radius: 10px; padding: 12px 18px; min-width: 130px; flex: 0 1 220px; background: #fff; cursor: pointer; user-select: none; touch-action: manipulation; }
+  .opt.sel { border-color: var(--accent); background: #eef3fb; }
+  .opt .k { display: block; font-family: Consolas, monospace; font-size: 15px; color: var(--muted); }
+  .opt .w { display: block; font-size: clamp(24px, 6vw, 30px); direction: rtl; }
+  .conf { display: flex; gap: 6px; justify-content: center; direction: ltr; margin-top: 14px; flex-wrap: nowrap; }
+  .conf button { min-width: 0; width: clamp(38px, 11vw, 54px); padding: 10px 0; }
+  .scale { direction: ltr; display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); width: min(420px, 100%); margin: 6px auto 0; }
+  .scale span { direction: rtl; }
+  .warn { color: var(--warn); font-size: 15px; min-height: 1.6em; margin-top: 6px; }
+  .progress { font-size: 13px; color: var(--muted); margin-top: 18px; }
+  .hint { font-size: 14px; color: var(--muted); }
+  textarea { min-height: 90px; }
+  .mono { direction: ltr; text-align: left; font-family: Consolas, monospace; font-size: 12px; }
+  .center { text-align: center; }
+  .links { margin-top: 12px; font-size: 16px; }   /* 11/12: 끝 화면 메신저 링크 */
+  details.card summary { cursor: pointer; color: var(--muted); font-size: 15px; }   /* 11/12 */
+  .card ol { margin: 8px 0; padding-right: 22px; }   /* 11/12 */
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+"use strict";
+// 빌드 스크립트(build_experiment.py)가 아래 두 줄의 /*...*/null/*END*/ 부분을 실제 자극·설정 JSON으로 바꾼다.
+const STIM = {"items": [{"id": "T1-01", "type": "①단모음생략", "fin": "mrd", "cor": "مرد (آدم)", "foil": "مُرد (فوت کرد)", "ctx": "oon mrde hamsayeye mast", "afcOnly": true}, {"id": "T1-02", "type": "①단모음생략", "fin": "krm", "cor": "کِرم (حشره)", "foil": "کِرِم (پماد)", "ctx": "too sib ye krm bood", "afcOnly": true}, {"id": "T1-03", "type": "①단모음생략", "fin": "shl", "cor": "شُل (سفت نیست)", "foil": "شَل (لنگ)", "ctx": "bande kafsham shl shode", "afcOnly": true}, {"id": "T1-04", "type": "①단모음생략", "fin": "shkr", "cor": "شِکَر (شیرینی)", "foil": "شُکر (سپاس)", "ctx": "chai ro ba shkr mikhoram", "afcOnly": true}, {"id": "T1-05", "type": "①단모음생략", "fin": "mhr", "cor": "مِهر (ماه / محبت)", "foil": "مُهر (برای مدرک)", "ctx": "az mhr miram sarekar", "afcOnly": true}, {"id": "T1-06", "type": "①단모음생략", "fin": "sr", "cor": "سَر (بالای بدن)", "foil": "سِر (راز)", "ctx": "srm dard mikone", "afcOnly": true}, {"id": "T1-07", "type": "①단모음생략", "fin": "dr", "cor": "دَر (ورودی)", "foil": "دُر (مروارید)", "ctx": "lotfan dr ro beband", "afcOnly": true}, {"id": "T1-08", "type": "①단모음생략", "fin": "kshti", "cor": "کِشتی (وسیله‌ی دریایی)", "foil": "کُشتی (ورزش)", "ctx": "savare kshti shodim", "afcOnly": true}, {"id": "T1-09", "type": "①단모음생략", "fin": "pr", "cor": "پُر (خالی نیست)", "foil": "پَر (پرنده)", "ctx": "livanam pr az ab bood", "afcOnly": true}, {"id": "T1-10", "type": "①단모음생략", "fin": "nfs", "cor": "نَفَس (دم و بازدم)", "foil": "نَفس (خودِ آدم)", "ctx": "ye nfs amigh bekesh", "afcOnly": true}, {"id": "T1-11", "type": "①단모음생략", "fin": "mlk", "cor": "مِلک (زمین و خانه)", "foil": "مَلِک (پادشاه)", "ctx": "in mlk male pedarbozorgame", "afcOnly": true}, {"id": "T1-12", "type": "①단모음생략", "fin": "khrd", "cor": "خُرد (ریز)", "foil": "خِرَد (عقل)", "ctx": "piaz ro khrd kon", "afcOnly": true}, {"id": "T1-13", "type": "①단모음생략", "fin": "knd", "cor": "کُند (تیز نیست)", "foil": "کَند (زمین را کند)", "ctx": "in chaghoo kheili knd shode", "afcOnly": true}, {"id": "T1-14", "type": "①단모음생략", "fin": "krd", "cor": "کَرد (انجام داد)", "foil": "کُرد (قوم)", "ctx": "emroz chikar krdi?", "afcOnly": true}, {"id": "T1-15", "type": "①단모음생략", "fin": "shsh", "cor": "شُش (ریه)", "foil": "شِش (عدد ۶)", "ctx": "sigar baraye shsh zarar dare", "afcOnly": true}, {"id": "T1-16", "type": "①단모음생략", "fin": "sm", "cor": "سَم (زهر)", "foil": "سُم (پای اسب)", "ctx": "in gharch sm dare, nakhor", "afcOnly": true}, {"id": "T1-17", "type": "①단모음생략", "fin": "sbk", "cor": "سَبک (شیوه)", "foil": "سَبُک (سنگین نیست)", "ctx": "in naghash ye sbk khas dare", "afcOnly": true}, {"id": "T1-18", "type": "①단모음생략", "fin": "ghdr", "cor": "قَدر (ارزش)", "foil": "قَدَر (قوی)", "ctx": "hich kas ghdr zahmathash ro nemidoone", "afcOnly": true}, {"id": "T1-19", "type": "①단모음생략", "fin": "chk", "cor": "چِک (بانکی)", "foil": "چَک (سیلی)", "ctx": "poolesh ro ba chk dad", "afcOnly": true}, {"id": "T1-20", "type": "①단모음생략", "fin": "khlgh", "cor": "خُلق (اخلاق)", "foil": "خَلق (مردم / آفرینش)", "ctx": "sobh ha khlgh nadare", "afcOnly": true}, {"id": "T1-21", "type": "①단모음생략", "fin": "tng", "cor": "تَنگ (گشاد نیست)", "foil": "تُنگ (ظرف آب)", "ctx": "mantoyi ke kharidam khyli tnge", "afcOnly": true}, {"id": "T1-22", "type": "①단모음생략", "fin": "ksht", "cor": "کِشت (کاشتن)", "foil": "کُشت (به قتل رساند)", "ctx": "emsal ksht gandom khoob bood", "afcOnly": true}, {"id": "T1-23", "type": "①단모음생략", "fin": "rb", "cor": "رُب (گوجه)", "foil": "رَب (پروردگار)", "ctx": "ye ghashogh rb too khoresh beriz", "afcOnly": true}, {"id": "T1-24", "type": "①단모음생략", "fin": "dm", "cor": "دُم (حیوان)", "foil": "دَم (نفس / لحظه)", "ctx": "sag dm tekoon mide", "afcOnly": true}, {"id": "T1-25", "type": "①단모음생략", "fin": "jrm", "cor": "جُرم (خلاف قانون)", "foil": "جِرم (مقدار ماده)", "ctx": "dozdi ye jrm bozorge", "afcOnly": true}, {"id": "T1-26", "type": "①단모음생략", "fin": "mrdm", "cor": "مَردُم (آدم‌ها)", "foil": "مُردَم (من مُردم)", "ctx": "mrdme in shahr kheili mehraboonan", "afcOnly": true}, {"id": "T1-27", "type": "①단모음생략", "fin": "smt", "cor": "سَمت (طرف)", "foil": "سِمَت (مقام)", "ctx": "boro smte chap", "afcOnly": true}, {"id": "T1-28", "type": "①단모음생략", "fin": "ghsm", "cor": "قَسَم (سوگند)", "foil": "قِسم (نوع)", "ctx": "ghsm mikhoram ke dorugh nemigam", "afcOnly": true}, {"id": "T1-29", "type": "①단모음생략", "fin": "trk", "cor": "تَرک (رها کردن)", "foil": "تُرک (قوم)", "ctx": "sigar ro trk kard", "afcOnly": true}, {"id": "T1-30", "type": "①단모음생략", "fin": "shst", "cor": "شُست (تمیز کرد)", "foil": "شَست (انگشت)", "ctx": "khaharam zarf ha ro shst", "afcOnly": true}, {"id": "T2-01", "type": "②자음대응", "fin": "hayat", "cor": "حیاط", "foil": "حیات", "ctx": "bache ha too hayat bazi mikonan", "afcOnly": false}, {"id": "T2-02", "type": "②자음대응", "fin": "sad", "cor": "سد", "foil": "صد", "ctx": "abe poshte sad kam shode", "afcOnly": false}, {"id": "T2-03", "type": "②자음대응", "fin": "ghaza", "cor": "قضا", "foil": "غذا", "ctx": "in etefagh ghaza va ghadar bood", "afcOnly": false}, {"id": "T2-04", "type": "②자음대응", "fin": "gharib", "cor": "غریب", "foil": "قریب", "ctx": "man inja gharib hastam va kasi ro nemishnasam", "afcOnly": false}, {"id": "T2-05", "type": "②자음대응", "fin": "ghaleb", "cor": "قالب", "foil": "غالب", "ctx": "khamir ro too ghaleb berizid", "afcOnly": false}, {"id": "T2-06", "type": "②자음대응", "fin": "khast", "cor": "خواست", "foil": "خاست", "ctx": "az man komak khast", "afcOnly": false}, {"id": "T2-07", "type": "②자음대응", "fin": "khar", "cor": "خار", "foil": "خوار", "ctx": "ye khar raft too dastam", "afcOnly": false}, {"id": "T2-08", "type": "②자음대응", "fin": "porteghal", "cor": "پرتغال", "foil": "پرتقال", "ctx": "time melli porteghal bazi ro bord", "afcOnly": false}, {"id": "T2-09", "type": "②자음대응", "fin": "asas", "cor": "اثاث", "foil": "اساس", "ctx": "farda asas keshi darim", "afcOnly": false}, {"id": "T2-10", "type": "②자음대응", "fin": "hal", "cor": "هال", "foil": "حال", "ctx": "mehmoon ha too hal neshastan", "afcOnly": false}, {"id": "T2-11", "type": "②자음대응", "fin": "arz", "cor": "ارز", "foil": "عرض", "ctx": "gheymate arz dobare geroon shod", "afcOnly": false}, {"id": "T2-12", "type": "②자음대응", "fin": "mansub", "cor": "منصوب", "foil": "منسوب", "ctx": "oo be onvane modir mansub shod", "afcOnly": false}, {"id": "T2-13", "type": "②자음대응", "fin": "faragh", "cor": "فراق", "foil": "فراغ", "ctx": "dar faragh doostash sher goft", "afcOnly": false}, {"id": "T2-14", "type": "②자음대응", "fin": "sakhte", "cor": "ساخته", "foil": "سخته", "ctx": "in pol taze sakhte shode", "afcOnly": false}, {"id": "T2-15", "type": "②자음대응", "fin": "mast", "cor": "ماست", "foil": "مست", "ctx": "ba nahar mast khordim", "afcOnly": false}, {"id": "T2-16", "type": "②자음대응", "fin": "dasht", "cor": "دشت", "foil": "داشت", "ctx": "asb ha too dasht midavidan", "afcOnly": false}, {"id": "T2-17", "type": "②자음대응", "fin": "bakht", "cor": "باخت", "foil": "بخت", "ctx": "time ma dishab bakht", "afcOnly": false}, {"id": "T2-18", "type": "②자음대응", "fin": "bala", "cor": "بلا", "foil": "بالا", "ctx": "khoda in bala ro door kone", "afcOnly": false}, {"id": "T2-19", "type": "②자음대응", "fin": "madar", "cor": "مدار", "foil": "مادر", "ctx": "mahvare too madar zamin gharar gereft", "afcOnly": false}, {"id": "T2-20", "type": "②자음대응", "fin": "kalam", "cor": "کلم", "foil": "کلام", "ctx": "salad ba kalam dorost kardam", "afcOnly": false}, {"id": "T2-21", "type": "②자음대응", "fin": "kard", "cor": "کارد", "foil": "کرد", "ctx": "kard va changal ro biar", "afcOnly": false}, {"id": "T2-22", "type": "②자음대응", "fin": "haram", "cor": "حرم", "foil": "حرام", "ctx": "too mashhad raftim haram", "afcOnly": false}, {"id": "T2-23", "type": "②자음대응", "fin": "bad", "cor": "بعد", "foil": "بد", "ctx": "aval dars bekhoon, bad bazi kon", "afcOnly": false}, {"id": "T2-24", "type": "②자음대응", "fin": "dava", "cor": "دعوا", "foil": "دوا", "ctx": "do ta hamsaye ba ham dava kardan", "afcOnly": false}, {"id": "T2-25", "type": "②자음대응", "fin": "aza", "cor": "اعضا", "foil": "عزا", "ctx": "hameye aza too jalase boodan", "afcOnly": false}, {"id": "T2-26", "type": "②자음대응", "fin": "sham", "cor": "شمع", "foil": "شام", "ctx": "bargh raft va sham roshan kardim", "afcOnly": false}, {"id": "T2-27", "type": "②자음대응", "fin": "rad", "cor": "رعد", "foil": "رد", "ctx": "sedaye rad va bargh oomad", "afcOnly": false}, {"id": "T2-28", "type": "②자음대응", "fin": "tane", "cor": "طعنه", "foil": "تنه", "ctx": "hamash be man tane mizane", "afcOnly": false}, {"id": "T2-29", "type": "②자음대응", "fin": "ghale", "cor": "قلعه", "foil": "غله", "ctx": "balaye kooh ye ghale ghadimi hast", "afcOnly": false}, {"id": "T2-30", "type": "②자음대응", "fin": "jam", "cor": "جمع", "foil": "جام", "ctx": "jam in adad ha chand mishe?", "afcOnly": false}, {"id": "T3-01", "type": "③어절경계", "fin": "khune", "cor": "خونِ (مثل: خونِ کسی)", "foil": "خونه (خانه)", "ctx": "khune damaghesh band nemiad", "afcOnly": false}, {"id": "T3-02", "type": "③어절경계", "fin": "ruze", "cor": "روزه (روزه گرفتن)", "foil": "روزِ (مثل: روزِ بعد)", "ctx": "pedaram har sal ruze migire", "afcOnly": false}, {"id": "T3-03", "type": "③어절경계", "fin": "name", "cor": "نامِ (مثل: نامِ کسی)", "foil": "نامه (کاغذ نوشته)", "ctx": "name pedar ro too form benevis", "afcOnly": false}, {"id": "T3-04", "type": "③어절경계", "fin": "daste", "cor": "دسته (گروه / دستگیره)", "foil": "دستِ (مثل: دستِ کسی)", "ctx": "ye daste sabzi kharidam", "afcOnly": false}, {"id": "T3-05", "type": "③어절경계", "fin": "rishe", "cor": "ریشِ (مثل: ریشِ کسی)", "foil": "ریشه (درخت)", "ctx": "rishe pedarbozorgam sefid shode", "afcOnly": false}, {"id": "T3-06", "type": "③어절경계", "fin": "gushe", "cor": "گوشه (کنج)", "foil": "گوشِ (مثل: گوشِ کسی)", "ctx": "miz ro bezar gushe otagh", "afcOnly": false}, {"id": "T3-07", "type": "③어절경계", "fin": "chashme", "cor": "چشمِ (مثل: چشمِ کسی)", "foil": "چشمه (آب)", "ctx": "chashme chapam dard mikone", "afcOnly": false}, {"id": "T3-08", "type": "③어절경계", "fin": "zamine", "cor": "زمینه (رشته / پس‌زمینه)", "foil": "زمینِ (مثل: زمینِ کسی)", "ctx": "too in zamine tajrobe nadaram", "afcOnly": false}, {"id": "T3-09", "type": "③어절경계", "fin": "zire", "cor": "زیرِ (پایینِ چیزی)", "foil": "زیره (ادویه)", "ctx": "gorbe zire miz khabide", "afcOnly": false}, {"id": "T3-10", "type": "③어절경계", "fin": "khale", "cor": "خاله (خواهرِ مادر)", "foil": "خالِ (مثل: خالِ صورت)", "ctx": "khale baramoon ash pokhte", "afcOnly": false}, {"id": "T3-11", "type": "③어절경계", "fin": "dige", "cor": "دیگِ (مثل: دیگِ غذا)", "foil": "دیگه (دیگر)", "ctx": "dige abgoosht ro az roo ojagh bardar", "afcOnly": false}, {"id": "T3-12", "type": "③어절경계", "fin": "dokhtare", "cor": "دختره (آن دختر)", "foil": "دخترِ (مثل: دخترِ کسی)", "ctx": "dokhtare kheili ba adab bood", "afcOnly": false}, {"id": "T3-13", "type": "③어절경계", "fin": "mano", "cor": "من و (من + و)", "foil": "منو (من را)", "ctx": "mano khaharam raftim kharid", "afcOnly": true}, {"id": "T3-14", "type": "③어절경계", "fin": "ino", "cor": "اینو (این را)", "foil": "این و (این + و)", "ctx": "ino baram negah dar", "afcOnly": true}, {"id": "T3-15", "type": "③어절경계", "fin": "maro", "cor": "مارو (مار را)", "foil": "ما رو (ما را)", "ctx": "maro az lune ash biroon keshid", "afcOnly": true}, {"id": "T3-16", "type": "③어절경계", "fin": "toro", "cor": "تو رو (تو را)", "foil": "تورو (تور را)", "ctx": "dirooz toro too park didam", "afcOnly": true}, {"id": "T3-17", "type": "③어절경계", "fin": "beman", "cor": "بمان (نرو)", "foil": "به من", "ctx": "emshab pishe ma beman", "afcOnly": false}, {"id": "T3-18", "type": "③어절경계", "fin": "bekar", "cor": "بکار (کاشتن)", "foil": "به کار", "ctx": "in nahal ro too baghche bekar", "afcOnly": false}, {"id": "T3-19", "type": "③어절경계", "fin": "beham", "cor": "به هم (به یکدیگر)", "foil": "بهم (به من)", "ctx": "in do ta kheili beham shabihan", "afcOnly": false}, {"id": "T3-20", "type": "③어절경계", "fin": "azan", "cor": "اذان (وقت نماز)", "foil": "از آن", "ctx": "sedaye azan az masjed miad", "afcOnly": false}, {"id": "T3-21", "type": "③어절경계", "fin": "yekam", "cor": "یه کم (کمی)", "foil": "یکم (اول)", "ctx": "yekam ab be man bede", "afcOnly": false}, {"id": "T3-22", "type": "③어절경계", "fin": "azam", "cor": "ازم (از من)", "foil": "اعظم (اسم / بزرگ‌تر)", "ctx": "ketabam ro azam gereft", "afcOnly": false}, {"id": "T3-23", "type": "③어절경계", "fin": "bahar", "cor": "با هر (با + هر)", "foil": "بهار (فصل)", "ctx": "bahar kasi mehraboon bash", "afcOnly": false}, {"id": "T3-24", "type": "③어절경계", "fin": "daran", "cor": "دارن (دارند)", "foil": "در آن", "ctx": "bache ha emtehan daran", "afcOnly": false}, {"id": "T3-25", "type": "③어절경계", "fin": "nazar", "cor": "نذار (نگذار)", "foil": "نظر", "ctx": "nazar bache dir bekhabe", "afcOnly": false}, {"id": "T3-26", "type": "③어절경계", "fin": "nadan", "cor": "نادان (بی‌عقل)", "foil": "ندن (ندهند)", "ctx": "adame nadan harfe hichkas ro goosh nemide", "afcOnly": false}, {"id": "T3-27", "type": "③어절경계", "fin": "bedun", "cor": "بدون (بدان)", "foil": "بدونِ (بی)", "ctx": "bedun ke man hamishe poshtet hastam", "afcOnly": true}, {"id": "T3-28", "type": "③어절경계", "fin": "tanha", "cor": "تنها (بی‌کس)", "foil": "تن‌ها (بدن‌ها)", "ctx": "man tanha zendegi mikonam", "afcOnly": true}, {"id": "T3-30", "type": "③어절경계", "fin": "mian", "cor": "میان (می‌آیند)", "foil": "میان (بین)", "ctx": "mehmoon ha farda shab mian", "afcOnly": true}, {"id": "T4-01", "type": "④어휘동형어", "fin": "shir", "cor": "شیر (حیوان)", "foil": "شیر (نوشیدنی)", "ctx": "too baghe vahsh ye shir didim", "afcOnly": true}, {"id": "T4-02", "type": "④어휘동형어", "fin": "sir", "cor": "سیر (گرسنه نیست)", "foil": "سیر (خوراکی)", "ctx": "merci, man sir shodam", "afcOnly": true}, {"id": "T4-03", "type": "④어휘동형어", "fin": "dush", "cor": "دوش (حمام)", "foil": "دوش (شانه)", "ctx": "har sobh dush migiram", "afcOnly": true}, {"id": "T4-04", "type": "④어휘동형어", "fin": "mah", "cor": "ماه (آسمان)", "foil": "ماه (سی روز)", "ctx": "emshab mah kamele", "afcOnly": true}, {"id": "T4-05", "type": "④어휘동형어", "fin": "zaban", "cor": "زبان (داخل دهان)", "foil": "زبان (فارسی، انگلیسی و...)", "ctx": "doktor goft zaban ro biar biroon", "afcOnly": true}, {"id": "T4-06", "type": "④어휘동형어", "fin": "shane", "cor": "شانه (برای مو)", "foil": "شانه (کتف)", "ctx": "moohash ro ba shane saf kard", "afcOnly": true}, {"id": "T4-07", "type": "④어휘동형어", "fin": "baz", "cor": "باز (دوباره)", "foil": "باز (بسته نیست)", "ctx": "baz ham dir oomadi?", "afcOnly": true}, {"id": "T4-08", "type": "④어휘동형어", "fin": "tir", "cor": "تیر (ماه چهارم)", "foil": "تیر (گلوله / کمان)", "ctx": "tavalodam too mahe tir hast", "afcOnly": true}, {"id": "T4-09", "type": "④어휘동형어", "fin": "gaz", "cor": "گاز (دندان زدن)", "foil": "گاز (سوخت)", "ctx": "sag pam ro gaz gereft", "afcOnly": true}, {"id": "T4-10", "type": "④어휘동형어", "fin": "pich", "cor": "پیچ (جاده)", "foil": "پیچ (با پیچ‌گوشتی)", "ctx": "jade ye pich khatarnak dare", "afcOnly": true}, {"id": "T4-11", "type": "④어휘동형어", "fin": "zang", "cor": "زنگ (آهن)", "foil": "زنگ (صدا)", "ctx": "in ahan zang zade", "afcOnly": true}, {"id": "T4-12", "type": "④어휘동형어", "fin": "garm", "cor": "گرم (واحد وزن)", "foil": "گرم (سرد نیست)", "ctx": "divist garm panir kharidam", "afcOnly": true}, {"id": "T4-13", "type": "④어휘동형어", "fin": "toop", "cor": "توپ (جنگی)", "foil": "توپ (بازی)", "ctx": "sarbaz ha ba toop shelik kardan", "afcOnly": true}, {"id": "T4-14", "type": "④어휘동형어", "fin": "ravan", "cor": "روان (راحت و بدون مکث)", "foil": "روان (روح)", "ctx": "oo englisi ro ravan sohbat mikone", "afcOnly": true}, {"id": "T4-15", "type": "④어휘동형어", "fin": "ghesmat", "cor": "قسمت (سرنوشت)", "foil": "قسمت (بخش)", "ctx": "ghesmat nabood ham ro bebinim", "afcOnly": true}, {"id": "T4-16", "type": "④어휘동형어", "fin": "tond", "cor": "تند (فلفل)", "foil": "تند (سریع)", "ctx": "in felfel kheili tond hast", "afcOnly": true}, {"id": "T4-17", "type": "④어휘동형어", "fin": "boland", "cor": "بلند (صدا)", "foil": "بلند (قد)", "ctx": "sedaye televizion kheili boland hast", "afcOnly": true}, {"id": "T4-18", "type": "④어휘동형어", "fin": "baste", "cor": "بسته (پستی)", "foil": "بسته (باز نیست)", "ctx": "postchi ye baste baram avord", "afcOnly": true}, {"id": "T4-19", "type": "④어휘동형어", "fin": "daftar", "cor": "دفتر (محل کار)", "foil": "دفتر (برای نوشتن)", "ctx": "modir too daftar montazere shomast", "afcOnly": true}, {"id": "T4-20", "type": "④어휘동형어", "fin": "harf", "cor": "حرف (الفبا)", "foil": "حرف (سخن)", "ctx": "alefbaye farsi si o do harf dare", "afcOnly": true}, {"id": "T4-21", "type": "④어휘동형어", "fin": "saat", "cor": "ساعت (مچی / دیواری)", "foil": "ساعت (شصت دقیقه)", "ctx": "ye saat mochi kado gereftam", "afcOnly": true}, {"id": "T4-22", "type": "④어휘동형어", "fin": "fasl", "cor": "فصل (کتاب)", "foil": "فصل (بهار، تابستان...)", "ctx": "in ketab dah fasl dare", "afcOnly": true}, {"id": "T4-23", "type": "④어휘동형어", "fin": "sherkat", "cor": "شرکت (حضور داشتن)", "foil": "شرکت (محل کار)", "ctx": "too mosabeghe sherkat kardam", "afcOnly": true}, {"id": "T4-24", "type": "④어휘동형어", "fin": "aks", "cor": "عکس (برعکس)", "foil": "عکس (تصویر)", "ctx": "hame chiz bar aks shod", "afcOnly": true}, {"id": "T4-25", "type": "④어휘동형어", "fin": "naghsh", "cor": "نقش (فیلم / نمایش)", "foil": "نقش (طرح و نگار)", "ctx": "too in film naghsh asli ro bazi mikone", "afcOnly": true}, {"id": "T4-26", "type": "④어휘동형어", "fin": "gol", "cor": "گل (فوتبال)", "foil": "گل (گیاه)", "ctx": "too daghighe navad ye gol zad", "afcOnly": true}, {"id": "T4-27", "type": "④어휘동형어", "fin": "dande", "cor": "دنده (ماشین)", "foil": "دنده (استخوان)", "ctx": "mashin ro bezar too dande yek", "afcOnly": true}, {"id": "T4-28", "type": "④어휘동형어", "fin": "farman", "cor": "فرمان (دستور)", "foil": "فرمان (ماشین)", "ctx": "padeshah farman dad hame biyan", "afcOnly": true}, {"id": "T4-29", "type": "④어휘동형어", "fin": "berenj", "cor": "برنج (فلز)", "foil": "برنج (خوراکی)", "ctx": "in mojasame az jense berenj hast", "afcOnly": true}, {"id": "T4-30", "type": "④어휘동형어", "fin": "dast", "cor": "دست (یک سری)", "foil": "دست (عضو بدن)", "ctx": "ye dast lebas no kharidam", "afcOnly": true}, {"id": "T3-31", "type": "③어절경계", "fin": "bekhab", "cor": "بخواب (خوابیدن)", "foil": "به خواب", "ctx": "dir vaghte, boro bekhab", "afcOnly": false}], "practice": [{"id": "PR-01", "type": "연습", "fin": "salam", "cor": "سلام", "foil": "سالم", "ctx": "salam, khoobi?", "afcOnly": false}, {"id": "PR-02", "type": "연습", "fin": "ketab", "cor": "کتاب", "foil": "کباب", "ctx": "in ketab ro khoondi?", "afcOnly": false}, {"id": "PR-03", "type": "연습", "fin": "shahr", "cor": "شهر", "foil": "شعر", "ctx": "tehran shahr bozorgi hast", "afcOnly": false}, {"id": "PR-04", "type": "연습", "fin": "khoob", "cor": "خوب", "foil": "خواب", "ctx": "halam khoob hast", "afcOnly": false}]};
+const CFG = {"titleFa": "سنجش زمان واکنش و میزان اطمینان در خواندن فینگلیش — مقایسه‌ی فارسی‌زبانان بومی با مدل‌های زبانی", "titleEn": "Reading Finglish: response time and confidence of native Persian speakers vs. language models", "researcherFa": "بهاره توشکان (دانشکده‌ی مهندسی کامپیوتر، دانشگاه ملی سئول)", "advisorFa": "دکتر جین‌ووک سئو", "email": "2022-16032@snu.ac.kr", "comp": {"ip": {"fa": "پس از پایان آزمایش، ۲ میلیون تومان (کارت به کارت، تا ۱۱ بهمن) به شما پرداخت می‌شود.", "en": "On completion you receive 2,000,000 toman (bank card transfer, by 31 January 2027)."}, "iu": {"fa": "شما داوطلبانه و بدون دریافت وجه شرکت می‌کنید. از لطف شما بسیار سپاسگزارم.", "en": "You are taking part as an unpaid volunteer. Thank you very much."}, "kr": {"fa": "پس از پایان آزمایش، یک کوپن موبایلی قهوه‌ی استارباکس دریافت می‌کنید.", "en": "On completion you receive one Starbucks coffee mobile coupon."}, "ar": {"fa": "قدردانی طبق هماهنگی قبلی با پژوهشگر انجام می‌شود.", "en": "Compensation is as arranged with the researcher beforehand."}, "t": {"fa": "(کد آزمایشی — بدون قدردانی)", "en": "(Test code — no compensation.)"}}, "w3fKey": "1f7dcbb1-4f36-4266-af58-5a1c3051e15a", "tg": "bbbbtttt01", "wa": "821026442696", "kakao": "https://open.kakao.com/o/saF4bPVi", "minutes": 20, "allowPhone": true, "version": "2026-11-13_n120", "codes": {"main": {"P05": "kr", "P06": "kr", "P07": "kr", "P08": "kr", "P01": "ip", "P02": "ip", "P04": "ip", "P03": "ip", "P10": "ip", "P09": "ip", "P11": "ip", "P12": "ip", "P17": "ip", "P18": "ip", "P19": "ip", "P20": "ip", "P21": "ip", "P22": "ip", "P23": "ip", "P24": "ip", "P25": "ip", "P26": "ip", "P27": "ip", "P28": "ip", "P29": "ip", "P30": "ip", "P31": "ip", "P32": "ip", "P33": "ip", "P34": "ip", "P35": "ip", "P36": "ip", "P37": "ip", "P38": "ip", "P39": "ip", "P13": "kr", "P40": "ip", "P41": "ip", "P42": "ip", "P43": "ip", "P44": "ip", "P45": "ip", "P46": "ip", "P47": "ip", "P48": "ip", "P49": "ip", "P50": "ip", "P51": "ip", "P52": "ip", "P53": "ip", "P54": "ip", "P55": "ip", "P14": "kr", "P56": "ip", "P57": "iu", "P58": "iu", "P59": "iu", "P60": "iu", "P61": "iu", "P62": "iu", "P63": "iu", "P64": "ip", "P65": "ip", "P15": "kr", "P66": "iu", "P16": "kr", "P67": "kr", "P68": "ar", "P69": "ar", "T01": "t", "T02": "t", "T03": "t", "T04": "t"}, "fam": {"F01": "kr", "F02": "kr", "F03": "ip", "F04": "ip", "TF1": "t"}}};
+
+const app = document.getElementById("app");
+const $ = (s) => document.querySelector(s);
+const now = () => performance.now();
+const nextPaint = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+const fa = (n) => Number(n).toLocaleString("fa-IR");
+function esc(s) { return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+function show(html) { app.innerHTML = html; window.scrollTo(0, 0); }
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function evTime(e) { return (e && typeof e.timeStamp === "number" && e.timeStamp > 0) ? e.timeStamp : now(); }
+
+// ===== 공통: 코드 확인 · 이어 하기 · 결과 전송 (11/12 추가) =====
+// build_experiment.py 가 이 파일을 template_experiment.html / template_familiarity.html 의 COMMON 표시 자리에 넣는다.
+// 앞에서 정의돼 있어야 하는 것: CFG, $, show, esc
+//
+// 전송 순서 (B+A):
+//   B. 자동: Web3Forms 로 결과 코드를 보냄 → 연구자 학교 메일에 도착
+//   A. 예비: 자동 전송이 안 되면 ① 다시 시도 ② 파일을 텔레그램·왓츠앱·카카오톡으로 보내기 ③ 결과 코드 복사
+// 결과 코드 형식:  FG1.<task>.<pid>.<CSV 바이트 수>.<crc32 16진수>.<base64url(gzip(CSV))>.END
+//                 (gzip 을 못 쓰는 옛 브라우저는 FG0 = 압축 없이 base64url)
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// ---------- 코드 확인 ----------
+// CFG.codes[task] = { "P23": "ip", ... }   ip 이란·사례 있음 / iu 이란·무사례 / kr 한국·쿠폰 / ar 따로 정함 / t 시험용
+function cleanCode(s) {
+  return String(s || "")
+    .replace(/[۰-۹]/g, (d) => String(d.charCodeAt(0) - 0x06F0))   // 페르시아 숫자 → 0-9
+    .replace(/[٠-٩]/g, (d) => String(d.charCodeAt(0) - 0x0660))   // 아랍 숫자 → 0-9
+    .replace(/[^A-Za-z0-9]/g, "").toUpperCase();
+}
+async function askCode(task, example) {
+  const codes = CFG.codes[task] || {};
+  const fromUrl = cleanCode(new URLSearchParams(location.search).get("p"));
+  if (codes[fromUrl]) return fromUrl;                       // 링크에 맞는 코드가 있으면 묻지 않는다
+  show(`<h1>کد شرکت‌کننده</h1>
+    <div class="card">
+      <label>کدی را که بهاره برایتان فرستاده وارد کنید (مثلاً ${esc(example)})
+        <span class="en">Enter the code Bahareh sent you, e.g. ${esc(example)}</span></label>
+      <input id="pid" type="text" dir="ltr" value="${esc(fromUrl)}" autocomplete="off" autocapitalize="characters">
+      <div class="warn" id="warn"></div>
+    </div>
+    <div class="center"><button id="codeok">ادامه — Next</button></div>`);
+  return new Promise((resolve) => {
+    const go = () => {
+      const c = cleanCode($("#pid").value);
+      if (codes[c]) { resolve(c); return; }
+      $("#warn").textContent = "این کد پیدا نشد. لطفاً دوباره نگاه کنید (مثلاً " + example + "). اگر کد ندارید به بهاره پیام بدهید.";
+    };
+    $("#codeok").addEventListener("click", go);
+    $("#pid").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); go(); } });
+  });
+}
+function compLine(group) {            // 동의 화면의 사례 문장 (참가자 유형별)
+  return CFG.comp[group] || CFG.comp.ar;
+}
+
+// ---------- 이어 하기: 진행 상황을 이 기기 브라우저에 저장 ----------
+function stateKey(task, pid) { return "fg:" + task + ":" + pid + ":" + CFG.version; }
+function loadState(key) {
+  try { return JSON.parse(localStorage.getItem(key) || "null"); } catch (_) { return null; }
+}
+function saveState(key, obj) {
+  try { localStorage.setItem(key, JSON.stringify(obj)); return true; } catch (_) { return false; }
+}
+function clearState(key) { try { localStorage.removeItem(key); } catch (_) {} }
+const WANT_RESET = new URLSearchParams(location.search).get("reset") === "1";   // ?reset=1 → 저장된 진행 상황을 지우고 처음부터
+
+// ---------- 결과 코드 만들기 ----------
+const CRC_TABLE = (() => {
+  const t = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1); t[n] = c >>> 0; }
+  return t;
+})();
+function crc32(bytes) {
+  let c = 0xFFFFFFFF;
+  for (let i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+  return (c ^ 0xFFFFFFFF) >>> 0;
+}
+function b64url(bytes) {
+  let s = "";
+  for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+async function gzipBytes(bytes) {
+  if (typeof CompressionStream === "undefined") return null;
+  const stream = new Blob([bytes]).stream().pipeThrough(new CompressionStream("gzip"));
+  return new Uint8Array(await new Response(stream).arrayBuffer());
+}
+async function makeCode(task, pid, csv) {
+  const raw = new TextEncoder().encode(csv);
+  let z = null;
+  try { z = await gzipBytes(raw); } catch (_) { z = null; }
+  return (z ? "FG1" : "FG0") + "." + task + "." + pid + "." + raw.length + "." + crc32(raw).toString(16) + "." + b64url(z || raw) + ".END";
+}
+
+// ---------- B. 자동 전송 ----------
+async function sendResult(meta, code) {
+  const body = {
+    access_key: CFG.w3fKey,
+    subject: "[FG] " + meta.pid + " " + meta.task + " " + CFG.version + " " + meta.device,
+    from_name: "Finglish experiment",
+    pid: meta.pid, task: meta.task, version: CFG.version, device: meta.device, rows: meta.rows,
+    code: code
+  };
+  let last = "";
+  for (let i = 0; i < 3; i++) {                 // 최대 3번
+    try {
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), 25000);
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(body), signal: ctl.signal
+      });
+      clearTimeout(timer);
+      const j = await res.json().catch(() => ({}));
+      if (res.ok && j.success) return { ok: true };
+      last = "http " + res.status + " " + (j.message || "");
+      if (res.status >= 400 && res.status < 500 && res.status !== 429) break;   // 다시 해도 같은 오류
+    } catch (e) { last = String((e && e.name) || e); }
+    await sleep(1500 * (i + 1));
+  }
+  return { ok: false, err: last };
+}
+
+// ---------- A. 예비 전송 ----------
+function download(csv, fname) {
+  const blob = new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = fname;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+async function shareFile(csv, fname) {          // 폰: 공유 창(텔레그램·왓츠앱 등) / 안 되면 파일 내려받기
+  try {
+    const file = new File(["﻿" + csv], fname, { type: "text/csv" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: fname });
+      return "shared";
+    }
+  } catch (e) { if (e && e.name === "AbortError") return "cancel"; }
+  download(csv, fname);
+  return "downloaded";
+}
+
+// ---------- 끝 화면 ----------
+// o = { task, pid, device, csv, fname, rows, sent, onSent }
+async function finishFlow(o) {
+  const code = await makeCode(o.task, o.pid, o.csv);
+  const links = [
+    CFG.tg ? `<a href="https://t.me/${esc(CFG.tg)}" target="_blank" rel="noopener">تلگرام بهاره</a>` : "",
+    CFG.wa ? `<a href="https://wa.me/${esc(CFG.wa)}" target="_blank" rel="noopener">واتس‌اپ بهاره</a>` : "",
+    CFG.kakao ? `<a href="${esc(CFG.kakao)}" target="_blank" rel="noopener">کاکائوتاک بهاره</a>` : ""
+  ].filter(Boolean).join(" · ");
+  const tools = `
+    <div class="center"><button id="share">فرستادن فایل نتایج — Send file</button> <button id="copy" class="secondary">کپی کد نتایج — Copy code</button></div>
+    <div class="center links">${links}</div>
+    <div class="warn center" id="msg"></div>
+    <textarea id="raw" class="mono" readonly>${esc(code)}</textarea>`;
+  const wire = () => {
+    $("#share").addEventListener("click", async () => {
+      const r = await shareFile(o.csv, o.fname);
+      if (r === "downloaded") $("#msg").textContent = "فایل دانلود شد (" + o.fname + "). لطفاً همین فایل را برای بهاره بفرستید.";
+      if (r === "shared") $("#msg").textContent = "ممنون! ✓";
+    });
+    $("#copy").addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(code); }
+      catch (_) { const t = $("#raw"); t.select(); document.execCommand("copy"); }
+      $("#msg").textContent = "کپی شد ✓ — حالا در چت بهاره بچسبانید و بفرستید.";
+    });
+    const retry = $("#retry");
+    if (retry) retry.addEventListener("click", trySend);
+  };
+  const view = (state, err) => {
+    if (state === "sending") {
+      show(`<h1>در حال ذخیره‌ی نتایج…</h1>
+        <div class="card">لطفاً چند ثانیه صبر کنید و صفحه را نبندید.
+        <span class="en">Saving your results. Please keep this page open for a few seconds.</span></div>`);
+      return;
+    }
+    if (state === "ok") {
+      show(`<h1>تمام شد، خیلی ممنونم! 🙏</h1>
+        <div class="card"><b>نتایج شما ذخیره و فرستاده شد ✓</b><br>
+          کار دیگری لازم نیست و می‌توانید صفحه را ببندید.
+          <span class="en">Your results were saved and sent. Nothing else to do — you can close this page.</span></div>
+        <details class="card"><summary>اگر بهاره خبر داد که نتیجه نرسیده است</summary>
+          <p>دکمه‌ی «فرستادن فایل نتایج» را بزنید و فایل را برای بهاره بفرستید.
+          <span class="en">Only if Bahareh tells you the result did not arrive: send the file.</span></p>${tools}</details>`);
+      wire();
+      return;
+    }
+    show(`<h1>آزمایش تمام شد — فقط یک قدم مانده 🙏</h1>
+      <div class="card"><b>ارسال خودکار انجام نشد</b> (احتمالاً به خاطر اینترنت). نتایج شما روی همین دستگاه محفوظ است.
+        <ol>
+          <li>اول «تلاش دوباره» را بزنید. اگر فیلترشکن دارید، یک بار روشن یا خاموش کنید و دوباره بزنید.</li>
+          <li>اگر باز هم نشد، «فرستادن فایل نتایج» را بزنید و فایل را در تلگرام یا واتس‌اپ برای بهاره بفرستید.</li>
+        </ol>
+        <span class="en">Automatic sending failed (probably the connection). Your results are safe on this device.
+        1) Press "Try again" (toggle your VPN once if you use one). 2) If it still fails, press "Send file" and send the file to Bahareh.</span>
+        <span class="en mono">err: ${esc(err || "")}</span></div>
+      <div class="center"><button id="retry">تلاش دوباره — Try again</button></div>${tools}`);
+    wire();
+  };
+  async function trySend() {
+    view("sending");
+    const r = await sendResult({ pid: o.pid, task: o.task, device: o.device, rows: o.rows }, code);
+    if (r.ok) { o.onSent(); view("ok"); } else view("fail", r.err);
+  }
+  if (o.sent) view("ok"); else await trySend();
+}
+
+
+// ---------- 기기 판별 ----------
+const COARSE = matchMedia("(pointer: coarse)").matches && !matchMedia("(any-pointer: fine)").matches;
+const DEVICE = COARSE ? (Math.min(screen.width, screen.height) >= 700 ? "tablet" : "phone") : "pc";
+
+// ---------- 페르시아어 정규화 (자동 채점용) ----------
+function stripGloss(s) { return String(s || "").replace(/\s*[(（][^)）]*[)）]\s*/g, "").trim(); }
+function normFa(s) {
+  return stripGloss(s)
+    .replace(/[ً-ٰٟـ]/g, "")   // 모음 부호·타트윌 제거
+    .replace(/[‌‍\s]/g, "")               // ZWNJ·ZWJ·공백 제거
+    .replace(/[يى]/g, "ی").replace(/ك/g, "ک");
+}
+const HAS_FA = /[؀-ۿ]/;
+
+// ---------- 문장 안 목표 단어 찾기 (단어 경계 기준) ----------
+function findTarget(sentence, target) {
+  const reEsc = target.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  let m = new RegExp("(^|[^A-Za-z0-9'])(" + reEsc + ")(?=$|[^A-Za-z0-9'])", "i").exec(sentence);
+  // 11/12: 따로 떨어진 단어가 없으면, 접어가 붙은 형태(mrd → mrde, sr → srm)의 앞부분을 찾는다
+  if (!m) m = new RegExp("(^|[^A-Za-z0-9'])(" + reEsc + ")", "i").exec(sentence);
+  if (!m) return -1;
+  return m.index + m[1].length;
+}
+function stimHTML(item, ctx) {
+  if (ctx && item.ctx) {
+    const i = findTarget(item.ctx, item.fin);
+    if (i >= 0) {
+      const s = item.ctx, L = item.fin.length;
+      return `<div class="stim sent">${esc(s.slice(0, i))}<span class="t">${esc(s.slice(i, i + L))}</span>${esc(s.slice(i + L))}</div>`;
+    }
+  }
+  return `<div class="stim"><span class="t">${esc(item.fin)}</span></div>`;
+}
+
+// ---------- 조건 배정 (4개 리스트, 역균형) ----------
+// 유형별로 문항ID 순 정렬 → i번째 문항의 조건 = (i % 4 + list) % 4
+// 0: 자유입력+맥락, 1: 자유입력+맥락없음, 2: 2지선택+맥락, 3: 2지선택+맥락없음
+function assign(items, list) {
+  const byType = {};
+  items.forEach((it) => { (byType[it.type] = byType[it.type] || []).push(it); });
+  const out = [];
+  Object.keys(byType).sort().forEach((t) => {
+    let iSplit = 0, iAfc = 0;   // 일반 문항과 2지 선택 전용 문항을 따로 세어 각각 균형 맞춤
+    byType[t].slice().sort((a, b) => a.id.localeCompare(b.id)).forEach((it) => {
+      const i = it.afcOnly ? iAfc++ : iSplit++;
+      if (it.afcOnly) {
+        // 정답·오답 표기가 같은 문항(동형어): 자유 입력으로는 구분이 안 되므로 2지 선택만, 맥락만 역균형
+        const c2 = ((i % 2) + list) % 2;
+        out.push({ it, fmt: "afc", ctx: c2 === 0 ? 1 : 0 });
+      } else {
+        const c = ((i % 4) + list) % 4;
+        out.push({ it, fmt: c < 2 ? "free" : "afc", ctx: c % 2 === 0 ? 1 : 0 });
+      }
+    });
+  });
+  return out;
+}
+
+// ---------- 상태·데이터 ----------
+// 11/12: S 는 통째로 브라우저에 저장된다(이어 하기). seq = 화면 순서, pos = 지금 위치
+let S = { pid: "", list: 0, group: "", bg: {}, rows: [], start: new Date().toISOString(), trial: 0, seq: [], pos: 0, done: false, sent: false };
+let KEY = "";
+function persist() { if (KEY) saveState(KEY, S); }
+const COLS = ["pid", "list", "version", "device", "block", "phase", "trial", "item_id", "type", "context",
+  "target", "correct_reading", "foil", "left", "right", "response", "side", "auto_correct",
+  "rt_first_ms", "rt_ms", "input", "confidence", "conf_rt_ms", "latin_input",
+  "age", "region", "country", "finglish_freq", "timestamp"];
+function pushRow(r) {
+  S.rows.push(Object.assign({
+    pid: S.pid, list: S.list + 1, version: CFG.version, device: DEVICE,
+    age: S.bg.age || "", region: S.bg.region || "", country: S.bg.country || "", finglish_freq: S.bg.freq || "",
+    timestamp: new Date().toISOString()
+  }, r));
+}
+function toCSV() {
+  const q = (v) => { const s = String(v ?? ""); return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+  return [COLS.join(",")].concat(S.rows.map((r) => COLS.map((c) => q(r[c])).join(","))).join("\r\n");
+}
+
+// ---------- 공통 화면 ----------
+function waitClick(sel) { return new Promise((r) => $(sel).addEventListener("click", r, { once: true })); }
+
+async function fixation() {
+  show(`<div class="stage"><div class="fix">+</div></div>`);
+  await sleep(500);
+}
+
+async function askConfidence() {
+  const btns = [1, 2, 3, 4, 5, 6, 7].map((n) => `<button class="secondary" data-c="${n}">${n}</button>`).join("");
+  const keyHint = DEVICE === "pc" ? "کلیدهای ۱ تا ۷ یا کلیک" : "یک عدد را لمس کنید";
+  show(`<div class="stage">
+      <div>چقدر مطمئنید؟ <span class="en">How sure are you?</span></div>
+      <div class="conf">${btns}</div>
+      <div class="scale"><span>۱ = اصلاً مطمئن نیستم</span><span>۷ = کاملاً مطمئنم</span></div>
+      <div class="progress">${keyHint}</div></div>`);
+  await nextPaint();
+  const t0 = now();
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = (c, t) => {
+      if (done) return; done = true;
+      document.removeEventListener("keydown", onKey);
+      resolve({ conf: c, rt: Math.round(t - t0) });
+    };
+    const onKey = (e) => {
+      if (e.repeat) return;
+      const m = /^(Digit|Numpad)([1-7])$/.exec(e.code);
+      if (m) { e.preventDefault(); finish(+m[2], evTime(e)); }
+    };
+    document.addEventListener("keydown", onKey);
+    app.querySelectorAll("[data-c]").forEach((b) => b.addEventListener("pointerdown", (e) => finish(+b.dataset.c, evTime(e))));
+  });
+}
+
+// ---------- 시행: 자유 입력 ----------
+async function freeTrial(it, ctx, phase, n, total) {
+  await fixation();
+  const prog = phase === "practice" ? "تمرین" : `بخش ۱ — ${fa(n)} از ${fa(total)}`;
+  show(`<div class="stage">${stimHTML(it, ctx)}
+      <div class="resp"><input id="resp" type="text" dir="rtl" inputmode="text" enterkeyhint="done"
+        autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button id="ok" type="button">ثبت</button></div>
+      <div class="warn" id="warn"></div>
+      <div class="progress">${prog}</div></div>`);
+  const inp = $("#resp");
+  inp.focus();
+  await nextPaint();
+  const t0 = now();
+  let tFirst = null, warned = false;
+  return new Promise((resolve) => {
+    const mark = (e) => { if (tFirst === null) tFirst = evTime(e); };
+    const submit = (e, how) => {
+      const v = inp.value.trim();
+      if (!v) return;
+      const isFa = HAS_FA.test(v);
+      if (!isFa && !warned) {
+        warned = true;
+        $("#warn").textContent = "لطفاً با حروف فارسی بنویسید. اگر کیبورد فارسی ندارید، دوباره «ثبت» را بزنید.";
+        return;
+      }
+      const t = evTime(e);
+      resolve({ resp: v, rtFirst: tFirst === null ? "" : Math.round(tFirst - t0), rt: Math.round(t - t0), latin: isFa ? 0 : 1, input: how });
+    };
+    inp.addEventListener("input", mark);
+    inp.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.isComposing) { e.preventDefault(); submit(e, "enter"); return; }
+      if (!["Shift", "Alt", "Control", "Meta", "CapsLock", "Tab"].includes(e.key)) mark(e);
+    });
+    $("#ok").addEventListener("pointerdown", (e) => { e.preventDefault(); submit(e, "button"); });
+  });
+}
+
+// ---------- 시행: 2지 선택 ----------
+async function afcTrial(it, ctx, phase, n, total) {
+  await fixation();
+  const leftCorrect = Math.random() < 0.5;
+  const L = leftCorrect ? it.cor : it.foil, R = leftCorrect ? it.foil : it.cor;
+  const kL = DEVICE === "pc" ? "F" : "", kR = DEVICE === "pc" ? "J" : "";
+  const prog = phase === "practice" ? "تمرین" : `بخش ۲ — ${fa(n)} از ${fa(total)}`;
+  show(`<div class="stage">${stimHTML(it, ctx)}
+      <div class="opts">
+        <div class="opt" id="oL"><span class="k">${kL}</span><span class="w">${esc(L)}</span></div>
+        <div class="opt" id="oR"><span class="k">${kR}</span><span class="w">${esc(R)}</span></div>
+      </div>
+      <div class="progress">${prog}</div></div>`);
+  await nextPaint();
+  const t0 = now();
+  const res = await new Promise((resolve) => {
+    let done = false;
+    const finish = (side, t, how) => {
+      if (done) return; done = true;
+      document.removeEventListener("keydown", onKey);
+      resolve({ side, t, how });
+    };
+    const onKey = (e) => {
+      if (e.repeat) return;
+      if (e.code === "KeyF") { e.preventDefault(); finish("L", evTime(e), "key"); }
+      else if (e.code === "KeyJ") { e.preventDefault(); finish("R", evTime(e), "key"); }
+    };
+    document.addEventListener("keydown", onKey);
+    $("#oL").addEventListener("pointerdown", (e) => finish("L", evTime(e), "touch"));
+    $("#oR").addEventListener("pointerdown", (e) => finish("R", evTime(e), "touch"));
+  });
+  $(res.side === "L" ? "#oL" : "#oR").classList.add("sel");
+  await sleep(150);
+  return { left: L, right: R, resp: res.side === "L" ? L : R, side: res.side,
+    correct: (res.side === "L") === leftCorrect ? 1 : 0, rt: Math.round(res.t - t0), input: res.how };
+}
+
+async function runTrial(spec, phase, n, total, block) {
+  const it = spec.it;
+  const ctxShown = spec.ctx && it.ctx && findTarget(it.ctx, it.fin) >= 0 ? 1 : 0;
+  let r;
+  if (block === "free") {
+    r = await freeTrial(it, ctxShown, phase, n, total);
+    const nr = normFa(r.resp);
+    r.correct = nr === normFa(it.cor) ? 1 : (nr === normFa(it.foil) ? 0 : "");
+  } else {
+    r = await afcTrial(it, ctxShown, phase, n, total);
+  }
+  const c = await askConfidence();
+  S.trial += 1;
+  pushRow({ block, phase, trial: S.trial, item_id: it.id, type: it.type, context: ctxShown,
+    target: it.fin, correct_reading: it.cor, foil: it.foil, left: r.left || "", right: r.right || "",
+    response: r.resp, side: r.side || "", auto_correct: r.correct, rt_first_ms: r.rtFirst ?? "",
+    rt_ms: r.rt, input: r.input, confidence: c.conf, conf_rt_ms: c.rt, latin_input: r.latin ?? "" });
+  show(`<div class="stage"></div>`);
+  await sleep(300);
+}
+
+// ---------- 화면들 ----------
+async function screenDevice() {
+  if (DEVICE === "pc" || CFG.allowPhone) return true;
+  show(`<h1>آزمایش خواندن فینگلیش</h1>
+    <div class="card">این آزمایش فقط روی کامپیوتر یا لپ‌تاپ (با کیبورد) انجام می‌شود. لطفاً لینک یا فایل را روی کامپیوتر باز کنید.
+    <span class="en">Please open this on a computer with a keyboard.</span></div>`);
+  return false;
+}
+
+async function screenConsent() {
+  const comp = compLine(S.group);   // 11/12: 참가자 유형별 사례 문장
+  const dev = DEVICE === "pc" ? "" :
+    `<li>با گوشی هم می‌شود. لطفاً از اول تا آخر با همین گوشی انجام دهید و روی کلمه‌های پیشنهادی کیبورد نزنید.</li>`;
+  show(`<h1>آزمایش خواندن فینگلیش</h1>
+    <div class="card">
+      <b>${esc(CFG.titleFa)}</b>
+      <span class="en">${esc(CFG.titleEn)}</span>
+      <p>پژوهشگر: ${esc(CFG.researcherFa)} — <span dir="ltr">${esc(CFG.email)}</span><br>استاد راهنما: ${esc(CFG.advisorFa)}</p>
+      <ul>
+        <li>این پژوهش برای پایان‌نامه‌ی کارشناسی مهندسی کامپیوتر دانشگاه ملی سئول است و کمیته‌ی اخلاق پژوهشی (IRB) آن را بررسی نکرده است. داده‌ها فقط برای پایان‌نامه استفاده می‌شوند.</li>
+        <li>کلمه‌ها یا جمله‌های کوتاه فینگلیش می‌بینید. در بخش ۱ می‌نویسید چطور خواندید (با حروف فارسی)، در بخش ۲ از بین دو گزینه یکی را انتخاب می‌کنید. بعد از هر مورد، میزان اطمینان را از ۱ تا ۷ می‌زنید.</li>
+        <li>حدود ${fa(CFG.minutes)} دقیقه طول می‌کشد. لطفاً یک‌جا و در جای آرام انجام دهید.</li>
+        ${dev}
+        <li>نام، ایمیل یا شماره تلفن در نتایج ثبت نمی‌شود؛ فقط کد شما (${esc(S.pid)}). در پایان، نتایج به‌صورت خودکار از طریق سرویس Web3Forms به ایمیل دانشگاهی پژوهشگر فرستاده می‌شود. داده‌ها پس از قطعی شدن فارغ‌التحصیلی پژوهشگر (فوریه‌ی ۲۰۲۷) حذف می‌شوند.</li>
+        <li>شرکت کاملاً داوطلبانه است و هر وقت بخواهید می‌توانید پنجره را ببندید.</li>
+        <li>${esc(comp.fa)}</li>
+        <li>فقط برای افراد ۱۹ سال به بالا که زبان مادری‌شان فارسی است.</li>
+      </ul>
+      <span class="en">Undergraduate thesis study (SNU Computer Science and Engineering), not reviewed by an IRB; data are used only for the thesis.
+      You will read short Finglish words or sentences, type how you read them (Part 1) or choose between two readings (Part 2), and rate your confidence 1–7.
+      About ${CFG.minutes} minutes. No name, email or phone is recorded in the results — only your code. At the end the results are sent automatically to the researcher's university email through the Web3Forms service. Voluntary; you can stop at any time. ${esc(comp.en)} Adults (19+) whose native language is Persian only.</span>
+    </div>
+    <div class="center"><button id="agree">موافقم و شروع می‌کنم — I agree</button></div>`);
+  await waitClick("#agree");
+}
+
+async function screenBackground() {
+  const opt = (name, items) => `<div class="choice">${items.map(([v, t]) =>
+    `<label><input type="radio" name="${name}" value="${v}"> ${t}</label>`).join("")}</div>`;
+  show(`<h1>چند سؤال کوتاه</h1>
+    <div class="card">
+      <label>سن <span class="en">Age</span></label>
+      ${opt("age", [["19-24", "۱۹–۲۴"], ["25-34", "۲۵–۳۴"], ["35-44", "۳۵–۴۴"], ["45-54", "۴۵–۵۴"], ["55+", "۵۵ به بالا"]])}
+      <label>در کدام شهر یا استان ایران بزرگ شده‌اید؟ <span class="en">Where in Iran did you grow up? (city or province)</span></label>
+      <input id="region" type="text" dir="rtl" autocomplete="off">
+      <label>الان کجا زندگی می‌کنید؟ <span class="en">Where do you live now?</span></label>
+      ${opt("country", [["iran", "ایران"], ["korea", "کره"], ["other", "کشور دیگر"]])}
+      <label>چقدر فینگلیش می‌نویسید یا می‌خوانید؟ <span class="en">How often do you read or write Finglish?</span></label>
+      ${opt("freq", [["daily", "هر روز"], ["weekly", "چند بار در هفته"], ["monthly", "چند بار در ماه"], ["rarely", "تقریباً هرگز"]])}
+      <div class="warn" id="warn"></div>
+    </div>
+    <div class="center"><button id="next">ادامه — Next</button></div>`);
+  while (true) {
+    await waitClick("#next");
+    const val = (n) => (document.querySelector(`input[name=${n}]:checked`) || {}).value || "";
+    const bg = { age: val("age"), region: $("#region").value.trim(), country: val("country"), freq: val("freq") };
+    if (!bg.age || !bg.country || !bg.freq) { $("#warn").textContent = "لطفاً به سؤال‌های سن، محل زندگی و فینگلیش جواب دهید."; continue; }
+    S.bg = bg;
+    return;
+  }
+}
+
+async function screenInstr(html) {
+  show(`<div class="card">${html}</div><div class="center"><button id="go">شروع — Start</button></div>`);
+  await waitClick("#go");
+}
+
+async function screenEndQuestions() {
+  show(`<h1>دو سؤال آخر (اختیاری)</h1>
+    <div class="card">
+      <label>کدام کلمه بیشتر از همه گیجتان کرد؟ <span class="en">Which word confused you most? (optional)</span></label>
+      <textarea id="q1" dir="rtl"></textarea>
+      <label>تا حالا شده مترجم یا چت‌بات (مثل ChatGPT) فینگلیش را اشتباه بفهمد؟ اگر بله، یک مثال بزنید. <span class="en">Has a translator or chatbot ever misread Finglish? Example? (optional)</span></label>
+      <textarea id="q2" dir="rtl"></textarea>
+    </div>
+    <div class="center"><button id="fin">پایان و ذخیره — Finish</button></div>`);
+  await waitClick("#fin");
+  pushRow({ block: "survey", phase: "end", item_id: "q1", response: $("#q1").value.trim() });
+  pushRow({ block: "survey", phase: "end", item_id: "q2", response: $("#q2").value.trim() });
+}
+
+async function screenFinish() {
+  // 11/12: 자동 전송(Web3Forms) → 안 되면 파일·코드 예비 전송. 자세한 것은 common_save.js
+  window.removeEventListener("beforeunload", guard);
+  const end = new Date(S.end || Date.now());
+  const pad = (n) => String(n).padStart(2, "0");
+  const fname = `finglish_${S.pid}_${end.getFullYear()}${pad(end.getMonth() + 1)}${pad(end.getDate())}-${pad(end.getHours())}${pad(end.getMinutes())}.csv`;
+  await finishFlow({ task: "main", pid: S.pid, device: DEVICE, csv: toCSV(), fname, rows: S.rows.length, sent: S.sent,
+    onSent: () => { S.sent = true; persist(); } });
+}
+
+function guard(e) { e.preventDefault(); e.returnValue = ""; }
+
+// ---------- 전체 흐름 ----------
+const ITEM = {};
+STIM.items.concat(STIM.practice).forEach((it) => { ITEM[it.id] = it; });
+
+// 11/12: 화면 순서를 한 번만 정해서 저장한다 → 창을 닫았다 열어도 같은 순서로 이어진다
+function buildSeq(list) {
+  const plan = assign(STIM.items, list);
+  const mk = (p) => ({ id: p.it.id, ctx: p.ctx });
+  const free = shuffle(plan.filter((p) => p.fmt === "free")).map(mk);
+  const afc = shuffle(plan.filter((p) => p.fmt === "afc")).map(mk);
+  const prac = STIM.practice;
+  const pracFree = prac.slice(0, 2).map((it, i) => ({ id: it.id, ctx: i % 2 === 0 ? 1 : 0 }));
+  const pracAfc = prac.slice(2, 4).map((it, i) => ({ id: it.id, ctx: i % 2 === 0 ? 1 : 0 }));
+  const seq = [];
+  const trials = (arr, block, phase) => arr.forEach((t, i) => seq.push({ k: "trial", block, phase, id: t.id, ctx: t.ctx, n: i + 1, total: arr.length }));
+  seq.push({ k: "instr", id: "p1", prac: pracFree.length });
+  trials(pracFree, "free", "practice");
+  if (pracFree.length) seq.push({ k: "instr", id: "p1main", total: free.length });
+  trials(free, "free", "main");
+  seq.push({ k: "instr", id: "half" });
+  seq.push({ k: "instr", id: "p2", prac: pracAfc.length });
+  trials(pracAfc, "afc", "practice");
+  if (pracAfc.length) seq.push({ k: "instr", id: "p2main", total: afc.length });
+  trials(afc, "afc", "main");
+  seq.push({ k: "endq" });
+  return seq;
+}
+
+function instrHTML(st) {
+  const isPc = DEVICE === "pc";
+  if (st.id === "p1") return `<h1>بخش ۱ — نوشتن</h1>
+    هر بار یک کلمه یا جمله‌ی فینگلیش می‌بینید. اگر جمله بود، به کلمه‌ی <b>زیرخط‌دار</b> نگاه کنید.<br>
+    همان کلمه را <b>همان‌طور که خواندید، با حروف فارسی</b> بنویسید و ${isPc ? "Enter" : "«ثبت»"} را بزنید.<br>
+    سریع جواب بدهید — اولین خوانشی که به ذهنتان می‌رسد. بعد میزان اطمینان را از ۱ تا ۷ ${isPc ? "با کلیدهای عدد" : "لمس کنید"}.
+    ${st.prac ? "<br>اول دو مورد تمرینی." : ""}
+    <span class="en">Part 1: Type the underlined word in Persian letters exactly as you read it, then ${isPc ? "Enter" : "tap the button"}. Answer quickly. Then rate your confidence 1–7.</span>`;
+  if (st.id === "p1main") return `تمرین تمام شد. حالا بخش ۱ اصلی (${fa(st.total)} مورد).<span class="en">Practice done. Main Part 1 starts.</span>`;
+  if (st.id === "half") return `<h1>نیمه‌ی راه 🙂</h1>اگر خواستید چند ثانیه استراحت کنید.<span class="en">Halfway. Take a short break if you like.</span>`;
+  if (st.id === "p2") return `<h1>بخش ۲ — انتخاب</h1>
+    کلمه یا جمله‌ی فینگلیش و <b>دو خوانش</b> می‌بینید. خوانش درست را انتخاب کنید:
+    ${isPc ? "گزینه‌ی <b>چپ</b> = کلید <b>F</b>، گزینه‌ی <b>راست</b> = کلید <b>J</b>." : "روی گزینه‌ی درست بزنید."}<br>
+    سریع جواب بدهید. بعد میزان اطمینان ۱ تا ۷.
+    ${st.prac ? "<br>اول دو مورد تمرینی." : ""}
+    <span class="en">Part 2: Choose the correct reading — ${isPc ? "left = F, right = J" : "tap it"}. Answer quickly, then rate confidence 1–7.</span>`;
+  return `تمرین تمام شد. حالا بخش ۲ اصلی (${fa(st.total)} مورد).<span class="en">Practice done. Main Part 2 starts.</span>`;
+}
+
+async function main() {
+  if (!(await screenDevice())) return;
+  const pid = await askCode("main", "P23");            // 11/12: 명단에 있는 코드만 통과
+  KEY = stateKey("main", pid);
+  if (WANT_RESET) clearState(KEY);
+  const saved = loadState(KEY);
+  if (saved && saved.pid === pid && Array.isArray(saved.seq)) {
+    S = saved;                                         // 이어 하기
+    if (!S.done) {
+      show(`<h1>خوش برگشتید 🙂</h1>
+        <div class="card">از همان‌جایی که بودید ادامه می‌دهیم.
+        <span class="en">Welcome back. We continue from where you stopped.</span></div>
+        <div class="center"><button id="cont">ادامه — Continue</button></div>`);
+      await waitClick("#cont");
+      pushRow({ block: "meta", phase: "resume", item_id: "resume", response: "pos=" + S.pos });
+      persist();
+    }
+  } else {
+    S.pid = pid;
+    S.list = (parseInt(/(\d+)/.exec(pid)[1], 10) - 1) % 4;
+    S.group = CFG.codes.main[pid];
+    await screenConsent();
+    await screenBackground();
+    S.seq = buildSeq(S.list);
+    S.start = new Date().toISOString();
+    persist();
+  }
+  if (!S.done) {
+    window.addEventListener("beforeunload", guard);
+    while (S.pos < S.seq.length) {
+      const st = S.seq[S.pos];
+      if (st.k === "instr") await screenInstr(instrHTML(st));
+      else if (st.k === "trial") await runTrial({ it: ITEM[st.id], ctx: st.ctx }, st.phase, st.n, st.total, st.block);
+      else await screenEndQuestions();
+      S.pos += 1;
+      persist();                                       // 화면 하나가 끝날 때마다 저장
+    }
+    const end = new Date();
+    S.end = end.toISOString();
+    pushRow({ block: "meta", phase: "end", item_id: "session",
+      response: `start=${S.start};end=${S.end};duration_s=${Math.round((end - new Date(S.start)) / 1000)};screen=${screen.width}x${screen.height}` });
+    S.done = true;
+    persist();
+  }
+  await screenFinish();
+}
+
+main();
+</script>
+</body>
+</html>
