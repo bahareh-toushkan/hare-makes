@@ -1,6 +1,316 @@
 {
   "works": [
     {
+      "slug": "namuhx-meat-smoke",
+      "date": "2026-11-18",
+      "durationSec": 24,
+      "aspect": "9:16",
+      "shots": 5,
+      "accent": "#85E0D2",
+      "title": {
+        "ko": "POV: 당신은 고기 연기입니다",
+        "en": "POV: You Are the Smoke from Grilled Meat"
+      },
+      "status": {
+        "ko": "SK인텔릭스 나무엑스 AI 숏폼 공모전 출품작 · 트렌드·밈 · 9:16 · 24초",
+        "en": "Entry — SK Intellix NAMUH X AI Short-form Contest · Trends & Memes · 9:16 · 24 s"
+      },
+      "logline": {
+        "ko": "삼겹살을 굽다 피어오른 연기의 시점으로 본 웰니스 로봇 나무엑스. 에어센서에 들키고, 소리 없이 찾아오는 로봇을 피해 도망치지만 결국 흔적도 없이 사라진다. 먼지에겐 스릴러, 우리 집엔 안심.",
+        "en": "The NAMUH X wellness robot, seen through the eyes of smoke rising from a pan of pork belly. Spotted by the air sensor, it runs from a robot that arrives without a sound — and vanishes without a trace. A thriller for dust, peace of mind at home."
+      },
+      "tools": {
+        "generate": [
+          "Google Veo 3.1 Fast (Vertex AI Studio · Reference-to-video · Text-to-video)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "NumPy",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/reel/Df3vKr3AQYk/",
+        "youtube": ""
+      },
+      "media": {
+        "video": "media/namuhx-meat-smoke/video.mp4",
+        "poster": "media/namuhx-meat-smoke/poster.jpg",
+        "og": "media/namuhx-meat-smoke/og.jpg"
+      },
+      "coverTime": 1.6,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "「POV: 당신은 ○○입니다」 밈을 공기청정 기능에 붙였다. 주인공은 로봇이 아니라 쫓기는 고기 연기 — 승인 기능 ① AI 자율 에어 솔루션(감지 → 스스로 이동 → 국소 청정)을 스릴러 문법으로 보여 준다.",
+            "en": "The “POV: you are…” meme, applied to air purification. The hero isn’t the robot but the smoke being hunted — approved feature ① Autonomous Air Solution (detect → move on its own → clean locally) told as a thriller."
+          }
+        },
+        {
+          "label": {
+            "ko": "제품 그대로",
+            "en": "True to the product"
+          },
+          "text": {
+            "ko": "주최 측 Source Kit의 마스터시트 2장과 A1 정면 누끼를 모든 로봇 컷의 참조로 넣었다. 머리(PUI)가 세로 얼굴처럼 서거나 목이 길어진 구간은 잘라 내거나 다시 만들었다.",
+            "en": "The two master sheets and the A1 front cut-out from the organizer’s Source Kit went into every robot shot as references. Any stretch where the PUI head stood up like a face or the neck grew long was cut or regenerated."
+          }
+        },
+        {
+          "label": {
+            "ko": "소리는 코드로",
+            "en": "Sound in code"
+          },
+          "text": {
+            "ko": "고기 굽는 소리, 경고음, 빨라지는 심장박동, 스팅어, 따뜻한 피아노까지 외부 음원 없이 Python으로 합성했다.",
+            "en": "Pork sizzle, alert tones, a quickening heartbeat, the stinger and the warm piano — all synthesized in Python, no stock audio."
+          }
+        },
+        {
+          "label": {
+            "ko": "워터마크 없이",
+            "en": "No watermark"
+          },
+          "text": {
+            "ko": "Vertex AI Studio의 Veo 3.1 Fast(1080p, 9:16)로 생성해 화면에 생성 도구 표시가 남지 않는다.",
+            "en": "Generated with Veo 3.1 Fast in Vertex AI Studio (1080p, 9:16), so no generator mark sits on the frame."
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "기획",
+            "en": "Plan"
+          },
+          "detail": {
+            "ko": "6컷 콘티 · 자막은 화면 위쪽, 영상에는 글자 없이 생성",
+            "en": "6-shot board · supers at the top, no text in generated video"
+          }
+        },
+        {
+          "name": {
+            "ko": "로봇 컷",
+            "en": "Robot shots"
+          },
+          "detail": {
+            "ko": "Reference-to-video · 참조 3장(마스터시트 2 + A1 정면) · 8초",
+            "en": "Reference-to-video · 3 references (2 master sheets + A1 front) · 8 s"
+          }
+        },
+        {
+          "name": {
+            "ko": "센서·주방",
+            "en": "Sensor & kitchen"
+          },
+          "detail": {
+            "ko": "에어센서 누끼 참조로 연기 → 링 빨강 → 연기가 걷히며 파랑 · 주방 POV는 Text-to-video 4초",
+            "en": "Air-sensor cut-out as reference: smoke → red ring → clears to blue · kitchen POV via 4 s text-to-video"
+          }
+        },
+        {
+          "name": {
+            "ko": "검수",
+            "en": "Checks"
+          },
+          "detail": {
+            "ko": "컷마다 프레임을 뽑아 마스터시트와 대조(전신·매트 화이트·PUI 파란 UI·Eye LED·머리 틸트만)",
+            "en": "Frames pulled per shot and checked against the master sheet (full body, matte white, blue PUI UI, Eye LEDs, tilt only)"
+          }
+        },
+        {
+          "name": {
+            "ko": "편집",
+            "en": "Edit"
+          },
+          "detail": {
+            "ko": "Python·FFmpeg — 구간 자르기, 센서 링 색 보정, Pretendard 자막, 키트 로고 엔드카드",
+            "en": "Python · FFmpeg — trims, sensor-ring colour boost, Pretendard supers, kit logo end card"
+          }
+        },
+        {
+          "name": {
+            "ko": "소리",
+            "en": "Sound"
+          },
+          "detail": {
+            "ko": "효과음·음악 전부 합성 · -14 LUFS",
+            "en": "All effects and music synthesized · −14 LUFS"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [
+        {
+          "label": {
+            "ko": "복도 — 소리도 없이 찾아온다",
+            "en": "Hallway — arriving without a sound"
+          },
+          "mode": {
+            "ko": "Vertex AI Studio · Veo 3.1 Fast · Reference-to-video · 9:16 1080p · 8초 · 참조 3장",
+            "en": "Vertex AI Studio · Veo 3.1 Fast · Reference-to-video · 9:16 1080p · 8 s · 3 references"
+          },
+          "text": "Use the attached NAMUH X images as the exact product reference. Preserve all product form, proportions, dimensions, colours, PUI movement, and active display states. Do not render the guide sheet itself, its text, labels, or layout. Vertical 9:16 photoreal cinematic shot, camera at knee height, locked-off and static, looking down a long dark hallway in a premium Korean apartment at night: dark walnut wall panels, grey stone floor, warm indirect cove light. The air in the hallway is perfectly CLEAR: absolutely no smoke, no haze, no mist, no fog, no steam anywhere in the frame at any time. Exactly one NAMUH X robot in Dawn White matte starts small at the far end of the hallway and glides slowly and silently in a perfectly straight line toward the camera along the floor, stopping about two metres away; its entire silhouette is always fully in frame from head to wheels. The robot emits nothing: no smoke, no vapour, no particles, no exhaust around its body or wheels. IMPORTANT robot shape: exactly like the reference photo, the small flat round PUI disc sits directly on top of the body on a very short fixed stem, lying almost horizontal and tilted only slightly forward and up; never a tall neck, never a vertical face, the head never rotates sideways. The disc's dark screen shows a small glowing blue circle. On the upper front of the body, the 3+3 vertical cyan-white Eye LED bars are lit with the small centre camera between them. NO light on the base, NO glow under the robot, NO coloured edge lighting, NO reflections of the LEDs on the floor. Suspenseful but elegant, not horror. The robot never changes shape, no arms, no floating, no extra screens, no text, no logos."
+        },
+        {
+          "label": {
+            "ko": "에어센서 — 들켰다 / 사라졌다",
+            "en": "Air sensor — spotted / gone"
+          },
+          "mode": {
+            "ko": "Vertex AI Studio · Veo 3.1 Fast · Reference-to-video · 9:16 1080p · 8초 · 센서 누끼 1장",
+            "en": "Vertex AI Studio · Veo 3.1 Fast · Reference-to-video · 9:16 1080p · 8 s · sensor cut-out"
+          },
+          "text": "Use the attached NAMUH X air sensor image as the exact product reference: a small matte white sphere sitting on a small square white base, with a thin light ring on top. Preserve its exact form, proportions and colour. Do not add any text, labels, screens or logos. Vertical 9:16 photoreal cinematic close-up at night in a premium Korean apartment kitchen: the sensor sits on a dark walnut sideboard next to a stone wall, warm indirect light, shallow depth of field, a frying pan softly out of focus in the background. Locked-off static camera. 0 to 3 seconds: a thick drifting cloud of grey cooking smoke slides slowly from the left across the frame and wraps around the sensor; the thin light ring on top of the sensor switches from soft white to a clear warning RED glow and stays red. 3 to 5 seconds: the smoke hangs in the air, the red ring pulses gently. 5 to 8 seconds: the smoke is drawn away to the right and the air becomes completely clear; the light ring changes from red to a calm BLUE glow and stays blue. The sensor itself never moves, never changes shape. The only light on the sensor is the thin ring on top; no other glowing parts, no green colour. No people, no robot, no text, no logos."
+        },
+        {
+          "label": {
+            "ko": "거실 — 우리 집엔 안심",
+            "en": "Living room — peace of mind"
+          },
+          "mode": {
+            "ko": "Vertex AI Studio · Veo 3.1 Fast · Reference-to-video · 9:16 1080p · 8초 · 참조 3장",
+            "en": "Vertex AI Studio · Veo 3.1 Fast · Reference-to-video · 9:16 1080p · 8 s · 3 references"
+          },
+          "text": "Use the attached NAMUH X images as the exact product reference. Preserve all product form, proportions, dimensions, colours, PUI movement, and active display states. Do not render the guide sheet itself, its text, labels, or layout. Vertical 9:16 photoreal cinematic WIDE shot at NIGHT, the warm and cosy ending of a story. The camera stands far at the back of a large premium Korean apartment living room, about five metres behind the sofa, at standing eye level, so the whole room is visible: dark walnut wall panels, beige marble feature wall, a warm floor lamp and a table lamp glowing amber, dark night outside, a large linen sofa in the middle distance, a low wooden coffee table with a bowl of fruit and two tea cups, a soft rug, crystal clear air. The upper third of the frame is calm empty wall and ceiling with soft warm cove light. A family of three, two adults and a small child, sit on the sofa seen only from behind and small in frame, backs of their heads only, they never turn around, no faces ever visible. Exactly one NAMUH X robot in Dawn White matte stands calmly on the floor at the side of the sofa, angled three-quarters toward the camera, entire silhouette fully in frame from head to wheels, its top reaching about the height of the sofa back. IMPORTANT robot shape: exactly like the reference photo, the small flat round PUI disc sits DIRECTLY on top of the body on a very short fixed stem that is barely visible, the disc lies almost horizontal and tilts only slightly toward the camera; never a tall neck, never a vertical face. The disc's dark screen shows a soft glowing blue circle. The 3+3 vertical cyan-white Eye LED bars on the upper front body are lit with the small centre camera between them. NO light on the base, NO glow under the robot. Locked-off static camera with a barely perceptible slow push-in. Warm, safe, reassuring mood. The robot does not move its body, no arms, no floating, no extra screens, no text, no logos."
+        }
+      ],
+      "compare": [],
+      "scenes": [
+        {
+          "label": {
+            "ko": "POV",
+            "en": "POV"
+          },
+          "text": {
+            "ko": "팬 위 삼겹살에서 피어오르는 연기의 시점.",
+            "en": "From the smoke rising off pork belly in the pan."
+          },
+          "time": 1.6,
+          "frame": "media/namuhx-meat-smoke/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "들켰다",
+            "en": "Spotted"
+          },
+          "text": {
+            "ko": "연기가 지나가자 에어센서 링이 빨갛게.",
+            "en": "As the smoke drifts past, the air sensor’s ring turns red."
+          },
+          "time": 4.2,
+          "frame": "media/namuhx-meat-smoke/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "찾아온다",
+            "en": "Here it comes"
+          },
+          "text": {
+            "ko": "어두운 복도 끝에서 나무엑스가 소리 없이 다가온다.",
+            "en": "NAMUH X glides silently down the dark hallway."
+          },
+          "time": 9.5,
+          "frame": "media/namuhx-meat-smoke/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "도망칠 곳은 없다",
+            "en": "Nowhere to run"
+          },
+          "text": {
+            "ko": "드레스룸으로 흘러들었는데, 이미 그 자리에 있다.",
+            "en": "The smoke slips into the dressing room — it’s already there."
+          },
+          "time": 13.2,
+          "frame": "media/namuhx-meat-smoke/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "사라졌다",
+            "en": "Gone"
+          },
+          "text": {
+            "ko": "연기가 걷히고 센서 링이 파랗게 돌아온다.",
+            "en": "The smoke clears and the ring turns back to blue."
+          },
+          "time": 16.6,
+          "frame": "media/namuhx-meat-smoke/scene-5.jpg"
+        },
+        {
+          "label": {
+            "ko": "반전",
+            "en": "Turn"
+          },
+          "text": {
+            "ko": "먼지에겐 스릴러. 우리 집엔 안심.",
+            "en": "A thriller for dust. Peace of mind at home."
+          },
+          "time": 20.0,
+          "frame": "media/namuhx-meat-smoke/scene-6.jpg"
+        },
+        {
+          "label": {
+            "ko": "엔드카드",
+            "en": "End card"
+          },
+          "text": {
+            "ko": "AI 자율 에어 솔루션 — 오염을 감지하면, 스스로 찾아가 청정.",
+            "en": "Autonomous Air Solution — it senses pollution, goes there itself, and cleans."
+          },
+          "time": 23.0,
+          "frame": "media/namuhx-meat-smoke/scene-7.jpg"
+        }
+      ],
+      "notes": [
+        {
+          "heading": {
+            "ko": "고친 것",
+            "en": "What we fixed"
+          },
+          "lines": {
+            "ko": [
+              "로봇 머리가 세로로 선 둥근 '얼굴' 화면처럼 나옴 → \"납작한 원판이 짧은 고정 스템 위에 거의 수평\"을 프롬프트에 명시하고 다시 생성",
+              "로봇 바닥과 몸통 가장자리에 없는 파란 빛이 생김 → 발광은 PUI와 Eye LED뿐이라고 명시",
+              "복도를 지나는 로봇 주변에 연기가 피어올라 로봇이 연기를 만드는 것처럼 보임 → 공기가 완전히 맑고 로봇은 아무것도 내뿜지 않는 컷으로 다시 생성",
+              "연기가 로봇에 닿아 사라지는 장면을 편집으로 지워 봤지만 부자연스러움 → 실제로 연기가 걷히는 센서 장면으로 '사라졌다'를 보여 줌",
+              "거실 장면에서 머리가 옆으로 돌아가는 구간(가이드상 좌우 회전 금지) → 정면을 보는 2.6~6.4초만 사용",
+              "앞부분 지글 소리가 거슬림 → 하나하나 튀는 소리로 다시 합성하고 크기를 줄임"
+            ],
+            "en": [
+              "The robot’s head came out as an upright round ‘face’ screen → prompts now spell out a flat disc lying almost level on a short fixed stem, and shots were regenerated",
+              "Blue light appeared under the base and along the body edges → prompts state the only lights are the PUI and Eye LEDs",
+              "Smoke rose around the robot in the hallway, as if it made the smoke → regenerated with perfectly clear air and a robot that emits nothing",
+              "Erasing the smoke in post as it touched the robot looked fake → ‘gone’ is shown with the sensor shot where the smoke actually clears",
+              "The head turned sideways in parts of the living-room shot (side-to-side rotation is off-guide) → only 2.6–6.4 s, facing front, is used",
+              "The opening sizzle was harsh → resynthesized from individual pops and turned down"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "사실과 출처",
+            "en": "Facts and sources"
+          },
+          "lines": {
+            "ko": [
+              "제품 형태·색·기능: 주최 측 Source Kit 마스터시트(Product Identity · Operation Reference) — 승인 기능 ① AI 자율 에어 솔루션만 사용, 에어센서 링은 빨강 = 공기 나쁨 / 파랑 = 좋음",
+              "로고: Source Kit 제공 나무엑스 로고 · 폰트: Pretendard (SIL OFL 1.1) · 음원: 없음(전부 코드 합성)"
+            ],
+            "en": [
+              "Form, colour and features from the organizer’s Source Kit master sheets (Product Identity · Operation Reference) — only approved feature ① Autonomous Air Solution is shown; sensor ring red = poor air, blue = good",
+              "Logo from the Source Kit · Font: Pretendard (SIL OFL 1.1) · Music: none licensed — all synthesized in code"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "one-more-beat",
       "date": "2026-11-18",
       "durationSec": 209,
