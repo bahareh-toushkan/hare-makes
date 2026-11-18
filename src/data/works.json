@@ -1,6 +1,348 @@
 {
   "works": [
     {
+      "slug": "one-more-beat",
+      "date": "2026-11-18",
+      "durationSec": 209,
+      "aspect": "16:9",
+      "shots": 46,
+      "accent": "#4FB3FF",
+      "title": {
+        "ko": "한 박자 더 (One More Beat)",
+        "en": "One More Beat"
+      },
+      "status": {
+        "ko": "NEXMUSE 2027 AI 아이돌 MV 공모전 출품작 · CHLOE X SENA · 16:9 · 3분 29초",
+        "en": "Entry — NEXMUSE 2027 AI Idol MV Contest · CHLOE X SENA · 16:9 · 3:29"
+      },
+      "logline": {
+        "ko": "먼저 갈 수 있는데도 한 박자 멈춰 친구를 기다려 주는 마음. 늦은 밤 연습실에서 데뷔 무대까지, 속도도 성격도 다른 CHLOE와 SENA가 서로의 속도에 맞춰 함께 도착하는 이야기. 처음엔 SENA가, 나중엔 CHLOE가 닫히는 문을 잡아 준다.",
+        "en": "Waiting one more beat for a friend, even when you could go ahead. From late-night practice to the debut stage, CHLOE and SENA — different paces, different personalities — arrive together. First SENA holds the closing door; later, CHLOE does."
+      },
+      "tools": {
+        "generate": [
+          "Suno v6 Pro (music · vocals)",
+          "Nano Banana 2.1 (image · Gemini API / Google Flow / Higgsfield)",
+          "Gemini API — Omni 1.2 Flash (video)",
+          "Google Flow — Veo 3.1 (video)",
+          "Higgsfield Genjutsu (motion transfer)",
+          "Wan 3.0 (first/last-frame bridge)",
+          "Kling 3.0 Omni Edit (prop edit)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "OpenCV",
+          "NumPy",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "",
+        "youtube": "https://www.youtube.com/watch?v=dk6PwwWNOi0"
+      },
+      "media": {
+        "video": "",
+        "poster": "media/one-more-beat/poster.jpg",
+        "og": "media/one-more-beat/og.jpg"
+      },
+      "coverTime": 157.0,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "아이돌 데뷔를 '누가 먼저 빛나나'가 아니라 '함께 도착하기'로. 문을 잡아 주는 손을 처음엔 SENA, 나중엔 CHLOE에게 줘 \"이번엔 내가 돌려줄 차례\"를 장면으로 보여 준다.",
+            "en": "A debut story about arriving together, not who shines first. The hand holding the door passes from SENA to CHLOE, so “now it’s my turn to give it back” plays out on screen."
+          }
+        },
+        {
+          "label": {
+            "ko": "얼굴 고정",
+            "en": "Locked faces"
+          },
+          "text": {
+            "ko": "모든 시작 이미지에 NEXMUSE 공식 초상 2장을 참조로 넣고, 장면마다 공식 초상과 나란히 놓은 대조 시트로 확인해 얼굴이 달라진 컷은 다시 만들었다.",
+            "en": "Every start frame references the two official NEXMUSE portraits, and each scene was checked side by side against them; any shot whose face drifted was remade."
+          }
+        },
+        {
+          "label": {
+            "ko": "직접 만든 안무",
+            "en": "Own choreography"
+          },
+          "text": {
+            "ko": "직접 찍은 안무 영상을 Genjutsu로 두 사람에게 동작 전송. 마지막 댄스브레이크는 끊기는 이음새를 Wan 3.0 첫·끝 프레임 3초로 이어 하나의 안무로 만들었다.",
+            "en": "Self-shot choreography transferred onto both members with Genjutsu. The final dance break was stitched into one routine with a 3-second Wan 3.0 first/last-frame bridge."
+          }
+        },
+        {
+          "label": {
+            "ko": "후반 보정",
+            "en": "Post fixes"
+          },
+          "text": {
+            "ko": "SENA의 목 타투는 생성 대신 피부 추적으로 직접 얹고, 실제 상표처럼 보이던 라면 컵은 가짜 브랜드 '한박자면'으로 바꿔 바뀐 부분만 원본에 합성했다.",
+            "en": "SENA’s neck tattoo was tracked onto her skin in post instead of generated, and ramen cups that looked like a real brand were swapped for a fake brand, compositing only the changed pixels."
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "음악",
+            "en": "Music"
+          },
+          "detail": {
+            "ko": "Suno v6 Pro로 곡·보컬·가사 생성 후 메시지와 후렴 훅이 가장 분명한 버전 선택 · BandLab 마스터링",
+            "en": "Song, vocals and lyrics made on Suno v6 Pro; the take with the clearest message and hook was chosen · BandLab mastering"
+          }
+        },
+        {
+          "name": {
+            "ko": "얼굴",
+            "en": "Faces"
+          },
+          "detail": {
+            "ko": "공식 초상 2장 참조 → 장면별 대조 시트로 승인 후에만 영상 생성",
+            "en": "Two official portraits as references → video only after a side-by-side check per scene"
+          }
+        },
+        {
+          "name": {
+            "ko": "영상",
+            "en": "Video"
+          },
+          "detail": {
+            "ko": "Nano Banana 2.1 시작 이미지 → Gemini Omni 1.2 Flash · Veo 3.1 · 말하는 장면은 한국어 입 모양, 무대는 헤드셋 마이크",
+            "en": "Nano Banana 2.1 start frames → Gemini Omni 1.2 Flash · Veo 3.1 · Korean lip shapes for spoken lines, headset mics on stage"
+          }
+        },
+        {
+          "name": {
+            "ko": "안무",
+            "en": "Choreography"
+          },
+          "detail": {
+            "ko": "직접 찍은 안무 → Higgsfield Genjutsu 1080p 동작 전송 · 댄스브레이크 이음새는 Wan 3.0 첫·끝 프레임 3초",
+            "en": "Self-shot routines → Higgsfield Genjutsu 1080p motion transfer · dance-break seam bridged with a 3 s Wan 3.0 first/last-frame clip"
+          }
+        },
+        {
+          "name": {
+            "ko": "후반",
+            "en": "Post"
+          },
+          "detail": {
+            "ko": "Python·OpenCV·FFmpeg 편집 스크립트 — 46컷 박자 맞춤, 타투 피부 추적, 상표 컵 교체 부분만 합성·톤 보정, Noto 서체 제목",
+            "en": "Python · OpenCV · FFmpeg edit scripts — 46 cuts on the beat, skin-tracked tattoo, brand-cup swap composited and toned, Noto title type"
+          }
+        },
+        {
+          "name": {
+            "ko": "자막",
+            "en": "Subtitles"
+          },
+          "detail": {
+            "ko": "영상에는 넣지 않고 유튜브에 8개 언어(한·영·페르시아어·러·아랍어·일·중·스페인어) 자막",
+            "en": "No burned-in lyrics; YouTube subtitles in 8 languages (KO, EN, FA, RU, AR, JA, ZH, ES)"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [
+        {
+          "label": {
+            "ko": "댄스브레이크 시작 이미지",
+            "en": "Dance-break start frame"
+          },
+          "mode": {
+            "ko": "Higgsfield · Nano Banana 2.1 · 16:9 이미지 · 공식 초상 2장 + 무대 + 립싱크 의상 참조",
+            "en": "Higgsfield · Nano Banana 2.1 · 16:9 image · two official portraits + stage + close-up outfit as references"
+          },
+          "text": "Reference image 1 is CHLOE. Reference image 2 is SENA. Reproduce each face EXACTLY as in reference images 1 and 2: identical facial structure, eye shape and colour, eyebrows, nose, lips, jawline, skin tone, hair cut and hair colour. Do not beautify, age, westernise or otherwise alter the faces. SCENE AND COMPOSITION: Copy reference image 3 exactly: the same outdoor festival stage at dusk, a wide full-body shot from the front, CHLOE on the left and SENA on the right. OUTFITS: Match reference image 4 exactly so the outfits are identical between the wide shot and the close-up. SENA: open cropped metallic silver bomber jacket, a plain black top with a high round crew neckline, and a thin silver chain necklace with a small butterfly pendant lying ON TOP of the black top. Live-action photograph, not a 3D render, not CGI. No text, no watermark, no logos."
+        },
+        {
+          "label": {
+            "ko": "댄스브레이크 동작 전송",
+            "en": "Dance-break motion transfer"
+          },
+          "mode": {
+            "ko": "Higgsfield Genjutsu · 1080p 12초 · 시작 이미지 + 직접 찍은 안무 영상",
+            "en": "Higgsfield Genjutsu · 1080p, 12 s · start frame + self-shot choreography"
+          },
+          "text": "Two young Korean women, a K-pop duo, dance side by side on an outdoor festival stage at dusk, both performing exactly the same choreography as the reference video, in the same direction, in perfect sync. Keep both faces, hair, outfits and accessories exactly as in the reference image for the whole clip. Fixed wide camera, full bodies always in frame. Photorealistic live-action footage, not CGI."
+        },
+        {
+          "label": {
+            "ko": "안무 이음새",
+            "en": "Choreography bridge"
+          },
+          "mode": {
+            "ko": "Wan 3.0 · 1080p 3초 · 시작 프레임 = 새 안무 끝, 종료 프레임 = 끝부분 안무",
+            "en": "Wan 3.0 · 1080p, 3 s · start frame = end of the new routine, end frame = the closing routine"
+          },
+          "text": "Two young Korean women, a K-pop duo, dance a sharp synchronized K-pop routine on an outdoor festival stage at dusk, moving on the beat of an upbeat 112 BPM pop song. From the opening pose they step and travel slightly toward the centre with energetic hip and arm moves, perfectly in sync, and arrive in the final pose with one arm raised high. The camera slowly pushes in a little, smooth and steady. Their faces, hair, outfits, accessories and the stage stay exactly as in the first frame. Photorealistic live-action footage, one continuous shot, no cuts, no text."
+        }
+      ],
+      "compare": [
+        {
+          "label": {
+            "ko": "SENA 목 타투 (생성 대신 피부 추적)",
+            "en": "SENA’s neck tattoo (tracked, not generated)"
+          },
+          "before": "media/one-more-beat/compare-tattoo-before.jpg",
+          "after": "media/one-more-beat/compare-tattoo-after.jpg",
+          "beforeLabel": {
+            "ko": "생성 원본",
+            "en": "Generated"
+          },
+          "afterLabel": {
+            "ko": "타투 추적",
+            "en": "Tracked tattoo"
+          },
+          "caption": {
+            "ko": "공식 초상의 작은 별 타투를 본인 오른쪽 목에 그려 목 피부 움직임을 따라 고정했다",
+            "en": "The small star tattoo from her official portrait, drawn on her right neck and pinned to the skin’s motion"
+          }
+        },
+        {
+          "label": {
+            "ko": "댄스브레이크 의상 맞춤",
+            "en": "Dance-break outfit match"
+          },
+          "before": "media/one-more-beat/compare-outfit-before.jpg",
+          "after": "media/one-more-beat/compare-outfit-after.jpg",
+          "beforeLabel": {
+            "ko": "이전 시작 이미지",
+            "en": "Earlier start frame"
+          },
+          "afterLabel": {
+            "ko": "클로즈업과 같은 의상",
+            "en": "Matches the close-up"
+          },
+          "caption": {
+            "ko": "클로즈업 립싱크 컷과 같도록 SENA의 라운드넥 상의 위 나비 목걸이와 CHLOE 얼굴을 다시 맞췄다",
+            "en": "SENA’s butterfly necklace over a crew-neck top and CHLOE’s face matched to the close-up shots"
+          }
+        }
+      ],
+      "scenes": [
+        {
+          "label": {
+            "ko": "늦은 밤 연습실",
+            "en": "Late-night studio"
+          },
+          "text": {
+            "ko": "먼저 와서 기다리는 SENA.",
+            "en": "SENA, already there, waiting."
+          },
+          "time": 2.0,
+          "frame": "media/one-more-beat/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "너는 닫힐 문을 잡고 있었어",
+            "en": "You held the closing door"
+          },
+          "text": {
+            "ko": "문을 잡고 기다려 준 SENA에게 도착한 CHLOE.",
+            "en": "CHLOE arrives to SENA, who held the door."
+          },
+          "time": 22.5,
+          "frame": "media/one-more-beat/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "후렴 1 · 한 박자 더",
+            "en": "Chorus 1 · One more beat"
+          },
+          "text": {
+            "ko": "직접 만든 안무를 두 사람에게 동작 전송.",
+            "en": "Self-made choreography transferred onto both."
+          },
+          "time": 45.5,
+          "frame": "media/one-more-beat/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "이번엔 내가 돌려줄 차례",
+            "en": "Now it’s my turn"
+          },
+          "text": {
+            "ko": "이번에는 CHLOE가 문을 잡고 SENA를 기다린다.",
+            "en": "This time CHLOE holds the door for SENA."
+          },
+          "time": 62.5,
+          "frame": "media/one-more-beat/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "데뷔 무대 · 댄스브레이크",
+            "en": "Debut stage · Dance break"
+          },
+          "text": {
+            "ko": "축제 무대에서 처음 함께 춘 안무.",
+            "en": "Their first routine together on the festival stage."
+          },
+          "time": 157.0,
+          "frame": "media/one-more-beat/scene-5.jpg"
+        },
+        {
+          "label": {
+            "ko": "문을 잡아 둘게",
+            "en": "I’ll hold the door"
+          },
+          "text": {
+            "ko": "새벽 공연장 뒷문, 둘이 함께 나간다.",
+            "en": "The venue’s back door at dawn — out together."
+          },
+          "time": 199.0,
+          "frame": "media/one-more-beat/scene-6.jpg"
+        }
+      ],
+      "notes": [
+        {
+          "heading": {
+            "ko": "사실과 출처",
+            "en": "Facts and sources"
+          },
+          "lines": {
+            "ko": [
+              "CHLOE (NEXMUSE 13)·SENA (NEXMUSE 15)는 NEXMUSE 공식 MUSE — 얼굴·헤어·액세서리·SENA 목 타투는 공식 초상 기준",
+              "라면 컵은 가짜 브랜드 '한박자면' · 실존 기업 로고·실존 인물 없음",
+              "댄스브레이크 이음새 3초(2:42.5~2:45.5)의 동작은 Wan 3.0이 만든 것"
+            ],
+            "en": [
+              "CHLOE (NEXMUSE 13) and SENA (NEXMUSE 15) are official NEXMUSE MUSEs — faces, hair, accessories and SENA’s neck tattoo follow the official portraits",
+              "Ramen cups carry a fake brand · no real company logos or real people",
+              "The 3-second dance-break bridge (2:42.5–2:45.5) was generated by Wan 3.0"
+            ]
+          }
+        },
+        {
+          "heading": {
+            "ko": "외부 소스",
+            "en": "Outside sources"
+          },
+          "lines": {
+            "ko": [
+              "음악·보컬·가사: Suno 유료(Pro) 플랜에서 생성 · 기획 하래",
+              "서체: Noto Sans KR, Noto Serif KR (OFL)",
+              "AI로 만든 음악·보컬·영상 포함"
+            ],
+            "en": [
+              "Music, vocals and lyrics generated on a paid Suno (Pro) plan · concept by Hare",
+              "Fonts: Noto Sans KR, Noto Serif KR (OFL)",
+              "Contains AI-generated music, vocals and video"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "homework-future-map",
       "date": "2026-11-10",
       "durationSec": 58,
