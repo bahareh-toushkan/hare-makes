@@ -4,7 +4,7 @@ import { works } from '../lib/works';
 import { href, absolute } from '../lib/i18n';
 
 export const GET: APIRoute = ({ site }) => {
-  const paths = ['/', '/about/', '/contact/', ...works.map(w => `/works/${w.slug}/`)];
+  const paths = ['/', '/works/', '/projects/', '/about/', '/contact/', ...works.map(w => `/works/${w.slug}/`)];
   const urls = paths.flatMap(p => (['ko', 'en'] as const).map(lang => {
     const loc = absolute(href(lang, p), site);
     return `  <url>

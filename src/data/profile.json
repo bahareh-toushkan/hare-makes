@@ -1,0 +1,206 @@
+{
+  "_readme": "소개·홈에 나오는 프로필 데이터. 숫자(작품 수·출품 수·수상 수·도구별 편수)는 여기 적지 않고 works.json과 contests에서 빌드 때 계산한다. 확인 안 된 사실은 넣지 않는다.",
+
+  "role": { "ko": "AI 영상 제작자 · 개발자", "en": "AI filmmaker & developer" },
+  "headline": {
+    "ko": ["AI로 장면을 만들고,", "코드로 영화를 완성합니다."],
+    "en": ["Scenes made with AI.", "Films finished in code."]
+  },
+  "headlineAccent": { "ko": "코드로", "en": "in code." },
+  "lead": {
+    "ko": "생성 AI로 장면을 만들고, 편집·자막·사운드·합성은 Python과 FFmpeg, OpenCV 코드로 직접 합니다. 작품마다 프롬프트와 파이프라인을 공개합니다.",
+    "en": "I generate scenes with AI models, then do the editing, subtitles, sound and compositing myself in Python, FFmpeg and OpenCV. Every piece ships with its prompts and pipeline."
+  },
+
+  "featured": ["one-more-beat", "il-il-gong", "pureal-breakup"],
+
+  "intro": {
+    "ko": [
+      "이란에서 와서 서울에서 공부하고 있습니다. 서울대학교 컴퓨터공학부에 다니며 2027년 2월 졸업을 앞두고 있습니다.",
+      "영상은 생성 AI로 만들지만, 완성은 코드로 합니다. 컷 편집, 색 보정, 화면 합성, 자막, 효과음과 음악 믹스까지 Python·FFmpeg·OpenCV로 직접 짠 파이프라인에서 나옵니다. 숫자 하나가 바뀌면 다시 렌더링하면 됩니다.",
+      "한국어·영어·페르시아어로 일합니다."
+    ],
+    "en": [
+      "I'm from Iran and studying in Seoul, in the Department of Computer Science and Engineering at Seoul National University, graduating in February 2027.",
+      "The footage comes from generative AI; the film comes from code. Cutting, color, screen compositing, subtitles, sound effects and the final mix all run through pipelines I write in Python, FFmpeg and OpenCV — change one number and it re-renders.",
+      "I work in Korean, English and Persian."
+    ]
+  },
+
+  "facts": [
+    { "label": { "ko": "소속", "en": "School" }, "value": { "ko": "서울대학교 컴퓨터공학부", "en": "Seoul National University, CSE" } },
+    { "label": { "ko": "졸업", "en": "Graduating" }, "value": { "ko": "2027년 2월 예정", "en": "February 2027 (expected)" } },
+    { "label": { "ko": "언어", "en": "Languages" }, "value": { "ko": "한국어 · 영어 · 페르시아어", "en": "Korean · English · Persian" } }
+  ],
+
+  "capabilities": [
+    {
+      "id": "generate",
+      "title": { "ko": "AI 영상 생성", "en": "AI video generation" },
+      "body": {
+        "ko": "모델마다 잘하는 일이 달라서, 장면에 맞는 모델을 골라 씁니다. 시작 이미지로 얼굴과 제품을 고정하고, 이어지는 컷은 앞 컷의 마지막 프레임에서 출발합니다.",
+        "en": "Each model is good at something different, so I pick per scene. Start images lock faces and products; continuing shots start from the previous shot's last frame."
+      },
+      "tools": [
+        { "name": "Veo", "match": ["veo"] },
+        { "name": "Nano Banana", "match": ["nano banana"] },
+        { "name": "Gemini Omni Flash", "match": ["omni"] },
+        { "name": "Seedance", "match": ["seedance"] },
+        { "name": "Higgsfield Genjutsu", "match": ["genjutsu"] },
+        { "name": "Kling", "match": ["kling"] },
+        { "name": "Wan", "match": ["wan 3"] },
+        { "name": "Suno", "match": ["suno"] },
+        { "name": "Gemini TTS", "match": ["tts"] }
+      ],
+      "works": ["one-more-beat", "something-huge"]
+    },
+    {
+      "id": "post",
+      "title": { "ko": "코드 기반 후반 작업", "en": "Post-production in code" },
+      "body": {
+        "ko": "편집 프로그램 대신 코드로 완성합니다. 자막과 타이포, 화면 합성과 추적, 입 모양과 목소리 맞추기, 효과음·음악 합성과 믹스까지 스크립트로 남아 있어 언제든 다시 만들 수 있습니다.",
+        "en": "Finished in code, not in an editor. Subtitles and type, screen compositing and tracking, lip-sync alignment, synthesized sound effects, music and the mix all live in scripts, so any cut can be rebuilt."
+      },
+      "tools": [
+        { "name": "Python", "match": ["python"] },
+        { "name": "FFmpeg", "match": ["ffmpeg"] },
+        { "name": "OpenCV", "match": ["opencv"] },
+        { "name": "NumPy", "match": ["numpy"] },
+        { "name": "Pillow", "match": ["pillow"] },
+        { "name": "librosa", "match": ["librosa"] },
+        { "name": "SciPy", "match": ["scipy"] }
+      ],
+      "works": ["golden-nurungji", "pureal-breakup"]
+    },
+    {
+      "id": "web",
+      "title": { "ko": "웹 · 개발", "en": "Web & development" },
+      "body": {
+        "ko": "이 사이트도 직접 만들었습니다. Astro 정적 사이트에 작품 데이터 파일 하나로 한국어·영어 페이지와 인스타그램 캐러셀이 함께 만들어집니다. 영상 한 편을 통째로 HTML·CSS·JavaScript로 그려 렌더링하기도 합니다.",
+        "en": "I built this site too: a static Astro site where one data file produces the Korean and English pages and the Instagram carousels. Sometimes a whole video is drawn in HTML, CSS and JavaScript and rendered from the browser."
+      },
+      "tools": [
+        { "name": "HTML · CSS · JavaScript", "match": ["html"] },
+        { "name": "Playwright", "match": ["playwright"] }
+      ],
+      "extra": ["Astro", "TypeScript", "GitHub Actions"],
+      "works": ["engineering-count"]
+    },
+    {
+      "id": "planning",
+      "title": { "ko": "기획 · 카피", "en": "Concept & copy" },
+      "body": {
+        "ko": "브랜드가 준 자료와 가이드 안에서 이야기를 만듭니다. 화면에 올리는 숫자와 문장은 주최 측 자료에 있는 사실만 쓰고, 한 편에 웃음과 한 방을 어디에 둘지부터 정합니다.",
+        "en": "I build the story inside the brand's own material and guidelines. On-screen numbers and claims come only from the client's documents, and I start by deciding where the laugh and the final line land."
+      },
+      "tools": [],
+      "works": ["pureal-breakup", "live-happily"]
+    }
+  ],
+
+  "experience": [
+    {
+      "period": { "ko": "", "en": "" },
+      "title": { "ko": "AI 영상 제작", "en": "AI film production" },
+      "body": { "ko": "광고·숏필름·뮤직비디오를 기획부터 생성, 코드 후반 작업, 출품까지.", "en": "Ads, short films and a music video, from concept through generation, post-production in code and submission." },
+      "auto": "works"
+    },
+    {
+      "period": { "ko": "5년째", "en": "5 years" },
+      "title": { "ko": "영어 교육", "en": "English teaching" },
+      "body": { "ko": "5년째 한국 학생들에게 영어를 가르치고 있습니다.", "en": "Teaching English to Korean students for five years." }
+    }
+  ],
+
+  "education": [
+    {
+      "period": { "ko": "2027.02 졸업 예정", "en": "Expected Feb 2027" },
+      "title": { "ko": "서울대학교 컴퓨터공학부", "en": "Seoul National University" },
+      "body": { "ko": "학사 과정 · 4학년", "en": "Department of Computer Science and Engineering · undergraduate, senior year" }
+    }
+  ],
+
+  "languages": [
+    { "ko": "한국어", "en": "Korean" },
+    { "ko": "영어", "en": "English" },
+    { "ko": "페르시아어", "en": "Persian" }
+  ],
+
+  "certifications": [],
+
+  "contests": [
+    { "id": "nexmuse", "name": { "ko": "NEXMUSE 2027 AI 아이돌 MV 공모전", "en": "NEXMUSE 2027 AI Idol MV Contest" }, "works": ["one-more-beat"], "result": "submitted" },
+    { "id": "namuhx", "name": { "ko": "SK인텔릭스 나무엑스 AI 숏폼 공모전", "en": "SK Intellix NAMUH X AI Short-form Contest" }, "works": ["namuhx-meat-smoke"], "result": "submitted" },
+    { "id": "future-map", "name": { "ko": "5극3특 성장엔진 미래지도 AI 영상 공모전", "en": "5-Pole 3-Special Growth Engine Future Map AI Video Contest" }, "works": ["homework-future-map"], "result": "submitted" },
+    { "id": "yongsan", "name": { "ko": "2026 용산구시설관리공단 숏폼 영상 공모전", "en": "2026 Yongsan-gu Facilities Management Corporation Short-Form Contest" }, "works": ["yongsan-first-light"], "result": "submitted" },
+    { "id": "pureal", "name": { "ko": "2026 제2회 퓨리얼 AI 콘테스트", "en": "2nd Pureal AI Contest 2026" }, "works": ["pureal-breakup", "pureal-cm-song", "pureal-no-things"], "result": "submitted" },
+    { "id": "hetbahn", "name": { "ko": "햇반 30주년 AI 공모전 「갓 지은 AI디어」", "en": "Hetbahn 30th Anniversary AI Contest" }, "works": ["golden-nurungji", "one-hetbahn"], "result": "submitted" },
+    { "id": "naek", "name": { "ko": "2026 한국공학한림원 「공학의 가치」 숏폼 콘테스트", "en": "2026 NAEK “Value of Engineering” Short-form Contest" }, "works": ["engineering-count"], "result": "submitted" },
+    { "id": "rest-area", "name": { "ko": "2026 한국도로공사 휴게소 숏폼 공모전", "en": "2026 Korea Expressway Corporation Rest-area Short-form Contest" }, "works": ["15min-save"], "result": "submitted" },
+    { "id": "call110", "name": { "ko": "국민콜110 「110을 알려줘!」 SNS 콘텐츠 공모전", "en": "Gukmin Call 110 “Tell Me About 110!” Contest" }, "works": ["il-il-gong"], "result": "awarded", "award": { "ko": "최우수상", "en": "Top Excellence Award" } },
+    { "id": "tcar", "name": { "ko": "Tcar 부산매매센터 숏폼 공모전", "en": "Tcar Busan Short-form Contest" }, "works": ["tcar-uncle"], "result": "submitted" },
+    { "id": "highlighttv", "name": { "ko": "제7회 하이라이트TV AI 공모전", "en": "7th highlightTV AI Contest" }, "works": ["live-happily"], "result": "submitted" },
+    { "id": "ocean", "name": { "ko": "2026 해양 생태 변화 대응 공모전", "en": "2026 Ocean Ecosystem Change Contest" }, "works": ["sea-desert"], "result": "submitted" },
+    { "id": "hwaseong", "name": { "ko": "제6회 별별화성 Awards", "en": "6th Byeolbyeol Hwaseong Awards" }, "works": ["guest-from-mars"], "result": "submitted" },
+    { "id": "carbon", "name": { "ko": "「탄소, 다시 보다」 AI 콘텐츠 챌린지", "en": "“Carbon, Seen Again” AI Content Challenge" }, "works": ["same-element"], "result": "submitted" },
+    { "id": "nepda", "name": { "ko": "넾다세일 AI 광고제", "en": "Nepda Sale AI Ad Festival" }, "works": ["something-huge"], "result": "submitted" },
+    { "id": "416", "name": { "ko": "4.16생명안전비엔날레 생명안전 AI숏폼 공모전", "en": "Life Safety AI Short-form Contest, 4.16 Life Safety Biennale" }, "works": ["see-you-later"], "result": "submitted" }
+  ],
+  "_contests_readme": "result는 \"submitted\"(출품) 또는 \"awarded\"(수상 확정)만. 수상이 확정되면 result를 \"awarded\"로 바꾸고 \"award\": { \"ko\": \"우수상\", \"en\": \"Excellence Award\" } 를 추가. 발표 전·결과 없음은 그대로 submitted.",
+
+  "projects": [
+    {
+      "id": "done",
+      "title": { "ko": "DON(E) — Do One Now", "en": "DON(E) — Do One Now" },
+      "kind": { "ko": "모바일 앱", "en": "Mobile app" },
+      "status": { "ko": "개발 중", "en": "In development" },
+      "body": {
+        "ko": "'지금 하나'에 집중하도록 돕는 iPhone·Android 실행 보조 앱입니다. 할 일을 말로 적으면 날짜·시각·소요 시간·첫 동작을 정리해 일정에 넣고, 겹치면 빈 시간을 찾아 제안합니다.",
+        "en": "An iPhone and Android app that helps you focus on one thing now. Describe a task in plain words and it works out the date, time, duration and first action, schedules it, and proposes a free slot when things collide."
+      },
+      "points": {
+        "ko": ["대화로 일정 등록 — 모르는 것만 되묻기", "오늘 카드 · 타임라인 · 부담 모드 · 기기 알림", "일정과 대화는 기기 안 SQLite에만 저장"],
+        "en": ["Schedule by conversation — it asks only what it can't infer", "Today card, timeline, load modes and on-device notifications", "Schedules and chats stay in on-device SQLite"]
+      },
+      "stack": ["Expo", "React Native", "TypeScript", "SQLite", "Claude API", "Jest"],
+      "link": ""
+    },
+    {
+      "id": "finglish",
+      "title": { "ko": "핑글리시 읽기 실험", "en": "Finglish reading experiment" },
+      "kind": { "ko": "졸업 연구", "en": "Undergraduate thesis" },
+      "status": { "ko": "진행 중", "en": "In progress" },
+      "body": {
+        "ko": "페르시아어를 로마자로 적은 '핑글리시' 단어가 여러 가지로 읽힐 수 있을 때, 페르시아어 화자가 어느 쪽을 고르고 얼마나 걸리는지 보는 온라인 실험입니다. 서울대학교 컴퓨터공학부 졸업 논문 연구입니다.",
+        "en": "An online experiment on Finglish — Persian written in Latin letters. When a word can be read more than one way, which reading do Persian speakers choose, and how long does it take? Undergraduate thesis research at Seoul National University."
+      },
+      "points": {
+        "ko": ["설치 없이 브라우저에서 열리는 파일 하나로 진행", "중간에 멈춰도 그 기기에서 이어 하기", "자극·설정은 Python 빌드 스크립트로 주입"],
+        "en": ["Runs from a single file in the browser, nothing to install", "Progress is saved on the device, so a session can resume", "Stimuli and settings are injected by a Python build script"]
+      },
+      "stack": ["HTML · CSS · JavaScript", "Python"],
+      "link": ""
+    },
+    {
+      "id": "site",
+      "title": { "ko": "haremakes.com", "en": "haremakes.com" },
+      "kind": { "ko": "웹사이트", "en": "Website" },
+      "status": { "ko": "운영 중", "en": "Live" },
+      "body": {
+        "ko": "지금 보고 계신 사이트입니다. 작품 데이터 파일 하나에서 한국어·영어 페이지와 인스타그램 캐러셀이 함께 만들어지고, 숫자와 도구 목록은 그 데이터에서 계산합니다.",
+        "en": "The site you're on. One data file produces the Korean and English pages and the Instagram carousels, and the numbers and tool lists are computed from that data."
+      },
+      "points": {
+        "ko": ["작품 색이 페이지 포인트 색으로 — 대비 3:1 미만이면 빌드가 멈춤", "ffmpeg 스크립트로 웹용 영상·포스터·미리보기 생성", "main에 올리면 GitHub Pages로 자동 배포"],
+        "en": ["Each work's color becomes its page accent — the build stops below 3:1 contrast", "ffmpeg scripts produce web video, posters and preview clips", "Pushing to main deploys to GitHub Pages"]
+      },
+      "stack": ["Astro", "TypeScript", "GitHub Actions"],
+      "link": "https://github.com/bahareh-toushkan/hare-makes"
+    }
+  ],
+
+  "contact": {
+    "lead": { "ko": "외주·협업·채용 문의를 받습니다. 브리프와 일정만 보내 주셔도 됩니다.", "en": "Open to commissions, collaborations and roles. A brief and a timeline are enough to start." },
+    "youtube": "https://www.youtube.com/channel/UCGMsJD6p5d3L6hPUfp5Wx6A"
+  }
+}

@@ -1,0 +1,39 @@
+---
+// 영상 밖의 작업(앱 · 연구 · 이 사이트). 내용은 profile.json의 projects.
+import Base from '../../layouts/Base.astro';
+import { profile } from '../../lib/profile';
+import { UI, tr, type Lang } from '../../lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = UI[lang];
+const pad = (i: number) => String(i + 1).padStart(2, '0');
+---
+<Base lang={lang} path="/projects/" title={t.projects} description={t.projectsLead}>
+  <div class="about">
+    <header class="page-top">
+      <p class="eyebrow"><span>{t.projects}</span><span class="sep" aria-hidden="true"></span><span>{profile.projects.length}</span></p>
+      <h1 class="display md">{t.projectsTitle}</h1>
+      <p class="hero-lead">{t.projectsLead}</p>
+    </header>
+
+    <ol class="projects">
+      {profile.projects.map((p, i) => (
+        <li class={i === 0 ? 'project' : 'project reveal'} id={p.id}>
+          <div class="project-side">
+            <span class="idx">{pad(i)}</span>
+            <p class="kind">{tr(p.kind, lang)}</p>
+            <span class="tag contest">{tr(p.status, lang)}</span>
+          </div>
+          <div class="project-main">
+            <h2>{tr(p.title, lang)}</h2>
+            <p class="body">{tr(p.body, lang)}</p>
+            <ul class="points">{p.points[lang].map(x => <li>{x}</li>)}</ul>
+            <ul class="tools" aria-label={t.stack}>{p.stack.map(s => <li>{s}</li>)}</ul>
+            {p.link && <p><a class="btn" href={p.link} rel="me">GitHub <span aria-hidden="true">↗</span></a></p>}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</Base>

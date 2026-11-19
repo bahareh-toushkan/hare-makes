@@ -1,0 +1,49 @@
+---
+// 작품 카드 (홈 · 작품 목록 공용). 수상작에는 배지, 미리보기 클립이 있으면 마우스를 올렸을 때 무음 재생.
+import type { ResolvedWork } from '../lib/works';
+import { contestOf, kindOf, previewOf } from '../lib/profile';
+import { UI, href, asset, tr, type Lang } from '../lib/i18n';
+
+interface Props { lang: Lang; work: ResolvedWork; eager?: boolean; heading?: 'h2' | 'h3' }   // heading: 목록 페이지는 h2, 홈(섹션 안)은 h3
+const { lang, work: w, eager = false, heading: H = 'h3' } = Astro.props;
+const t = UI[lang];
+const kind = kindOf(w.slug);                     // 'awarded' | 'contest' | 'personal'
+const c = contestOf(w.slug);
+const pv = previewOf(w);
+const dur = w.durationSec >= 100 ? `${Math.floor(w.durationSec / 60)}:${String(w.durationSec % 60).padStart(2, '0')}` : `${w.durationSec}${t.sec}`;
+---
+<li class={eager ? 'card' : 'card reveal'} data-kind={kind === 'awarded' ? 'awarded contest' : kind} style={w.accent ? `--accent:${w.accent}` : undefined}>
+  <a href={href(lang, `/works/${w.slug}/`)}>
+    {w.has.poster ? (
+      <div class="thumb">
+        <img src={asset(w.thumb)} alt="" width={w.ratio.w} height={w.ratio.h} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" />
+        {pv && <video muted loop playsinline preload="none" data-src={asset(pv)} aria-hidden="true" tabindex="-1" disablepictureinpicture></video>}
+        {kind === 'awarded' && c?.award && <span class="tag awarded">{tr(c.award, lang)}</span>}
+        <span class="dur">{dur}</span>
+      </div>
+    ) : (
+      <div class="thumb type" aria-hidden="true">
+        <span class="t">{tr(w.title, lang)}</span>
+        <span class="dur">{dur}</span>
+      </div>
+    )}
+    <H class="card-title">{tr(w.title, lang)}</H>
+    <p class="status">{tr(w.status, lang)}</p>
+  </a>
+</li>
+
+<script>
+  // 카드 미리보기: 마우스가 있는 기기에서만, 올렸을 때 그때 파일을 받아 재생. 움직임 줄이기·데이터 절약이면 건너뜀.
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator as any).connection?.saveData;
+  if (!still && matchMedia('(hover: hover)').matches) {
+    for (const card of document.querySelectorAll<HTMLElement>('.card')) {
+      const v = card.querySelector<HTMLVideoElement>('video[data-src]');
+      if (!v) continue;
+      card.addEventListener('pointerenter', () => {
+        if (!v.src) v.src = v.dataset.src!;
+        v.play().then(() => v.classList.add('on')).catch(() => {});
+      });
+      card.addEventListener('pointerleave', () => { v.pause(); v.classList.remove('on'); });
+    }
+  }
+</script>

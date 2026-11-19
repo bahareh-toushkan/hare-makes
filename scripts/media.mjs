@@ -14,7 +14,9 @@ const [cmd, slug, ...rest] = process.argv.slice(2);
 const usage = `사용법:
   npm run media -- video  <slug> <원본.mp4> [포스터 초]
   npm run media -- poster <slug> <영상|이미지> [초]
-  npm run media -- frame  <slug> <이름> <영상|이미지> [초]`;
+  npm run media -- frame  <slug> <이름> <영상|이미지> [초]
+  npm run media -- preview <slug> [원본.mp4] [시작 초] [길이 초]
+  npm run media -- thumb  <slug>`;
 
 // 세로(1080×1920)·가로(1920×1080) 모두 긴 변을 1920 이하로, 비율 유지, 짝수 크기 (변경: 예전엔 너비 1080 고정)
 const FIT = "scale=w='min(iw,1920)':h='min(ih,1920)':force_original_aspect_ratio=decrease:force_divisible_by=2";
@@ -43,7 +45,16 @@ function posterAndOg(outDir, input, sec) {
     ? '[0:v]scale=1200:630:force_original_aspect_ratio=increase,crop=1200:630'          // 가로 화면: 꽉 채워 자름 (추가)
     : '[0:v]scale=1200:630:force_original_aspect_ratio=increase,crop=1200:630,boxblur=24:2,eq=brightness=-0.15[bg];[0:v]scale=-2:630[fg];[bg][fg]overlay=(W-w)/2:0';  // 세로 화면: 흐린 배경 위 가운데
   ffmpeg(['-i', poster, '-filter_complex', filter, '-frames:v', '1', '-q:v', '3', og]);
+  thumbFrom(outDir);
   return { w, h };
+}
+
+// 카드용 작은 썸네일: 포스터를 긴 변 720으로 줄인 thumb.jpg (보통 30~80KB). 홈·목록 카드가 이걸 쓴다
+function thumbFrom(dir) {
+  const poster = join(dir, 'poster.jpg');
+  if (!existsSync(poster)) return false;
+  ffmpeg(['-i', poster, '-frames:v', '1', '-vf', "scale=w='min(iw,720)':h='min(ih,720)':force_original_aspect_ratio=decrease:force_divisible_by=2", '-q:v', '5', join(dir, 'thumb.jpg')]);
+  return true;
 }
 
 if (!cmd || !slug || !/^[a-z0-9-]+$/.test(slug)) { console.error(usage); process.exit(1); }
@@ -74,6 +85,22 @@ if (cmd === 'video') {
   const out = join(outDir, `${name}.jpg`);
   ffmpeg([...(isImage(input) ? [] : ['-ss', sec]), '-i', input, '-frames:v', '1', '-vf', FIT, '-q:v', '3', out]);
   console.log(`${name}.jpg → public/media/${slug}/`);
+} else if (cmd === 'thumb') {
+  // 이미 있는 poster.jpg에서 thumb.jpg만 다시 만들기
+  if (!thumbFrom(outDir)) { console.error(`poster.jpg가 없습니다: public/media/${slug}/`); process.exit(1); }
+  console.log(`thumb.jpg ${(statSync(join(outDir, 'thumb.jpg')).size / 1024).toFixed(0)} KB → public/media/${slug}/`);
+} else if (cmd === 'preview') {
+  // 홈 대표작·카드 호버용 무음 미리보기: 긴 변 720, 24fps, 소리 없음, 기본 6초 (보통 0.3~0.8MB)
+  const own = join(outDir, 'video.mp4');
+  const hasInput = rest[0] && !/^[\d.]+$/.test(rest[0]);            // 첫 인자가 숫자면 원본 생략(= 이미 올린 video.mp4 사용)
+  const input = hasInput ? rest[0] : own;
+  const [start = '0', dur = '6'] = hasInput ? rest.slice(1) : rest;
+  if (!existsSync(input)) { console.error(`원본 영상이 없습니다: ${input}\n${usage}`); process.exit(1); }
+  const out = join(outDir, 'preview.mp4');
+  ffmpeg(['-ss', start, '-t', dur, '-i', input, '-an',
+    '-vf', "scale=w='min(iw,720)':h='min(ih,720)':force_original_aspect_ratio=decrease:force_divisible_by=2,fps=24",
+    '-c:v', 'libx264', '-preset', 'slow', '-crf', '30', '-profile:v', 'main', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', out]);
+  console.log(`preview.mp4 ${mb(out)} MB (${start}초부터 ${dur}초) → public/media/${slug}/`);
 } else {
   console.error(usage); process.exit(1);
 }

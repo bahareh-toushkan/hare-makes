@@ -1,7 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
+import WorkCard from '../WorkCard.astro';
 import site from '../../data/site.json';
 import { works } from '../../lib/works';
+import { profile, stats, featured, capabilities, contestOf, kindOf, previewOf } from '../../lib/profile';
 import { UI, href, asset, absolute, tr, type Lang } from '../../lib/i18n';
 
 interface Props { lang: Lang }
@@ -12,41 +14,129 @@ const jsonLd = {
   '@type': 'Person',
   name: site.name.en,
   alternateName: site.name.ko,
+  jobTitle: profile.role.en,
   url: absolute(href(lang, '/'), Astro.site),
-  sameAs: [site.instagram, site.github]
+  sameAs: [site.instagram, site.github, profile.contact.youtube]
 };
----
-<Base lang={lang} path="/" title={`${site.handle} — ${site.name[lang]}`} description={site.tagline[lang]} jsonLd={jsonLd}>
-  <section class="hero" aria-labelledby="hero-title">
-    <h1 id="hero-title">{site.name[lang]}</h1>
-    <p class="lead">{site.tagline[lang]}</p>
-  </section>
 
-  <section aria-labelledby="works-title">
-    <div class="section-title">
-      <h2 id="works-title">{t.worksHeading}</h2>
-      <span class="count">{works.length}</span>
-    </div>
-    <ul class="grid">
-      {works.map((w, i) => (
-        <li class="card" style={w.accent ? `--accent:${w.accent}` : undefined}>
-          <a href={href(lang, `/works/${w.slug}/`)}>
-            {w.has.poster ? (
-              <div class="thumb">
-                <img src={asset(w.media.poster)} alt="" width={w.ratio.w} height={w.ratio.h} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
-                <span class="dur">{w.durationSec}{t.sec}</span>
-              </div>
-            ) : (
-              <div class="thumb type" aria-hidden="true">
-                <span class="t">{tr(w.title, lang)}</span>
-                <span class="dur">{w.durationSec}{t.sec}</span>
-              </div>
-            )}
-            <h3>{tr(w.title, lang)}</h3>
-            <p class="status">{tr(w.status, lang)}</p>
-          </a>
-        </li>
-      ))}
-    </ul>
-  </section>
+// 헤드라인의 강조 구절(한 군데만 브랜드 색)
+const accent = profile.headlineAccent[lang];
+const lines = profile.headline[lang].map(line => {
+  const i = accent ? line.indexOf(accent) : -1;
+  return i < 0 ? { pre: line, hit: '', post: '' } : { pre: line.slice(0, i), hit: accent, post: line.slice(i + accent.length) };
+});
+
+// 숫자 요약: 수상은 확정된 것이 있을 때만 칸이 생긴다
+const numbers = [
+  { n: stats.works, label: t.statWorks },
+  { n: stats.contests, label: t.statContests },
+  ...(stats.awards > 0 ? [{ n: stats.awards, label: t.statAwards }] : []),
+  { n: stats.models, label: t.statModels }
+];
+const badge = (slug: string) => ({ awarded: t.award, contest: t.entry, personal: t.personal })[kindOf(slug)];
+const pad = (i: number) => String(i + 1).padStart(2, '0');
+---
+<Base lang={lang} path="/" title={`${site.handle} — ${site.name[lang]}`} description={profile.lead[lang]} jsonLd={jsonLd}>
+  <div class="home">
+    <section class="hero2" aria-labelledby="hero-title">
+      <p class="eyebrow"><span>{site.name.en}</span><span class="sep" aria-hidden="true"></span><span>{profile.role[lang]}</span></p>
+      <h1 id="hero-title" class="display">
+        {lines.map(l => <span class="line">{l.pre}{l.hit && <em>{l.hit}</em>}{l.post}</span>)}
+      </h1>
+      <p class="hero-lead">{profile.lead[lang]}</p>
+      <div class="actions">
+        <a class="btn primary" href="#works">{t.viewWorks}</a>
+        <a class="btn" href={href(lang, '/about/')}>{t.aboutMore} <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <dl class={`stats n${numbers.length} reveal`} aria-label={lang === 'ko' ? '숫자로 보기' : 'In numbers'}>
+      {numbers.map(s => <div><dt>{s.label}</dt><dd>{s.n}</dd></div>)}
+    </dl>
+
+    <section class="sec" aria-labelledby="feat-title">
+      <header class="sec-head reveal">
+        <h2 id="feat-title">{t.featured}</h2>
+      </header>
+      <ul class="feat-grid">
+        {featured.map((w, i) => {
+          const pv = previewOf(w);
+          const c = contestOf(w.slug);
+          return (
+            <li class={`feat reveal ${w.ratio.landscape ? 'wide' : 'tall'}`} style={`--accent:${w.accent ?? 'var(--brand)'};--d:${i * 70}ms`}>
+              <a href={href(lang, `/works/${w.slug}/`)}>
+                <div class="feat-media">
+                  <img src={asset(w.ratio.landscape ? w.media.poster : w.thumb)} alt="" width={w.ratio.w} height={w.ratio.h} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+                  {pv && <video muted loop playsinline preload="none" data-src={asset(pv)} aria-hidden="true" tabindex="-1" disablepictureinpicture></video>}
+                </div>
+                <div class="feat-info">
+                  <span class={`tag ${kindOf(w.slug)}`}>{kindOf(w.slug) === 'awarded' && c?.award ? tr(c.award, lang) : badge(w.slug)}</span>
+                  <h3>{tr(w.title, lang)}</h3>
+                  <p>{c ? tr(c.name, lang) : tr(w.status, lang)}</p>
+                </div>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    <section class="sec" aria-labelledby="do-title">
+      <header class="sec-head reveal">
+        <h2 id="do-title">{t.whatIDo}</h2>
+        <a class="more" href={href(lang, '/about/#capabilities')}>{t.aboutMore} <span aria-hidden="true">→</span></a>
+      </header>
+      <ol class="do-grid">
+        {capabilities.map((c, i) => (
+          <li class="reveal" style={`--d:${i * 60}ms`}>
+            <span class="idx">{pad(i)}</span>
+            <h3>{tr(c.title, lang)}</h3>
+            <p>{[...c.tools.slice(0, 4).map(x => x.name), ...c.extra.slice(0, 2)].join(' · ') || tr(c.body, lang).split(/(?<=[.。])\s/)[0]}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="sec" id="works" aria-labelledby="works-title">
+      <header class="sec-head reveal">
+        <h2 id="works-title">{t.recentWorks}</h2>
+        <a class="more" href={href(lang, '/works/')}>{t.seeAllWorks} <span class="count">{works.length}</span> <span aria-hidden="true">→</span></a>
+      </header>
+      <ul class="grid">
+        {works.slice(0, 8).map(w => <WorkCard lang={lang} work={w} />)}
+      </ul>
+      <p class="sec-foot reveal"><a class="btn" href={href(lang, '/works/')}>{t.seeAllWorks} <span class="count">{works.length}</span> <span aria-hidden="true">→</span></a></p>
+    </section>
+
+    <section class="cta reveal" aria-labelledby="cta-title">
+      <h2 id="cta-title" class="display sm">{t.ctaTitle}</h2>
+      <p>{profile.contact.lead[lang]}</p>
+      <div class="actions">
+        <a class="btn primary" href={`mailto:${site.email}`}>{t.emailMe}</a>
+        <a class="btn" href={site.instagram} rel="me">Instagram</a>
+        <a class="btn" href={profile.contact.youtube} rel="me">{t.youtube}</a>
+      </div>
+    </section>
+  </div>
 </Base>
+
+<script>
+  // 대표작 미리보기: 화면에 절반 이상 들어오면 그때 파일을 받아 무음 재생, 벗어나면 멈춤.
+  // 움직임 줄이기 설정이거나 데이터 절약 모드면 포스터만 보여 준다.
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator as any).connection?.saveData;
+  const vids = document.querySelectorAll<HTMLVideoElement>('.feat video[data-src]');
+  if (!still && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      for (const e of entries) {
+        const v = e.target as HTMLVideoElement;
+        if (e.isIntersecting) {
+          if (!v.src) v.src = v.dataset.src!;
+          v.play().then(() => v.classList.add('on')).catch(() => {});
+        } else {
+          v.pause();
+        }
+      }
+    }, { threshold: 0.5 });
+    vids.forEach(v => io.observe(v));
+  }
+</script>

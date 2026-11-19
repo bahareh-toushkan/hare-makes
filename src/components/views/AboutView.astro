@@ -1,7 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import site from '../../data/site.json';
-import { UI, href, absolute, type Lang } from '../../lib/i18n';
+import { profile, capabilities, contests, stats, firstWorkDate } from '../../lib/profile';
+import { UI, href, asset, absolute, tr, type Lang } from '../../lib/i18n';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -13,27 +14,157 @@ const jsonLd = {
     '@type': 'Person',
     name: site.name.en,
     alternateName: site.name.ko,
+    jobTitle: profile.role.en,
     url: absolute(href(lang, '/about/'), Astro.site),
     affiliation: { '@type': 'CollegeOrUniversity', name: 'Seoul National University' },
-    sameAs: [site.instagram, site.github]
+    knowsLanguage: profile.languages.map(l => l.en),
+    sameAs: [site.instagram, site.github, profile.contact.youtube]
   }
 };
+const pad = (i: number) => String(i + 1).padStart(2, '0');
+const ym = (d: string) => d.slice(0, 7).replace('-', '.');           // '2026-10-13' → '2026.10'
+const md = (d: string) => (d.length > 7 ? d.slice(5).replace('-', '.') : '');   // → '10.13'
+
+// 경력: auto가 'works'인 항목은 기간과 편수를 works.json에서 계산
+const experience = profile.experience.map(e => 'auto' in e && e.auto === 'works'
+  ? { ...e, period: { ko: `${ym(firstWorkDate)} — ${t.present}`, en: `${ym(firstWorkDate)} — ${t.present}` },
+      meta: lang === 'ko' ? `작품 ${stats.works}편 · 공모전 ${stats.contests}곳 출품` : `${stats.works} works · ${stats.contests} contests entered` }
+  : { ...e, meta: '' });
+
+// 출품·수상: 달별로 묶기 (최근이 위)
+const months = [...new Set(contests.map(c => ym(c.date)))];
+const awarded = contests.filter(c => c.result === 'awarded').length;
 ---
-<Base lang={lang} path="/about/" title={t.about} description={site.about[lang][0]} ogType="profile" jsonLd={jsonLd}>
-  <header class="page-head">
-    <h1>{site.name[lang]}</h1>
-    <p>{site.tagline[lang]}</p>
-  </header>
-  <div class="prose">
-    {site.about[lang].map(p => <p>{p}</p>)}
+<Base lang={lang} path="/about/" title={t.about} description={profile.intro[lang][0]} ogType="profile" jsonLd={jsonLd}>
+  <div class="about">
+    <header class="about-head">
+      <p class="eyebrow"><span>{t.about}</span><span class="sep" aria-hidden="true"></span><span>{profile.role[lang]}</span></p>
+      <h1 class="display">{site.name.en}<span class="aka">{lang === 'ko' ? site.name.ko : `@${site.handle}`}</span></h1>
+    </header>
+
+    <section class="row" aria-labelledby="a-profile">
+      <h2 id="a-profile" class="row-label">{t.profile}</h2>
+      <div class="row-body">
+        <div class="intro">{profile.intro[lang].map((p, i) => <p class={i === 0 ? 'first' : undefined}>{p}</p>)}</div>
+        <dl class="facts">
+          {profile.facts.map(f => <div><dt>{tr(f.label, lang)}</dt><dd>{tr(f.value, lang)}</dd></div>)}
+        </dl>
+      </div>
+    </section>
+
+    <section class="row" id="capabilities" aria-labelledby="a-cap">
+      <h2 id="a-cap" class="row-label">{t.capabilities}</h2>
+      <ol class="row-body caps">
+        {capabilities.map((c, i) => (
+          <li class="cap reveal">
+            <span class="idx">{pad(i)}</span>
+            <div class="cap-main">
+              <h3>{tr(c.title, lang)}</h3>
+              <p>{tr(c.body, lang)}</p>
+              {(c.tools.length > 0 || c.extra.length > 0) && (
+                <ul class="tools">
+                  {c.tools.map(x => <li>{x.name}<span class="n">{lang === 'ko' ? `${x.count}${t.usedInN}` : `×${x.count}`}</span></li>)}
+                  {c.extra.map(x => <li>{x}</li>)}
+                </ul>
+              )}
+            </div>
+            <div class="cap-works">
+              <p class="mini">{t.seenIn}</p>
+              <ul>
+                {c.evidence.map(w => (
+                  <li><a href={href(lang, `/works/${w.slug}/`)} style={w.accent ? `--accent:${w.accent}` : undefined}>
+                    <img src={asset(w.thumb)} alt="" width="48" height="60" loading="lazy" decoding="async" />
+                    <span>{tr(w.title, lang)}</span>
+                  </a></li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="row" aria-labelledby="a-exp">
+      <h2 id="a-exp" class="row-label">{t.experience}</h2>
+      <ul class="row-body entries">
+        {experience.map(e => (
+          <li class="reveal">
+            <span class="when">{tr(e.period, lang)}</span>
+            <div><h3>{tr(e.title, lang)}</h3><p>{tr(e.body, lang)}</p>{e.meta && <p class="meta-line">{e.meta}</p>}</div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="row" aria-labelledby="a-edu">
+      <h2 id="a-edu" class="row-label">{t.education}</h2>
+      <ul class="row-body entries">
+        {profile.education.map(e => (
+          <li class="reveal">
+            <span class="when">{tr(e.period, lang)}</span>
+            <div><h3>{tr(e.title, lang)}</h3><p>{tr(e.body, lang)}</p></div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="row" id="record" aria-labelledby="a-rec">
+      <h2 id="a-rec" class="row-label">{t.record}</h2>
+      <div class="row-body">
+        <p class="legend">
+          {awarded > 0 && <span class="tag awarded">{t.award} {awarded}</span>}
+          <span class="tag contest">{t.entry} {contests.length}</span>
+          <span class="note">{t.recordNote}</span>
+        </p>
+        {months.map(m => (
+          <div class="month reveal">
+            <h3 class="month-label">{m}</h3>
+            <ul class="timeline">
+              {contests.filter(c => ym(c.date) === m).map(c => (
+                <li class={c.result}>
+                  <span class="when">{md(c.date)}</span>
+                  <div class="what">
+                    <p class="name">{tr(c.name, lang)}</p>
+                    <p class="pieces">
+                      {c.items.map((w, i) => <>{i > 0 && ' · '}<a href={href(lang, `/works/${w.slug}/`)}>{tr(w.title, lang)}</a></>)}
+                    </p>
+                  </div>
+                  <span class={`tag ${c.result === 'awarded' ? 'awarded' : 'contest'}`}>{c.result === 'awarded' && c.award ? tr(c.award, lang) : t.entry}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="row" aria-labelledby="a-lang">
+      <h2 id="a-lang" class="row-label">{t.languages}</h2>
+      <ul class="row-body langs">
+        {profile.languages.map(l => <li>{tr(l, lang)}</li>)}
+      </ul>
+    </section>
+
+    {profile.certifications.length > 0 && (
+      <section class="row" aria-labelledby="a-cert">
+        <h2 id="a-cert" class="row-label">{t.certifications}</h2>
+        <ul class="row-body entries">
+          {(profile.certifications as { period: { ko: string; en: string }; title: { ko: string; en: string } }[]).map(c => (
+            <li><span class="when">{tr(c.period, lang)}</span><div><h3>{tr(c.title, lang)}</h3></div></li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <section class="cta reveal" aria-labelledby="cta-title">
+      <h2 id="cta-title" class="display sm">{t.ctaTitle}</h2>
+      <p>{profile.contact.lead[lang]}</p>
+      <div class="actions">
+        <a class="btn primary" href={`mailto:${site.email}`}>{t.emailMe}</a>
+        <a class="btn" href={site.instagram} rel="me">Instagram</a>
+        <a class="btn" href={profile.contact.youtube} rel="me">{t.youtube}</a>
+        <a class="btn" href={site.github} rel="me">GitHub</a>
+      </div>
+    </section>
   </div>
-  <section class="block" aria-labelledby="tools-gen">
-    <h2 id="tools-gen">{t.generate}</h2>
-    <ul class="chips">{site.skills.generate.map(s => <li>{s}</li>)}</ul>
-  </section>
-  <section class="block" aria-labelledby="tools-edit">
-    <h2 id="tools-edit">{t.edit}</h2>
-    <ul class="chips">{site.skills.edit.map(s => <li>{s}</li>)}</ul>
-  </section>
-  <p class="block"><a class="external ghost" href={href(lang, '/contact/')}>{t.contact} →</a></p>
 </Base>

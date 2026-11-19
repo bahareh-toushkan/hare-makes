@@ -1,20 +1,35 @@
 ---
 import Base from '../../layouts/Base.astro';
 import site from '../../data/site.json';
+import { profile } from '../../lib/profile';
 import { UI, type Lang } from '../../lib/i18n';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = UI[lang];
+const short = (u: string) => u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+const channels = [
+  { label: t.email, value: site.email, url: `mailto:${site.email}` },
+  { label: t.instagramDm, value: `@${site.handle}`, url: site.instagram },
+  { label: t.youtube, value: t.youtubeValue, url: profile.contact.youtube },
+  { label: t.github, value: short(site.github), url: site.github }
+];
 ---
-<Base lang={lang} path="/contact/" title={t.contact} description={t.contactLead}>
-  <header class="page-head">
-    <h1>{t.contact}</h1>
-    <p>{t.contactLead}</p>
-  </header>
-  <ul class="contact-list">
-    <li><a href={`mailto:${site.email}`}><span>{t.email}</span>{site.email}</a></li>
-    <li><a href={site.instagram} rel="me"><span>{t.instagramDm}</span>@{site.handle}</a></li>
-    <li><a href={site.github} rel="me"><span>{t.github}</span>{site.github.replace('https://', '')}</a></li>
-  </ul>
+<Base lang={lang} path="/contact/" title={t.contact} description={profile.contact.lead[lang]}>
+  <div class="about">
+    <header class="page-top">
+      <p class="eyebrow"><span>{t.contact}</span></p>
+      <h1 class="display md">{t.ctaTitle}</h1>
+      <p class="hero-lead">{profile.contact.lead[lang]}</p>
+    </header>
+    <ul class="channels">
+      {channels.map(c => (
+        <li class="reveal"><a href={c.url} rel={c.url.startsWith('mailto:') ? undefined : 'me'}>
+          <span class="label">{c.label}</span>
+          <span class="value">{c.value}</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a></li>
+      ))}
+    </ul>
+  </div>
 </Base>

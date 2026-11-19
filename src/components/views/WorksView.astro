@@ -1,0 +1,61 @@
+---
+import Base from '../../layouts/Base.astro';
+import WorkCard from '../WorkCard.astro';
+import { works } from '../../lib/works';
+import { kindOf, stats } from '../../lib/profile';
+import { UI, type Lang } from '../../lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = UI[lang];
+const n = { awarded: 0, contest: 0, personal: 0 };
+for (const w of works) { const k = kindOf(w.slug); n[k]++; if (k === 'awarded') n.contest++; }   // 수상작도 출품작이다
+const filters = [
+  { key: 'all', label: t.filterAll, count: works.length },
+  ...(n.awarded > 0 ? [{ key: 'awarded', label: t.filterAwarded, count: n.awarded }] : []),
+  { key: 'contest', label: t.filterContest, count: n.contest },
+  { key: 'personal', label: t.filterPersonal, count: n.personal }
+];
+---
+<Base lang={lang} path="/works/" title={t.works} description={t.worksLead}>
+  <div class="home">
+    <header class="page-top">
+      <p class="eyebrow"><span>{t.works}</span><span class="sep" aria-hidden="true"></span><span>{stats.works}</span></p>
+      <h1 class="display md">{t.worksTitle}</h1>
+      <p class="hero-lead">{t.worksLead}</p>
+    </header>
+
+    <div class="filters" role="group" aria-label={t.filterLabel}>
+      {filters.map(f => (
+        <button type="button" class="chip" data-filter={f.key} aria-pressed={f.key === 'all' ? 'true' : 'false'}>
+          {f.label}<span class="n">{f.count}</span>
+        </button>
+      ))}
+    </div>
+
+    <ul class="grid" id="works-grid">
+      {works.map((w, i) => <WorkCard lang={lang} work={w} eager={i < 4} heading="h2" />)}
+    </ul>
+    <p class="empty" id="works-empty" hidden>{t.filterEmpty}</p>
+  </div>
+</Base>
+
+<script>
+  // 필터: JS가 꺼져 있으면 전체가 그대로 보인다.
+  const chips = document.querySelectorAll<HTMLButtonElement>('.filters .chip');
+  const cards = document.querySelectorAll<HTMLElement>('#works-grid .card');
+  const empty = document.getElementById('works-empty');
+  for (const chip of chips) {
+    chip.addEventListener('click', () => {
+      const key = chip.dataset.filter!;
+      let shown = 0;
+      for (const c of cards) {
+        const ok = key === 'all' || (c.dataset.kind ?? '').split(' ').includes(key);
+        c.hidden = !ok;
+        if (ok) { shown++; c.classList.add('in'); }
+      }
+      for (const b of chips) b.setAttribute('aria-pressed', String(b === chip));
+      if (empty) empty.hidden = shown > 0;
+    });
+  }
+</script>

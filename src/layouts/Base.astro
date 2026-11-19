@@ -4,6 +4,7 @@ import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import '../styles/global.css';
 import Mark from '../components/Mark.astro';
 import site from '../data/site.json';
+import profile from '../data/profile.json';
 import { UI, href, asset, absolute, type Lang } from '../lib/i18n';
 import { inkFor } from '../lib/color';
 
@@ -16,10 +17,11 @@ interface Props {
   ogType?: 'website' | 'video.other' | 'profile';
   jsonLd?: Record<string, unknown>;
   noindex?: boolean;
+  preloadImage?: string;   // 첫 화면의 가장 큰 이미지(작품 포스터)를 먼저 받게 함. public/ 기준 경로
   accent?: string;         // 작품 색: 이 페이지의 로고·포인트 색을 덮어씀 (배경은 그대로 검정)
   tone?: 'quiet';          // 차분한 작품: 제목 서체를 본문 서체로
 }
-const { lang, path, title, description, ogImage = 'og-default.png', ogType = 'website', jsonLd, noindex = false, accent, tone } = Astro.props;
+const { lang, path, title, description, ogImage = 'og-default.png', ogType = 'website', jsonLd, noindex = false, accent, tone, preloadImage } = Astro.props;
 const bodyStyle = accent ? `--accent:${accent};--accent-ink:${inkFor(accent)}` : undefined;   // 작품 색과 그 위 글자색
 const t = UI[lang];
 const other: Lang = lang === 'ko' ? 'en' : 'ko';
@@ -30,7 +32,8 @@ const ogAbs = absolute(asset(ogImage), siteURL);
 const fullTitle = path === '/' ? title : `${title} — ${site.handle}`;
 const current = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? 'page' : undefined);
 const nav = [
-  { p: '/', label: t.works },
+  { p: '/works/', label: t.works },
+  { p: '/projects/', label: t.projects },
   { p: '/about/', label: t.about },
   { p: '/contact/', label: t.contact }
 ];
@@ -49,6 +52,7 @@ const nav = [
   <link rel="alternate" hreflang="x-default" href={alt.ko} />
   <meta name="theme-color" content="#0b0b0c" />
   <meta name="color-scheme" content="dark" />
+  {preloadImage && <link rel="preload" as="image" href={asset(preloadImage)} fetchpriority="high" />}
   <link rel="icon" href={asset('favicon.svg')} type="image/svg+xml" />
   <link rel="icon" href={asset('favicon-32.png')} sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href={asset('apple-touch-icon.png')} />
@@ -67,13 +71,14 @@ const nav = [
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogAbs} />
   {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  <script is:inline>document.documentElement.classList.add('js');</script>
 </head>
 <body style={bodyStyle} class={tone === 'quiet' ? 'tone-quiet' : undefined}>
   <a class="skip" href="#main">{t.skip}</a>
   <header class="site-header">
-    <a class="brand" href={href(lang, '/')} aria-label={`${site.handle} — ${t.works}`}>
+    <a class="brand" href={href(lang, '/')} aria-label={`${site.handle} — ${t.home}`}>
       <Mark />
-      <span>{site.handle}</span>
+      <span class="brand-name">{site.handle}</span>
     </a>
     <nav aria-label={t.nav}>
       <ul>
@@ -91,9 +96,23 @@ const nav = [
     <p>© 2026 {site.name.ko} · {site.name.en}</p>
     <p class="links">
       <a href={site.instagram} rel="me">Instagram</a>
+      <a href={profile.contact.youtube} rel="me">YouTube</a>
       <a href={site.github} rel="me">GitHub</a>
       <a href={`mailto:${site.email}`}>{site.email}</a>
     </p>
   </footer>
+  <script>
+    // 스크롤 등장: .reveal 요소가 화면에 들어오면 한 번만 나타난다.
+    // JS가 꺼져 있거나(html.js 없음) 움직임 줄이기 설정이면 CSS에서 처음부터 보이게 둔다.
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const io = new IntersectionObserver(entries => {
+        for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      }, { rootMargin: '0px 0px -8% 0px' });
+      els.forEach(el => io.observe(el));
+    } else {
+      els.forEach(el => el.classList.add('in'));
+    }
+  </script>
 </body>
 </html>

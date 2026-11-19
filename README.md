@@ -167,3 +167,46 @@ Vercel 대시보드 Project → Settings → Domains에서 도메인을 추가�
 - 루트 도메인: A 레코드 (안내값. 기본 76.76.21.21)
 - www: CNAME (프로젝트마다 다른 값. 예: `xxxx.vercel-dns-017.com`)
 - 대시보드에 나온 값을 그대로 넣으세요. 빌드 명령은 `npm run build`, 출력 폴더는 `dist`입니다.
+
+## 프로필·홈 데이터 (`src/data/profile.json`)
+
+홈과 소개 페이지의 글·역량·경력·학력·출품 기록은 `src/data/profile.json`에 있습니다. 숫자는 적지 않습니다 — 작품 수, 출품 공모전 수, 수상 수, 도구별 편수는 `src/lib/profile.ts`가 `works.json`과 `contests`에서 계산합니다.
+
+- `featured`: 홈 대표작 slug 3개 안팎. 가로 작품은 두 칸, 세로 작품은 한 칸을 차지합니다.
+- `capabilities[].tools`: `match`에 적은 글자가 `works.json`의 `tools`에 실제로 나온 작품 수를 세어 보여 줍니다. 한 편도 없으면 화면에 나오지 않습니다.
+- `contests`: 공모전마다 출품작 slug와 `result`. `result`는 `"submitted"`(출품)와 `"awarded"`(수상 확정) 둘뿐입니다. 발표 전이거나 결과가 없으면 `submitted`로 둡니다. 수상이 확정되면 `"awarded"`로 바꾸고 `"award": { "ko": "…", "en": "…" }`를 추가하세요. `works.json`에 '출품작'이라고 쓴 작품이 `contests`에 없으면 빌드가 멈춥니다.
+- `certifications`: 비어 있으면 '자격' 칸이 나오지 않습니다.
+
+대표작·카드 미리보기 클립(무음, 약 6초, 0.1~0.8MB):
+```powershell
+npm run media -- preview pureal-breakup 5 6          # 이미 올린 video.mp4의 5초부터 6초
+npm run media -- preview one-more-beat "D:\영상\완성본.mp4" 171 6   # 원본 파일에서
+```
+미리보기는 화면에 들어왔을 때만 받아서 재생하고, '움직임 줄이기' 설정이나 데이터 절약 모드에서는 포스터만 보입니다.
+
+## 영상에 haremakes 로고 넣기 (`scripts/add_logo.py`)
+
+유튜브·인스타에 올릴 사본에 작은 로고를 넣습니다. Python과 ffmpeg만 있으면 됩니다. 원본은 건드리지 않고 `<이름>_logo.mp4`를 새로 만듭니다.
+
+```powershell
+python scripts/add_logo.py "D:\영상\완성본.mp4"                 # 오른쪽 위, 짧은 변의 10%, 불투명도 0.75
+python scripts/add_logo.py "D:\영상\완성본.mp4" --coral --pos tl  # 코랄 로고, 왼쪽 위
+python scripts/add_logo.py "D:\영상\제출본.mp4" --contest        # 공모전 출품 원본: 로고를 넣지 않고 끝냄
+```
+- 세로(9:16)는 위에서 12%·옆에서 5% 떨어진 곳에 둡니다(쇼츠·릴스 상단 아이콘과 오른쪽 버튼, 아래 자막을 피함). 가로(16:9)는 위 6%·옆 3.5%.
+- 경로에 `출품`·`제출`·`contest`·`submission`이 있으면 멈춥니다. 주최 측 규정과 부딪히지 않게 제출본에는 넣지 않고, 게시용 사본이 맞을 때만 `--allow-contest`를 붙이세요.
+- 로고 원본은 `scripts/assets/`에 있습니다(사이트에는 배포되지 않음).
+
+## 페이지 구성 (2026-11 리뉴얼)
+
+| 주소 | 내용 | 데이터 |
+|---|---|---|
+| `/` | 한 줄 소개 · 숫자 요약 · 대표작 · 하는 일 · 최근 작품 8편 | `profile.json`, `works.json` |
+| `/works/` | 전체 작품 + 필터(전체 / 수상 / 공모전 출품 / 개인 작업) | `works.json`, `profile.json`의 `contests` |
+| `/projects/` | 영상 밖의 작업(앱 · 연구 · 이 사이트) | `profile.json`의 `projects` |
+| `/about/` | 프로필 · 역량 · 경력 · 학력 · 출품·수상 타임라인 · 언어 | `profile.json` |
+| `/contact/` | 이메일 · 인스타그램 · 유튜브 · GitHub | `site.json`, `profile.json`의 `contact` |
+
+- 유튜브 채널 링크는 핸들(@)이 아니라 채널 ID 주소를 씁니다. 채널 이름이나 핸들을 바꿔도 깨지지 않습니다.
+- 카드 미리보기는 `public/media/<slug>/preview.mp4`가 있을 때만 붙습니다. 새 작품을 올린 뒤 `npm run media -- preview <slug> <시작 초> 5`를 한 번 실행하세요.
+- 장식 서체(Black Han Sans)는 작품 상세의 제목에만 쓰고, 나머지 제목은 Pretendard입니다.

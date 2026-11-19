@@ -6,5 +6,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: process.env.SITE_URL || 'https://haremakes.com',
   trailingSlash: 'always',
-  build: { format: 'directory' }
+  build: { format: 'directory' },
+  // 글꼴 조각(작은 woff2)을 CSS에 base64로 끼워 넣지 않는다 — 넣으면 CSS가 350KB까지 커져 첫 화면이 늦어짐
+  vite: { build: { assetsInlineLimit: 0 } }
 });

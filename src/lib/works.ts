@@ -35,6 +35,7 @@ export interface ResolvedWork extends Work {
   has: { video: boolean; poster: boolean; og: boolean; captions: boolean };
   compareReady: Work['compare'];                     // 전·후 이미지가 둘 다 있는 항목만
   scenesReady: NonNullable<Work['scenes']>;          // 프레임 이미지가 있는 장면만 (사이트 표시용)
+  thumb: string;                                     // 카드용 작은 이미지: thumb.jpg가 있으면 그것, 없으면 포스터
   youtubeId: string | null;
   ratio: { w: number; h: number; css: string; landscape: boolean };   // aspect '16:9' → 1920×1080, '16 / 9', 가로 여부
 }
@@ -85,6 +86,7 @@ export const works: ResolvedWork[] = list.map(w => ({
   has: { video: exists(w.media.video), poster: exists(w.media.poster), og: exists(w.media.og), captions: exists(w.media.captions ?? '') },
   compareReady: w.compare.filter(c => exists(c.before) && exists(c.after)),
   scenesReady: (w.scenes ?? []).filter(s => exists(s.frame ?? '')),
+  thumb: exists(`media/${w.slug}/thumb.jpg`) ? `media/${w.slug}/thumb.jpg` : w.media.poster,
   youtubeId: youtubeId(w.links.youtube),
   ratio: ratio(w.aspect)
 }));
