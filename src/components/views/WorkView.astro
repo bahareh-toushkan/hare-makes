@@ -37,7 +37,7 @@ const jsonLd = (w.has.video || w.youtubeId) && w.has.poster ? {
   ...(/^\d{4}-\d{2}-\d{2}$/.test(w.date) ? { uploadDate: w.date } : {})
 } : undefined;
 ---
-<Base lang={lang} path={path} title={title} description={tr(w.logline, lang)} ogImage={w.has.og ? w.media.og : undefined} ogType={w.has.video ? 'video.other' : 'website'} jsonLd={jsonLd} accent={w.accent} tone={w.tone} preloadImage={w.has.poster && (w.has.video || !w.youtubeId) ? w.media.poster : undefined}>
+<Base lang={lang} path={path} title={title} description={tr(w.logline, lang)} ogImage={w.has.og ? w.media.og : undefined} ogType={w.has.video ? 'video.other' : 'website'} jsonLd={jsonLd} accent={w.accent} tone={w.tone} preloadImage={w.has.poster && (w.has.video || !w.youtubeId) ? w.posterWeb : undefined}>
   <a class="back" href={href(lang, '/works/')}>← {t.allWorks}</a>
   <header class="work-head">
     <p class="status">{award && <span class="tag awarded">{tr(award, lang)}</span>}{tr(w.status, lang)}</p>
@@ -48,7 +48,7 @@ const jsonLd = (w.has.video || w.youtubeId) && w.has.poster ? {
   <div class={r.landscape ? 'work-main wide' : 'work-main'} style={`--ar:${r.css}`}>   {/* 가로 영상은 플레이어를 전체 폭으로 (변경) */}
     <div class="player-wrap">
       {w.has.video ? (
-        <video class="player" controls playsinline preload="none" poster={w.has.poster ? asset(w.media.poster) : undefined} width={r.w} height={r.h} aria-label={title}>
+        <video class="player" controls playsinline preload="none" poster={w.has.poster ? asset(w.posterWeb) : undefined} width={r.w} height={r.h} aria-label={title}>
           <source src={asset(w.media.video)} type="video/mp4" />
           {w.has.captions && <track kind="captions" src={asset(w.media.captions!)} srclang="ko" label="한국어" default />}
           <p>{t.videoFallback} <a href={asset(w.media.video)}>MP4</a></p>
@@ -56,7 +56,7 @@ const jsonLd = (w.has.video || w.youtubeId) && w.has.poster ? {
       ) : w.youtubeId ? (
         <iframe class="player" src={`https://www.youtube-nocookie.com/embed/${w.youtubeId}`} title={title} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       ) : w.has.poster ? (
-        <img class="player" src={asset(w.media.poster)} alt={title} width={r.w} height={r.h} />
+        <img class="player" src={asset(w.posterWeb)} alt={title} width={r.w} height={r.h} fetchpriority="high" />
       ) : (
         <div class="player thumb type" aria-hidden="true"><span class="t">{title}</span></div>
       )}
@@ -95,7 +95,7 @@ const jsonLd = (w.has.video || w.youtubeId) && w.has.poster ? {
           <ul class="scenes">
             {w.scenesReady.map(s => (
               <li><figure>
-                <img src={asset(s.frame!)} alt={`${tr(s.label, lang)}: ${tr(s.text, lang)}`} width={r.w} height={r.h} loading="lazy" decoding="async" />
+                <img src={asset(w.sceneSmall[s.frame!] ?? s.frame!)} alt={`${tr(s.label, lang)}: ${tr(s.text, lang)}`} width={r.w} height={r.h} loading="lazy" fetchpriority="low" decoding="async" />
                 <figcaption><b>{tr(s.label, lang)}</b>{tr(s.text, lang)}</figcaption>
               </figure></li>
             ))}

@@ -7,7 +7,7 @@
 //   npm run media -- frame <slug> <이름> <영상 또는 이미지> [초]
 //     → <이름>.jpg (전후 비교·장면 프레임. 예: compare-color-before, scene-1)
 import { spawnSync } from 'node:child_process';
-import { mkdirSync, statSync, existsSync } from 'node:fs';
+import { mkdirSync, statSync, existsSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
 const [cmd, slug, ...rest] = process.argv.slice(2);
@@ -54,7 +54,16 @@ function thumbFrom(dir) {
   const poster = join(dir, 'poster.jpg');
   if (!existsSync(poster)) return false;
   ffmpeg(['-i', poster, '-frames:v', '1', '-vf', "scale=w='min(iw,720)':h='min(ih,720)':force_original_aspect_ratio=decrease:force_divisible_by=2", '-q:v', '5', join(dir, 'thumb.jpg')]);
+  // 작품 상세의 플레이어 포스터: 긴 변 1280 (보통 60~110KB). 원본 poster.jpg는 공유 미리보기·구조화 데이터용으로 그대로 둔다
+  ffmpeg(['-i', poster, '-frames:v', '1', '-vf', "scale=w='min(iw,1280)':h='min(ih,1280)':force_original_aspect_ratio=decrease:force_divisible_by=2", '-q:v', '4', join(dir, 'poster.m.jpg')]);
   return true;
+}
+
+// 장면 프레임의 작은 사본: scene-1.jpg → scene-1.s.jpg (긴 변 720). 사이트의 '장면' 칸이 이걸 쓴다
+function smallOf(file) {
+  const out = file.replace(/\.jpg$/i, '.s.jpg');
+  ffmpeg(['-i', file, '-frames:v', '1', '-vf', "scale=w='min(iw,720)':h='min(ih,720)':force_original_aspect_ratio=decrease:force_divisible_by=2", '-q:v', '5', out]);
+  return out;
 }
 
 if (!cmd || !slug || !/^[a-z0-9-]+$/.test(slug)) { console.error(usage); process.exit(1); }
@@ -84,11 +93,14 @@ if (cmd === 'video') {
   if (!name || !/^[a-z0-9-]+$/.test(name) || !input || !existsSync(input)) { console.error(usage); process.exit(1); }
   const out = join(outDir, `${name}.jpg`);
   ffmpeg([...(isImage(input) ? [] : ['-ss', sec]), '-i', input, '-frames:v', '1', '-vf', FIT, '-q:v', '3', out]);
+  if (name.startsWith('scene-')) smallOf(out);                       // 장면 프레임은 작은 사본도 함께
   console.log(`${name}.jpg → public/media/${slug}/`);
 } else if (cmd === 'thumb') {
-  // 이미 있는 poster.jpg에서 thumb.jpg만 다시 만들기
+  // 이미 있는 poster.jpg·scene-*.jpg에서 작은 사본(thumb.jpg, poster.m.jpg, scene-*.s.jpg)만 다시 만들기
   if (!thumbFrom(outDir)) { console.error(`poster.jpg가 없습니다: public/media/${slug}/`); process.exit(1); }
-  console.log(`thumb.jpg ${(statSync(join(outDir, 'thumb.jpg')).size / 1024).toFixed(0)} KB → public/media/${slug}/`);
+  const scenes = readdirSync(outDir).filter(f => /^scene-.*\.jpg$/i.test(f) && !/\.s\.jpg$/i.test(f));
+  for (const f of scenes) smallOf(join(outDir, f));
+  console.log(`thumb.jpg ${(statSync(join(outDir, 'thumb.jpg')).size / 1024).toFixed(0)} KB · poster.m.jpg ${(statSync(join(outDir, 'poster.m.jpg')).size / 1024).toFixed(0)} KB · 장면 ${scenes.length}장 → public/media/${slug}/`);
 } else if (cmd === 'preview') {
   // 홈 대표작·카드 호버용 무음 미리보기: 긴 변 720, 24fps, 소리 없음, 기본 6초 (보통 0.3~0.8MB)
   const own = join(outDir, 'video.mp4');

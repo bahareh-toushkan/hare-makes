@@ -1,5 +1,7 @@
+@font-face { font-family: 'Pretendard Site'; font-style: normal; font-weight: 45 930; font-display: swap; src: url('../assets/fonts/pretendard-site.woff') format('woff'); }
+@font-face { font-family: 'Black Han Sans Site'; font-style: normal; font-weight: 400; font-display: swap; src: url('../assets/fonts/black-han-sans-site.woff') format('woff'); }
 :root {
-  --bg: #0b0b0c;               /* 배경은 모든 페이지 공통 (작품 페이지도 그대로) */
+  --bg: #0b0b0c;              /* 배경은 모든 페이지 공통 (작품 페이지도 그대로) */
   --surface: #141414;
   --line: #262626;
   --fg: #f4f4f4;
@@ -9,8 +11,9 @@
   --radius: 14px;
   --gutter: clamp(16px, 4vw, 40px);
   --max: 1120px;
-  --font-body: 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
-  --font-display: 'Black Han Sans', var(--font-body);
+  /* 'Pretendard Site' = 이 사이트에 쓰인 글자만 담은 파일 하나(scripts/subset_font.py). 거기 없는 글자만 뒤의 조각 글꼴에서 받는다 */
+  --font-body: 'Pretendard Site', 'Pretendard Variable', Pretendard, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+  --font-display: 'Black Han Sans Site', var(--font-body);
   --font-mono: ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
   color-scheme: dark;
 }
@@ -403,3 +406,7 @@ h2, h3 { font-family: var(--font-body); font-weight: 700; letter-spacing: -0.025
 /* 카드 제목: 목록 페이지에서는 h2, 홈에서는 h3 — 모양은 같다 */
 .card .card-title { font-family: var(--font-body); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; line-height: 1.35; margin: 0; }
 .card a:hover .card-title { color: var(--accent); }
+
+/* 화면 밖 섹션은 가까워질 때까지 배치·그리기를 미룬다.
+   글꼴 조각(woff2)이 하나씩 도착할 때마다 페이지 전체를 다시 배치하던 비용을 줄인다. */
+.row, .sec, .project, .cta, .work-main .block, .pager { content-visibility: auto; contain-intrinsic-size: auto 640px; }

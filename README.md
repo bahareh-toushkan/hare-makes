@@ -210,3 +210,16 @@ python scripts/add_logo.py "D:\영상\제출본.mp4" --contest        # 공모�
 - 유튜브 채널 링크는 핸들(@)이 아니라 채널 ID 주소를 씁니다. 채널 이름이나 핸들을 바꿔도 깨지지 않습니다.
 - 카드 미리보기는 `public/media/<slug>/preview.mp4`가 있을 때만 붙습니다. 새 작품을 올린 뒤 `npm run media -- preview <slug> <시작 초> 5`를 한 번 실행하세요.
 - 장식 서체(Black Han Sans)는 작품 상세의 제목에만 쓰고, 나머지 제목은 Pretendard입니다.
+
+## 속도: 사이트 전용 글꼴과 작은 이미지
+
+- **글꼴**: `src/assets/fonts/pretendard-site.woff`는 이 사이트에 쓰인 글자만 담은 파일 하나입니다(약 210KB). 한글 웹폰트 조각 15~18개를 받던 것을 1개로 줄여 첫 화면이 빨라집니다. 작품 제목용 `black-han-sans-site.woff`도 같은 방식입니다.
+  새 작품이나 문구를 추가한 뒤 아래를 실행하고 결과 파일을 함께 커밋하세요. 빠뜨려도 깨지지는 않습니다 — 없는 글자만 기존 조각 글꼴에서 받아 옵니다.
+  ```powershell
+  python scripts/subset_font.py        # Python + fontTools 필요 (pip install fonttools)
+  ```
+- **이미지**: `npm run media -- video|poster`가 `thumb.jpg`(카드용)와 `poster.m.jpg`(상세 플레이어용)를, `frame scene-N`이 `scene-N.s.jpg`(장면 칸용)를 함께 만듭니다. 원본 `poster.jpg`·`scene-N.jpg`는 공유 미리보기와 인스타 캐러셀용으로 그대로 둡니다. 예전 작품의 작은 사본을 한꺼번에 다시 만들려면:
+  ```powershell
+  npm run media -- thumb <slug>
+  ```
+- 화면 밖 섹션은 `content-visibility: auto`로 배치를 미루고, 작품 상세의 영상은 재생을 누를 때 받습니다.
