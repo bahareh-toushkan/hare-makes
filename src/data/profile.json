@@ -150,6 +150,22 @@
 
   "projects": [
     {
+      "id": "roya",
+      "title": { "ko": "Roya", "en": "Roya" },
+      "kind": { "ko": "수면케어 프로토타입", "en": "Sleep-care prototype" },
+      "status": { "ko": "대기자 모집 중", "en": "Waitlist open" },
+      "body": {
+        "ko": "REM 수면 안에서만 각성 신호를 읽고, 부드러운 진동으로 완화를 돕는 AI 수면케어입니다. 랜딩 사이트와, 눌러 볼 수 있는 앱 프로토타입을 만들었습니다. Roya(رویا)는 페르시아어로 '꿈'입니다. 웰니스 프로토타입이며 의료기기가 아닙니다.",
+        "en": "AI sleep care that reads arousal signals only inside REM sleep and helps ease them with a gentle vibration. I built the landing site and a clickable app prototype. Roya (رویا) means “dream” in Persian. It is a wellness prototype, not a medical device."
+      },
+      "points": {
+        "ko": ["REM 구간에서만 동작 — 미리 정한 세기의 짧은 진동", "여섯 화면 앱 프로토타입: 진동 세기·기록 범위 설정, 아침에 밤 전체를 타임라인 하나로", "공개 수면 데이터로 EEG 한 채널 REM 판별을 검증 (78명, 다른 병원·장비 데이터 22명) — 연구 결과이며 개인 효과를 뜻하지 않음"],
+        "en": ["Acts only during REM — a short vibration at an intensity set in advance", "Six-screen app prototype: set intensity and recording range, then see the whole night as one timeline in the morning", "Single-channel EEG REM detection checked on public sleep data (78 people, plus 22 from another hospital and device) — research results, not a claim of individual effect"]
+      },
+      "stack": ["HTML · CSS · JavaScript", "GitHub Pages"],
+      "link": "https://roya.ai.kr"
+    },
+    {
       "id": "done",
       "title": { "ko": "DON(E) — Do One Now", "en": "DON(E) — Do One Now" },
       "kind": { "ko": "모바일 앱", "en": "Mobile app" },

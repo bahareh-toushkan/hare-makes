@@ -8,6 +8,7 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = UI[lang];
 const pad = (i: number) => String(i + 1).padStart(2, '0');
+const linkLabel = (u: string) => (u.includes('github.com') ? 'GitHub' : new URL(u).hostname.replace(/^www\./, ''));   // 버튼 글자: GitHub 또는 도메인
 ---
 <Base lang={lang} path="/projects/" title={t.projects} description={t.projectsLead}>
   <div class="about">
@@ -30,7 +31,7 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
             <p class="body">{tr(p.body, lang)}</p>
             <ul class="points">{p.points[lang].map(x => <li>{x}</li>)}</ul>
             <ul class="tools" aria-label={t.stack}>{p.stack.map(s => <li>{s}</li>)}</ul>
-            {p.link && <p><a class="btn" href={p.link} rel="me">GitHub <span aria-hidden="true">↗</span></a></p>}
+            {p.link && <p><a class="btn" href={p.link} rel="me">{linkLabel(p.link)} <span aria-hidden="true">↗</span></a></p>}
           </div>
         </li>
       ))}
