@@ -123,6 +123,24 @@ function saveState(key, obj) {
 function clearState(key) { try { localStorage.removeItem(key); } catch (_) {} }
 const WANT_RESET = new URLSearchParams(location.search).get("reset") === "1";   // ?reset=1 → 저장된 진행 상황을 지우고 처음부터
 
+// ---------- 11/20: 참여 마감 ----------
+// 이란 시간 11/21(토) 00:00 = UTC 11/20 20:30 = 한국 11/21 05:30. 이 뒤로는 새로 시작할 수 없다.
+// 예외: 시험용 코드(t), 마감 전에 시작해서 아직 끝내지 않은 사람(이어 하기).
+const CLOSE_AT = Date.parse("2026-11-20T20:30:00Z");
+function isClosedFor(task, pid) {
+  if (Date.now() < CLOSE_AT) return false;
+  if ((CFG.codes[task] || {})[pid] === "t") return false;
+  const s = loadState(stateKey(task, pid));
+  if (s && s.pid === pid && !s.done) return false;
+  return true;
+}
+function showClosed() {
+  show(`<h1>مهلت شرکت تمام شده است</h1>
+    <div class="card">مهلت شرکت در این آزمایش (جمعه ۲۹ آبان) تمام شده است. از توجه و همراهی شما خیلی ممنونم 🙏<br>
+    اگر سؤالی دارید، به بهاره پیام بدهید.
+    <span class="en">The participation period for this study has ended (Friday, 20 November). Thank you for your interest.</span></div>`);
+}
+
 // ---------- 결과 코드 만들기 ----------
 const CRC_TABLE = (() => {
   const t = new Uint32Array(256);
@@ -621,8 +639,9 @@ function instrHTML(st) {
 async function main() {
   if (!(await screenDevice())) return;
   const pid = await askCode("main", "P23");            // 11/12: 명단에 있는 코드만 통과
+  if (isClosedFor("main", pid)) { showClosed(); return; }   // 11/20: 마감 뒤에는 새로 시작 불가
   KEY = stateKey("main", pid);
-  if (WANT_RESET) clearState(KEY);
+  if (WANT_RESET && Date.now() < CLOSE_AT) clearState(KEY);   // 마감 뒤에는 처음부터 다시 하기 불가
   const saved = loadState(KEY);
   if (saved && saved.pid === pid && Array.isArray(saved.seq)) {
     S = saved;                                         // 이어 하기
