@@ -130,6 +130,7 @@
 
   "contests": [
     { "id": "nexmuse", "name": { "ko": "NEXMUSE 2027 AI 아이돌 MV 공모전", "en": "NEXMUSE 2027 AI Idol MV Contest" }, "works": ["one-more-beat"], "result": "submitted" },
+    { "id": "kiturami", "name": { "ko": "귀뚜라미 AI 숏폼 영상 챌린지", "en": "Kiturami AI Short-form Video Challenge" }, "works": ["kiturami-bangbang"], "result": "submitted" },
     { "id": "namuhx", "name": { "ko": "SK인텔릭스 나무엑스 AI 숏폼 공모전", "en": "SK Intellix NAMUH X AI Short-form Contest" }, "works": ["namuhx-meat-smoke"], "result": "submitted" },
     { "id": "future-map", "name": { "ko": "5극3특 성장엔진 미래지도 AI 영상 공모전", "en": "5-Pole 3-Special Growth Engine Future Map AI Video Contest" }, "works": ["homework-future-map"], "result": "submitted" },
     { "id": "yongsan", "name": { "ko": "2026 용산구시설관리공단 숏폼 영상 공모전", "en": "2026 Yongsan-gu Facilities Management Corporation Short-Form Contest" }, "works": ["yongsan-first-light"], "result": "submitted" },

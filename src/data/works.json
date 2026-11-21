@@ -1,6 +1,253 @@
 {
   "works": [
     {
+      "slug": "kiturami-bangbang",
+      "date": "2026-11-22",
+      "durationSec": 15,
+      "aspect": "9:16",
+      "shots": 5,
+      "accent": "#FFC24D",
+      "title": {
+        "ko": "방방마다 따라온다",
+        "en": "Room to Room, It Follows"
+      },
+      "status": {
+        "ko": "귀뚜라미 AI 숏폼 영상 챌린지 출품작 · 9:16 · 15초",
+        "en": "Entry — Kiturami AI Short-form Video Challenge · 9:16 · 15 s"
+      },
+      "logline": {
+        "ko": "이 방에 가도, 저 방에 가도 고양이가 따라온다. 내가 좋은 줄 알았는데, 난방이 좋은 거였다. 사람 있는 방만 알아서 따뜻해지는 귀뚜라미 AI 방방난방시스템을 고양이 한 마리로 설명한 15초.",
+        "en": "Whichever room I move to, the cat follows. I thought it liked me — it liked the heating. Fifteen seconds that explain Kiturami's AI room-by-room heating, which warms only the rooms people are in, with one cat."
+      },
+      "tools": {
+        "generate": [
+          "Google Veo 3.1 Fast (Vertex AI Studio · Text-to-video)"
+        ],
+        "edit": [
+          "Claude",
+          "Python",
+          "NumPy",
+          "FFmpeg"
+        ]
+      },
+      "links": {
+        "instagram": "https://www.instagram.com/reel/DgAtJUWAqsp/",
+        "youtube": ""
+      },
+      "media": {
+        "video": "media/kiturami-bangbang/video.mp4",
+        "poster": "media/kiturami-bangbang/poster.jpg",
+        "og": "media/kiturami-bangbang/og.jpg"
+      },
+      "coverTime": 11.2,
+      "highlights": [
+        {
+          "label": {
+            "ko": "기획",
+            "en": "Concept"
+          },
+          "text": {
+            "ko": "고양이와 보일러는 흔한 조합이라, 반전을 제품 기능 그 자체로 잡았다. 고양이가 따라다닌 건 사람이 아니라 사람이 있어서 따뜻해진 방이다.",
+            "en": "Cats and boilers are a familiar pairing, so the twist is the product feature itself: the cat wasn't following the person, but the room that got warm because a person was in it."
+          }
+        },
+        {
+          "label": {
+            "ko": "이름을 자막으로",
+            "en": "The name as the caption"
+          },
+          "text": {
+            "ko": "자막을 '이 방에 가도 / 저 방에 가도 / 방방마다 따라온다'로 쌓아, 제품 이름 '방방난방'이 영상 전체에 깔리게 했다.",
+            "en": "The captions build 'this room / that room / room to room it follows', so the product name (bang-bang, 'room by room') runs through the whole film."
+          }
+        },
+        {
+          "label": {
+            "ko": "한 마리처럼",
+            "en": "One cat throughout"
+          },
+          "text": {
+            "ko": "참조 이미지 없이, 고양이를 묘사하는 문장 하나를 다섯 컷에 똑같이 넣어 같은 주황 태비로 맞췄다. 사람은 무릎 아래만 나온다.",
+            "en": "No reference images: one identical sentence describing the cat went into all five prompts to keep the same orange tabby. The person is only ever seen from the knees down."
+          }
+        },
+        {
+          "label": {
+            "ko": "소리",
+            "en": "Sound"
+          },
+          "text": {
+            "ko": "야옹 두 번은 직접 고른 무료 효과음을 입이 열리는 프레임에 맞춰 넣었다. 골골 소리는 생성된 컷의 오디오에서, 배경음은 Python으로 합성했다.",
+            "en": "The two meows are free sound effects, hand-picked and placed on the frames where each mouth opens. The purr comes from a generated shot's audio; the bed is synthesized in Python."
+          }
+        }
+      ],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "기획",
+            "en": "Plan"
+          },
+          "detail": {
+            "ko": "5컷 콘티 · 방 세 곳 + 빈 방 + 반전 · 자막은 화면 위쪽",
+            "en": "5-shot board · three rooms, an empty room, the twist · captions at the top"
+          }
+        },
+        {
+          "name": {
+            "ko": "생성",
+            "en": "Generate"
+          },
+          "detail": {
+            "ko": "Veo 3.1 Fast · Text-to-video · 9:16 1080p · 8초 · 컷당 1개",
+            "en": "Veo 3.1 Fast · text-to-video · 9:16 1080p · 8 s · one result per shot"
+          }
+        },
+        {
+          "name": {
+            "ko": "검수",
+            "en": "Checks"
+          },
+          "detail": {
+            "ko": "컷마다 프레임을 뽑아 고양이 수·무늬·얼굴 노출 확인",
+            "en": "Frames pulled per shot to check cat count, markings and that no face appears"
+          }
+        },
+        {
+          "name": {
+            "ko": "편집",
+            "en": "Edit"
+          },
+          "detail": {
+            "ko": "Python + FFmpeg · 8초 컷에서 2~3초씩 · 15.0초",
+            "en": "Python + FFmpeg · 2–3 s taken from each 8 s shot · 15.0 s"
+          }
+        },
+        {
+          "name": {
+            "ko": "소리",
+            "en": "Sound"
+          },
+          "detail": {
+            "ko": "효과음 2개 + 생성 오디오의 골골 + 합성 배경음 · 입 모양에 맞춤",
+            "en": "2 sound effects + purr from generated audio + synthesized bed · synced to the mouth"
+          }
+        }
+      ],
+      "featuredPrompt": 0,
+      "prompts": [
+        {
+          "label": {
+            "ko": "빈 방 — 내가 좋은 줄 알았는데…",
+            "en": "Empty room — I thought it liked me…"
+          },
+          "mode": {
+            "ko": "Vertex AI Studio · Veo 3.1 Fast · Text-to-video · 9:16 1080p · 8초 · 오디오 포함",
+            "en": "Vertex AI Studio · Veo 3.1 Fast · Text-to-video · 9:16 1080p · 8 s · with audio"
+          },
+          "text": "Vertical 9:16 video. Static low angle camera near floor level in a bedroom beside a low bed with beige bedding. There is exactly ONE cat in the entire video: a chubby cream-and-orange tabby domestic shorthair cat with a white chest and white front paws, sitting alone on the wooden floor in the middle of the frame. In the first second, a person seen only from the knees down, wearing grey sweatpants and white socks, walks out through the open door in the background and is gone. The cat watches them leave, then slowly turns its head to stare straight into the camera with a flat, unimpressed, deadpan expression and holds that stare for several seconds. It lets out one short grumpy annoyed meow, then gets up and walks out through the same door. Slightly cooler, dimmer light than a sunny room. Audio: quiet room tone, soft footsteps leaving, one short grumpy cat meow. No music, no speech, no narration. cozy modern Korean apartment, warm honey-colored wooden floor, soft warm winter afternoon daylight, photorealistic, natural handheld-free cinematic look, shallow depth of field. No text, no captions, no logos, no heater or appliance visible. The person's face is never in frame."
+        },
+        {
+          "label": {
+            "ko": "서재 — 저 방에 가도",
+            "en": "Study — that room too"
+          },
+          "mode": {
+            "ko": "Vertex AI Studio · Veo 3.1 Fast · Text-to-video · 9:16 1080p · 8초",
+            "en": "Vertex AI Studio · Veo 3.1 Fast · Text-to-video · 9:16 1080p · 8 s"
+          },
+          "text": "Vertical 9:16 video. Static low angle camera near floor level in a small home study room with a wooden desk and a desk chair. A person seen only from the knees down, wearing grey sweatpants and white socks, is sitting on the desk chair with feet resting on the floor. From the open doorway in the background, a chubby cream-and-orange tabby domestic shorthair cat with a white chest and white front paws walks into the room, comes straight to the person's feet, and flops down on the floor right beside them, settling in comfortably. cozy modern Korean apartment, warm honey-colored wooden floor, soft warm winter afternoon daylight, photorealistic, natural handheld-free cinematic look, shallow depth of field. No text, no captions, no logos, no heater or appliance visible. The person's face is never in frame."
+        }
+      ],
+      "compare": [],
+      "scenes": [
+        {
+          "label": {
+            "ko": "이 방에 가도",
+            "en": "This room"
+          },
+          "text": {
+            "ko": "거실. 발 뒤를 졸졸 따라온다.",
+            "en": "Living room. Trotting right behind the heels."
+          },
+          "time": 1.2,
+          "frame": "media/kiturami-bangbang/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "저 방에 가도",
+            "en": "That room"
+          },
+          "text": {
+            "ko": "서재. 문으로 들어와 발 옆에 털썩.",
+            "en": "Study. In through the door and flop, right by the feet."
+          },
+          "time": 3.9,
+          "frame": "media/kiturami-bangbang/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "방방마다 따라온다",
+            "en": "Room to room"
+          },
+          "text": {
+            "ko": "침실. 또 들어와 발에 붙는다.",
+            "en": "Bedroom. In again, pressed against the feet."
+          },
+          "time": 6.6,
+          "frame": "media/kiturami-bangbang/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "내가 좋은 줄 알았는데…",
+            "en": "I thought it liked me…"
+          },
+          "text": {
+            "ko": "사람이 나간 방. 정색하고, 야옹.",
+            "en": "The person has left. A flat stare, then a meow."
+          },
+          "time": 9.5,
+          "frame": "media/kiturami-bangbang/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "난방이 좋은 거였네",
+            "en": "It liked the heating"
+          },
+          "text": {
+            "ko": "따뜻한 바닥에 녹아내린다.",
+            "en": "Melted onto the warm floor."
+          },
+          "time": 11.2,
+          "frame": "media/kiturami-bangbang/scene-5.jpg"
+        }
+      ],
+      "notes": [
+        {
+          "heading": {
+            "ko": "고친 것",
+            "en": "What we fixed"
+          },
+          "lines": {
+            "ko": [
+              "빈 방 컷 앞부분에 고양이가 두 마리로 나옴 → \"영상 전체에 고양이는 정확히 한 마리\"를 프롬프트 앞에 넣고 다시 생성",
+              "생성 모델이 만든 야옹은 타이밍과 소리가 어색함 → 직접 고른 효과음으로 바꾸고 입이 열리는 프레임에 맞춤",
+              "AI 제작 표기가 영상 내내 떠 있어 방해됨 → 마지막 화면의 제품명 아래에만 작게",
+              "첫 자막 '이 방에 가면'이 둘째 줄과 박자가 안 맞음 → '이 방에 가도 / 저 방에 가도'로 반복",
+              "반전 자막이 길어 3초 안에 안 읽힘 → '내가 좋은 줄 알았는데… / 난방이 좋은 거였네'로 줄임"
+            ],
+            "en": [
+              "The empty-room shot opened with two cats → the prompt now leads with “exactly ONE cat in the entire video”, and the shot was regenerated",
+              "The model's own meows were off in timing and tone → replaced with hand-picked sound effects placed on the open-mouth frames",
+              "The AI disclosure sat on screen for the whole film and got in the way → shown only on the final card, small, under the product name",
+              "The first caption broke the rhythm of the second → rewritten as a repeated pair",
+              "The twist caption was too long to read in three seconds → cut to two short matching lines"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "slug": "namuhx-meat-smoke",
       "date": "2026-11-18",
       "durationSec": 24,
