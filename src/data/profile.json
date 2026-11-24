@@ -129,6 +129,8 @@
   "certifications": [],
 
   "contests": [
+    { "id": "seoul-intro", "name": { "ko": "서울시 「2026 내가 소개하는 서울」 숏폼 공모전", "en": "Seoul “Introducing My Seoul 2026” Short-form Contest" }, "works": ["home-safe-seoul"], "result": "submitted" },
+    { "id": "pipc", "name": { "ko": "개인정보보호위원회 개인정보 보호 숏폼 콘텐츠 공모전", "en": "PIPC Personal Information Protection Short-form Contest" }, "works": ["teoljima"], "result": "submitted" },
     { "id": "nexmuse", "name": { "ko": "NEXMUSE 2027 AI 아이돌 MV 공모전", "en": "NEXMUSE 2027 AI Idol MV Contest" }, "works": ["one-more-beat"], "result": "submitted" },
     { "id": "kiturami", "name": { "ko": "귀뚜라미 AI 숏폼 영상 챌린지", "en": "Kiturami AI Short-form Video Challenge" }, "works": ["kiturami-bangbang"], "result": "submitted" },
     { "id": "namuhx", "name": { "ko": "SK인텔릭스 나무엑스 AI 숏폼 공모전", "en": "SK Intellix NAMUH X AI Short-form Contest" }, "works": ["namuhx-meat-smoke"], "result": "submitted" },
