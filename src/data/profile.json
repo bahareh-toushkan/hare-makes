@@ -129,6 +129,7 @@
   "certifications": [],
 
   "contests": [
+    { "id": "ai-ad-awards", "name": { "ko": "제3회 대한민국 AI광고대상 (셀리맥스 과제)", "en": "3rd Korea AI Advertising Awards (celimax brief)" }, "works": ["celimax-tuning"], "result": "submitted" },
     { "id": "seoul-intro", "name": { "ko": "서울시 「2026 내가 소개하는 서울」 숏폼 공모전", "en": "Seoul “Introducing My Seoul 2026” Short-form Contest" }, "works": ["home-safe-seoul"], "result": "submitted" },
     { "id": "pipc", "name": { "ko": "개인정보보호위원회 개인정보 보호 숏폼 콘텐츠 공모전", "en": "PIPC Personal Information Protection Short-form Contest" }, "works": ["teoljima"], "result": "submitted" },
     { "id": "nexmuse", "name": { "ko": "NEXMUSE 2027 AI 아이돌 MV 공모전", "en": "NEXMUSE 2027 AI Idol MV Contest" }, "works": ["one-more-beat"], "result": "submitted" },

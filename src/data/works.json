@@ -1431,6 +1431,165 @@
       ]
     },
     {
+      "slug": "celimax-tuning",
+      "date": "2026-11-12",
+      "durationSec": 30,
+      "aspect": "16:9",
+      "shots": 0,
+      "accent": "#D9E85A",
+      "title": {
+        "ko": "조율",
+        "en": "Tuning"
+      },
+      "status": {
+        "ko": "제3회 대한민국 AI광고대상 출품작 · 셀리맥스 과제 · 16:9 · 30초",
+        "en": "Entry — 3rd Korea AI Advertising Awards · celimax brief · 16:9 · 30 s"
+      },
+      "logline": {
+        "ko": "모공은 없어지지 않는다. 다만 느슨해진 탄력은 다시 맞출 수 있다. 피부 탄력을 노란 그물에 빗대, 늘어진 그물이 셀리맥스 레티날 샷 타이트닝 부스터의 성분이 더해질 때마다 팽팽하게 '조율'되는 30초 광고.",
+        "en": "Pores don't disappear — but slackened firmness can be tuned back. Skin firmness becomes a yellow net that pulls taut as each ingredient of celimax's Retinal Shot Tightening Booster is added: a 30-second ad about tuning, not erasing."
+      },
+      "tools": {
+        "generate": [
+          "Google Flow — Veo (video)"
+        ],
+        "edit": []
+      },
+      "links": {
+        "instagram": "",
+        "youtube": ""
+      },
+      "media": {
+        "video": "media/celimax-tuning/video.mp4",
+        "poster": "media/celimax-tuning/poster.jpg",
+        "og": "media/celimax-tuning/og.jpg"
+      },
+      "coverTime": 10.5,
+      "highlights": [
+        {
+          "label": {
+            "ko": "과장 없이",
+            "en": "No exaggeration"
+          },
+          "text": {
+            "ko": "브랜드 원칙 '과장 없이 정직하게'를 그대로 카피로 옮겼다. \"모공이 사라진다\" 대신 \"모공은 없어지지 않습니다\"로 시작해 \"과장 없이, 팽팽하게.\"로 닫는다.",
+            "en": "The brand's own rule — say it honestly, without exaggeration — became the copy. Instead of “pores vanish” it opens with “pores don't disappear” and closes on “No exaggeration. Just taut.”"
+          }
+        },
+        {
+          "label": {
+            "ko": "한 가지 비유",
+            "en": "One metaphor"
+          },
+          "text": {
+            "ko": "피부 탄력 = 노란 그물. 늘어진 그물 → 성분 → 팽팽한 격자로, 효능을 말 대신 그림으로 보여 준다. 그물 색은 제품 용기의 라임 옐로에서 가져왔다.",
+            "en": "Firmness is a yellow net: slack, then ingredients, then a taut grid — the benefit shown, not told. The net's colour is the lime yellow of the tube."
+          }
+        },
+        {
+          "label": {
+            "ko": "천천히",
+            "en": "Slow on purpose"
+          },
+          "text": {
+            "ko": "과제 가이드가 빠른 전환보다 제품·제형·효능을 자세히 보여 주는 구성을 원해서, 30초를 7장면으로만 나눴다.",
+            "en": "The brief asked for detail over fast cuts, so 30 seconds holds just seven scenes."
+          }
+        }
+      ],
+      "pipeline": [],
+      "featuredPrompt": 0,
+      "prompts": [],
+      "compare": [],
+      "scenes": [
+        {
+          "label": {
+            "ko": "장면 1 · 그물",
+            "en": "Scene 1 · The net"
+          },
+          "text": {
+            "ko": "\"모공은, 없어지지 않습니다.\"",
+            "en": "“Pores don't disappear.”"
+          },
+          "time": 2.5,
+          "frame": "media/celimax-tuning/scene-1.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 2 · 느슨함",
+            "en": "Scene 2 · Slack"
+          },
+          "text": {
+            "ko": "\"다만 느슨해진 탄력은, 다시 맞출 수 있습니다.\"",
+            "en": "“But slackened firmness can be tuned back.”"
+          },
+          "time": 6.0,
+          "frame": "media/celimax-tuning/scene-2.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 3 · 제품",
+            "en": "Scene 3 · The product"
+          },
+          "text": {
+            "ko": "레티날 샷 타이트닝 부스터 — celimax THE VITA A.",
+            "en": "Retinal Shot Tightening Booster — celimax THE VITA A."
+          },
+          "time": 10.5,
+          "frame": "media/celimax-tuning/scene-3.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 4 · 성분",
+            "en": "Scene 4 · Ingredients"
+          },
+          "text": {
+            "ko": "레티날 · 판테놀 · 매트릭실 — 하나씩 더해질 때마다 그물이 펴진다.",
+            "en": "Retinal, panthenol, Matrixyl — the net straightens with each one."
+          },
+          "time": 17.0,
+          "frame": "media/celimax-tuning/scene-4.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 5 · 전달",
+            "en": "Scene 5 · Delivery"
+          },
+          "text": {
+            "ko": "\"마이크로 에이샷이 비타민 A를 전합니다.\"",
+            "en": "“Micro A-Shot delivers vitamin A.”"
+          },
+          "time": 20.5,
+          "frame": "media/celimax-tuning/scene-5.jpg"
+        },
+        {
+          "label": {
+            "ko": "장면 6 · 결",
+            "en": "Scene 6 · Texture"
+          },
+          "text": {
+            "ko": "\"탄력이 맞춰지면, 결이 달라 보입니다.\"",
+            "en": "“Once firmness is tuned, texture looks different.”"
+          },
+          "time": 24.0,
+          "frame": "media/celimax-tuning/scene-6.jpg"
+        },
+        {
+          "label": {
+            "ko": "엔딩",
+            "en": "Ending"
+          },
+          "text": {
+            "ko": "\"과장 없이, 팽팽하게.\"",
+            "en": "“No exaggeration. Just taut.”"
+          },
+          "time": 29.0,
+          "frame": "media/celimax-tuning/scene-7.jpg"
+        }
+      ],
+      "notes": []
+    },
+    {
       "slug": "homework-future-map",
       "date": "2026-11-10",
       "durationSec": 58,

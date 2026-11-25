@@ -75,7 +75,7 @@ const jsonLd = (w.has.video || w.youtubeId) && w.has.poster ? {
           <dt>{t.format}</dt><dd>{w.aspect}</dd>
           {w.shots > 0 && <><dt>{t.shots}</dt><dd>{w.shots}</dd></>}
           <dt>{t.generate}</dt><dd>{w.tools.generate.join(', ')}</dd>
-          <dt>{t.edit}</dt><dd>{w.tools.edit.join(', ')}</dd>
+          {w.tools.edit.length > 0 && <><dt>{t.edit}</dt><dd>{w.tools.edit.join(', ')}</dd></>}  {/* 편집 도구 정보가 없으면 줄을 숨김 */}
           <dt>{t.date}</dt><dd><time datetime={w.date}>{formatDate(w.date)}</time></dd>
         </dl>
       </section>
