@@ -1435,7 +1435,7 @@
       "date": "2026-11-12",
       "durationSec": 30,
       "aspect": "16:9",
-      "shots": 0,
+      "shots": 6,
       "accent": "#D9E85A",
       "title": {
         "ko": "조율",
@@ -1451,9 +1451,17 @@
       },
       "tools": {
         "generate": [
-          "Google Flow — Veo (video)"
+          "Higgsfield — Nano Banana (start frames)",
+          "Higgsfield — Kling 3.0 · Seedance 2.5 (video)",
+          "vidIQ — Seedance 2 (video)",
+          "ElevenLabs — Eleven v4 (narration)"
         ],
-        "edit": []
+        "edit": [
+          "Python",
+          "OpenCV",
+          "Pillow",
+          "FFmpeg"
+        ]
       },
       "links": {
         "instagram": "",
@@ -1495,9 +1503,110 @@
             "ko": "과제 가이드가 빠른 전환보다 제품·제형·효능을 자세히 보여 주는 구성을 원해서, 30초를 7장면으로만 나눴다.",
             "en": "The brief asked for detail over fast cuts, so 30 seconds holds just seven scenes."
           }
+        },
+        {
+          "label": {
+            "ko": "라벨은 진짜로",
+            "en": "The real label"
+          },
+          "text": {
+            "ko": "AI가 튜브 글자를 뭉개서, 제품이 크게 나오는 3번 컷은 튜브 부분에 셀리맥스 제공 제품 사진을 다시 덮었고, 엔딩 화면은 제품 사진과 로고로 코드로 그렸다.",
+            "en": "AI garbles the lettering on the tube, so in the product close-up the tube was re-covered with celimax's own product photo, and the end screen was drawn in code from the official photo and logo."
+          }
+        },
+        {
+          "label": {
+            "ko": "음악 없이",
+            "en": "No borrowed music"
+          },
+          "text": {
+            "ko": "배경음은 '조율' 음 세 개, 마지막 화음, 아주 낮은 바탕음뿐이다. 모두 사인파로 직접 계산해 만들었다.",
+            "en": "The score is three ‘tuning’ tones, a final chord and a low drone — all synthesised from sine waves, no third-party music."
+          }
         }
       ],
-      "pipeline": [],
+      "pipeline": [
+        {
+          "name": {
+            "ko": "시작 이미지",
+            "en": "Start frames"
+          },
+          "detail": {
+            "ko": "Higgsfield · Nano Banana",
+            "en": "Higgsfield · Nano Banana"
+          }
+        },
+        {
+          "name": {
+            "ko": "영상",
+            "en": "Video"
+          },
+          "detail": {
+            "ko": "1번 컷 vidIQ Seedance 2 · 2·4번 Higgsfield Kling 3.0 · 3·5·6번 Higgsfield Seedance 2.5",
+            "en": "Shot 1 vidIQ Seedance 2 · shots 2 & 4 Higgsfield Kling 3.0 · shots 3, 5, 6 Higgsfield Seedance 2.5"
+          }
+        },
+        {
+          "name": {
+            "ko": "내레이션",
+            "en": "Narration"
+          },
+          "detail": {
+            "ko": "ElevenLabs Eleven v4 · 목소리 Leejin · 문장별로 잘라 배치",
+            "en": "ElevenLabs Eleven v4 · voice “Leejin” · placed sentence by sentence"
+          }
+        },
+        {
+          "name": {
+            "ko": "컷 잇기",
+            "en": "Cutting"
+          },
+          "detail": {
+            "ko": "Python + FFmpeg · 1920×1080 24fps · 천천히 밀어 들어가는 움직임 · 3→4번 디졸브",
+            "en": "Python + FFmpeg · 1920×1080 24 fps · slow push-ins · dissolve from shot 3 to 4"
+          }
+        },
+        {
+          "name": {
+            "ko": "색",
+            "en": "Colour"
+          },
+          "detail": {
+            "ko": "OpenCV로 컷마다 밝기·채도를 맞추고 크림색 톤으로 통일",
+            "en": "OpenCV per-shot brightness and saturation matching, unified cream tone"
+          }
+        },
+        {
+          "name": {
+            "ko": "제품·글자",
+            "en": "Product & type"
+          },
+          "detail": {
+            "ko": "3번 컷 튜브에 제공 제품 사진 합성 · 엔딩 화면 코드로 · Pillow로 Noto Serif/Sans KR 카피와 고지 문구(인체적용시험·개인차·AI 고지)",
+            "en": "Official product photo composited onto the tube in shot 3 · end screen drawn in code · copy and small-print notices (clinical test, individual variation, AI disclosure) set in Noto Serif/Sans KR with Pillow"
+          }
+        },
+        {
+          "name": {
+            "ko": "소리",
+            "en": "Sound"
+          },
+          "detail": {
+            "ko": "사인파로 조율 음·화음·바탕음 직접 합성 · 내레이션 덕킹(절반까지)",
+            "en": "Tuning tones, chord and drone synthesised from sine waves · narration ducking to half"
+          }
+        },
+        {
+          "name": {
+            "ko": "인코딩",
+            "en": "Encode"
+          },
+          "detail": {
+            "ko": "FFmpeg · H.264 MP4",
+            "en": "FFmpeg · H.264 MP4"
+          }
+        }
+      ],
       "featuredPrompt": 0,
       "prompts": [],
       "compare": [],
