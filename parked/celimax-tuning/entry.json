@@ -1,0 +1,271 @@
+{
+  "work": {
+    "slug": "celimax-tuning",
+    "date": "2026-11-12",
+    "durationSec": 30,
+    "aspect": "16:9",
+    "shots": 6,
+    "accent": "#D9E85A",
+    "title": {
+      "ko": "조율",
+      "en": "Tuning"
+    },
+    "status": {
+      "ko": "제3회 대한민국 AI광고대상 출품작 · 셀리맥스 과제 · 16:9 · 30초",
+      "en": "Entry — 3rd Korea AI Advertising Awards · celimax brief · 16:9 · 30 s"
+    },
+    "logline": {
+      "ko": "모공은 없어지지 않는다. 다만 느슨해진 탄력은 다시 맞출 수 있다. 피부 탄력을 노란 그물에 빗대, 늘어진 그물이 셀리맥스 레티날 샷 타이트닝 부스터의 성분이 더해질 때마다 팽팽하게 '조율'되는 30초 광고.",
+      "en": "Pores don't disappear — but slackened firmness can be tuned back. Skin firmness becomes a yellow net that pulls taut as each ingredient of celimax's Retinal Shot Tightening Booster is added: a 30-second ad about tuning, not erasing."
+    },
+    "tools": {
+      "generate": [
+        "Higgsfield — Nano Banana (start frames)",
+        "Higgsfield — Kling 3.0 · Seedance 2.5 (video)",
+        "vidIQ — Seedance 2 (video)",
+        "ElevenLabs — Eleven v4 (narration)"
+      ],
+      "edit": [
+        "Python",
+        "OpenCV",
+        "Pillow",
+        "FFmpeg"
+      ]
+    },
+    "links": {
+      "instagram": "",
+      "youtube": ""
+    },
+    "media": {
+      "video": "media/celimax-tuning/video.mp4",
+      "poster": "media/celimax-tuning/poster.jpg",
+      "og": "media/celimax-tuning/og.jpg"
+    },
+    "coverTime": 10.5,
+    "highlights": [
+      {
+        "label": {
+          "ko": "과장 없이",
+          "en": "No exaggeration"
+        },
+        "text": {
+          "ko": "브랜드 원칙 '과장 없이 정직하게'를 그대로 카피로 옮겼다. \"모공이 사라진다\" 대신 \"모공은 없어지지 않습니다\"로 시작해 \"과장 없이, 팽팽하게.\"로 닫는다.",
+          "en": "The brand's own rule — say it honestly, without exaggeration — became the copy. Instead of “pores vanish” it opens with “pores don't disappear” and closes on “No exaggeration. Just taut.”"
+        }
+      },
+      {
+        "label": {
+          "ko": "한 가지 비유",
+          "en": "One metaphor"
+        },
+        "text": {
+          "ko": "피부 탄력 = 노란 그물. 늘어진 그물 → 성분 → 팽팽한 격자로, 효능을 말 대신 그림으로 보여 준다. 그물 색은 제품 용기의 라임 옐로에서 가져왔다.",
+          "en": "Firmness is a yellow net: slack, then ingredients, then a taut grid — the benefit shown, not told. The net's colour is the lime yellow of the tube."
+        }
+      },
+      {
+        "label": {
+          "ko": "천천히",
+          "en": "Slow on purpose"
+        },
+        "text": {
+          "ko": "과제 가이드가 빠른 전환보다 제품·제형·효능을 자세히 보여 주는 구성을 원해서, 30초를 7장면으로만 나눴다.",
+          "en": "The brief asked for detail over fast cuts, so 30 seconds holds just seven scenes."
+        }
+      },
+      {
+        "label": {
+          "ko": "라벨은 진짜로",
+          "en": "The real label"
+        },
+        "text": {
+          "ko": "AI가 튜브 글자를 뭉개서, 제품이 크게 나오는 3번 컷은 튜브 부분에 셀리맥스 제공 제품 사진을 다시 덮었고, 엔딩 화면은 제품 사진과 로고로 코드로 그렸다.",
+          "en": "AI garbles the lettering on the tube, so in the product close-up the tube was re-covered with celimax's own product photo, and the end screen was drawn in code from the official photo and logo."
+        }
+      },
+      {
+        "label": {
+          "ko": "음악 없이",
+          "en": "No borrowed music"
+        },
+        "text": {
+          "ko": "배경음은 '조율' 음 세 개, 마지막 화음, 아주 낮은 바탕음뿐이다. 모두 사인파로 직접 계산해 만들었다.",
+          "en": "The score is three ‘tuning’ tones, a final chord and a low drone — all synthesised from sine waves, no third-party music."
+        }
+      }
+    ],
+    "pipeline": [
+      {
+        "name": {
+          "ko": "시작 이미지",
+          "en": "Start frames"
+        },
+        "detail": {
+          "ko": "Higgsfield · Nano Banana",
+          "en": "Higgsfield · Nano Banana"
+        }
+      },
+      {
+        "name": {
+          "ko": "영상",
+          "en": "Video"
+        },
+        "detail": {
+          "ko": "1번 컷 vidIQ Seedance 2 · 2·4번 Higgsfield Kling 3.0 · 3·5·6번 Higgsfield Seedance 2.5",
+          "en": "Shot 1 vidIQ Seedance 2 · shots 2 & 4 Higgsfield Kling 3.0 · shots 3, 5, 6 Higgsfield Seedance 2.5"
+        }
+      },
+      {
+        "name": {
+          "ko": "내레이션",
+          "en": "Narration"
+        },
+        "detail": {
+          "ko": "ElevenLabs Eleven v4 · 목소리 Leejin · 문장별로 잘라 배치",
+          "en": "ElevenLabs Eleven v4 · voice “Leejin” · placed sentence by sentence"
+        }
+      },
+      {
+        "name": {
+          "ko": "컷 잇기",
+          "en": "Cutting"
+        },
+        "detail": {
+          "ko": "Python + FFmpeg · 1920×1080 24fps · 천천히 밀어 들어가는 움직임 · 3→4번 디졸브",
+          "en": "Python + FFmpeg · 1920×1080 24 fps · slow push-ins · dissolve from shot 3 to 4"
+        }
+      },
+      {
+        "name": {
+          "ko": "색",
+          "en": "Colour"
+        },
+        "detail": {
+          "ko": "OpenCV로 컷마다 밝기·채도를 맞추고 크림색 톤으로 통일",
+          "en": "OpenCV per-shot brightness and saturation matching, unified cream tone"
+        }
+      },
+      {
+        "name": {
+          "ko": "제품·글자",
+          "en": "Product & type"
+        },
+        "detail": {
+          "ko": "3번 컷 튜브에 제공 제품 사진 합성 · 엔딩 화면 코드로 · Pillow로 Noto Serif/Sans KR 카피와 고지 문구(인체적용시험·개인차·AI 고지)",
+          "en": "Official product photo composited onto the tube in shot 3 · end screen drawn in code · copy and small-print notices (clinical test, individual variation, AI disclosure) set in Noto Serif/Sans KR with Pillow"
+        }
+      },
+      {
+        "name": {
+          "ko": "소리",
+          "en": "Sound"
+        },
+        "detail": {
+          "ko": "사인파로 조율 음·화음·바탕음 직접 합성 · 내레이션 덕킹(절반까지)",
+          "en": "Tuning tones, chord and drone synthesised from sine waves · narration ducking to half"
+        }
+      },
+      {
+        "name": {
+          "ko": "인코딩",
+          "en": "Encode"
+        },
+        "detail": {
+          "ko": "FFmpeg · H.264 MP4",
+          "en": "FFmpeg · H.264 MP4"
+        }
+      }
+    ],
+    "featuredPrompt": 0,
+    "prompts": [],
+    "compare": [],
+    "scenes": [
+      {
+        "label": {
+          "ko": "장면 1 · 그물",
+          "en": "Scene 1 · The net"
+        },
+        "text": {
+          "ko": "\"모공은, 없어지지 않습니다.\"",
+          "en": "“Pores don't disappear.”"
+        },
+        "time": 2.5,
+        "frame": "media/celimax-tuning/scene-1.jpg"
+      },
+      {
+        "label": {
+          "ko": "장면 2 · 느슨함",
+          "en": "Scene 2 · Slack"
+        },
+        "text": {
+          "ko": "\"다만 느슨해진 탄력은, 다시 맞출 수 있습니다.\"",
+          "en": "“But slackened firmness can be tuned back.”"
+        },
+        "time": 6.0,
+        "frame": "media/celimax-tuning/scene-2.jpg"
+      },
+      {
+        "label": {
+          "ko": "장면 3 · 제품",
+          "en": "Scene 3 · The product"
+        },
+        "text": {
+          "ko": "레티날 샷 타이트닝 부스터 — celimax THE VITA A.",
+          "en": "Retinal Shot Tightening Booster — celimax THE VITA A."
+        },
+        "time": 10.5,
+        "frame": "media/celimax-tuning/scene-3.jpg"
+      },
+      {
+        "label": {
+          "ko": "장면 4 · 성분",
+          "en": "Scene 4 · Ingredients"
+        },
+        "text": {
+          "ko": "레티날 · 판테놀 · 매트릭실 — 하나씩 더해질 때마다 그물이 펴진다.",
+          "en": "Retinal, panthenol, Matrixyl — the net straightens with each one."
+        },
+        "time": 17.0,
+        "frame": "media/celimax-tuning/scene-4.jpg"
+      },
+      {
+        "label": {
+          "ko": "장면 5 · 전달",
+          "en": "Scene 5 · Delivery"
+        },
+        "text": {
+          "ko": "\"마이크로 에이샷이 비타민 A를 전합니다.\"",
+          "en": "“Micro A-Shot delivers vitamin A.”"
+        },
+        "time": 20.5,
+        "frame": "media/celimax-tuning/scene-5.jpg"
+      },
+      {
+        "label": {
+          "ko": "장면 6 · 결",
+          "en": "Scene 6 · Texture"
+        },
+        "text": {
+          "ko": "\"탄력이 맞춰지면, 결이 달라 보입니다.\"",
+          "en": "“Once firmness is tuned, texture looks different.”"
+        },
+        "time": 24.0,
+        "frame": "media/celimax-tuning/scene-6.jpg"
+      },
+      {
+        "label": {
+          "ko": "엔딩",
+          "en": "Ending"
+        },
+        "text": {
+          "ko": "\"과장 없이, 팽팽하게.\"",
+          "en": "“No exaggeration. Just taut.”"
+        },
+        "time": 29.0,
+        "frame": "media/celimax-tuning/scene-7.jpg"
+      }
+    ],
+    "notes": []
+  },
+  "contestLine": "    { \"id\": \"ai-ad-awards\", \"name\": { \"ko\": \"제3회 대한민국 AI광고대상 (셀리맥스 과제)\", \"en\": \"3rd Korea AI Advertising Awards (celimax brief)\" }, \"works\": [\"celimax-tuning\"], \"result\": \"submitted\" },"
+}
