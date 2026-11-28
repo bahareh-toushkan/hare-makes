@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Clara's Speed Reader</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 14px; font-family: "Malgun Gothic", "맑은 고딕", Verdana, sans-serif; font-size: 23px; line-height: 1.6; background: #fdf1f7; color: #3a2430; }
+  .wrap { max-width: 780px; margin: 0 auto; }
+  .top { display: flex; justify-content: space-between; align-items: center; background: #c2407f; color: #fff; border-radius: 14px; padding: 10px 18px; font-weight: bold; }
+  .top a { color: #fff; text-decoration: none; font-size: 18px; margin-right: 12px; }
+  .clock { font-size: 26px; font-variant-numeric: tabular-nums; }
+  .card { background: #fff; border: 3px solid #f6c5dc; border-radius: 20px; padding: 24px; margin-top: 14px; min-height: 380px; }
+  h1 { margin: 0 0 8px; font-size: 34px; color: #c2407f; }
+  h2 { margin: 0 0 8px; font-size: 28px; color: #c2407f; }
+  .tag { display: inline-block; background: #fde3ef; color: #c2407f; border-radius: 10px; padding: 2px 12px; font-size: 18px; font-weight: bold; margin-bottom: 8px; }
+  .big { font-size: 30px; margin: 16px 0; }
+  .key { background: #ffe37a; border-radius: 8px; padding: 1px 6px; }
+  .box { background: #fff6fa; border-left: 6px solid #e8649f; border-radius: 12px; padding: 14px 18px; margin: 12px 0; }
+  .opts { display: grid; gap: 10px; margin-top: 10px; }
+  button { font-family: inherit; font-size: 22px; padding: 13px 18px; border-radius: 14px; border: 3px solid #f6c5dc; background: #fffcfd; color: #3a2430; cursor: pointer; }
+  button:hover { background: #fdeaf3; }
+  button.right { background: #c9f2c3; border-color: #3aa64a; }
+  button.wrong { background: #fbd0d0; border-color: #d24a4a; }
+  button.main { background: #e8649f; border-color: #c2407f; color: #fff; font-weight: bold; }
+  .menu { display: grid; gap: 12px; }
+  .menu button { text-align: left; padding: 16px 20px; }
+  .menu small { display: block; color: #7d6270; font-size: 18px; }
+  .small { font-size: 18px; color: #7d6270; }
+  .num { font-size: 60px; font-weight: bold; color: #c2407f; text-align: center; }
+  .row { display: flex; gap: 10px; justify-content: space-between; margin-top: 16px; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+  td, th { border: 1px solid #f6c5dc; padding: 6px 10px; font-size: 19px; text-align: left; }
+  th { background: #fde3ef; }
+  .chunk { font-size: 34px; text-align: center; min-height: 110px; display: flex; align-items: center; justify-content: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span><a href="../">🏠</a><span id="title">⭐ Clara's Speed Reader</span></span><span class="clock" id="clock"></span></div>
+  <div class="card" id="card"></div>
+</div>
+
+<script src="../save.js"></script>
+<script>
+var card = document.getElementById('card'), clock = document.getElementById('clock');
+var t0 = 0, tick = null;
+function startClock() { t0 = Date.now(); stopClock(); tick = setInterval(function () { clock.textContent = ((Date.now() - t0) / 1000).toFixed(1) + ' s'; }, 100); }
+function stopClock() { if (tick) { clearInterval(tick); tick = null; } return (Date.now() - t0) / 1000; }
+function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+/* ---------- menu ---------- */
+function menu() {
+  stopClock(); clock.textContent = '';
+  document.getElementById('title').textContent = '⭐ Clara\'s Speed Reader';
+  card.innerHTML = '<h1>Clara\'s Speed Reader</h1><p>Read faster, still get it right. Pick a game.</p><div class="menu">' +
+    '<button id="m1">🎯 1. Question Sprint<small>What is the question asking? Decide in 5 seconds.</small></button>' +
+    '<button id="m2">👀 2. Chunk Flash<small>Read 3–4 words at one look, not one word at a time.</small></button>' +
+    '<button id="m3">⏱️ 3. Timed Read<small>Read a short text. See your words per minute.</small></button></div>' +
+    '<div class="box small"><b>3 speed habits</b><br>1. Find the <span class="key">question word</span> first (who, where, why, when, how).<br>' +
+    '2. Find the <span class="key">key word</span> (NOT, first, mostly, means).<br>3. Read in groups of words. Do not go back.</div>';
+  document.getElementById('m1').onclick = sprintStart;
+  document.getElementById('m2').onclick = chunkStart;
+  document.getElementById('m3').onclick = readMenu;
+}
+
+/* ---------- 1. Question Sprint ---------- */
+var sprintQs = [
+  ['<span class="key">Where</span> did Mia find her cat?', 'a place', ['a reason', 'a time']],
+  ['<span class="key">Why</span> was Tom late for school?', 'a reason', ['a place', 'a person']],
+  ['<span class="key">When</span> does the story happen?', 'a time', ['a place', 'a feeling']],
+  ['<span class="key">Who</span> helped the old man?', 'a person', ['a time', 'a reason']],
+  ['<span class="key">How</span> did Sara <span class="key">feel</span> at the end?', 'a feeling', ['a place', 'a number']],
+  ['What is this text <span class="key">mostly</span> about?', 'the main idea', ['one small detail', 'a word meaning']],
+  ['The word "huge" most nearly <span class="key">means</span> ______.', 'a word meaning', ['the main idea', 'a reason']],
+  ['Which sentence is <span class="key">NOT</span> true?', 'the wrong sentence', ['the best sentence', 'the main idea']],
+  ['What happened <span class="key">first</span>?', 'the order of events', ['a feeling', 'a word meaning']],
+  ['<span class="key">How many</span> eggs did the bird lay?', 'a number', ['a place', 'a person']],
+  ['What will Ben <span class="key">probably</span> do next?', 'a smart guess', ['a word meaning', 'a number']],
+  ['Why did the <span class="key">author</span> write this text?', "the writer's purpose", ['a place', 'the order of events']],
+  ['What happened <span class="key">after</span> the rain stopped?', 'the order of events', ['a reason', 'a person']],
+  ['What is the <span class="key">lesson</span> of this story?', 'what we can learn', ['a time', 'a number']]
+];
+var sq, si, sTimes, sRight;
+function sprintStart() {
+  document.getElementById('title').textContent = '🎯 Question Sprint';
+  sq = shuffle(sprintQs).slice(0, 10); si = 0; sTimes = []; sRight = 0;
+  card.innerHTML = '<h2>Question Sprint</h2><p>You will see 10 questions. There is no story!</p>' +
+    '<p>Just decide: <b>what is the question asking for?</b></p><p class="small">Goal: 5 seconds or less for each one. Look for the yellow key word.</p>' +
+    '<div class="row"><button id="b">◀ Menu</button><button class="main" id="go">Go!</button></div>';
+  document.getElementById('b').onclick = menu;
+  document.getElementById('go').onclick = sprintShow;
+}
+function sprintShow() {
+  var it = sq[si], opts = shuffle([it[1]].concat(it[2]));
+  card.innerHTML = '<span class="tag">' + (si + 1) + ' / ' + sq.length + '</span><div class="big">' + it[0] + '</div>' +
+    '<div class="small">This question is asking for...</div><div class="opts" id="o"></div>';
+  var o = document.getElementById('o'), first = true;
+  opts.forEach(function (x) {
+    var b = document.createElement('button'); b.textContent = x;
+    b.onclick = function () {
+      if (x === it[1]) {
+        var s = stopClock(); sTimes.push(s); if (first) sRight++;
+        b.className = 'right';
+        setTimeout(function () { si++; if (si < sq.length) sprintShow(); else sprintEnd(); }, 450);
+      } else { first = false; b.className = 'wrong'; }
+    };
+    o.appendChild(b);
+  });
+  startClock();
+}
+function sprintEnd() {
+  var avg = sTimes.reduce(function (a, b) { return a + b; }, 0) / sTimes.length;
+  var msg = avg <= 5 ? '⚡ Lightning fast!' : avg <= 8 ? '👍 Good. Try to get under 5 seconds.' : '🐢 Slow and careful. Look for the key word first.';
+  card.innerHTML = '<h2>Sprint finished!</h2><div class="num">' + avg.toFixed(1) + ' s</div><p style="text-align:center">average for each question</p>' +
+    '<p style="text-align:center">First-try correct: <b>' + sRight + ' / ' + sq.length + '</b><br>' + msg + '</p>' +
+    '<div class="row"><button id="b">◀ Menu</button><button class="main" id="go">Play again</button></div>';
+  clock.textContent = '';
+  claraSave({ activity: 'Speed Reader', game: 'Question Sprint', score: sRight, total: sq.length, seconds: +avg.toFixed(1), detail: 'average seconds per question' });
+  document.getElementById('b').onclick = menu;
+  document.getElementById('go').onclick = sprintStart;
+}
+
+/* ---------- 2. Chunk Flash ---------- */
+var chunkSets = [
+  { chunks: ['Last Sunday', 'my family went', 'to the zoo', 'near our house.', 'We saw a baby panda', 'eating bamboo.'], q: 'What did they see?', a: 'a baby panda', o: ['a baby tiger', 'a big elephant'] },
+  { chunks: ['Every morning', 'Mr. Kim rides', 'his blue bike', 'to the bakery', 'and buys', 'fresh bread.'], q: 'Where does Mr. Kim go?', a: 'to the bakery', o: ['to the school', 'to the park'] },
+  { chunks: ['When it started', 'to rain,', 'the children ran', 'under a big tree', 'and waited', 'for the bus.'], q: 'Why did the children run?', a: 'It started to rain.', o: ['The bus came.', 'They were playing tag.'] },
+  { chunks: ['Owls sleep', 'during the day', 'and hunt', 'at night', 'because they can see', 'well in the dark.'], q: 'When do owls hunt?', a: 'at night', o: ['in the morning', 'at lunch time'] },
+  { chunks: ['After dinner,', 'Jina washed', 'the dishes', 'while her brother', 'cleaned the table', 'and fed the dog.'], q: 'Who fed the dog?', a: "Jina's brother", o: ['Jina', "Jina's mother"] }
+];
+var cSpeed = 1200, cSet, cI, cRight, cFirst;
+function chunkStart() {
+  document.getElementById('title').textContent = '👀 Chunk Flash';
+  stopClock(); clock.textContent = '';
+  card.innerHTML = '<h2>Chunk Flash</h2><p>Words come in small groups. Read each group with <b>one look</b>.</p>' +
+    '<p class="small">Choose a speed. Start slow, then go faster.</p><div class="opts">' +
+    '<button data-s="1500">🐢 Slow</button><button data-s="1100">🐇 Medium</button><button data-s="800">🚀 Fast</button></div>' +
+    '<div class="row"><button id="b">◀ Menu</button><span></span></div>';
+  document.getElementById('b').onclick = menu;
+  card.querySelectorAll('[data-s]').forEach(function (b) { b.onclick = function () { cSpeed = +b.dataset.s; cSet = shuffle(chunkSets); cI = 0; cRight = 0; chunkRun(); }; });
+}
+function chunkRun() {
+  var set = cSet[cI], k = 0;
+  card.innerHTML = '<span class="tag">Sentence ' + (cI + 1) + ' / ' + cSet.length + '</span><div class="chunk" id="ch">Ready...</div>';
+  var ch = document.getElementById('ch');
+  var iv = setInterval(function () {
+    if (k < set.chunks.length) { ch.textContent = set.chunks[k++]; }
+    else { clearInterval(iv); chunkAsk(set); }
+  }, cSpeed);
+}
+function chunkAsk(set) {
+  var opts = shuffle([set.a].concat(set.o)); cFirst = true;
+  card.innerHTML = '<span class="tag">Sentence ' + (cI + 1) + ' / ' + cSet.length + '</span><div class="big">' + set.q + '</div><div class="opts" id="o"></div><div class="small" id="m"></div>';
+  var o = document.getElementById('o');
+  opts.forEach(function (x) {
+    var b = document.createElement('button'); b.textContent = x;
+    b.onclick = function () {
+      if (x === set.a) { if (cFirst) cRight++; cFirst = false; b.className = 'right'; setTimeout(function () { cI++; if (cI < cSet.length) chunkRun(); else chunkEnd(); }, 500); }
+      else { cFirst = false; b.className = 'wrong'; document.getElementById('m').textContent = set.chunks.join(' '); }
+    };
+    o.appendChild(b);
+  });
+}
+function chunkEnd() {
+  var spd = { 1500: 'Slow', 1100: 'Medium', 800: 'Fast' }[cSpeed] || cSpeed + 'ms';
+  claraSave({ activity: 'Speed Reader', game: 'Chunk Flash', score: cRight, total: cSet.length, detail: 'speed: ' + spd });
+  card.innerHTML = '<h2>Great chunk reading! 👀</h2><p>First-try correct: <b>' + cRight + ' / ' + cSet.length + '</b></p><p>When you read a real question, do the same thing: read <b>groups of words</b>, not single words.</p>' +
+    '<div class="row"><button id="b">◀ Menu</button><button class="main" id="go">Try a faster speed</button></div>';
+  document.getElementById('b').onclick = menu;
+  document.getElementById('go').onclick = chunkStart;
+}
+
+/* ---------- 3. Timed Read ---------- */
+var texts = [
+  { title: 'The Class Pet', text: 'Our class has a pet hamster named Coco. She lives in a big cage near the window. Every morning, one student gives her fresh water and seeds. Coco likes to run on her wheel when the room is quiet. Last week she hid under her paper bed all day. We were worried, but our teacher said hamsters sleep a lot during the day. Now we check on her quietly.',
+    qs: [['Where does Coco live?', 'in a cage near the window', ['in the teacher\'s desk', 'outside the school']], ['Why did Coco hide all day?', 'Hamsters sleep a lot in the daytime.', ['She was sick.', 'She was angry.']]] },
+  { title: 'Rain Forests', text: 'A rain forest is a warm place where it rains almost every day. The trees grow very tall because they all want sunlight. Many animals live high in the trees, such as monkeys, parrots, and tree frogs. Other animals live on the dark forest floor. Rain forests are important because their trees make air that we breathe. Sadly, people cut down many of these trees each year.',
+    qs: [['Why do the trees grow very tall?', 'They want sunlight.', ['They want rain.', 'Animals push them up.']], ['What is this text mostly about?', 'what rain forests are like and why they matter', ['how to climb a tall tree', 'why parrots are colorful']]] },
+  { title: 'The Missing Lunch', text: 'Jake opened his bag at lunch time, but his lunch box was not there. He looked under his desk and in his locker. Then he remembered something. That morning he had put the lunch box on the kitchen table to tie his shoes. Jake felt hungry and a little silly. His friend Minho smiled and gave him half of his sandwich. Jake promised to bring cookies for Minho the next day.',
+    qs: [['Where was Jake\'s lunch box?', 'on the kitchen table at home', ['in his locker', 'under his desk']], ['What happened last?', 'Jake promised to bring cookies.', ['Jake tied his shoes.', 'Jake looked in his locker.']]] }  ,
+  { lv: 1, title: 'The New Bike', text: 'Yuna got a new bike for her birthday. It was red with a silver bell. At first she was afraid to ride it, so her dad held the seat and ran next to her. After three days, he secretly let go. Yuna rode to the end of the street by herself. When she looked back and saw her dad far away, she laughed and rang the bell.',
+    qs: [['Why did her dad hold the seat?', 'Yuna was afraid to ride.', ['The bike was broken.', 'The street was busy.']], ['How did Yuna feel at the end?', 'happy and proud', ['angry at her dad', 'afraid of the bell']]] },
+  { lv: 1, title: 'Penguins', text: 'Penguins are birds, but they cannot fly. Instead, they are excellent swimmers. They use their wings like flippers to move quickly under the water. Most penguins live in very cold places, so they have thick feathers and a layer of fat to stay warm. When it is windy, they stand close together in a big group. Penguins eat fish and other small sea animals.',
+    qs: [['How do penguins use their wings?', 'to swim', ['to fly', 'to catch fish']], ['Why do penguins stand close together?', 'to stay warm in the wind', ['to find food', 'to hide from people']]] },
+  { lv: 1, title: 'The Pancake Morning', text: 'On Sunday morning, Leo wanted to surprise his mom with pancakes. He mixed flour, eggs, and milk in a big bowl. Some flour fell on the floor, and the cat walked through it. The first pancake was black on one side. The second one was much better. Leo put it on a plate with a strawberry on top. His mom smiled and said it was the best breakfast ever.',
+    qs: [['What went wrong with the first pancake?', 'It was burned on one side.', ['The cat ate it.', 'It fell on the floor.']], ['Why did Leo make pancakes?', 'to surprise his mom', ['because he was very hungry', 'for a school project']]] },
+  { lv: 2, title: 'How Bees Talk', text: 'Bees cannot speak, but they can still share information. When a bee finds flowers with a lot of sweet nectar, it flies back to the hive and begins to dance. The dance is not just for fun. The direction of the dance shows the other bees which way to fly, and the length of the dance shows how far away the flowers are. A longer dance means a longer trip. After watching, the other bees leave the hive and fly straight to the food. Scientists were amazed when they first understood this tiny language.',
+    qs: [['What does the length of the dance show?', 'how far away the flowers are', ['how sweet the nectar is', 'how many bees should go']], ['What is this text mostly about?', 'how bees tell each other where food is', ['why bees make honey', 'how scientists keep bees']]] },
+  { lv: 2, title: 'The Lost Wallet', text: 'While walking home from school, Daniel noticed a brown wallet lying near the bus stop. He picked it up and looked inside. There was some money, a library card, and a photo of a small dog. For a moment, Daniel thought about the new game he wanted to buy. Then he looked at the photo again and imagined how worried the owner must be. He took the wallet to the police station on the corner. Two days later, an old woman called his house to thank him. She told him the dog in the photo was named Button.',
+    qs: [['What made Daniel decide to return the wallet?', 'He imagined how worried the owner was.', ['A police officer saw him.', 'There was no money inside.']], ['What happened last?', 'The owner called to thank Daniel.', ['Daniel looked inside the wallet.', 'Daniel went to the police station.']]] },
+  { lv: 2, title: 'Why We Need Sleep', text: 'Some people think sleeping is a waste of time, but your body is very busy while you sleep. Your muscles rest and repair themselves after a long day. Your brain sorts the things you learned and stores the important parts as memories. That is why studying late and sleeping only a little before a test often does not work well. Children usually need about nine to eleven hours of sleep each night. Without enough sleep, it becomes harder to pay attention, and small problems can feel much bigger. A good night of sleep is one of the easiest ways to feel better.',
+    qs: [['What does the brain do during sleep?', 'It stores what you learned as memories.', ['It stops working completely.', 'It repairs your muscles.']], ['Why is sleeping very little before a test a bad idea?', 'The brain needs sleep to keep what you studied.', ['Tests are always in the morning.', 'Studying at night is against the rules.']]] },
+  { lv: 3, title: 'The Invention of the Popsicle', text: 'One of the world\'s favorite summer treats is said to have been invented by accident, and by a child. According to the popular story, on a cold evening in 1905, an eleven-year-old boy named Frank Epperson was mixing a sweet drink on his porch. He left the cup outside overnight with the stirring stick still inside. The temperature dropped sharply, and by morning the drink had frozen solid around the stick. Frank pulled it out and discovered he could hold the frozen drink and eat it without a cup. He shared it with his friends, but it took many years before he decided to sell his idea. Today, billions of these frozen treats are sold every year. The story is a reminder that useful ideas do not always come from careful planning. Sometimes they begin with a small mistake and a curious mind.',
+    qs: [['How was the frozen treat invented, according to the story?', 'A drink was left outside and froze by accident.', ['A scientist planned it for years.', 'A company held a contest.']], ['What is the writer\'s main message?', 'Good ideas can come from mistakes and curiosity.', ['Children should not play outside at night.', 'Cold weather is useful for business.']], ['The word "sharply" in the text means ______.', 'quickly and by a lot', ['slowly', 'painfully']]] },
+  { lv: 3, title: 'The Friend Who Moved Away', text: 'When Hana heard that her best friend Jisu was moving to another city, she refused to believe it. They had walked to school together every day for four years. During Jisu\'s last week, Hana was unusually quiet. She was afraid that if she talked about the move, she would start crying. On the final afternoon, Jisu handed her a small notebook. On the first page she had written, "Write one thing that happens each day, and send it back to me when it is full. I will do the same." At first Hana wrote only a sentence or two. Gradually, though, she began to notice more: a funny thing a teacher said, the first snow, a song Jisu would have liked. Three months later, two notebooks crossed in the mail. Hana realized that the distance had changed their friendship, but it had not ended it.',
+    qs: [['Why was Hana quiet during Jisu\'s last week?', 'She was afraid she would cry.', ['She was angry at Jisu.', 'She was busy with homework.']], ['What can we infer from "she began to notice more"?', 'Writing for Jisu made Hana pay closer attention to her days.', ['Hana\'s eyesight improved.', 'Hana found a new best friend.']], ['What is the main idea of the story?', 'A friendship can continue even when friends live far apart.', ['Moving to a new city is exciting.', 'Notebooks are better than phones.']]] },
+  { lv: 3, title: 'Cities Under the Sea?', text: 'As the world\'s population grows and sea levels rise, some engineers are asking an unusual question: could people live on or under the ocean? Small underwater laboratories already exist, where scientists stay for several days at a time to study sea life. Building an entire city, however, would be far more difficult. The structure would need to resist enormous water pressure, and fresh air, food, and electricity would all have to be produced or delivered constantly. Supporters argue that floating cities could give crowded coastal countries more space and might even produce their own energy from waves and sunlight. Critics respond that the cost would be extremely high and that the money would be better spent protecting the cities we already have. For now, ocean cities remain mostly an idea, but the research is teaching engineers how to build stronger and cleaner homes on land as well.',
+    qs: [['Why would an underwater city be difficult to build?', 'It must resist great pressure and needs constant supplies.', ['Nobody has ever stayed under the sea.', 'Sea animals would attack it.']], ['What do critics think?', 'The money should protect existing cities instead.', ['Floating cities would make too much energy.', 'The ocean is too small.']], ['What is one benefit of the research mentioned at the end?', 'It helps engineers build better homes on land.', ['It has lowered sea levels.', 'It has already created large ocean cities.']]] }
+];
+var best = {};
+function readMenu() {
+  document.getElementById('title').textContent = '⏱️ Timed Read';
+  stopClock(); clock.textContent = '';
+  var h = '<h2>Timed Read</h2><p>Read once, without going back. Tap <b>Done</b> as soon as you finish.</p><div class="menu">';
+  var names = { 1: '⭐ Level 1 · short and easy', 2: '⭐⭐ Level 2 · a little longer', 3: '⭐⭐⭐ Level 3 · long and harder' };
+  [1, 2, 3].forEach(function (lv) {
+    h += '<div class="tag" style="margin:8px 0 0">' + names[lv] + '</div>';
+    texts.forEach(function (t, i) {
+      if ((t.lv || 1) !== lv) return;
+      h += '<button data-i="' + i + '">' + t.title + ' <span class="small">(' + t.text.split(/\s+/).length + ' words)</span><small>' + (best[i] ? 'Your best: ' + best[i] + ' words per minute' : 'Not read yet') + '</small></button>';
+    });
+  });
+  h += '</div><p class="small">Goal: 90 or more words per minute, with every question right. Read the same text again tomorrow and beat your number.</p>' +
+    '<div class="row"><button id="b">◀ Menu</button><span></span></div>';
+  card.innerHTML = h;
+  document.getElementById('b').onclick = menu;
+  card.querySelectorAll('[data-i]').forEach(function (b) { b.onclick = function () { readGo(+b.dataset.i); }; });
+}
+function readGo(i) {
+  var t = texts[i];
+  card.innerHTML = '<span class="tag">' + t.title + '</span><div class="box" style="font-size:25px">' + t.text + '</div><div class="row"><span></span><button class="main" id="d">Done ✔</button></div>';
+  startClock();
+  document.getElementById('d').onclick = function () {
+    var s = stopClock(), words = t.text.split(/\s+/).length, wpm = Math.round(words / s * 60);
+    readAsk(i, wpm, 0, 0);
+  };
+}
+function readAsk(i, wpm, qi, right) {
+  var t = texts[i];
+  if (qi >= t.qs.length) return readEnd(i, wpm, right);
+  var it = t.qs[qi], opts = shuffle([it[1]].concat(it[2])), first = true;
+  card.innerHTML = '<span class="tag">' + t.title + ' · no looking back!</span><div class="big">' + it[0] + '</div><div class="opts" id="o"></div>';
+  var o = document.getElementById('o');
+  opts.forEach(function (x) {
+    var b = document.createElement('button'); b.textContent = x;
+    b.onclick = function () {
+      if (x === it[1]) { b.className = 'right'; setTimeout(function () { readAsk(i, wpm, qi + 1, right + (first ? 1 : 0)); }, 450); }
+      else { first = false; b.className = 'wrong'; }
+    };
+    o.appendChild(b);
+  });
+}
+function readEnd(i, wpm, right) {
+  var t = texts[i], ok = right === t.qs.length;
+  if (ok && (!best[i] || wpm > best[i])) best[i] = wpm;
+  claraSave({ activity: 'Speed Reader', game: 'Timed Read', score: right, total: t.qs.length, wpm: wpm, detail: t.title + ' (Level ' + (t.lv || 1) + ')' });
+  var msg = !ok ? 'Fast is good only when you understand. Read it again a little slower.' : wpm >= 110 ? '⚡ Excellent speed!' : wpm >= 90 ? '👍 Good speed!' : 'Good understanding. Now read it again and try to go faster.';
+  card.innerHTML = '<h2>' + t.title + '</h2><div class="num">' + wpm + '</div><p style="text-align:center">words per minute</p>' +
+    '<p style="text-align:center">Questions right on the first try: <b>' + right + ' / ' + t.qs.length + '</b><br>' + msg + '</p>' +
+    '<div class="row"><button id="b">◀ Texts</button><button class="main" id="go">Read again</button></div>';
+  clock.textContent = '';
+  document.getElementById('b').onclick = readMenu;
+  document.getElementById('go').onclick = function () { readGo(i); };
+}
+menu();
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Clara's Page</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 14px; font-family: "Malgun Gothic", "맑은 고딕", Verdana, sans-serif; font-size: 23px; line-height: 1.6; background: #fdf1f7; color: #3a2430; }
+  .wrap { max-width: 780px; margin: 0 auto; }
+  .top { background: #c2407f; color: #fff; border-radius: 14px; padding: 10px 18px; font-weight: bold; }
+  .card { background: #fff; border: 3px solid #f6c5dc; border-radius: 20px; padding: 24px; margin-top: 14px; }
+  h1 { margin: 0 0 8px; font-size: 34px; color: #c2407f; }
+  .list { display: grid; gap: 14px; margin-top: 14px; }
+  a.act { display: flex; gap: 16px; align-items: center; text-decoration: none; color: #3a2430; background: #fffcfd; border: 3px solid #f6c5dc; border-radius: 18px; padding: 16px 20px; }
+  a.act:hover { background: #fdeaf3; }
+  .emoji { font-size: 44px; }
+  .name { font-size: 26px; font-weight: bold; color: #c2407f; }
+  .about { font-size: 18px; color: #7d6270; }
+  .soon { border-style: dashed; color: #b79aa8; text-align: center; padding: 16px; border-radius: 18px; border: 3px dashed #f6c5dc; font-size: 20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">⭐ Clara's Page</div>
+  <div class="card">
+    <h1>Hi, Clara!</h1>
+    <p>Pick a game. Have fun!</p>
+    <div class="list" id="list"></div>
+    <div class="soon" style="margin-top:14px">More games coming soon ✨</div>
+  </div>
+</div>
+<script>
+/* Add a new activity: make a new folder next to speed-reading/ and add one line here. */
+var ACTIVITIES = [
+  { href: 'speed-reading/', emoji: '⚡', name: 'Speed Reader', about: 'Question Sprint · Chunk Flash · Timed Read' }
+];
+var list = document.getElementById('list');
+ACTIVITIES.forEach(function (a) {
+  var el = document.createElement('a');
+  el.className = 'act'; el.href = a.href;
+  el.innerHTML = '<span class="emoji">' + a.emoji + '</span><span><span class="name">' + a.name + '</span><br><span class="about">' + a.about + '</span></span>';
+  list.appendChild(el);
+});
+</script>
+</body>
+</html>
